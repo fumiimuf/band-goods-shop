@@ -1,13 +1,13 @@
 ------------------------------------------- 
--- テーブル作成
+-- スキーマ
 ------------------------------------------- 
-CREATE SCHEMA `ec_db` DEFAULT CHARACTER SET utf8mb4;
+CREATE SCHEMA IF NOT EXISTS `ec_db` DEFAULT CHARACTER SET utf8mb4;
 
 
 ------------------------------------------- 
--- userテーブル関連
+-- userテーブル
 ------------------------------------------- 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(50) NOT NULL COMMENT '氏名',
   `email` varchar(255) NOT NULL COMMENT 'メールアドレス',
@@ -20,9 +20,9 @@ CREATE TABLE `user` (
 );
 
 ------------------------------------------- 
--- goodsテーブル関連
+-- goodsテーブル
 ------------------------------------------- 
-CREATE TABLE `goods` (
+CREATE TABLE IF NOT EXISTS `goods` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(100) NOT NULL COMMENT '商品名',
   `price` int NOT NULL COMMENT '価格',
@@ -36,18 +36,18 @@ CREATE TABLE `goods` (
 );
 
 ------------------------------------------- 
--- categoryテーブル関連
+-- categoryテーブル
 ------------------------------------------- 
-CREATE TABLE `category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(50) NOT NULL COMMENT 'カテゴリ名',
   PRIMARY KEY (`id`)
 );
 
 ------------------------------------------- 
--- cartテーブル関連
+-- cartテーブル
 ------------------------------------------- 
-CREATE TABLE `cart` (
+CREATE TABLE IF NOT EXISTS `cart` (
   `user_id` int NOT NULL COMMENT 'ユーザーID',
   `goods_id` int NOT NULL COMMENT 'グッズID',
   `quantity` int NOT NULL COMMENT '個数',
@@ -55,9 +55,9 @@ CREATE TABLE `cart` (
 );
 
 ------------------------------------------- 
--- orderテーブル商品関連
+-- orderテーブル
 ------------------------------------------- 
-CREATE TABLE `order` (
+CREATE TABLE IF NOT EXISTS `order` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `user_id` int NOT NULL COMMENT 'ユーザーID',
   `ordered_name` varchar(50) NOT NULL COMMENT '購入時氏名',
@@ -69,9 +69,9 @@ CREATE TABLE `order` (
 );
 
 ------------------------------------------- 
--- order_detailテーブル関連
+-- order_detailテーブル
 ------------------------------------------- 
-CREATE TABLE `order_detail` (
+CREATE TABLE IF NOT EXISTS `order_detail` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `order_id` int NOT NULL COMMENT '注文ID',
   `ordered_image` varchar(255) NOT NULL COMMENT '購入時商品画像（パス）',
