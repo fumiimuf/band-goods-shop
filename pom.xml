@@ -86,6 +86,31 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- bootstrap -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>bootstrap</artifactId>
+		    <version>5.3.6</version>
+		</dependency>
+
+		<!-- webjars-locator-lite -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>webjars-locator-lite</artifactId>
+		</dependency>
+		
+		<!-- popper.js -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>popper.js</artifactId>
+		    <version>2.9.3</version>
+		</dependency>
+		
+		<!-- Spring Security -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		
 	</dependencies>
 
