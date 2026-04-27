@@ -13,32 +13,32 @@
 <title>ログイン</title>
 </head>
 <body>
-	<h1>ログイン</h1>
-	
-	<form th:action="@{/login}" method="post">
-	
-		<!--メールアドレス-->
-		<div>
-			<label>メールアドレス</label><br>
-			<input type="email" name="email" >
-		</div>
-		
-		<!--パスワード-->
-		<div>
-			<label>パスワード</label><br>
-			<input type="password" name="password">
-		</div>
-		
-		<!--ログインボタン-->
-		<div>
-			<button type="submit" >ログイン</button>
-		</div>
-		
-		<!--リンク-->
-		<div>
-			<p>ユーザー登録がまだなら</p>
-			<a>新規ユーザー登録はこちら</a>
-		</div>
-	</form>
+	<div class="container">
+		<h1>ログイン</h1>
+		<form th:action="@{/login}" method="post">
+			<!--メールアドレス-->
+			<div>
+				<label class="form-label">メールアドレス</label>
+				<br>
+				<input type="email" name="email" class="form-control">
+			</div>
+			<!--パスワード-->
+			<div>
+				<label class="form-label">パスワード</label>
+				<br>
+				<input type="password" name="password" class="form-control">
+			</div>
+			<!--ログインボタン-->
+			<div>
+				<button type="submit" class="btn btn-primary">ログイン</button>
+			</div>
+			<!--リンク-->
+			<div>
+				<p>ユーザー登録がまだなら</p>
+				<a>新規ユーザー登録はこちら</a>
+			</div>
+		</form>
+	</div>
+
 </body>
 </html>
