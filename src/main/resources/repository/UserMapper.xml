@@ -3,4 +3,7 @@
 
 <mapper namespace="com.example.repository.UserMapper">
 	
+	<select id="findByEmail" resultType="User">
+		SELECT * FROM user WHERE email = #{email}
+	</select>
 </mapper>
