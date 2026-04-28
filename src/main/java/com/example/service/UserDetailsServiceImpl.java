@@ -1,5 +1,6 @@
 package com.example.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,11 +13,8 @@ import com.example.repository.UserMapper;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	private final UserMapper userMapper;
-	
-	public UserDetailsServiceImpl(UserMapper userMapper) {
-		this.userMapper = userMapper;
-	}
+	@Autowired
+	private UserMapper userMapper;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
