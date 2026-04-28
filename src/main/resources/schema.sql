@@ -7,6 +7,7 @@ CREATE SCHEMA IF NOT EXISTS `ec_db` DEFAULT CHARACTER SET utf8mb4;
 ------------------------------------------- 
 -- userテーブル
 ------------------------------------------- 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(50) NOT NULL COMMENT '氏名',
