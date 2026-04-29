@@ -11,7 +11,7 @@ import com.example.entity.User;
 import com.example.repository.UserMapper;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class LoginUserDetailsImpl implements UserDetailsService {
 
 	@Autowired
 	private UserMapper userMapper;
