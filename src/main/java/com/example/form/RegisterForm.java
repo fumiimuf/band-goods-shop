@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class UserForm {
+public class RegisterForm {
 
 	@NotBlank
 	private String name;
