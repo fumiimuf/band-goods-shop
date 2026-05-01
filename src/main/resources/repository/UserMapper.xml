@@ -3,7 +3,26 @@
 
 <mapper namespace="com.example.repository.UserMapper">
 	
+	<!-- メールアドレスでユーザー情報を取得 -->
 	<select id="findByEmail" resultType="User">
 		SELECT * FROM user WHERE email = #{email}
 	</select>
+	
+	<!-- ユーザー情報1件を登録する -->
+	<insert id="insertOne">
+		INSERT INTO user(
+			name, 
+			email, 
+			password, 
+			zipCode, 
+			address
+		)
+		VALUES (
+			#{name}, 
+			#{email}, 
+			#{password}, 
+			#{zipCode}, 
+			#{address}
+		)
+	</insert>
 </mapper>

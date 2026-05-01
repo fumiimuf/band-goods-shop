@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.entity.User;
 import com.example.form.RegisterForm;
+import com.example.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +23,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserController {
 
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	
 	/**
 	 * ユーザー登録画面を表示します。
 	 * 
@@ -43,17 +54,31 @@ public class UserController {
 	public String postRegister(@ModelAttribute @Validated RegisterForm registerForm, 
 			BindingResult bindingResult) {
 		
+		// 入力チェック
 		if (bindingResult.hasErrors()) {
 			log.warn("登録内容に不備があります：{}", bindingResult.getAllErrors());
 			
 			return "user/register";
 		}
 		
-		log.info("登録処理を開始します：{}", registerForm.getEmail());
+		// formをUserクラスに変換
+		User user = modelMapper.map(registerForm, User.class);
 		
-		// ここにServiceなど登録処理を実行する
+		log.info("登録処理を開始します：Email={}, Name={}", registerForm.getEmail(), registerForm.getName());
 		
-		return "redirect:/user/login";
+		
+		if (!userService.insertOne(user)) {
+			log.warn("登録失敗：メールアドレスが既に存在します：{}", user.getEmail());
+			
+			// 第1引数に"email"を指定することで、画面のメールアドレス入力欄にエラーを表示します
+			bindingResult.rejectValue("email", "error.duplicate", "このメールアドレスは既に登録されています。");
+			
+			return "user/register";
+		}
+		
+		log.info("ユーザー登録が正常に完了しました：{}", user.getEmail());
+		
+		return "redirect:/user/login?registerSuccess";
 	}
 	
 }

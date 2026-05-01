@@ -22,7 +22,7 @@ public class RegisterForm {
 	private String password;
 	
 	@NotBlank
-	@Pattern(regexp = "^[0-9]{3}-?[0-9]{4}$")
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$")
 	private String zipCode;
 	
 	@NotBlank

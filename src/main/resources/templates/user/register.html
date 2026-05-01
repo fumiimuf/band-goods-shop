@@ -10,6 +10,22 @@
     <title>ユーザー登録</title>
 </head>
 <body>
+    <div class="container w-50">
+    	<h1 class="mb-3 text-center">ユーザー登録</h1>
+    	
+    	<hr>
+    	
+    	<!-- 入力フォーム -->
+    	<form th:action="@{/login}" method="post">
+    		
+    		<!-- 氏名 -->
+    		<div>
+    			<label class="form-label">氏名</label>
+    		</div>
+    	</form>
+    	
+    </div>
+    
     
     <!-- JS読込 -->
     <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
