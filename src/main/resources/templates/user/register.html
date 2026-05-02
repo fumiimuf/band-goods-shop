@@ -14,19 +14,56 @@
     	<h1 class="mb-3 text-center">ユーザー登録</h1>
     	
     	<hr>
-    	
-    	<!-- 入力フォーム -->
-    	<form th:action="@{/login}" method="post">
+    
+    	<form th:action="@{/user/register}" th:object="${registerForm}" method="post">
     		
     		<!-- 氏名 -->
-    		<div>
+    		<div class="mb-3">
     			<label class="form-label">氏名</label>
+    			<input type="text" class="form-control" th:field="*{name}" th:errorclass="is-invalid">
+    			<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     		</div>
+    		
+    		<!-- メールアドレス -->
+    		<div class="mb-3">
+    			<label class="form-label">メールアドレス</label>
+    			<input type="email" class="form-control" th:field="*{email}" th:errorclass="is-invalid">
+    			<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    		</div>
+    		
+    		<!-- パスワード -->
+    		<div class="mb-3">
+    			<label class="form-label">パスワード</label>
+    			<input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid">
+    			<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    		</div>
+    		
+    		<!-- 郵便番号 -->
+    		<div class="mb-3">
+    			<label class="form-label">郵便番号</label>
+    			<input type="text" class="form-control" th:field="*{zipCode}" th:errorclass="is-invalid">
+    			<div class="invalid-feedback" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
+    		</div>
+    		
+    		<!-- 住所 -->
+    		<div class="mb-3">
+    			<label class="form-label">住所</label>
+    			<textarea class="form-control" th:field="*{address}" rows="3" th:errorclass="is-invalid"></textarea>
+    			<div class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+    		</div>
+    		
+    		<!-- 登録ボタン -->
+    		<div class="d-grid mb-3">
+    			<button type="submit" class="btn btn-primary btn-lg">登録</button>
+    		</div>
+    		
+    		<!-- リンク -->
+    		<div class="mb-3 text-center">
+    			<a th:href="@{/login}" class="text-decoration-none">既に登録済みの方(ログインはこちら)</a>
+    		</div>
+    		
     	</form>
-    	
     </div>
-    
-    
     <!-- JS読込 -->
     <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
 </body>

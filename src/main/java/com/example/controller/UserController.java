@@ -78,7 +78,7 @@ public class UserController {
 		
 		log.info("ユーザー登録が正常に完了しました：{}", user.getEmail());
 		
-		return "redirect:/user/login?registerSuccess";
+		return "redirect:/login?registerSuccess";
 	}
 	
 }

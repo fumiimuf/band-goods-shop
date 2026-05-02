@@ -14,7 +14,7 @@
 			name, 
 			email, 
 			password, 
-			zipCode, 
+			zip_code, 
 			address
 		)
 		VALUES (
