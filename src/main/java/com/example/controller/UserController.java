@@ -71,7 +71,7 @@ public class UserController {
 			log.warn("登録失敗：メールアドレスが既に存在します：{}", user.getEmail());
 			
 			// 第1引数に"email"を指定することで、画面のメールアドレス入力欄にエラーを表示します
-			bindingResult.rejectValue("email", "error.duplicate", "このメールアドレスは既に登録されています。");
+			bindingResult.rejectValue("email", "error.duplicate");
 			
 			return "user/register";
 		}
