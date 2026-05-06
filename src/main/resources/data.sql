@@ -1,8 +1,8 @@
-SET FOREIGN_KEY_CHECKS = 0; -- 外部キー制約を一時的に無視
-TRUNCATE TABLE `user`;
-TRUNCATE TABLE `category`;
-TRUNCATE TABLE `goods`;
-SET FOREIGN_KEY_CHECKS = 1;
+-- SET FOREIGN_KEY_CHECKS = 0; -- 外部キー制約を一時的に無視
+-- TRUNCATE TABLE `user`;
+-- TRUNCATE TABLE `category`;
+-- TRUNCATE TABLE `goods`;
+-- SET FOREIGN_KEY_CHECKS = 1;
 
 
 
