@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>グッズ一覧(一般ユーザー)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS読込 -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+    <title>グッズ一覧(一般ユーザー)</title>
 </head>
 <body>
-	<h2>ここは一般ユーザー用のグッズ一覧画面です。</h2>
+	
+	<div class="container my-5">
+		<h1 class="mb-4">グッズ一覧</h1>
+		
+		<div class="row row-cols-1 row-cols-mb-4 g-4">
+			<div class="col" th:each="goods : ${goodsList}">
+				<div class="card h-100">
+					<!-- 商品画像 -->
+					<img th:src="${goods.image}" class="card-img-top" alt="商品画像" style="height: 150px; object-fit: cover; background: #eee;">
+					
+					<div class="card-body">
+						<!-- 商品名 -->
+						<h5 class="card-title" th:text="${goods.name}">商品名</h5>
+						<!-- 価格 -->
+						<p class="card-text text-danger" th:text="|¥ ${goods.price}|">\0</p> <!-- リテラル置換で価格を表示 -->
+						
+						<div class="d-grid gap-2">
+							<!-- 商品説明ボタン -->
+							<button class="btn btn-outline-secondary btn-sm">商品説明</button>
+							<!-- カートに入れるボタン -->
+							<button class="btn btn-primary btn-sm">カートに入れる</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav aria-label="Page navigation" class="mt-5">
+			<ul class="pagination justfy-content-center">
+				<li class="page-item" th:classappend="${currentPage == 0} ? 'disable'">
+					<a class="page-item page-link" th:href="@{/goods(page=${currentPage - 1})}">前へ</a>
+				</li>
+				
+				<li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+					th:classappend="${i == currentPage} ? 'active'">
+					<a class="page-link" th:href="@{/goods(page=${i})}" th:text="${i + 1}"></a>
+				</li>
+				
+				<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disable'">
+					<a class="page-link" th:href="@{/goods(page=${currentPage + 1})}">次へ</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+    <!-- JS読込 -->
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
 </body>
 </html>

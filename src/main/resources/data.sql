@@ -30,4 +30,13 @@ VALUES
 ------------------------------------------- 
 INSERT INTO `goods` (`name`, `price`, `image`, `description`, `category_id`) 
 VALUES 
-('T-Shirt', 3500, '/images/tshirt.jpg', '公式ロゴTシャツです。', 1);
+('T-Shirt', 3500, '/images/tshirt.jpg', '公式ロゴTシャツです。', 1), 
+('公式トートバッグ', 2000, '/images/bag.jpg', '使い勝手の良いA4サイズのバッグです。', 1),
+('ラバーバンド', 500, '/images/rubber-band.jpg', 'ライブの定番アイテム。', 1),
+('マフラータオル', 1500, '/images/towel.jpg', '吸水性の良いコットン100%タオル。', 1),
+('ロゴステッカーセット', 800, '/images/sticker.jpg', '大小5種類のステッカーセット。', 1),
+('スマホリング', 1200, '/images/ring.jpg', '落下防止に便利なロゴ入りリング。', 1),
+('ピンバッジ', 600, '/images/badge.jpg', 'キャップやバッグのアクセントに。', 1),
+('クリアファイル', 400, '/images/file.jpg', 'アーティスト写真を使用したデザイン。', 1),
+('パーカー', 6500, '/images/hoodie.jpg', '裏起毛で暖かい、ゆったりシルエット。', 1),
+('ポスター', 1000, '/images/poster.jpg', '最新アルバムのメインビジュアル。', 1);
