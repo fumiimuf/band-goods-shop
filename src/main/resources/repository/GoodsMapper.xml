@@ -4,8 +4,11 @@
 <mapper namespace="com.example.repository.GoodsMapper">
 	
 	<select id="findByPage" resultType="Goods">
-		SELECT * FROM goods 
-		ORDER BY id ASC 
+		SELECT g.*, c.name AS categoryName
+		FROM goods AS g
+		INNER JOIN category AS c ON g.category_id = c.id 
+		WHERE g.is_deleted = 0 
+		ORDER BY c.id ASC, g.create_date_time DESC
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	

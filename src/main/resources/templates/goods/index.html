@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<div class="container my-5">
+	<div class="container my-5" style="max-width: 900px;">
 		<h1 class="mb-4">グッズ一覧</h1>
 
 		<hr>
@@ -26,13 +26,14 @@
 						<!-- 商品名 -->
 						<h5 class="card-title" th:text="${goods.name}">商品名</h5>
 						<!-- 価格 -->
-						<p class="card-text text-danger" th:text="|¥ ${goods.price}|">\0</p>
-						<!-- リテラル置換で価格を表示 -->
-
-						<div class="d-grid gap-2">
+						<p class="card-text text-danger mb-0" th:text="|¥ ${goods.price}|">\0</p><!-- リテラル置換で価格を表示 -->
+						<!-- カテゴリ -->
+						<span class="badge rounded-pill bg-secondary fw-light mb-3" th:text="${goods.categoryName}"></span>
+						<div class="d-flex gap-1">
 							<!-- 商品説明ボタン -->
 							<button type="button" 
-									class="btn btn-outline-secondary btn-sm" 
+									class="btn btn-outline-secondary btn-sm flex-fill text-nowrap" 
+									style="font-size: 0.75rem; padding: 0.25rem 0.1rem;" 
 									data-bs-toggle="popover" 
 									data-bs-placement="top" 
 									data-bs-container="body"
@@ -41,7 +42,10 @@
 								商品説明
 							</button>
 							<!-- カートに入れるボタン -->
-							<button class="btn btn-primary btn-sm">カートに入れる</button>
+							<button class="btn btn-primary btn-sm flex-fill text-nowrap" 
+									style="font-size: 0.75rem; padding: 0.25rem 0.1rem;">
+								カートに入れる
+							</button>
 						</div>
 					</div>
 				</div>
