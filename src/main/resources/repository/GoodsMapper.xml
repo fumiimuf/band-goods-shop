@@ -4,12 +4,13 @@
 <mapper namespace="com.example.repository.GoodsMapper">
 	
 	<select id="findByPage" resultType="Goods">
-		SELECT * FROM goods
-		ORDER BY id ASC
+		SELECT * FROM goods 
+		ORDER BY id ASC 
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
 	<select id="count" resultType="long">
 		SELECT COUNT(*) FROM goods
 	</select>
+	
 </mapper>

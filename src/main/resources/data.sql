@@ -30,7 +30,7 @@ VALUES
 ------------------------------------------- 
 INSERT INTO `goods` (`name`, `price`, `image`, `description`, `category_id`) 
 VALUES 
-('T-Shirt', 3500, '/images/tshirt.jpg', '公式ロゴTシャツです。', 1), 
+('T-Shirt', 3500, '/images/T-shirt_A.png', '公式ロゴTシャツです。', 1), 
 ('公式トートバッグ', 2000, '/images/bag.jpg', '使い勝手の良いA4サイズのバッグです。', 1),
 ('ラバーバンド', 500, '/images/rubber-band.jpg', 'ライブの定番アイテム。', 1),
 ('マフラータオル', 1500, '/images/towel.jpg', '吸水性の良いコットン100%タオル。', 1),
