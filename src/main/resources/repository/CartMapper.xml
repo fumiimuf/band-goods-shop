@@ -3,4 +3,20 @@
 
 <mapper namespace="com.example.repository.CartMapper">
 	
+	<select id="findByGoodsId" resultType="Cart">
+		SELECT * FROM cart 
+		WHERE user_id = #{userId} 
+		AND goods_id = #{goodsId}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cart (user_id, goods_id, quantity) 
+		VALUES (#{userId}, #{goodsId}, #{quantity}) 
+	</insert>
+	
+	<update id="updateQuantity">
+		UPDATE cart 
+		SET quantity = #{quantity} 
+		WHERE goods_id = #{goodsId}
+	</update>
 </mapper>

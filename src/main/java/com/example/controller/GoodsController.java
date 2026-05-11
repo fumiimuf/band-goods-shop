@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.Goods;
-import com.example.repository.GoodsMapper;
+import com.example.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GoodsController {
 
-	private final GoodsMapper goodsMapper;
+	private final GoodsService goodsService;
 	
 	
 	// 一般ユーザー用のグッズ一覧画面
@@ -28,19 +28,16 @@ public class GoodsController {
 		Model model) {
 		
 		// 1ページあたりの表示件数は「8件」と決めます
-		int limit = 8;
+		int size = 8;
 		
-		// 「最初の◯件を飛ばす」ための計算です（例：1ページ目なら 1*8=8件飛ばす）
-		int offset = page * limit;
-		
-		// Mapperを使って、データベースから「現在のページに必要な8件」を取得します
-		List<Goods> goodsList = goodsMapper.findByPage(limit, offset);
+		// Serviceに「ページ番号」と「件数」を渡してリストを取得
+		List<Goods> goodsList = goodsService.findByPage(page, size);
 		
 		// 全体の件数を数えます（全何ページあるか計算するため）
-		long totalCount = goodsMapper.count();
+		long totalCount = goodsService.count();
 		
 		// 全体のページ数を計算します（端数は切り上げ。例：9件なら2ページ）
-		int totalPages = (int) Math.ceil((double) totalCount / limit);
+		int totalPages = (int) Math.ceil((double) totalCount / size);
 		
 		// 画面（HTML）で使うためのデータをセットします
 		model.addAttribute("goodsList", goodsList);   // 商品リスト

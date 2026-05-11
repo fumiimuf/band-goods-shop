@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.config.LoginUser;
 import com.example.entity.User;
 import com.example.repository.UserMapper;
 
@@ -28,9 +29,7 @@ public class LoginUserDetailsImpl implements UserDetailsService {
 		
 		String role = (user.getIsAdmin() != null && user.getIsAdmin()) ? "ROLE_ADMIN" : "ROLE_USER";
 		
-		return org.springframework.security.core.userdetails.User.withUsername(user.getEmail())
-                .password(user.getPassword()) 
-                .authorities(AuthorityUtils.createAuthorityList(role))
-                .build();
+		// 自作したLoginUser を return するようにします
+		return new LoginUser(user, AuthorityUtils.createAuthorityList(role));
 	}
 }

@@ -42,10 +42,15 @@
 								商品説明
 							</button>
 							<!-- カートに入れるボタン -->
-							<button class="btn btn-primary btn-sm flex-fill text-nowrap" 
-									style="font-size: 0.75rem; padding: 0.25rem 0.1rem;">
-								カートに入れる
-							</button>
+							<form th:action="@{/cart/add}" method="post">
+								<input type="hidden" name="goodsId" th:value="${goods.id}">
+							 
+								<button type="submit" class="btn btn-primary btn-sm flex-fill text-nowrap" 
+										style="font-size: 0.75rem; padding: 0.25rem 0.1rem;">
+									カートに入れる
+								</button>
+							</form>
+							
 						</div>
 					</div>
 				</div>

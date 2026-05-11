@@ -16,4 +16,11 @@
 		SELECT COUNT(*) FROM goods
 	</select>
 	
+	<select id="findById" resultType="Goods">
+		SELECT g.*, c.name AS categoryName
+    	FROM goods AS g
+		INNER JOIN category AS c ON g.category_id = c.id 
+    	WHERE g.id = #{id} AND g.is_deleted = 0
+	</select>
+	
 </mapper>
