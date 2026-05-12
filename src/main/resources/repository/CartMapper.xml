@@ -19,4 +19,25 @@
 		SET quantity = #{quantity} 
 		WHERE goods_id = #{goodsId}
 	</update>
+	
+	<select id="findByUserId" resultType="CartItem">
+		SELECT 
+			g.id AS goodsId, 
+			g.name, 
+			g.price, 
+			g.image, 
+			c.quantity 
+		FROM
+			cart AS c
+		JOIN 
+			goods AS g ON c.goods_id = g.id
+		WHERE
+			c.user_id = #{userId}
+	</select>
+	
+	<delete id="deleteByGoodsId">
+		DELETE FROM cart 
+		WHERE user_id = #{userId} 
+		AND goods_id = #{goodsId}
+	</delete>
 </mapper>
