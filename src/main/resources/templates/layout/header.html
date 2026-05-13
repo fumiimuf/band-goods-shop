@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+    <header th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- サイト名 -->
+            <a class="navbar-brand fw-bold" th:href="@{/goods}">バンドグッズECサイト</a>
+
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav align-items-center">
+                    
+                    <!-- 1. 一般ユーザー用メニュー (sec:authorizeで制御) -->
+                    <th:block sec:authorize="hasRole('USER')">
+                        <li class="nav-item px-2 text-white border-end">
+                            <span th:text="${#authentication.principal.name} + ' 様'"></span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" th:href="@{/goods}">グッズ一覧</a>
+                        </li>
+                        <li class="nav-item">
+                            <!-- カートの個数は、後ほど共通処理でモデルに詰めます -->
+                            <a class="nav-link text-white font-weight-bold" th:href="@{/cart/index}">
+                                カート(<span class="text-danger" th:text="${cartCount != null ? cartCount : 0}"></span>)
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" th:href="@{/user/page}">ユーザーページ</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link text-white" th:href="@{/order/history}">購入履歴</a>
+                        </li>
+                    </th:block>
+
+                    <!-- 2. 管理者用メニュー (Admin用) -->
+                    <th:block sec:authorize="hasRole('ADMIN')">
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" th:href="@{/admin/goods}">商品管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" th:href="@{/admin/users}">ユーザー管理</a>
+                        </li>
+                    </th:block>
+
+                    <!-- 3. ログアウトボタン (共通) -->
+                    <li class="nav-item ms-3">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn btn-outline-light btn-sm">ログアウト</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    
+    
+    
+    <!-- JS読込 -->
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
+</body>
+</html>

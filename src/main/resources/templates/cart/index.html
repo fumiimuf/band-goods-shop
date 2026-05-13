@@ -1,70 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!-- 1. layout:decorate で「どの外枠（ケース）を使うか」を指定します -->
+<!-- 住所は「layoutフォルダのlayoutファイル」という意味です -->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- CSS読込 -->
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-
-    <title>カート内容</title>
+<title>カート内容</title>
 </head>
 <body>
-    <h1 th:text="${loginUserName} + 'さんのカート'"></h1>
-    
-    <table border="1">
-    	<thead>
-    		<tr>
-    			<th>商品情報</th>
-    			<th>単価</th>
-    			<th>数量</th>
-    			<th>小計</th>
-    			<th>操作</th>
-    		</tr>
-    	</thead>
-    	<tbody>
-    		<!-- 商品情報(商品画像＋商品名) -->
-    		<tr th:each="item : ${cartList}">
-    			<td>
-    				<img th:src="@{images/{img}(img=${item.image})}" alt="商品画像" width="">
-    				<span th:text="${item.name}"></span>
-    			</td>
-    			<!-- 単価 -->
-    			<td th:text="|¥ ${#numbers.formatInteger(item.price, 3, 'COMMA')}|"></td>
-    			<!-- 数量(ドロップダウン) -->
-    			<td>
-    				<form th:action="@{/cart/update}" method="post">
-    					<input type="hidden" name="goodsId" th:value="${item.goodsId}">
-    					
-    					<select name="quantity" onchange="this.form.submit()" class="form-select-sm">
-    						<option th:each="i : ${#numbers.sequence(1, 10)}" 
-    						th:value="${i}" 
-    						th:text="${i}" 
-    						th:selected="${i == item.quantity}">
-    							
-    						</option>
-    					</select>
-    				</form>
-    			</td>
-    			<!-- 小計 -->
-    			<td th:text="|¥ ${#numbers.formatInteger(item.price * item.quantity, 3, 'COMMA')}|"></td>
-    			<!-- 削除ボタン -->
-    			<td>
-    				<form th:action="@{/cart/delete}" method="post">
-					    <input type="hidden" name="goodsId" th:value="${item.goodsId}">
-					    <button type="submit" class="btn btn-danger btn-sm">削除</button>
-					</form>
-    			</td>
-    		</tr>
-    	</tbody>
-    </table>
-    
-    <h3>合計金額(税込み) :<span th:text="'¥' + ${#numbers.formatInteger(totalAmount, 3, 'COMMA')}"></span></h3>
-    
-    <a th:href="@{/goods}">戻る</a>
-    <button type="button">購入へ進む</button>
-    
-    <!-- JS読込 -->
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
+	<div layout:fragment="content">
+		<h1 th:text="${loginUserName} + 'さんのカート'"></h1>
+
+		<table border="1">
+			<thead>
+				<tr>
+					<th>商品情報</th>
+					<th>単価</th>
+					<th>数量</th>
+					<th>小計</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- 商品情報(商品画像＋商品名) -->
+				<tr th:each="item : ${cartList}">
+					<td>
+						<img th:src="@{images/{img}(img=${item.image})}" alt="商品画像" width=""> <span th:text="${item.name}"></span>
+					</td>
+					<!-- 単価 -->
+					<td th:text="|¥ ${#numbers.formatInteger(item.price, 3, 'COMMA')}|"></td>
+					<!-- 数量(ドロップダウン) -->
+					<td>
+						<form th:action="@{/cart/update}" method="post">
+							<input type="hidden" name="goodsId" th:value="${item.goodsId}"> <select name="quantity" onchange="this.form.submit()" class="form-select-sm">
+								<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i == item.quantity}"></option>
+							</select>
+						</form>
+					</td>
+					<!-- 小計 -->
+					<td th:text="|¥ ${#numbers.formatInteger(item.price * item.quantity, 3, 'COMMA')}|"></td>
+					<!-- 削除ボタン -->
+					<td>
+						<form th:action="@{/cart/delete}" method="post">
+							<input type="hidden" name="goodsId" th:value="${item.goodsId}">
+							<button type="submit" class="btn btn-danger btn-sm">削除</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3>
+			合計金額(税込み) :<span th:text="'¥' + ${#numbers.formatInteger(totalAmount, 3, 'COMMA')}"></span>
+		</h3>
+
+		<a th:href="@{/goods}">戻る</a>
+		<button type="button">購入へ進む</button>
+	</div>
 </body>
 </html>

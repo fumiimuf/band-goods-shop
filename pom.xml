@@ -126,6 +126,18 @@
 		    <version>3.2.0</version>
 		</dependency>
 		
+		<!-- レイアウト機能用 -->
+		<dependency>
+		    <groupId>nz.net.ultraq.thymeleaf</groupId>
+		    <artifactId>thymeleaf-layout-dialect</artifactId>
+		</dependency>
+		
+		<!-- Security情報をThymeleafで扱う用 -->
+		<dependency>
+		    <groupId>org.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
