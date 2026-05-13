@@ -19,7 +19,7 @@ VALUES
 ------------------------------------------- 
 -- 管理者ユーザー（管理者フラグが1）
 ------------------------------------------- 
--- パスワードは仮に 'admin123' としていますが、本来はハッシュ化した値を入れます
+-- パスワードは仮に 'password' としていますが、本来はハッシュ化した値を入れます
 INSERT INTO `user` (`name`, `email`, `password`, `zip_code`, `address`, `is_admin`) 
 VALUES 
 ('管理者太郎', 'admin@example.com', '$2a$10$LBnjYnoTF42WzSG7BbQZFOApS/yRdpE2U0jhGwvC0LyLfeA6VSqi.', '123-4567', '大阪府大阪市...', 1), 

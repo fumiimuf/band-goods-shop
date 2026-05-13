@@ -9,6 +9,7 @@ import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 @Configuration
 public class JavaConfig {
 
+	
 	// マッピングの機能
 	@Bean
 	public ModelMapper modelMapper() {
