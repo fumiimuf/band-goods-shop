@@ -12,12 +12,15 @@
     <!-- 全画面共通のJavaScript -->
     <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
     
+    <!-- jQuery読込 -->
+	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+    
     <title></title>
 </head>
 <body>
     <!-- 2. 【ヘッダー部品】をここにガッチャンコとはめ込みます -->
     <!-- 住所は「layoutフォルダのheaderファイルの、th:fragment="header"という名前の部品」という意味です -->
-    <!-- <header th:replace="~{layout/header::header}"></header> -->
+    <header th:replace="~{layout/header::header}"></header>
 
     <!-- 3. 【穴（フラグメント）】を作ります。ここに各画面の中身が入り込みます -->
     <!-- 名前を "content" と決めておきます -->

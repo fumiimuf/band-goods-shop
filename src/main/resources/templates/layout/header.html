@@ -22,7 +22,8 @@
                         <li class="nav-item">
                             <!-- カートの個数は、後ほど共通処理でモデルに詰めます -->
                             <a class="nav-link text-white font-weight-bold" th:href="@{/cart/index}">
-                                カート(<span class="text-danger" th:text="${cartCount != null ? cartCount : 0}"></span>)
+                            	<!-- 【修正箇所】id="header-cart-count" を付与。これでJavaScriptから数字を操作できます -->
+                                カート(<span id="header-cart-count" class="text-danger" th:text="${cartCount != null ? cartCount : 0}"></span>)
                             </a>
                         </li>
                         <li class="nav-item">

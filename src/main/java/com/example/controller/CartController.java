@@ -48,21 +48,7 @@ public class CartController {
 		// ログインユーザーから本物のIDを取得
 		Integer userId = loginUser.getUserId();
 		
-		// DBに同じグッズがあるか確認
-		Cart existingCart = cartMapper.findByGoodsId(userId, goodsId);
 		
-		if (existingCart != null) {
-			// あれば個数を +1 して更新（UPDATE）
-			existingCart.setQuantity(existingCart.getQuantity() + 1);
-			cartMapper.updateQuantity(existingCart);
-		} else {
-			// C. なければ新規登録（INSERT）
-			Cart newCart = new Cart();
-			newCart.setUserId(userId);
-			newCart.setGoodsId(goodsId);
-			newCart.setQuantity(1);
-			cartMapper.insert(newCart);
-		}
 		
 		//【完了】商品一覧画面へ戻る
 		return "redirect:/goods";
