@@ -18,7 +18,7 @@ public class CartServiceImpl implements CartService {
 	private final CartMapper cartMapper;
 
 	@Override
-	public Cart findByGoodsId(Integer userId, Integer goodsId) {
+	public void addOrUpdateCart(Integer userId, Integer goodsId) {
 		// DBに同じグッズがあるか確認
 		Cart existingCart = cartMapper.findByGoodsId(userId, goodsId);
 		
@@ -38,26 +38,22 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public void insert(Cart cart) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+		cartMapper.insert(cart);
 	}
 
 	@Override
 	public void updateQuantity(Cart cart) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+		cartMapper.updateQuantity(cart);
 	}
 
 	@Override
 	public List<CartItem> findByUserId(Integer userId) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return cartMapper.findByUserId(userId);
 	}
 
 	@Override
 	public void deleteByGoodsId(Integer userId, Integer goodsId) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+		cartMapper.deleteByGoodsId(userId, goodsId);
 	}
 	
 	

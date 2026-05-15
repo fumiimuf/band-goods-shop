@@ -3,23 +3,27 @@
 
 <mapper namespace="com.example.repository.CartMapper">
 	
+	<!-- カートのグッズを取得 -->
 	<select id="findByGoodsId" resultType="Cart">
 		SELECT * FROM cart 
 		WHERE user_id = #{userId} 
 		AND goods_id = #{goodsId}
 	</select>
 	
+	<!-- カートにグッズを追加 -->
 	<insert id="insert">
 		INSERT INTO cart (user_id, goods_id, quantity) 
 		VALUES (#{userId}, #{goodsId}, #{quantity}) 
 	</insert>
 	
+	<!-- グッズの個数を更新 -->
 	<update id="updateQuantity">
 		UPDATE cart 
 		SET quantity = #{quantity} 
 		WHERE goods_id = #{goodsId}
 	</update>
 	
+	<!-- ログインユーザーのカート内のグッズをすべて取得 -->
 	<select id="findByUserId" resultType="CartItem">
 		SELECT 
 			g.id AS goodsId, 
@@ -35,6 +39,7 @@
 			c.user_id = #{userId}
 	</select>
 	
+	<!-- 特定のグッズを削除 -->
 	<delete id="deleteByGoodsId">
 		DELETE FROM cart 
 		WHERE user_id = #{userId} 

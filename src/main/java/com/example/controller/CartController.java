@@ -14,14 +14,10 @@ import com.example.config.LoginUser;
 import com.example.entity.Cart;
 import com.example.entity.Goods;
 import com.example.model.CartItem;
-import com.example.repository.CartMapper;
+import com.example.service.CartService;
 import com.example.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
-
-
-
-
 
 @Controller
 @RequestMapping("/cart")
@@ -29,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class CartController {
 
 	private final GoodsService goodsService;
-	private final CartMapper cartMapper;
+	private final CartService cartService;
 	
 	// カート追加処理
 	@PostMapping("/add")
@@ -48,7 +44,8 @@ public class CartController {
 		// ログインユーザーから本物のIDを取得
 		Integer userId = loginUser.getUserId();
 		
-		
+		// 現在のカードに同じ商品があるか確認。あり→個数を更新 なし→商品追加
+		cartService.addOrUpdateCart(userId, goodsId);
 		
 		//【完了】商品一覧画面へ戻る
 		return "redirect:/goods";
@@ -62,7 +59,7 @@ public class CartController {
 		Integer userId = loginUser.getUserId();
 		
 		// DBからそのユーザーのカート内商品をすべて取得
-		List<CartItem> cartList = cartMapper.findByUserId(userId);
+		List<CartItem> cartList = cartService.findByUserId(userId);
 		
 		// 3. 合計金額を計算（設計書の「合計金額（税込）」用）
 		int totalAmount = 0;
@@ -95,7 +92,7 @@ public class CartController {
 		cart.setQuantity(quantity);
 		
 		// DBを更新する
-		cartMapper.updateQuantity(cart);
+		cartService.updateQuantity(cart);
 		
 		// カート内容画面へリダイレクトして再表示
 		return "redirect:/cart/index";
@@ -108,7 +105,7 @@ public class CartController {
 			@AuthenticationPrincipal LoginUser loginUser) {
 	
 		// ログインユーザーのIDを使って、特定のグッズを削除
-		cartMapper.deleteByGoodsId(loginUser.getUserId(), goodsId);
+		cartService.deleteByGoodsId(loginUser.getUserId(), goodsId);
 		
 		// 削除後はカート内容画面へリダイレクト
 		return "redirect:/cart/index";
