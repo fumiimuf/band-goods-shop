@@ -33,4 +33,28 @@ jQuery(function($) {
             toast.show();
         });
     });
+
+    // カート追加（Ajax送信）
+    jQuery(function($) {
+    // 1. ポップオーバーの初期化
+    $('[data-bs-toggle="popover"]').popover();
+
+    // 2. カート追加（Ajax送信）
+    $('.add-to-cart-form').on('submit', function(e) {
+        // ブラウザ本来のページ遷移をキャンセル
+        e.preventDefault();
+
+        // $.post(宛先, 送信データ) でシンプルに記述
+        $.post('/api/cart/add', $(this).serialize())
+            .done((res) => {
+                // 成功：ヘッダーの個数を更新し、成功トーストを表示
+                $('#header-cart-count').text(res.newCartCount);
+                new bootstrap.Toast($('#successToast')[0]).show();
+            })
+            .fail(() => {
+                // 失敗：エラー用トーストを表示
+                new bootstrap.Toast($('#errorToast')[0]).show();
+            });
+    });
+});
 });
