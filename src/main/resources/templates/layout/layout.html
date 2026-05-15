@@ -9,11 +9,14 @@
     <!-- 全画面共通のCSS（ここで一括管理！） -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     
+    <!-- jQuery読込 -->
+	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+    
     <!-- 全画面共通のJavaScript -->
     <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
     
-    <!-- jQuery読込 -->
-	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+	<!-- 自分のjsファイルの読込 -->
+	<script th:src="@{/js/common.js}" defer></script>
     
     <title></title>
 </head>

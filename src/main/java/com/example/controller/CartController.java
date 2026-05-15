@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.config.LoginUser;
 import com.example.entity.Cart;
-import com.example.entity.Goods;
 import com.example.model.CartItem;
 import com.example.service.CartService;
 import com.example.service.GoodsService;
@@ -28,28 +27,28 @@ public class CartController {
 	private final CartService cartService;
 	
 	// カート追加処理
-	@PostMapping("/add")
-	public String postAdd(
-			@RequestParam("goodsId") Integer goodsId, 
-			@AuthenticationPrincipal LoginUser loginUser) {
-		
-		// データベースから商品情報を取得
-		Goods goods = goodsService.findById(goodsId);
-		
-		// 商品が見つからない場合は一覧へ戻る(安全策)
-		if (goods == null) {
-			return "redirect:/goods";
-		}
-		
-		// ログインユーザーから本物のIDを取得
-		Integer userId = loginUser.getUserId();
-		
-		// 現在のカードに同じ商品があるか確認。あり→個数を更新 なし→商品追加
-		cartService.addOrUpdateCart(userId, goodsId);
-		
-		//【完了】商品一覧画面へ戻る
-		return "redirect:/goods";
-	}
+//	@PostMapping("/add")
+//	public String postAdd(
+//			@RequestParam("goodsId") Integer goodsId, 
+//			@AuthenticationPrincipal LoginUser loginUser) {
+//		
+//		// データベースから商品情報を取得
+//		Goods goods = goodsService.findById(goodsId);
+//		
+//		// 商品が見つからない場合は一覧へ戻る(安全策)
+//		if (goods == null) {
+//			return "redirect:/goods";
+//		}
+//		
+//		// ログインユーザーから本物のIDを取得
+//		Integer userId = loginUser.getUserId();
+//		
+//		// 現在のカードに同じ商品があるか確認。あり→個数を更新 なし→商品追加
+//		cartService.addOrUpdateCart(userId, goodsId);
+//		
+//		//【完了】商品一覧画面へ戻る
+//		return "redirect:/goods";
+//	}
 	
 	// カート内容表示
 	@GetMapping("/index")
@@ -61,11 +60,8 @@ public class CartController {
 		// DBからそのユーザーのカート内商品をすべて取得
 		List<CartItem> cartList = cartService.findByUserId(userId);
 		
-		// 3. 合計金額を計算（設計書の「合計金額（税込）」用）
-		int totalAmount = 0;
-		for (CartItem item : cartList) {
-			totalAmount += item.getPrice() * item.getQuantity();
-		}
+		// 3. 合計金額を計算するメソッドを呼び出す
+		int totalAmount = cartService.calculateTotalAmount(cartList);
 		
 		// HTMLに渡すデータを登録
 		model.addAttribute("loginUserName", loginUser.getName());

@@ -10,12 +10,20 @@
 		<div class="container my-5" style="max-width: 900px;">
 			
 			<!-- Ajax通知メッセージエリア -->
-			<div id="success-message" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
-				カートに追加しました。
+			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
+    
+			    <div id="successToast" class="toast align-items-center text-white bg-success border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+			        <div class="d-flex">
+			            <div class="toast-body">カートに追加しました!</div>
+			        </div>
+			    </div>
+			
+			    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+			        <div class="d-flex">
+			            <div class="toast-body">エラーが発生しました!</div>
+			        </div>
+			    </div>
 			</div>
-			<div id="error-message" class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
-                エラーが発生しました！
-            </div>
 			
 			<h1 class="mb-4">グッズ一覧</h1>
 			<!-- カート内容の表示(一時的) -->
@@ -73,9 +81,6 @@
 				</ul>
 			</nav>
 		</div>
-		
-		<!-- 自分のjsファイルの読込 -->
-		<script th:src="@{/js/common.js}" defer></script>
 	</main>
 </body>
 </html>

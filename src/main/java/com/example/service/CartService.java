@@ -23,4 +23,10 @@ public interface CartService {
 	
 	//ログインしているユーザーの特定のグッズを削除する
 	void deleteByGoodsId(@Param("userId") Integer userId, @Param("goodsId") Integer goodsId);
+	
+	// カートの合計金額の計算
+	int calculateTotalAmount(List<CartItem> cartlist);
+	
+	// ログインユーザーのカート内商品の合計個数を取得
+	int getTotalQuantity(Integer userId);
 }

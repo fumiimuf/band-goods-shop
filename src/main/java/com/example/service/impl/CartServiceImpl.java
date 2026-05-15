@@ -55,6 +55,33 @@ public class CartServiceImpl implements CartService {
 	public void deleteByGoodsId(Integer userId, Integer goodsId) {
 		cartMapper.deleteByGoodsId(userId, goodsId);
 	}
+
+	@Override
+	public int calculateTotalAmount(List<CartItem> cartlist) {
+		int totalAmount = 0;
+		for (CartItem item : cartlist) {
+			totalAmount += item.getPrice() * item.getQuantity();
+		}
+		return totalAmount;
+	}
+
+	@Override
+	public int getTotalQuantity(Integer userId) {
+		// ログインユーザーのカート情報をすべて取得する
+		List<CartItem> cartList = cartMapper.findByUserId(userId);
+		
+		// 合計金額を入れる箱を用意
+		int totalCount = 0;
+		
+		// カートの中身を一つずつ取り出して、個数を足していく
+		if (cartList != null) {
+			for (CartItem item : cartList) {
+				totalCount += item.getQuantity();
+			}
+		}
+		return totalCount;
+	}
+	
 	
 	
 }
