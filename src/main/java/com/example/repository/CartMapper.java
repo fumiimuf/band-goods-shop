@@ -26,4 +26,7 @@ public interface CartMapper {
 	
 	//ログインしているユーザーの特定のグッズを削除する
 	void deleteByGoodsId(@Param("userId") Integer userId, @Param("goodsId") Integer goodsId);
+	
+	// ログインユーザーのカート情報をすべて削除する
+	void deleteAllByUserId(@Param("userId") Integer userId);
 }

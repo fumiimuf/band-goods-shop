@@ -45,4 +45,10 @@
 		WHERE user_id = #{userId} 
 		AND goods_id = #{goodsId}
 	</delete>
+	
+	<!-- ログインユーザーのカート情報をすべて削除（一括削除） -->
+	<delete id="deleteAllByUserId">
+		DELETE FROM cart
+		WHERE user_id = #{userId}
+	</delete>
 </mapper>

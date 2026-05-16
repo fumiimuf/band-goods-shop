@@ -24,7 +24,7 @@ public class GoodsController {
 	@GetMapping("/goods")
 	public String index(
 		// URLの ?page=数字 を受け取ります。指定がない場合は 0 にします。
-		@RequestParam(name = "page", defaultValue = "0") int page, 
+		@RequestParam(name = "page", defaultValue = "0") int page,
 		Model model) {
 		
 		// 1ページあたりの表示件数は「8件」と決めます
@@ -40,9 +40,9 @@ public class GoodsController {
 		int totalPages = (int) Math.ceil((double) totalCount / size);
 		
 		// 画面（HTML）で使うためのデータをセットします
-		model.addAttribute("goodsList", goodsList);   // 商品リスト
-		model.addAttribute("currentPage", page);      // 現在のページ番号
-		model.addAttribute("totalPages", totalPages); // 全ページ数
+		model.addAttribute("goodsList", goodsList);// 商品リスト
+		model.addAttribute("currentPage", page);// 現在のページ番号
+		model.addAttribute("totalPages", totalPages);// 全ページ数
 		
 		// グッズ一覧(一般ユーザー)を表示
 		return "goods/index";

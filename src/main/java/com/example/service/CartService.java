@@ -29,4 +29,7 @@ public interface CartService {
 	
 	// ログインユーザーのカート内商品の合計個数を取得
 	int getTotalQuantity(Integer userId);
+	
+	// ログインユーザーのカート内グッズをすべて削除する
+	void deleteAllByUserId(Integer userId);
 }

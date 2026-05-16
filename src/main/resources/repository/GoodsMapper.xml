@@ -14,6 +14,7 @@
 	
 	<select id="count" resultType="long">
 		SELECT COUNT(*) FROM goods
+		WHERE is_deleted = 0
 	</select>
 	
 	<select id="findById" resultType="Goods">

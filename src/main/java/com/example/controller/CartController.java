@@ -18,6 +18,7 @@ import com.example.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
 
+
 @Controller
 @RequestMapping("/cart")
 @RequiredArgsConstructor
@@ -104,6 +105,15 @@ public class CartController {
 		cartService.deleteByGoodsId(loginUser.getUserId(), goodsId);
 		
 		// 削除後はカート内容画面へリダイレクト
+		return "redirect:/cart/index";
+	}
+	
+	@PostMapping("/clear")
+	public String clearCart(@AuthenticationPrincipal LoginUser loginUser) {
+		
+		// ログインユーザーのIDを使って、カートを一括削除
+		cartService.deleteAllByUserId(loginUser.getUserId());
+		
 		return "redirect:/cart/index";
 	}
 	
