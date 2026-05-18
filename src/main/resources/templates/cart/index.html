@@ -47,7 +47,8 @@
 						<!-- 数量(ドロップダウン) -->
 						<td>
 							<form class="update-quantity-form">
-								<input type="hidden" name="goodsId" th:value="${item.goodsId}"> <select name="quantity" class="form-select form-select-sm update-quantity-select">
+								<input type="hidden" name="goodsId" th:value="${item.goodsId}"> 
+								<select name="quantity" class="form-select form-select-sm update-quantity-select">
 									<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i == item.quantity}"></option>
 								</select>
 							</form> <!-- エラーメッセージ -->

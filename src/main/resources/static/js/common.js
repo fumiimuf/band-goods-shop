@@ -53,12 +53,13 @@ jQuery(function($) {
 	            $('[data-total-amount]').text(totalText);
 	        })
 
-	        .fail(() => {
-	            
+	        .fail((xhr) => {
+	            const msg = xhr.responseJSON?.message || "エラーが発生しました。";
+				
 				// 操作されたセレクトボックスだけを赤枠（is-invalid）にする
 			  	$select.addClass('is-invalid');
 				
-				$select.closest('form').next('.custom-error-message').text("数量は半角数字で10以下で選択してください。").show();
+				$select.closest('form').next('.custom-error-message').text(msg).show();
 	            
 	            new bootstrap.Toast($('#errorToast')[0]).show();
 	        });

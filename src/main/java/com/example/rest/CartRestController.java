@@ -66,7 +66,10 @@ public class CartRestController {
 		if (bindingResult.hasErrors()) {
 			
 			response.put("success", false);
-			response.put("message", "数量は1-10の間で入力してください。");
+			// エラーメッセージ
+			String errorMessage = bindingResult.getFieldError().getDefaultMessage();
+			response.put("message", errorMessage);
+			
 			return ResponseEntity.badRequest().body(response);
 		}
 		
