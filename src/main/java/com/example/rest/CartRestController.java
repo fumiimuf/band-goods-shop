@@ -87,6 +87,12 @@ public class CartRestController {
 		response.put("success", true);
 		response.put("newTotalAmount", totalAmount);
 		
+		// 最新カート内「グッズ合計個数」を取得する
+		int totalQuantity = cartService.getTotalQuantity(userId);
+		response.put("totalQuantity", totalQuantity);
+		
+		
+		
 		return ResponseEntity.ok(response);
 	}
 	
