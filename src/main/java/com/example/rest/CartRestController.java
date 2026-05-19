@@ -2,12 +2,15 @@ package com.example.rest;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +34,7 @@ public class CartRestController {
 
 	private final CartService cartService;
 	private final ModelMapper modelMapper;
+	private final MessageSource messageSource;
 	
 	// カート追加
 	@PostMapping("/add")
@@ -58,7 +62,8 @@ public class CartRestController {
 	public ResponseEntity<Map<String, Object>> updateQuantity(
 			@Validated CartForm form,
 			BindingResult bindingResult,
-			@AuthenticationPrincipal LoginUser loginUser) {
+			@AuthenticationPrincipal LoginUser loginUser, 
+			Locale locale) {
 		
 		Map<String, Object> response = new HashMap<>();
 		
@@ -66,9 +71,13 @@ public class CartRestController {
 		if (bindingResult.hasErrors()) {
 			
 			response.put("success", false);
-			// エラーメッセージ
-			String errorMessage = bindingResult.getFieldError().getDefaultMessage();
-			response.put("message", errorMessage);
+			
+			// エラーメッセージの取得
+			
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				String message = messageSource.getMessage(error, locale);
+				response.put("message", message);
+			}
 			
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -83,18 +92,23 @@ public class CartRestController {
 		// Serviceを呼び出してDBの個数をUPDATE
 		cartService.updateQuantity(cart);
 		
-		// 最新の合計金額を計算
+		// 最新のカート情報を取得
 		List<CartItem> cartList = cartService.findByUserId(userId);
+		
+		// Serviceを呼び出して、変更した商品の「小計金額」を計算
+		int subTotal = cartService.calculateSubtotal(cartList, cart.getGoodsId());
+		
+		// Serviceを呼び出して「全体合計金額」を計算
 		int totalAmount = cartService.calculateTotalAmount(cartList);
 		
+		// レスポンスデータを詰める
 		response.put("success", true);
-		response.put("newTotalAmount", totalAmount);
+		response.put("totalAmount", totalAmount);
+		response.put("subtotal", subTotal);
 		
 		// 最新カート内「グッズ合計個数」を取得する
 		int totalQuantity = cartService.getTotalQuantity(userId);
 		response.put("totalQuantity", totalQuantity);
-		
-		
 		
 		return ResponseEntity.ok(response);
 	}

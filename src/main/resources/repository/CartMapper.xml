@@ -20,12 +20,13 @@
 	<update id="updateQuantity">
 		UPDATE cart 
 		SET quantity = #{quantity} 
-		WHERE goods_id = #{goodsId}
+		WHERE user_id = #{userId} 
+		AND goods_id = #{goodsId}
 	</update>
 	
 	<!-- ログインユーザーのカート内のグッズをすべて取得 -->
-	<select id="findByUserId" resultType="CartItem">
-		SELECT 
+	<select id="findByUserIdGoodsId" resultType="CartItem">
+		SELECT
 			g.id AS goodsId, 
 			g.name, 
 			g.price, 

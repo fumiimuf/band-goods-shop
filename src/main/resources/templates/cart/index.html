@@ -51,8 +51,11 @@
 								<select name="quantity" class="form-select form-select-sm update-quantity-select">
 									<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i == item.quantity}"></option>
 								</select>
-							</form> <!-- エラーメッセージ -->
-							<div class="invalid-feedback custom-error-message" style="display: none;"></div>
+								
+								<!-- エラーメッセージ -->
+								<div class="invalid-feedback custom-error-message" style="display: none;"></div>
+							</form> 
+							
 
 						</td>
 						<!-- 小計 -->

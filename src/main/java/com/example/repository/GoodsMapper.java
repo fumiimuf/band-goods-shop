@@ -16,4 +16,5 @@ public interface GoodsMapper {
 	
 	// 指定したIDのグッズを1件だけ取得
 	Goods findById(int id);
+	
 }

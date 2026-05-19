@@ -11,4 +11,5 @@ public interface GoodsService {
 	long count();
 	
 	Goods findById(int id);
+	
 }

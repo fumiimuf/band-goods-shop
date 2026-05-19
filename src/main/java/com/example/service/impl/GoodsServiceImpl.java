@@ -31,6 +31,5 @@ public class GoodsServiceImpl implements GoodsService {
 		// Mapperを呼び出して1件取得
 		return goodsMapper.findById(id);
 	}
-	
-	
+
 }

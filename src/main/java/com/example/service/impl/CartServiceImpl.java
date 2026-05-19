@@ -55,12 +55,24 @@ public class CartServiceImpl implements CartService {
 	public void deleteByGoodsId(Integer userId, Integer goodsId) {
 		cartMapper.deleteByGoodsId(userId, goodsId);
 	}
-
+	
+	// 小計金額の計算
+	@Override
+	public int calculateSubtotal(List<CartItem> cartList, Integer goodsId) {
+		for (CartItem item : cartList) {
+			if (item.getGoodsId().equals(goodsId)) {
+				return item.getSubtotal();
+			}
+		}
+		return 0;
+	}
+	
+	// 合計金額の計算
 	@Override
 	public int calculateTotalAmount(List<CartItem> cartlist) {
 		int totalAmount = 0;
 		for (CartItem item : cartlist) {
-			totalAmount += item.getPrice() * item.getQuantity();
+			totalAmount += item.getSubtotal();
 		}
 		return totalAmount;
 	}
@@ -86,6 +98,8 @@ public class CartServiceImpl implements CartService {
 	public void deleteAllByUserId(Integer userId) {
 		cartMapper.deleteAllByUserId(userId);
 	}
+
+	
 	
 	
 	

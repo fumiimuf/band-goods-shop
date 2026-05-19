@@ -2,8 +2,6 @@ package com.example.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.example.entity.Cart;
 import com.example.model.CartItem;
 
@@ -22,7 +20,10 @@ public interface CartService {
 	List<CartItem> findByUserId(Integer userId);
 	
 	//ログインしているユーザーの特定のグッズを削除する
-	void deleteByGoodsId(@Param("userId") Integer userId, @Param("goodsId") Integer goodsId);
+	void deleteByGoodsId(Integer userId, Integer goodsId);
+	
+	// カートの小計金額の計算
+	int calculateSubtotal(List<CartItem> cartList, Integer goodsId);
 	
 	// カートの合計金額の計算
 	int calculateTotalAmount(List<CartItem> cartlist);

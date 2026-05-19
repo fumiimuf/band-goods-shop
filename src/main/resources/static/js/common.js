@@ -59,7 +59,7 @@ jQuery(function($) {
 				// 操作されたセレクトボックスだけを赤枠（is-invalid）にする
 			  	$select.addClass('is-invalid');
 				
-				$select.closest('form').next('.custom-error-message').text(msg).show();
+				$select.closest('form').find('.custom-error-message').text(msg).show();
 	            
 	            new bootstrap.Toast($('#errorToast')[0]).show();
 	        });
