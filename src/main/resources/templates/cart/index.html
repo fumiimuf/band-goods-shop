@@ -32,6 +32,8 @@
 				<thead>
 					<tr>
 						<th>商品情報</th>
+						<!-- ↓商品名が入ります。 -->
+						<th></th> 
 						<th>単価</th>
 						<th>数量</th>
 						<th>小計</th>
@@ -39,23 +41,28 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!-- 商品情報(商品画像＋商品名) -->
 					<tr th:each="item : ${cartList}">
+						<!-- 商品情報(商品画像) -->
 						<td>
-							<img th:src="@{/images/{img}(img=${item.image})}" alt="商品画像" width="">
-							<span th:text="${item.name}"></span>
-							
-						<!-- 販売終了バッジとそれを促すメッセージ -->
-						<div th:if="${item.isDeleted}" class="mt-2">
-			                <span class="badge bg-danger">販売終了</span>
-			                <span class="text-danger small fw-bold">※この商品は現在購入できません。削除してください。</span>
-			            </div>
+							<img th:src="@{/{img}(img=${item.image})}" alt="商品画像" width="80" class="img-fluid rounded">
+						</td>
+						<!-- 商品情報(商品名) -->
+						<td>
+							<span th:classappend="${item.isDeleted} ? 'text-muted' : ''"
+								th:text="${item.name}"></span>
+							<!-- 販売終了バッジとそれを促すメッセージ -->
+							<div th:if="${item.isDeleted}" class="mt-2">
+				                <span class="badge bg-danger">販売終了</span>
+				                <br>
+				                <span class="text-danger small fw-bold">※この商品は現在購入できません。削除してください。</span>
+				            </div>
 						</td>
 						<!-- 単価 -->
 						<td th:classappend="${item.isDeleted} ? 'text-muted' : ''"
 							th:text="|¥ ${#numbers.formatInteger(item.price, 3, 'COMMA')}|"></td>
 						<!-- 数量(ドロップダウン) -->
 						<td>
+							<span th:if="${item.isDeleted}">-</span>
 							<form th:unless="${item.isDeleted}" class="update-quantity-form">
 								<input type="hidden" name="goodsId" th:value="${item.goodsId}"> 
 								<select name="quantity" class="form-select form-select-sm update-quantity-select">
@@ -69,9 +76,11 @@
 
 						</td>
 						<!-- 小計 -->
-						<td class="subtotal-cell" 
-							th:classappend="${item.isDeleted} ? 'text-muted' : ''" 
-							th:text="|¥ ${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}|"></td>
+						<td class="subtotal-cell" th:classappend="${item.isDeleted} ? 'text-muted' : ''">
+							<span th:if="${item.isDeleted}">¥ 0</span>
+    						<span th:unless="${item.isDeleted}" 
+    							th:text="|¥ ${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}|"></span>
+						</td>
 						<!-- 削除ボタン -->
 						<td>
 							<form th:action="@{/cart/delete}" method="post">
@@ -89,8 +98,8 @@
 
 			<a th:href="@{/goods}" class="btn btn-secondary">戻る</a> 
 			<a th:href="@{/checkout}" 
-				class="btn btn-success" 
-				th:classappend="${cartList.^[isDeleted] != null} ? 'disabled' : ''">購入へ進む</a>
+				class="btn" 
+				th:classappend="${cartList.^[isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'">購入へ進む</a>
 		</div>
 
 	</main>
