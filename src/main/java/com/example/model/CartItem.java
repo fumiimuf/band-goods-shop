@@ -15,6 +15,7 @@ public class CartItem {
     
     private Integer quantity;   // 数量（Cartエンティティと共通）
     
+    private Boolean isDeleted;
     
     // この商品の小計（単価 × 数量）を計算して返します。
     public int getSubtotal() {

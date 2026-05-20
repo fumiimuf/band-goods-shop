@@ -37,29 +37,39 @@ jQuery(function($) {
 	// カート数量変更（Ajax送信）
 	$(document).on('change', '.update-quantity-select', function() {
 	    
-		// 操作されたセレクトボックスの位置を最初にキープします
+		// 操作されたセレクトボックスとその親フォームをキープ
 		const $select = $(this);
+		const $form = $select.closest('form');
+		
+		//「小計」のHTML要素を探しておく
+		const $subtotalCell = $form.closest('tr').find('.subtotal-cell');
 		
 		// 新しく通信を始める前に、過去のエラー表示をリセットします
 		$('.update-quantity-select').removeClass('is-invalid');
 		$('.custom-error-message').hide();
 		
-	    $.post('/api/cart/update-quantity', $select.closest('form').serialize())
+	    $.post('/api/cart/update-quantity', $form.serialize())
 
 	        .done((res) => {
-	            
-	            const totalText = '¥' + new Intl.NumberFormat('ja-JP').format(res.newTotalAmount);
-	            
-	            $('[data-total-amount]').text(totalText);
+				// カンマ区切りにするためのフォーマッター
+				const formatter = new Intl.NumberFormat('ja-JP');
+				
+				// 小計
+				$subtotalCell.text('\ ' + formatter.format(res.subtotal));
+				
+				// 合計金額
+				$('[data-total-amount]').text('¥ ' + formatter.format(res.totalAmount));
+				
+				// ヘッダーのカートアイコンの合計数
+				$('#header-cart-count').text(res.totalQuantity);
 	        })
-
 	        .fail((xhr) => {
 	            const msg = xhr.responseJSON?.message || "エラーが発生しました。";
 				
 				// 操作されたセレクトボックスだけを赤枠（is-invalid）にする
 			  	$select.addClass('is-invalid');
 				
-				$select.closest('form').find('.custom-error-message').text(msg).show();
+				$form.find('.custom-error-message').text(msg).show();
 	            
 	            new bootstrap.Toast($('#errorToast')[0]).show();
 	        });

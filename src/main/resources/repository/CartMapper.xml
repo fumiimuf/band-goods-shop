@@ -25,13 +25,14 @@
 	</update>
 	
 	<!-- ログインユーザーのカート内のグッズをすべて取得 -->
-	<select id="findByUserIdGoodsId" resultType="CartItem">
+	<select id="findByUserId" resultType="CartItem">
 		SELECT
 			g.id AS goodsId, 
 			g.name, 
 			g.price, 
 			g.image, 
-			c.quantity 
+			c.quantity, 
+			g.is_deleted 
 		FROM
 			cart AS c
 		JOIN 
