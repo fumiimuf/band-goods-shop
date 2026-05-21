@@ -72,6 +72,10 @@ public class CartServiceImpl implements CartService {
 	public int calculateTotalAmount(List<CartItem> cartlist) {
 		int totalAmount = 0;
 		for (CartItem item : cartlist) {
+			// 販売終了（isDeletedがtrue）の商品は計算をスキップする
+			if (item.getIsDeleted() != null && item.getIsDeleted()) {
+				continue;
+			}
 			totalAmount += item.getSubtotal();
 		}
 		return totalAmount;
@@ -84,10 +88,13 @@ public class CartServiceImpl implements CartService {
 		
 		// 合計金額を入れる箱を用意
 		int totalCount = 0;
-		
 		// カートの中身を一つずつ取り出して、個数を足していく
 		if (cartList != null) {
 			for (CartItem item : cartList) {
+				// 販売終了（isDeletedがtrue）の商品は合計個数に含めない
+				if (item.getIsDeleted() != null && item.getIsDeleted()) {
+					continue;
+				}
 				totalCount += item.getQuantity();
 			}
 		}
