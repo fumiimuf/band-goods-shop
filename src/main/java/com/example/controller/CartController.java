@@ -14,7 +14,6 @@ import com.example.config.LoginUser;
 import com.example.entity.Cart;
 import com.example.model.CartItem;
 import com.example.service.CartService;
-import com.example.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +23,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CartController {
 
-	private final GoodsService goodsService;
 	private final CartService cartService;
 	
 	// カート追加処理

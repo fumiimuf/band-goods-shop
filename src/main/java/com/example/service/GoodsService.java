@@ -2,14 +2,14 @@ package com.example.service;
 
 import java.util.List;
 
-import com.example.entity.Goods;
+import com.example.model.GoodsItem;
 
 public interface GoodsService {
 
-	List<Goods> findByPage(int page, int size);
+	List<GoodsItem> findByPage(int page, int size);
 	
 	long count();
 	
-	Goods findById(int id);
+	GoodsItem findById(int id);
 	
 }

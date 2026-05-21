@@ -3,7 +3,7 @@
 
 <mapper namespace="com.example.repository.GoodsMapper">
 	
-	<select id="findByPage" resultType="Goods">
+	<select id="findByPage" resultType="GoodsItem">
 		SELECT g.*, c.name AS categoryName
 		FROM goods AS g
 		INNER JOIN category AS c ON g.category_id = c.id 
@@ -17,7 +17,7 @@
 		WHERE is_deleted = 0
 	</select>
 	
-	<select id="findById" resultType="Goods">
+	<select id="findById" resultType="GoodsItem">
 		SELECT g.*, c.name AS categoryName
     	FROM goods AS g
 		INNER JOIN category AS c ON g.category_id = c.id 

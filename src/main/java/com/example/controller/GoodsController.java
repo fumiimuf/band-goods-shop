@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.entity.Goods;
+import com.example.model.GoodsItem;
 import com.example.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class GoodsController {
 		int size = 8;
 		
 		// Serviceに「ページ番号」と「件数」を渡してリストを取得
-		List<Goods> goodsList = goodsService.findByPage(page, size);
+		List<GoodsItem> goodsList = goodsService.findByPage(page, size);
 		
 		// 全体の件数を数えます（全何ページあるか計算するため）
 		long totalCount = goodsService.count();

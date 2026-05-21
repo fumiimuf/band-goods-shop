@@ -19,8 +19,6 @@ public class Goods {
 	
 	private Integer categoryId;
 	
-	private String categoryName;
-	
 	private LocalDateTime createDateTime;
 	
 	private LocalDateTime deleteDateTime;
