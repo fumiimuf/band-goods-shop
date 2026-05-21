@@ -25,30 +25,6 @@ public class CartController {
 
 	private final CartService cartService;
 	
-	// カート追加処理
-//	@PostMapping("/add")
-//	public String postAdd(
-//			@RequestParam("goodsId") Integer goodsId, 
-//			@AuthenticationPrincipal LoginUser loginUser) {
-//		
-//		// データベースから商品情報を取得
-//		Goods goods = goodsService.findById(goodsId);
-//		
-//		// 商品が見つからない場合は一覧へ戻る(安全策)
-//		if (goods == null) {
-//			return "redirect:/goods";
-//		}
-//		
-//		// ログインユーザーから本物のIDを取得
-//		Integer userId = loginUser.getUserId();
-//		
-//		// 現在のカードに同じ商品があるか確認。あり→個数を更新 なし→商品追加
-//		cartService.addOrUpdateCart(userId, goodsId);
-//		
-//		//【完了】商品一覧画面へ戻る
-//		return "redirect:/goods";
-//	}
-	
 	// カート内容表示
 	@GetMapping("/index")
 	public String index(@AuthenticationPrincipal LoginUser loginUser, Model model) {

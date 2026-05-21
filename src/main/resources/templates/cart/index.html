@@ -97,7 +97,7 @@
 			</h3>
 
 			<a th:href="@{/goods}" class="btn btn-secondary">戻る</a> 
-			<a th:href="@{/checkout}" 
+			<a th:href="@{/order/confirm}" 
 				class="btn" 
 				th:classappend="${cartList.^[isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'">購入へ進む</a>
 		</div>
