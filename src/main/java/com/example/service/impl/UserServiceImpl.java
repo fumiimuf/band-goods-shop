@@ -1,6 +1,5 @@
 package com.example.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -8,14 +7,15 @@ import com.example.entity.User;
 import com.example.repository.UserMapper;
 import com.example.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserMapper userMapper;
+	private final UserMapper userMapper;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public boolean insertOne(User user) {
@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService {
 		// 成功したらtrueを返す
 		return true;
 		
+	}
+
+	@Override
+	public User findById(Integer userId) {
+		return userMapper.findById(userId);
 	}
 	
 	

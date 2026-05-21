@@ -12,4 +12,8 @@ public interface UserMapper {
 	
 	// ユーザー情報1件を登録する
 	public void insertOne(User user);
+	
+	// IDでユーザー情報を1件取得
+	User findById(Integer userId);
+	
 }
