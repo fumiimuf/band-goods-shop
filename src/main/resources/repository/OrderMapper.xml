@@ -3,7 +3,7 @@
 
 <mapper namespace="com.example.repository.OrderMapper">
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO 'order' (
+		INSERT INTO `order` (
 			user_id,
 			ordered_name,
 			ordered_zip_code,

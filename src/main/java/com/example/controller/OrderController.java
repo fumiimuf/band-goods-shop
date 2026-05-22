@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 
+
 @Controller
 @RequestMapping("/order")
 @Slf4j
@@ -95,5 +96,10 @@ public class OrderController {
 		}
 	}
 	
+	// 注文完了画面を表示
+	@GetMapping("/success")
+	public String getMethodName() {
+		return "order/success";
+	}
 	
 }
