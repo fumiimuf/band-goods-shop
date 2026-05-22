@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>注文内容の確認</title>
+</head>
+<body>
+
+    <main layout:fragment="content">
+        <div class="container my-3">
+            
+            <h1 class="mb-4">注文内容の確認</h1>
+            
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    
+                    <div class="card mb-4 shadow-sm border-0">
+                        <div class="card-header bg-dark text-white fw-bold py-3">
+                            <span class="bi bi-truck me-2">お届け先情報</span>
+                        </div>
+                        <div class="card-body p-4 border border-top-0 rounded-bottom">
+                            <div class="mb-3">
+                                <label class="text-muted small d-block mb-1">郵便番号</label>
+                                <p class="h5 mb-0 fw-bold" th:text="|〒 ${user.zipCode}|"></p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-muted small d-block mb-1">住所</label>
+                                <p class="h5 mb-0 fw-bold" th:text="${user.address}"></p>
+                            </div>
+                            <div class="mb-0">
+                                <label class="text-muted small d-block mb-1">お名前</label>
+                                <p class="h5 mb-0 fw-bold" th:text="|${user.name} 様|"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-dark text-white fw-bold py-3">
+                            <span class="bi bi-bag-check me-2">購入商品</span>
+                        </div>
+                        <div class="card-body p-0 border border-top-0 rounded-bottom overflow-hidden">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 120px;" class="ps-4">商品画像</th>
+                                        <th>商品名</th>
+                                        <th class="text-end">単価</th>
+                                        <th class="text-center">数量</th>
+                                        <th class="text-end pe-4">小計</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${cartList}">
+                                        <td class="ps-4">
+                                            <img th:src="@{/{img}(img=${item.image})}" alt="商品画像" class="img-fluid rounded border shadow-sm" style="max-height: 70px;">
+                                        </td>
+                                        <td>
+                                            <span class="fw-bold" th:text="${item.name}">バンドTシャツ</span>
+                                        </td>
+                                        <td class="text-end" th:text="|¥ ${#numbers.formatInteger(item.price, 3, 'COMMA')}|">¥ 3,000</td>
+                                        <td class="text-center" th:text="|${item.quantity} 個|">1 個</td>
+                                        <td class="text-end pe-4 fw-bold text-primary" th:text="|¥ ${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}|">¥ 3,000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="card shadow-sm border-0 sticky-top" style="top: 2rem;">
+                        <div class="card-header bg-success text-white fw-bold text-center py-3">
+                            お支払い合計
+                        </div>
+                        <div class="card-body text-center p-4 border border-top-0 rounded-bottom">
+                            <p class="text-muted mb-2">総支払額（税込）</p>
+                            <h2 class="text-danger fw-bold mb-4" 
+                                th:text="|¥ ${#numbers.formatInteger(totalAmount, 3, 'COMMA')}|">¥ 0</h2>
+                            
+                            <form th:action="@{/order/complete}" method="post">
+                                <button type="submit" class="btn btn-danger btn-lg w-100 fw-bold py-3 mb-3 shadow-sm border-0">
+                                    注文を確定する
+                                </button>
+                            </form>
+                            
+                            <a th:href="@{/cart}" class="btn btn-outline-secondary w-100">
+                                <i class="bi bi-arrow-left me-2"></i>カートに戻る
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+</body>
+</html>
