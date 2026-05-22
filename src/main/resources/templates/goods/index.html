@@ -47,8 +47,7 @@
 							<div class="d-flex gap-1">
 								<!-- 商品説明ボタン -->
 								<button type="button" 
-										class="btn btn-outline-secondary btn-sm flex-fill text-nowrap" 
-										style="font-size: 0.75rem; padding: 0.25rem 0.1rem;" 
+										class="btn btn-outline-secondary btn-sm flex-fill text-nowrap small py-1 px-1" 
 										data-bs-toggle="popover" 
 										data-bs-placement="top" 
 										data-bs-container="body"
@@ -57,11 +56,10 @@
 									商品説明
 								</button>
 								<!-- カートに追加ボタン -->
-								<form th:action="@{/cart/add}" method="post" class="add-to-cart-form">
+								<form method="post" data-cart-add-form class="flex-fill d-flex">
 									<input type="hidden" name="goodsId" th:value="${goods.id}">
 								 
-									<button type="submit" class="btn btn-primary btn-sm flex-fill text-nowrap" 
-											style="font-size: 0.75rem; padding: 0.25rem 0.1rem;">
+									<button type="submit" class="btn btn-primary btn-sm w-100 flex-fill text-nowrap small py-1 px-1">
 										カートに追加
 									</button>
 								</form>

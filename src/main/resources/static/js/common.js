@@ -17,7 +17,7 @@ jQuery(function($) {
     $('[data-bs-toggle="popover"]').popover();
 
     // 2. カート追加（Ajax送信）
-    $('.add-to-cart-form').on('submit', function(e) {
+    $('[data-cart-add-form]').on('submit', function(e) {
         // ブラウザ本来のページ遷移をキャンセル
         e.preventDefault();
 
@@ -35,17 +35,17 @@ jQuery(function($) {
 	});
 	
 	// カート数量変更（Ajax送信）
-	$(document).on('change', '.update-quantity-select', function() {
+	$(document).on('change', '[data-cart-quantity-select]', function() {
 	    
 		// 操作されたセレクトボックスとその親フォームをキープ
 		const $select = $(this);
 		const $form = $select.closest('form');
 		
 		//「小計」のHTML要素を探しておく
-		const $subtotalCell = $form.closest('tr').find('.subtotal-cell');
+		const $subtotalCell = $form.closest('tr').find('[data-item-subtotal]');
 		
 		// 新しく通信を始める前に、過去のエラー表示をリセットします
-		$('.update-quantity-select').removeClass('is-invalid');
+		$('[data-cart-quantity-select]').removeClass('is-invalid');
 		$('.custom-error-message').hide();
 		
 	    $.post('/api/cart/update-quantity', $form.serialize())
