@@ -7,27 +7,35 @@
         <div class="container-fluid">
             <!-- サイト名 -->
             <a class="navbar-brand fw-bold" th:href="@{/goods}">バンドグッズECサイト</a>
+            
+            <button class="navbar-toggler" type="button"
+            		data-bs-toggle="collapse"
+            		data-bs-target="#navbarNavDropdown"
+            		aria-expanded="false"
+            		>
+            	<span class="navbar-toggler-icon"></span>
+            </button>
 
-            <div class="collapse navbar-collapse justify-content-end">
-                <ul class="navbar-nav align-items-center">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                <ul class="navbar-nav flex-row align-items-center w-100 justify-content-end py-2 py-lg-0">
                     
                     <!-- 1. 一般ユーザー用メニュー (sec:authorizeで制御) -->
                     <th:block sec:authorize="hasRole('USER')">
-                        <li class="nav-item px-2 text-white border-end">
+                        <li class="nav-item me-2 pe-3 text-white border-end">
                             <span th:text="${#authentication.principal.name} + ' 様'"></span>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item px-2">
                             <a class="nav-link text-white" th:href="@{/goods}">グッズ一覧</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item px-2">
                             <!-- カートの個数は、後ほど共通処理でモデルに詰めます -->
                             <a class="nav-link text-white font-weight-bold" th:href="@{/cart/index}">
                             	<!-- 【修正箇所】id="header-cart-count" を付与。これでJavaScriptから数字を操作できます -->
                                 カート(<span id="header-cart-count" class="text-danger" th:text="${cartCount != null ? cartCount : 0}"></span>)
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" th:href="@{/user/page}">ユーザーページ</a>
+                        <li class="nav-item px-2">
+                            <a class="nav-link text-white" th:href="@{/user/profile}">ユーザーページ</a>
                         </li>
                         <li class="nav-item px-2">
                             <a class="nav-link text-white" th:href="@{/order/history}">購入履歴</a>
@@ -45,7 +53,7 @@
                     </th:block>
 
                     <!-- 3. ログアウトボタン (共通) -->
-                    <li class="nav-item ms-3">
+                    <li class="nav-item ms-2 ms-sm-3">
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="btn btn-outline-light btn-sm">ログアウト</button>
                         </form>

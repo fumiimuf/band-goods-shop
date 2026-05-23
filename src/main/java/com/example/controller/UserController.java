@@ -1,8 +1,9 @@
 package com.example.controller;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,24 +11,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.config.LoginUser;
 import com.example.entity.User;
 import com.example.form.RegisterForm;
 import com.example.service.UserService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 
 
 
 @Controller
 @RequestMapping("/user")
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
 
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
 	
-	@Autowired
-	private ModelMapper modelMapper;
+	private final ModelMapper modelMapper;
 	
 	
 	/**
@@ -79,6 +82,28 @@ public class UserController {
 		log.info("ユーザー登録が正常に完了しました：{}", user.getEmail());
 		
 		return "redirect:/login?registerSuccess";
+	}
+	
+	/**
+	 * ユーザーページ（登録情報確認画面）を表示します。
+	 * * @param loginUser 認証情報から取得したログイン中のユーザーオブジェクト
+	 * @param model 画面へデータを渡すためのオブジェクト
+	 * @return ユーザーページ画面のテンプレートパス
+	 */
+	@GetMapping("/profile")
+	public String getUserProfile(@AuthenticationPrincipal LoginUser loginUser, Model model) {
+		
+		// ログインユーザーのIDを取得
+		Integer userId = loginUser.getUserId();
+		
+		// DBから最新のユーザー情報を取得
+		User user = userService.findById(userId);
+		
+		// modelに登録
+		model.addAttribute("user", user);
+		
+		// ユーザーページ画面へ遷移
+		return "user/profile";
 	}
 	
 }
