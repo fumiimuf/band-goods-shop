@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.config.LoginUser;
 import com.example.entity.User;
 import com.example.form.RegisterForm;
+import com.example.form.UserEditForm;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+
 
 
 
@@ -104,6 +107,57 @@ public class UserController {
 		
 		// ユーザーページ画面へ遷移
 		return "user/profile";
+	}
+	
+	/**
+	 * ユーザー編集画面を表示します。
+	 * * @param loginUser 認証情報から取得したログイン中のユーザーオブジェクト
+	 * @param userEditForm 画面に初期値を渡すためのフォームオブジェクト
+	 * @param model 画面へデータを渡すためのオブジェクト（必要に応じて使用）
+	 * @return ユーザー編集画面のテンプレートパス
+	 */
+	@GetMapping("/edit")
+	public String getUserEdit(@AuthenticationPrincipal LoginUser loginUser, 
+					@ModelAttribute UserEditForm userEditForm) {
+		
+		// ログインユーザーのIDを取得
+		Integer userId = loginUser.getUserId();
+		
+		// DBから最新のユーザー情報を取得
+		User user = userService.findById(userId);
+		
+		// ModelMapperを使い、DBから取得した情報を画面用の器（Form）に丸ごとコピーします
+		modelMapper.map(user, userEditForm);
+		
+		// 4. パスワードだけは画面設計書の仕様（空欄で表示）に基づき、意図的に空っぽ（空文字）にクリアします
+		userEditForm.setPassword("");
+		
+		// ユーザー更新画面へ遷移
+		return "user/edit";
+	}
+	
+	/**
+	 * ユーザー情報の更新処理を実行します。
+	 * * @param userEditForm 画面から送信された入力内容
+	 * @param bindingResult バリデーションの結果
+	 * @param loginUser ログイン中のユーザーオブジェクト
+	 * @return 更新成功時はプロフィール画面へのリダイレクト、失敗時は編集画面のパス
+	 */
+	@PostMapping("/update")
+	public String postUpdate(@ModelAttribute @Validated UserEditForm userEditForm, 
+					BindingResult bindingResult,
+					@AuthenticationPrincipal LoginUser loginUser) {
+		
+		// 入力チェック
+		if(bindingResult.hasErrors()) {
+			log.warn("ユーザー更新内容に不備があります：{}", bindingResult.getAllErrors());
+			return "user/edit";
+		}
+		
+		// フォームオブジェクトをUserクラスに変換
+		User user = modelMapper.map(userEditForm, User.class);
+			
+			return "";
 	}
 	
 }
