@@ -16,4 +16,6 @@ public interface UserMapper {
 	// IDでユーザー情報を1件取得
 	User findById(Integer userId);
 	
+	// ユーザー情報を更新
+	void updateUser(User user);
 }

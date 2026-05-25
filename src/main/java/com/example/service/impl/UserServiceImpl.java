@@ -42,6 +42,36 @@ public class UserServiceImpl implements UserService {
 	public User findById(Integer userId) {
 		return userMapper.findById(userId);
 	}
-	
+
+	// ユーザー情報を更新する
+	@Override
+	public boolean updateUser(User user) {
+		
+		// メールアドレスの重複チェック
+		User existingUser = userMapper.findByEmail(user.getEmail());
+		
+		// 同じメールアドレスが存在し、かつ、そのIDが自分自身のIDと異なる場合はと重複エラー
+		if (existingUser != null && !existingUser.getId().equals(user.getId())) {
+			return false;
+		}
+		
+		// パスワードの変更有無による処理分岐
+		// 画面で新しいパスワードが入力されているかチェック
+		if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+			
+			// 入力されている場合：パスワードを暗号化してセットする
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			
+		} else {
+			// 空の場合：パスワード変更しないので、DBの元のパスワードをそのままセット
+			User currentUser = userMapper.findById(user.getId());
+			user.setPassword(currentUser.getPassword());
+		}
+		
+		// DBのデータを更新する
+		userMapper.updateUser(user);
+		
+		return true;
+	}
 	
 }

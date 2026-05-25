@@ -157,7 +157,27 @@ public class UserController {
 		// フォームオブジェクトをUserクラスに変換
 		User user = modelMapper.map(userEditForm, User.class);
 			
-			return "";
+		// ログインユーザーのIDを取得
+		Integer userId = loginUser.getUserId();
+		
+		// 取得したIDをuserオブジェクトにセットする
+		user.setId(userId);
+		
+		log.info("更新処理を開始します：ID={}, Email={}", user.getId(), user.getEmail());
+		
+		// Serviceの更新処理を呼び出す
+		// メールアドレス重複などで失敗した場合は、編集画面に戻してエラーを表示します
+		if (!userService.updateUser(user)) {
+			log.warn("更新失敗：メールアドレスが既に存在します：{}", user.getEmail());
+			bindingResult.rejectValue("email", "error.duplicate.email");
+			
+			return "user/edit";
+		}
+		
+		log.info("ユーザー情報の更新が正常に完了しました：ID={}", user.getId());
+		
+		// 更新が成功したら、ユーザーページへリダイレクト
+		return "redirect:/user/profile";
 	}
 	
 }

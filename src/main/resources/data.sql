@@ -23,7 +23,8 @@ VALUES
 INSERT INTO `user` (`name`, `email`, `password`, `zip_code`, `address`, `is_admin`) 
 VALUES 
 ('管理者太郎', 'admin@example.com', '$2a$10$LBnjYnoTF42WzSG7BbQZFOApS/yRdpE2U0jhGwvC0LyLfeA6VSqi.', '123-4567', '大阪府大阪市...', 1), 
-('一般太郎', 'user@example.com', '$2a$10$LBnjYnoTF42WzSG7BbQZFOApS/yRdpE2U0jhGwvC0LyLfeA6VSqi.', '123-4567', '大阪府大阪市...', 0);
+('一般太郎', 'user@example.com', '$2a$10$LBnjYnoTF42WzSG7BbQZFOApS/yRdpE2U0jhGwvC0LyLfeA6VSqi.', '123-4567', '大阪府大阪市...', 0),
+('一般次郎', 'user2@example.com', '$2a$10$LBnjYnoTF42WzSG7BbQZFOApS/yRdpE2U0jhGwvC0LyLfeA6VSqi.', '234-5678', '大阪府堺市...', 0);
 
 ------------------------------------------- 
 -- 商品情報の初期データ（動作確認用）

@@ -63,7 +63,7 @@
 						<!-- 数量(ドロップダウン) -->
 						<td>
 							<span th:if="${item.isDeleted}">-</span>
-							<form th:unless="${item.isDeleted}" class="update-quantity-form">
+							<form th:action="@{/api/cart/update-quantity}" method="post" th:unless="${item.isDeleted}" class="update-quantity-form">
 								<input type="hidden" name="goodsId" th:value="${item.goodsId}"> 
 								<select name="quantity" class="form-select form-select-sm" data-cart-quantity-select>
 									<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i == item.quantity}"></option>

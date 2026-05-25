@@ -56,7 +56,7 @@
 									商品説明
 								</button>
 								<!-- カートに追加ボタン -->
-								<form method="post" data-cart-add-form class="flex-fill d-flex">
+								<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="flex-fill d-flex">
 									<input type="hidden" name="goodsId" th:value="${goods.id}">
 								 
 									<button type="submit" class="btn btn-primary btn-sm w-100 flex-fill text-nowrap small py-1 px-1">

@@ -7,4 +7,6 @@ public interface UserService {
 	public boolean insertOne(User user);
 	
 	User findById(Integer userId);
+	
+	boolean updateUser(User user);
 }

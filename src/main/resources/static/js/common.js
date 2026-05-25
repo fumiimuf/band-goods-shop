@@ -1,16 +1,5 @@
 jQuery(function($) { 
 	
-	// --- 💡 【重要】ここからセキュリティ設定を追加 ---
-    const token = $("meta[name='_csrf']").attr("content");
-    const header = $("meta[name='_csrf_header']").attr("content");
-    
-    // Ajax送信のたびに、自動的に合言葉（トークン）をヘッダーに詰める「おまじない」
-    $(document).ajaxSend(function(e, xhr, options) {
-        if (token && header) {
-            xhr.setRequestHeader(header, token);
-        }
-    });
-	
 	console.log("common.jsが読み込まれました。");
 	
     // 1. ポップオーバーの初期化 (既存の処理)
@@ -20,9 +9,13 @@ jQuery(function($) {
     $('[data-cart-add-form]').on('submit', function(e) {
         // ブラウザ本来のページ遷移をキャンセル
         e.preventDefault();
-
+		
+		const $form = $(this);
+		
+		const url = $form.attr('action');
+		
         // $.post(宛先, 送信データ) でシンプルに記述
-        $.post('/api/cart/add', $(this).serialize())
+        $.post(url, $form.serialize())
             .done((res) => {
                 // 成功：ヘッダーの個数を更新し、成功トーストを表示
                 $('#header-cart-count').text(res.newCartCount);
@@ -48,7 +41,9 @@ jQuery(function($) {
 		$('[data-cart-quantity-select]').removeClass('is-invalid');
 		$('.custom-error-message').hide();
 		
-	    $.post('/api/cart/update-quantity', $form.serialize())
+		const url = $form.attr('action');
+		
+	    $.post(url, $form.serialize())
 
 	        .done((res) => {
 				// カンマ区切りにするためのフォーマッター
@@ -63,13 +58,13 @@ jQuery(function($) {
 				// ヘッダーのカートアイコンの合計数
 				$('#header-cart-count').text(res.totalQuantity);
 	        })
-	        .fail((xhr) => {
-	            const msg = xhr.responseJSON?.message || "エラーが発生しました。";
+	        .fail(() => {
+	            //const msg = xhr.responseJSON?.message || "エラーが発生しました。";
 				
 				// 操作されたセレクトボックスだけを赤枠（is-invalid）にする
-			  	$select.addClass('is-invalid');
+			  	//$select.addClass('is-invalid');
 				
-				$form.find('.custom-error-message').text(msg).show();
+				//$form.find('.custom-error-message').text(msg).show();
 	            
 	            new bootstrap.Toast($('#errorToast')[0]).show();
 	        });
