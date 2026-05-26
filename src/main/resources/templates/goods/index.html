@@ -12,13 +12,13 @@
 			<!-- Ajax通知メッセージエリア -->
 			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
     
-			    <div id="successToast" class="toast align-items-center text-white bg-success border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+			    <div data-cart-success-toast class="toast align-items-center text-white bg-success border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
 			        <div class="d-flex">
 			            <div class="toast-body">カートに追加しました!</div>
 			        </div>
 			    </div>
 			
-			    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+			    <div data-cart-error-toast class="toast align-items-center text-white bg-danger border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
 			        <div class="d-flex">
 		            	<div class="toast-body">エラーが発生しました!</div>
 		        	</div>
@@ -71,11 +71,11 @@
 			</div>
 			<nav aria-label="Page navigation" class="mt-5">
 				<ul class="pagination justify-content-center">
-					<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'"><a class="page-item page-link" th:href="@{/goods(page=${currentPage - 1})}">前へ</a></li>
+					<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'"><a class="page-item page-link" th:href="@{/goods/index(page=${currentPage - 1})}">前へ</a></li>
 	
-					<li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'"><a class="page-link" th:href="@{/goods(page=${i})}" th:text="${i + 1}"></a></li>
+					<li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'"><a class="page-link" th:href="@{/goods/index(page=${i})}" th:text="${i + 1}"></a></li>
 	
-					<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'"><a class="page-link" th:href="@{/goods(page=${currentPage + 1})}">次へ</a></li>
+					<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'"><a class="page-link" th:href="@{/goods/index(page=${currentPage + 1})}">次へ</a></li>
 				</ul>
 			</nav>
 		</div>

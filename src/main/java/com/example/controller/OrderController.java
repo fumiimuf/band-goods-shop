@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.config.LoginUser;
 import com.example.entity.User;
 import com.example.model.CartItem;
+import com.example.model.OrderViewItem;
 import com.example.service.CartService;
 import com.example.service.OrderService;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 
 
 
@@ -101,5 +103,24 @@ public class OrderController {
 	public String getMethodName() {
 		return "order/success";
 	}
+	
+	// 注文履歴の画面を表示
+	@GetMapping("/history")
+	public String getOrderHistory(@AuthenticationPrincipal LoginUser loginUser, Model model) {
+		// ログインユーザーのIDを取得
+		Integer userId = loginUser.getUserId();
+		
+		// ユーザー情報を取得してModelに登録
+		User user = userService.findById(userId);
+		model.addAttribute("user",user);
+		
+		// 注文履歴(親子セット)を取得してModelに登録
+		List<OrderViewItem> historyList = orderService.getOrderHistory(userId);
+		model.addAttribute("historyList", historyList);
+		
+		// 画面遷移
+		return "order/history";
+	}
+	
 	
 }

@@ -18,4 +18,9 @@
 			#{quantity}
 		)
 	</insert>
+	
+	<select id="findByOrderId" resultType="OrderDetail">
+		SELECT * FROM order_detail 
+		WHERE order_id = #{orderId}
+	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import com.example.entity.Order;
 import com.example.entity.OrderDetail;
 import com.example.entity.User;
 import com.example.model.CartItem;
+import com.example.model.OrderViewItem;
 import com.example.repository.OrderDetailMapper;
 import com.example.repository.OrderMapper;
 import com.example.service.CartService;
@@ -65,5 +67,28 @@ public class OrderServiceImpl implements OrderService {
 		 cartService.deleteAllByUserId(user.getId());
 	}
 	
-	
+	@Override
+	public List<OrderViewItem> getOrderHistory(Integer userId) {
+		
+		List<OrderViewItem> historyList = new ArrayList<>();
+		
+		// ログインユーザーの注文履歴(親)を取得
+		List<Order> orders = orderMapper.findByUserId(userId);
+		
+		// 注文の件数文ループを回して、それぞれの明細(子)を回収する
+		for (Order order : orders) {
+			OrderViewItem viewItem = new OrderViewItem();
+			// 親をセット
+			viewItem.setOrder(order);
+			
+			// この注文IDに紐づく明細リストを取得
+			List<OrderDetail> details = orderDetailMapper.findByOrderId(order.getId());
+			// 子をセット
+			viewItem.setDetails(details);
+			
+			// 親子セットになったものを大元に格納
+			historyList.add(viewItem);
+		}
+		return historyList;
+	}
 }

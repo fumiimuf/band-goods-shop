@@ -17,4 +17,10 @@
 			#{totalPrice}
 		)
 	</insert>
+	
+	<select id="findByUserId" resultType="Order">
+		SELECT * FROM `order` 
+		WHERE user_id = #{userId} 
+		ORDER BY ordered_at DESC
+	</select>
 </mapper>
