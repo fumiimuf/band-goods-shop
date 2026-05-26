@@ -47,12 +47,12 @@
                     </div>
                     
                     <div class="col-9 col-sm-6 col-md-7">
-                        <h6 class="mb-0 fw-bold text-dark" th:text="${detail.orderedName}">バンドTシャツ</h6>
+                        <h6 class="mb-0 fw-bold text-dark" th:text="${detail.orderedName}"></h6>
                     </div>
                     
                     <div class="col-12 col-sm-4 col-md-4 text-sm-end mt-2 mt-sm-0">
                         <span class="text-muted small" th:text="'単価: ¥ ' + ${#numbers.formatInteger(detail.orderedPrice, 1, 'COMMA')}">単価: ¥ 2,500</span>
-                        <span class="badge bg-secondary ms-2" th:text="${detail.quantity} + ' 個'">1 個</span>
+                        <span class="badge bg-secondary ms-2" th:text="${detail.quantity} + ' 個'"></span>
                     </div>
                 </div>
             </div>

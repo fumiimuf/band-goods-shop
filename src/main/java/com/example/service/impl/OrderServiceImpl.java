@@ -67,6 +67,7 @@ public class OrderServiceImpl implements OrderService {
 		 cartService.deleteAllByUserId(user.getId());
 	}
 	
+	// ログインユーザーの注文履歴と明細をすべて取得する
 	@Override
 	public List<OrderViewItem> getOrderHistory(Integer userId) {
 		
@@ -91,4 +92,21 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return historyList;
 	}
+
+	// ログインユーザーの注文履歴と明細をページ指定して取得する
+	@Override
+	public List<OrderViewItem> getOrderHistoryByPage(Integer userId, int page, int size) {
+		
+		
+		return null;
+	}
+
+	// ログインユーザーの注文履歴が全部で何件あるか数える
+	@Override
+	public long countByUserId(Integer userId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
+	}
+	
+	
 }
