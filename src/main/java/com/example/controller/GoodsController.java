@@ -33,10 +33,10 @@ public class GoodsController {
 		int size = 8;
 		
 		// Serviceに「ページ番号」と「件数」を渡してリストを取得
-		List<GoodsItem> goodsList = goodsService.findByPage(page, size);
+		List<GoodsItem> goodsList = goodsService.findByPage(false, page, size);
 		
 		// 全体の件数を数えます（全何ページあるか計算するため）
-		long totalCount = goodsService.count();
+		long totalCount = goodsService.count(false);
 		
 		// 全体のページ数を計算します（端数は切り上げ。例：9件なら2ページ）
 		int totalPages = (int) Math.ceil((double) totalCount / size);

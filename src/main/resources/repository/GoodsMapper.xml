@@ -3,25 +3,65 @@
 
 <mapper namespace="com.example.repository.GoodsMapper">
 	
-	<select id="findByPage" resultType="GoodsItem">
-		SELECT g.*, c.name AS categoryName
+	<resultMap id="GoodsItemMap" type="GoodsItem">
+		<association property="goods" javaType="Goods">
+			<id property="id" column="goods_id"/>
+			<result property="name" column="goods_name"/>
+			<result property="price" column="price"/>
+			<result property="image" column="image"/>
+			<result property="description" column="description"/>
+			<result property="categoryId" column="category_id"/>
+			<result property="createDateTime" column="create_date_time"/>
+			<result property="deleteDateTime" column="delete_date_time"/>
+			<result property="isDeleted" column="is_deleted"/>
+		</association>
+		
+		<association property="category" javaType="Category">
+			<id property="id" column="category_id"/>
+			<result property="name" column="category_name"/>
+		</association>
+	</resultMap>
+	
+	
+	<select id="findByPage" resultMap="GoodsItemMap">
+		SELECT 
+			g.id AS goods_id,
+			g.name AS goods_name,
+			g.price,
+			g.image,
+			g.description,
+			g.category_id,
+			g.create_date_time,
+			g.delete_date_time,
+			g.is_deleted,
+			c.name AS category_name
 		FROM goods AS g
 		INNER JOIN category AS c ON g.category_id = c.id 
-		WHERE g.is_deleted = 0 
+		WHERE g.is_deleted = #{isDeleted} 
 		ORDER BY c.id ASC, g.create_date_time DESC
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
 	<select id="count" resultType="long">
 		SELECT COUNT(*) FROM goods
-		WHERE is_deleted = 0
+		WHERE is_deleted = #{isDeleted}
 	</select>
 	
-	<select id="findById" resultType="GoodsItem">
-		SELECT g.*, c.name AS categoryName
+	<select id="findById" resultMap="GoodsItemMap">
+		SELECT 
+			g.id AS goods_id,
+			g.name AS goods_name,
+			g.price,
+			g.image,
+			g.description,
+			g.category_id,
+			g.create_date_time,
+			g.delete_date_time,
+			g.is_deleted,
+			c.name AS category_name
     	FROM goods AS g
 		INNER JOIN category AS c ON g.category_id = c.id 
-    	WHERE g.id = #{id} AND g.is_deleted = 0
+    	WHERE g.id = #{id}
 	</select>
 	
 </mapper>

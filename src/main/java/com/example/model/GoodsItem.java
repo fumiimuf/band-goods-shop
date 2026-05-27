@@ -1,29 +1,14 @@
 package com.example.model;
 
-import java.time.LocalDateTime;
+import com.example.entity.Category;
+import com.example.entity.Goods;
 
 import lombok.Data;
 
 @Data
 public class GoodsItem {
 
-	private Integer id;
-
-	private String name;
-
-	private Integer price;
-
-	private String image;
-
-	private String description;
-
-	private Integer categoryId;
-
-	private String categoryName;
-
-	private LocalDateTime createDateTime;
-
-	private LocalDateTime deleteDateTime;
-
-	private Boolean isDeleted;
+	private Goods goods;
+	
+	private Category category;
 }

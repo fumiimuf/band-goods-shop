@@ -10,9 +10,12 @@ import com.example.model.GoodsItem;
 @Mapper
 public interface GoodsMapper {
 
-	List<GoodsItem> findByPage(@Param("limit") int limit, @Param("offset") int offset);
+	List<GoodsItem> findByPage(
+					@Param("isDeleted") boolean isDeleted, 
+					@Param("limit") int limit, 
+					@Param("offset") int offset);
 	
-	long count();
+	long count(boolean isDeleted);
 	
 	// 指定したIDのグッズを1件だけ取得
 	GoodsItem findById(int id);

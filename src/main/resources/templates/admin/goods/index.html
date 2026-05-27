@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
-<meta charset="UTF-8">
-<title>グッズ一覧(管理者)</title>
+    <meta charset="UTF-8">
+    <title>管理者用グッズ一覧</title>
 </head>
 <body>
-	<h2>ここは管理者用のグッズ一覧画面です。</h2>
+
+<main layout:fragment="content" class="bg-light min-vh-100 py-5">
+    <div class="container">
+        
+        <h2 class="mb-4 fw-bold text-dark">グッズ管理一覧</h2>
+        
+        <div class="mb-4">
+            <a th:href="@{/admin/goods/index(status='active')}" 
+               class="btn me-2" 
+               th:classappend="${currentStatus == 'active'} ? 'btn-dark' : 'btn-outline-dark'">
+                販売中
+            </a>
+            
+            <a th:href="@{/admin/goods/index(status='suspended')}" 
+               class="btn" 
+               th:classappend="${currentStatus == 'suspended'} ? 'btn-dark' : 'btn-outline-dark'">
+                停止中
+            </a>
+        </div>
+        
+        <table class="table table-bordered table-hover align-middle bg-white shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th style="width: 15%;">画像</th>
+                    <th style="width: 15%;">カテゴリ</th>
+                    <th>商品名</th>
+                    <th style="width: 15%;">単価</th>
+                    <th style="width: 20%;">登録/削除日時</th>
+                    <th style="width: 10%;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${goodsList}">
+                    <td>
+                        <img th:src="@{/images/{fileName}(fileName=${item.goods.image})}" 
+                             class="img-fluid rounded-1" style="max-height: 50px;" alt="商品画像">
+                    </td>
+                    <td th:text="${item.category.name}">カテゴリ</td>
+                    <td th:text="${item.goods.name}" class="fw-bold">商品名</td>
+                    <td th:text="${item.goods.price} + '円'">0円</td>
+                    <td th:text="${#temporals.format(item.goods.createDateTime, 'yyyy/MM/dd HH:mm')}" class="text-secondary small">2026/05/27</td>
+                    <td>
+                        <a th:href="@{/admin/goods/edit/{id}(id=${item.goods.id})}" class="btn btn-sm btn-primary px-3">
+                            更新
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <nav th:if="${totalPages > 0}" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                    th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link text-dark" 
+                       th:href="@{/admin/goods/index(status=${currentStatus}, page=${i})}" 
+                       th:text="${i + 1}">1</a>
+                </li>
+            </ul>
+        </nav>
+        
+    </div>
+</main>
+
 </body>
 </html>

@@ -97,15 +97,38 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderViewItem> getOrderHistoryByPage(Integer userId, int page, int size) {
 		
+		List<OrderViewItem> historyList = new ArrayList<>();
 		
-		return null;
+		// ページ番号と1ページあたりの件数からoffsetを計算
+		int offset = page * size;
+		
+		// ページに必要な件数だけの注文履歴(親)を取得
+		List<Order> orders = orderMapper.findByPage(userId, size, offset);
+		
+		// 取得した件数文(最大2件分)だけループで回して、それぞれの明細(子)を回収する
+		for (Order order : orders) {
+			OrderViewItem viewItem = new OrderViewItem();
+			
+			// 注文履歴(親)をセット
+			viewItem.setOrder(order);
+			
+			// この注文履歴に紐づくすべての明細リストを取得
+			List<OrderDetail> details = orderDetailMapper.findByOrderId(order.getId());
+			// 明細(子)をセット
+			viewItem.setDetails(details);
+			
+			// 親子セットが完成した一組を、表示用のリストに格納
+			historyList.add(viewItem);
+		}
+		
+		return historyList;
 	}
 
 	// ログインユーザーの注文履歴が全部で何件あるか数える
 	@Override
 	public long countByUserId(Integer userId) {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		
+		return orderMapper.countByUserId(userId);
 	}
 	
 	

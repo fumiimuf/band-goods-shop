@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.config.LoginUser;
 import com.example.entity.User;
@@ -19,9 +20,6 @@ import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-
-
 
 
 @Controller
@@ -106,7 +104,11 @@ public class OrderController {
 	
 	// 注文履歴の画面を表示
 	@GetMapping("/history")
-	public String getOrderHistory(@AuthenticationPrincipal LoginUser loginUser, Model model) {
+	public String getOrderHistory(
+					@RequestParam(name = "page", defaultValue = "0") int page,
+					@AuthenticationPrincipal LoginUser loginUser, 
+					Model model) {
+		
 		// ログインユーザーのIDを取得
 		Integer userId = loginUser.getUserId();
 		
@@ -114,9 +116,22 @@ public class OrderController {
 		User user = userService.findById(userId);
 		model.addAttribute("user",user);
 		
-		// 注文履歴(親子セット)を取得してModelに登録
-		List<OrderViewItem> historyList = orderService.getOrderHistory(userId);
+		// 1ページあたりの表示件数は「2件」と決める
+		int size = 2;
+		
+		// Serviceにページ番号で必要な2件分を取得する
+		List<OrderViewItem> historyList = orderService.getOrderHistoryByPage(userId, page, size);
+		
+		// ログインユーザーの全注文件数を取得する
+		long totalCount = orderService.countByUserId(userId);
+		
+		// 全体のページ数を計算する。
+		int totalPages = (int) Math.ceil((double) totalCount / size);
+		
+		// 画面(HTML)で使うためのデータをセットする
 		model.addAttribute("historyList", historyList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
 		
 		// 画面遷移
 		return "order/history";

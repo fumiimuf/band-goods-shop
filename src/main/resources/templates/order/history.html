@@ -56,9 +56,31 @@
                     </div>
                 </div>
             </div>
-            
         </div>
+        <!-- ページネーション -->
+        <nav th:if="${totalPages > 1}" aria-label="注文履歴ページナビゲーション" class="mt-5">
+            <ul class="pagination justify-content-center shadow-sm">
+                
+                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                    <a class="page-link link-secondary" th:href="@{/order/history(page=${currentPage - 1})}">前へ</a>
+                </li>
 
+                <li class="page-item" 
+                    th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                    th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link" 
+                       th:classappend="${i == currentPage} ? 'bg-secondary border-secondary text-white' : 'link-secondary'"
+                       th:href="@{/order/history(page=${i})}" 
+                       th:text="${i + 1}">1</a>
+                </li>
+
+                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                    <a class="page-link link-secondary" th:href="@{/order/history(page=${currentPage + 1})}">次へ</a>
+                </li>
+                
+            </ul>
+        </nav>
+        
         <div class="text-center mt-5">
             <a th:href="@{/goods/index}" class="btn btn-outline-secondary px-4 py-2 shadow-sm">
                 <i class="bi bi-arrow-left me-2"></i>グッズ一覧へ戻る
