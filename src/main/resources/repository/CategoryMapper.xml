@@ -3,4 +3,8 @@
 
 <mapper namespace="com.example.repository.CategoryMapper">
 	
+	<select id="findAll" resultType="Category">
+		SELECT * FROM category 
+		ORDER BY id ASC
+	</select>
 </mapper>

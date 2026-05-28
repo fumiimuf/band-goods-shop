@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"> <head>
+    <meta charset="UTF-8">
+    <title>F-2 グッズ登録</title>
+</head>
+<body>
+
+<main layout:fragment="content">
+    <div class="container mt-5" style="max-width: 600px;">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title mb-4">グッズ登録</h2>
+                
+                <form th:action="@{/admin/goods/register}" th:object="${goodsForm}" method="post" enctype="multipart/form-data">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">商品名 <span class="badge bg-danger">必須</span></label>
+                        <input type="text" th:field="*{goodsName}" class="form-control" placeholder="例：ツアーTシャツ2026 (Black)">
+                        <div class="text-danger small" th:if="${#fields.hasErrors('goodsName')}" th:errors="*{goodsName}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">価格（税込） <span class="badge bg-danger">必須</span></label>
+                        <div class="input-group">
+                            <input type="number" th:field="*{price}" class="form-control" placeholder="例：3500">
+                            <span class="input-group-text">円</span>
+                        </div>
+                        <div class="text-danger small" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">商品画像 <span class="badge bg-danger">必須</span></label>
+                        <input type="file" th:field="*{imageFile}" class="form-control" accept="image/*">
+                        <div class="text-danger small" th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">商品説明 <span class="badge bg-danger">必須</span></label>
+                        <textarea th:field="*{description}" class="form-control" rows="4" placeholder="商品の詳細やサイズ展開、素材などについて入力してください。"></textarea>
+                        <div class="text-danger small" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">カテゴリ <span class="badge bg-danger">必須</span></label>
+                        <select th:field="*{categoryId}" class="form-select">
+                            <option value="">カテゴリを選択してください</option>
+                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                        </select>
+                        <div class="text-danger small" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a th:href="@{/admin/goods/index}" class="btn btn-secondary">戻る</a>
+                        <button type="submit" class="btn btn-primary">登録</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
