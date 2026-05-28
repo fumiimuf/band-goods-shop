@@ -32,9 +32,9 @@ public class OrderServiceImpl implements OrderService {
 		
 		// 販売終了の商品がないか確認
 		for (CartItem item : cartList) {
-			if (item.getIsDeleted() != null && item.getIsDeleted()) {
+			if (item.getGoods() != null && item.getGoods().getIsDeleted() != null && item.getGoods().getIsDeleted()) {
 				// 販売終了の商品が含まれていたら、独自の例外を発生させて処理を中断します
-				throw new IllegalStateException(item.getName() + " は販売終了しているため、注文できません。");
+				throw new IllegalStateException(item.getGoods().getName() + " は販売終了しているため、注文できません。");
 			}
 		}
 		
@@ -55,9 +55,9 @@ public class OrderServiceImpl implements OrderService {
         	// 自動採番されたばかりの注文ID（order.getId()）をセットします
         	detail.setOrderId(order.getId());
         	// カート内の商品情報を、購入時の状態としてセットします
-        	detail.setOrderedImage(item.getImage());
-			detail.setOrderedName(item.getName());
-			detail.setOrderedPrice(item.getPrice());
+        	detail.setOrderedImage(item.getGoods().getImage());
+			detail.setOrderedName(item.getGoods().getName());
+			detail.setOrderedPrice(item.getGoods().getPrice());
 			detail.setQuantity(item.getQuantity());
 			
 			// 子テーブル（order_detail）に1件分をインサート

@@ -60,7 +60,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public int calculateSubtotal(List<CartItem> cartList, Integer goodsId) {
 		for (CartItem item : cartList) {
-			if (item.getGoodsId().equals(goodsId)) {
+			if (item.getGoods() != null && item.getGoods().getId().equals(goodsId)) {
 				return item.getSubtotal();
 			}
 		}
@@ -73,7 +73,7 @@ public class CartServiceImpl implements CartService {
 		int totalAmount = 0;
 		for (CartItem item : cartlist) {
 			// 販売終了（isDeletedがtrue）の商品は計算をスキップする
-			if (item.getIsDeleted() != null && item.getIsDeleted()) {
+			if (item.getGoods() != null && item.getGoods().getIsDeleted() != null && item.getGoods().getIsDeleted()) {
 				continue;
 			}
 			totalAmount += item.getSubtotal();
@@ -92,7 +92,7 @@ public class CartServiceImpl implements CartService {
 		if (cartList != null) {
 			for (CartItem item : cartList) {
 				// 販売終了（isDeletedがtrue）の商品は合計個数に含めない
-				if (item.getIsDeleted() != null && item.getIsDeleted()) {
+				if (item.getGoods() != null && item.getGoods().getIsDeleted() != null && item.getGoods().getIsDeleted()) {
 					continue;
 				}
 				totalCount += item.getQuantity();

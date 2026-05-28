@@ -3,6 +3,18 @@
 
 <mapper namespace="com.example.repository.CartMapper">
 	
+	<resultMap id="CartItemMap" type="CartItem">
+		<result property="quantity" column="quantity"/>
+		
+		<association property="goods" javaType="Goods">
+			<id property="id" column="id"/>
+			<result property="name" column="name"/>
+			<result property="price" column="price"/>
+			<result property="image" column="image"/>
+			<result property="isDeleted" column="is_deleted"/>
+		</association>
+	</resultMap>
+	
 	<!-- カートのグッズを取得 -->
 	<select id="findByGoodsId" resultType="Cart">
 		SELECT * FROM cart 
@@ -25,9 +37,9 @@
 	</update>
 	
 	<!-- ログインユーザーのカート内のグッズをすべて取得 -->
-	<select id="findByUserId" resultType="CartItem">
+	<select id="findByUserId" resultMap="CartItemMap">
 		SELECT
-			g.id AS goodsId, 
+			g.id, 
 			g.name, 
 			g.price, 
 			g.image, 

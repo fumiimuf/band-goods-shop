@@ -44,27 +44,27 @@
 					<tr th:each="item : ${cartList}">
 						<!-- 商品情報(商品画像) -->
 						<td>
-							<img th:src="@{/{img}(img=${item.image})}" alt="商品画像" width="80" class="img-fluid rounded">
+							<img th:src="@{/images/{img}(img=${item.goods.image})}" alt="商品画像" width="80" class="img-fluid rounded">
 						</td>
 						<!-- 商品情報(商品名) -->
 						<td>
-							<span th:classappend="${item.isDeleted} ? 'text-muted' : ''"
-								th:text="${item.name}"></span>
+							<span th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
+								th:text="${item.goods.name}"></span>
 							<!-- 販売終了バッジとそれを促すメッセージ -->
-							<div th:if="${item.isDeleted}" class="mt-2">
+							<div th:if="${item.goods.isDeleted}" class="mt-2">
 				                <span class="badge bg-danger">販売終了</span>
 				                <br>
 				                <span class="text-danger small fw-bold">※この商品は現在購入できません。削除してください。</span>
 				            </div>
 						</td>
 						<!-- 単価 -->
-						<td th:classappend="${item.isDeleted} ? 'text-muted' : ''"
-							th:text="|¥ ${#numbers.formatInteger(item.price, 3, 'COMMA')}|"></td>
+						<td th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
+							th:text="|¥ ${#numbers.formatInteger(item.goods.price, 3, 'COMMA')}|"></td>
 						<!-- 数量(ドロップダウン) -->
 						<td>
-							<span th:if="${item.isDeleted}">-</span>
-							<form th:action="@{/api/cart/update-quantity}" method="post" th:unless="${item.isDeleted}" data-cart-quantity-form>
-								<input type="hidden" name="goodsId" th:value="${item.goodsId}"> 
+							<span th:if="${item.goods.isDeleted}">-</span>
+							<form th:action="@{/api/cart/update-quantity}" method="post" th:unless="${item.goods.isDeleted}" data-cart-quantity-form>
+								<input type="hidden" name="goodsId" th:value="${item.goods.id}"> 
 								<select name="quantity" class="form-select form-select-sm" data-cart-quantity-select>
 									<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i == item.quantity}"></option>
 								</select>
@@ -76,15 +76,15 @@
 
 						</td>
 						<!-- 小計 -->
-						<td data-item-subtotal th:classappend="${item.isDeleted} ? 'text-muted' : ''">
-							<span th:if="${item.isDeleted}">¥ 0</span>
-    						<span th:unless="${item.isDeleted}" 
+						<td data-item-subtotal th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''">
+							<span th:if="${item.goods.isDeleted}">¥ 0</span>
+    						<span th:unless="${item.goods.isDeleted}" 
     							th:text="|¥ ${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}|"></span>
 						</td>
 						<!-- 削除ボタン -->
 						<td>
 							<form th:action="@{/cart/delete}" method="post">
-								<input type="hidden" name="goodsId" th:value="${item.goodsId}">
+								<input type="hidden" name="goodsId" th:value="${item.goods.id}">
 								<button type="submit" class="btn btn-danger btn-sm">削除</button>
 							</form>
 						</td>
@@ -99,7 +99,7 @@
 			<a th:href="@{/goods/index}" class="btn btn-secondary">戻る</a> 
 			<a th:href="@{/order/confirm}" 
 				class="btn" 
-				th:classappend="${cartList.^[isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'">購入へ進む</a>
+				th:classappend="${cartList.^[goods.isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'">購入へ進む</a>
 		</div>
 
 	</main>

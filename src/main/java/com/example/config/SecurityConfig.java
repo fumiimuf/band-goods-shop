@@ -32,6 +32,7 @@ public class SecurityConfig {
 				.permitAll()
 			)
 			.authorizeHttpRequests(authorize -> authorize
+					.requestMatchers("/favicon.ico").permitAll()
 					.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 					.requestMatchers("/login", "/user/register").permitAll()
 					.requestMatchers("/admin/**").hasRole("ADMIN")
