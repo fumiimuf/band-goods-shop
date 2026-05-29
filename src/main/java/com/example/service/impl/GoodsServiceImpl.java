@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.entity.Goods;
 import com.example.model.GoodsItem;
 import com.example.repository.GoodsMapper;
 import com.example.service.GoodsService;
@@ -32,5 +33,12 @@ public class GoodsServiceImpl implements GoodsService {
 		// Mapperを呼び出して1件取得
 		return goodsMapper.findById(id);
 	}
+
+	@Override
+	public void registerGoods(Goods goods) {
+		goodsMapper.insert(goods);
+	}
+	
+	
 
 }

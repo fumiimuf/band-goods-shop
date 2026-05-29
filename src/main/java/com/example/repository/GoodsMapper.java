@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.example.entity.Goods;
 import com.example.model.GoodsItem;
 
 @Mapper
@@ -19,5 +20,8 @@ public interface GoodsMapper {
 	
 	// 指定したIDのグッズを1件だけ取得
 	GoodsItem findById(int id);
+	
+	// グッズを新しく登録
+	void insert(Goods goods);
 	
 }

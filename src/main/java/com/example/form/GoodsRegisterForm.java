@@ -10,12 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 
 @Data // 💡 これだけでゲッター・セッター、toStringなどが裏で自動生成されます！
-public class GoodsForm {
+public class GoodsRegisterForm {
 
 	// 商品名（設計書より：必須、50文字以内）
 	@NotBlank
 	@Size(max = 50)
-	private String goodsName;
+	private String name;
 
 	// 価格（設計書より：必須、0以上の半角数字）
 	@NotNull

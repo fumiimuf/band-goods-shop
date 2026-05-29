@@ -11,9 +11,12 @@
 <main layout:fragment="content" class="bg-light min-vh-100 py-5">
     <div class="container">
         
-        <h2 class="mb-4 fw-bold text-dark">グッズ管理一覧</h2>
-        
-        <a th:href="@{/admin/goods/register}" class="btn btn-primary">新規グッズ登録</a>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+		    <h2 class="fw-bold text-dark mb-0">グッズ管理一覧</h2>
+		    <a th:href="@{/admin/goods/register}" class="btn btn-primary">新規グッズ登録</a>
+		</div>
+		
+		<hr>
         
         <div class="mb-4">
             <a th:href="@{/admin/goods/index(status='active')}" 
@@ -32,19 +35,20 @@
         <table class="table table-bordered table-hover align-middle bg-white shadow-sm">
             <thead class="table-dark">
                 <tr>
-                    <th style="width: 15%;">画像</th>
-                    <th style="width: 15%;">カテゴリ</th>
+                    <th>画像</th>
+                    <th>カテゴリ</th>
                     <th>商品名</th>
-                    <th style="width: 15%;">単価</th>
-                    <th style="width: 20%;">登録/削除日時</th>
-                    <th style="width: 10%;">操作</th>
+                    <th>単価</th>
+                    <th>登録/削除日時</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="item : ${goodsList}">
                     <td>
                         <img th:src="@{/images/{fileName}(fileName=${item.goods.image})}" 
-                             class="img-fluid rounded-1" style="max-height: 50px;" alt="商品画像">
+                        	width="80"
+                             class="img-fluid rounded" alt="商品画像">
                     </td>
                     <td th:text="${item.category.name}">カテゴリ</td>
                     <td th:text="${item.goods.name}" class="fw-bold">商品名</td>

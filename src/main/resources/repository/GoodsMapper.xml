@@ -64,4 +64,21 @@
     	WHERE g.id = #{id}
 	</select>
 	
+	<insert id="insert">
+		INSERT INTO goods (
+			name,
+			price,
+			image,
+			description,
+			category_id,
+			is_deleted
+		) VALUES (
+			#{name},
+			#{price},
+			#{image},
+			#{description},
+			#{categoryId},
+			#{isDeleted}
+		)
+	</insert>
 </mapper>
