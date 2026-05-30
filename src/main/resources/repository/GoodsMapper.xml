@@ -81,4 +81,17 @@
 			#{isDeleted}
 		)
 	</insert>
+	
+	<update id="update">
+		UPDATE goods 
+		SET 
+			name = #{name}, 
+			price = #{price}, 
+			image = #{image}, 
+			description = #{description}, 
+			category_id = #{categoryId}, 
+			is_deleted = #{isDeleted} 
+		WHERE
+			id = #{id}
+	</update>
 </mapper>

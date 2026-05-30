@@ -24,4 +24,7 @@ public interface GoodsMapper {
 	// グッズを新しく登録
 	void insert(Goods goods);
 	
+	// 指定したIDのグッズ情報を上書き更新
+	void update(Goods goods);
+	
 }

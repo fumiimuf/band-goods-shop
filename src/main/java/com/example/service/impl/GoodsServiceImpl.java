@@ -38,6 +38,12 @@ public class GoodsServiceImpl implements GoodsService {
 	public void registerGoods(Goods goods) {
 		goodsMapper.insert(goods);
 	}
+
+	@Override
+	public void updateGoods(Goods goods) {
+		goodsMapper.update(goods);
+		
+	}
 	
 	
 
