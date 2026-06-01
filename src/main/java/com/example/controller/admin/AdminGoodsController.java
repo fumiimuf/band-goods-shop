@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -120,6 +121,27 @@ public class AdminGoodsController {
 		// 画像ファイルが選択されているかチェック
 		if (imageFile != null && !imageFile.isEmpty()) {
 			try {
+				// 画像の縦横サイズチェック
+				// マルチパートファイルをJava標準のBufferedImageに変換
+				BufferedImage bufferedImage = ImageIO.read(imageFile.getInputStream());
+				
+				if (bufferedImage != null) {
+					// 画像の横幅を取得
+					int width = bufferedImage.getWidth();
+					// 画像の縦幅を取得
+					int height = bufferedImage.getHeight();
+					
+					// 600x600ピクセル以外の場合はエラーにする
+					if (width > 600 || height > 600) {
+						bindingResult.rejectValue("imageFile", "error.imageFile.size");
+						
+						// カテゴリ一覧を再取得して登録画面のHTMLへ送り返す
+						List<Category> categories = categoryService.getAllCategories();
+						model.addAttribute("categories", categories);
+						return "admin/goods/register";
+					}
+				}
+				
 				// 元のファイル名を取得
 				String originalFileName = imageFile.getOriginalFilename();
 
@@ -197,6 +219,13 @@ public class AdminGoodsController {
 		if (existingGoods == null) {
 			return "redirect:/admin/goods/index";
 		}
+		
+		// 削除フラグが停止中(true)に変更された場合、現在日時をセットする
+		if (goodsEditForm.getIsDeleted()) {
+			goodsEditForm.setDeleteDateTime(LocalDateTime.now());
+		} else {
+			goodsEditForm.setDeleteDateTime(null);
+		}
 
 		// Formの入力値を、DB保存用の「Goodsエンティティ」へ変換（コピー）
 		Goods goods = modelMapper.map(goodsEditForm, Goods.class);
@@ -218,7 +247,7 @@ public class AdminGoodsController {
 					int height = bufferedImage.getHeight();
 					
 					// 600x600ピクセル以外の場合はエラーにする
-					if (width != 600 || height != 600) {
+					if (width > 600 || height > 600) {
 						bindingResult.rejectValue("imageFile", "error.imageFile.size");
 						
 						// カテゴリ一覧を再取得して登録画面のHTMLへ送り返す
@@ -253,6 +282,8 @@ public class AdminGoodsController {
 			goods.setImage(existingGoods.getGoods().getImage());
 		}
 
+		
+		
 		// サービスを呼び出して、DBのデータを上書き更新する
 		goodsService.updateGoods(goods);
 

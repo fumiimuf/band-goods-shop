@@ -1,5 +1,7 @@
 package com.example.form;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,5 +34,7 @@ public class GoodsEditForm {
 	@NotNull
 	private Integer categoryId;
 	
-	private Integer isDeleted;
+	private Boolean isDeleted;
+	
+	private LocalDateTime deleteDateTime;
 }

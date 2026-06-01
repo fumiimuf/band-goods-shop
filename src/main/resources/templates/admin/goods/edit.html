@@ -81,8 +81,8 @@
                         <select th:field="*{isDeleted}"
                         		class="form-select" 
                         		th:classappend="${#fields.hasErrors('isDeleted')} ? 'is-invalid' : 'is-valid'">
-                            <option value="0">販売中</option>
-                            <option value="1">停止中</option>
+                            <option th:value="false">販売中</option>
+                            <option th:value="true">停止中</option>
                         </select>
                         <div class="text-danger small" th:if="${#fields.hasErrors('isDeleted')}" th:errors="*{isDeleted}"></div>
                     </div>
