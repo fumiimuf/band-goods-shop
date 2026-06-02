@@ -7,6 +7,10 @@ import lombok.Data;
 @Data
 public class CartItem {
 
+	private Integer userId;
+	
+	private Integer goodsId;
+	
 	private Goods goods;
 	
     private Integer quantity;

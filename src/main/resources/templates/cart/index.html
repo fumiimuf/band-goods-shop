@@ -72,9 +72,8 @@
 								<!-- エラーメッセージ -->
 								<div data-quantity-error-message class="invalid-feedback" style="display: none;"></div>
 							</form> 
-							
-
 						</td>
+						
 						<!-- 小計 -->
 						<td data-item-subtotal th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''">
 							<span th:if="${item.goods.isDeleted}">¥ 0</span>

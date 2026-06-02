@@ -28,7 +28,7 @@ jQuery(function($) {
 	});
 	
 	// カート数量変更（Ajax送信）
-	$(document).on('change', '[data-cart-quantity-select]', function() {
+	$('[data-cart-quantity-select]').on('change', function() {
 	    
 		// 操作されたセレクトボックスとその親フォームをキープ
 		const $select = $(this);

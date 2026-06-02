@@ -4,6 +4,10 @@
 <mapper namespace="com.example.repository.CartMapper">
 	
 	<resultMap id="CartItemMap" type="CartItem">
+	
+		<id property="userId" column="user_id"/>
+		<id property="goodsId" column="goods_id"/>
+		
 		<result property="quantity" column="quantity"/>
 		
 		<association property="goods" javaType="Goods">
