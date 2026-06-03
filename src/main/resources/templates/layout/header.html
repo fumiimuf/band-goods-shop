@@ -6,7 +6,16 @@
     <header th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <!-- サイト名 -->
-            <a class="navbar-brand fw-bold" th:href="@{/goods/index}">バンドグッズECサイト</a>
+            <div sec:authorize="hasRole('USER')" class="d-flex align-items-center">
+                <a class="navbar-brand fw-bold" th:href="@{/goods/index}">バンドグッズECサイト</a>
+            </div>
+            
+            <div sec:authorize="hasRole('ADMIN')" class="d-flex align-items-center">
+            	<a class="navbar-brand fw-bold" th:href="@{/admin/goods/index}">
+            		バンドグッズECサイト
+           		</a>
+           		<span class="badge bg-primary small">管理者用</span>
+            </div>
             
             <button class="navbar-toggler" type="button"
             		data-bs-toggle="collapse"
@@ -44,11 +53,16 @@
 
                     <!-- 2. 管理者用メニュー (Admin用) -->
                     <th:block sec:authorize="hasRole('ADMIN')">
-                        <li class="nav-item">
-                            <a class="nav-link text-warning" th:href="@{/admin/goods}">商品管理</a>
+                        <li class="nav-item px-2">
+                            <a class="nav-link text-white" th:href="@{/admin/goods/index}">グッズ一覧</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-warning" th:href="@{/admin/users}">ユーザー管理</a>
+                        
+                        <li class="nav-item px-2">
+                            <a class="nav-link text-white" th:href="@{/admin/user/list}">一般ユーザー一覧</a>
+                        </li>
+                        
+                        <li class="nav-item px-2">
+                        	<a class="nav-link text-white" th:href="@{/admin/orders}">販売履歴</a>
                         </li>
                     </th:block>
 

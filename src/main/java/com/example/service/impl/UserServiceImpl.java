@@ -1,5 +1,7 @@
 package com.example.service.impl;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -73,5 +75,19 @@ public class UserServiceImpl implements UserService {
 		
 		return true;
 	}
+
+	@Override
+	public List<User> findGeneralUsers(int page, int size) {
+		
+		int offset = page * size;
+		
+		return userMapper.findGeneralUsers(size, offset);
+	}
+
+	@Override
+	public int countGeneralUsers() {
+		return userMapper.countGeneralUsers();
+	}
+	
 	
 }

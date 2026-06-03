@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>一般ユーザー一覧(管理者)</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="container my-5">
+        
+        <h1 class="h2 fw-bold mb-4 border-bottom pb-2">一般ユーザー一覧</h1>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <table class="table table-striped table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" class="px-4 w-10">ID</th>
+                            <th scope="col" class="w-25">氏名</th>
+                            <th scope="col" class="w-50">メールアドレス</th>
+                            <th scope="col" class="text-center">詳細</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${userList}">
+                            <td class="px-4 fw-bold" th:text="${user.id}"></td>
+                            
+                            <td th:text="${user.name}"></td>
+                            
+                            <td th:text="${user.email}"></td>
+                            
+                            <td class="text-center text-nowrap">
+                                <a th:href="@{/admin/user/detail/{id}(id=${user.id})}" class="btn btn-primary btn-sm px-3">
+                                    詳細を表示
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <tr th:if="${#lists.isEmpty(userList)}">
+                            <td colspan="4" class="text-center text-muted py-4">
+                                一般ユーザーは登録されていません。
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <nav aria-label="一般ユーザー一覧ページナビゲーション" th:if="${totalPages > 0}" class="mt-5">
+            <ul class="pagination justify-content-center d-flex gap-1">
+                
+                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/user/list(page=${currentPage - 1})}">前へ</a>
+                </li>
+                
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                    th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link text-dark border-dark rounded-1" 
+                       th:href="@{/admin/user/list(page=${i})}" 
+                       th:text="${i + 1}"></a>
+                </li>
+                
+                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/user/list(page=${currentPage + 1})}">次へ</a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="mt-4 text-center">
+            <a th:href="@{/admin/goods/index}" class="btn btn-outline-dark px-4">戻る</a>
+        </div>
+        
+    </main>
+
+</body>
+</html>

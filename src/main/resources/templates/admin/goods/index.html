@@ -49,8 +49,14 @@
             <tbody>
                 <tr th:each="item : ${goodsList}">
                     <td>
-                        <img th:src="${item.imageUrl}" width="80" class="img-fluid rounded" alt="商品画像">
-                    </td>
+					    <img th:if="${#strings.startsWith(item.goods.image, '/')}"
+					         th:src="@{/images{path}(path=${item.goods.image})}" 
+					         width="80" class="img-fluid rounded" alt="初期商品画像">
+					
+					    <img th:unless="${#strings.startsWith(item.goods.image, '/')}"
+					         th:src="@{/uploaded-images/{fileName}(fileName=${item.goods.image})}" 
+					         width="80" class="img-fluid rounded" alt="更新商品画像">
+					</td>
                     <td th:text="${item.category.name}">カテゴリ</td>
                     <td th:text="${item.goods.name}" class="fw-bold">商品名</td>
                     <td th:text="${item.goods.price} + '円'">0円</td>

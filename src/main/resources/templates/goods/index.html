@@ -9,7 +9,6 @@
 	<main layout:fragment="content">
 		<div class="container my-5" style="max-width: 900px;">
 			
-			<!-- Ajax通知メッセージエリア -->
 			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
     
 			    <div data-cart-success-toast class="toast align-items-center text-white bg-success border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
@@ -26,7 +25,6 @@
 			</div>
 			
 			<h1 class="mb-4">グッズ一覧</h1>
-			<!-- カート内容の表示(一時的) -->
 			<a th:href="@{/cart/index}">カート内容へ</a>
 	
 			<hr>
@@ -34,19 +32,27 @@
 			<div class="row row-cols-1 row-cols-md-4 g-4">
 				<div class="col" th:each="item : ${goodsList}">
 					<div class="card h-100 shadow-sm">
-						<!-- 商品画像 -->
-						<img th:src="@{/images/{fileName}(fileName=${item.goods.image})}" 
-								class="card-img-top" alt="商品画像" style="height: 150px; object-fit: cover; background: #eee;">
+						
+						<img th:if="${#strings.startsWith(item.goods.image, '/')}"
+								th:src="@{/images{path}(path=${item.goods.image})}" 
+								class="card-img-top" 
+								alt="初期商品画像" 
+								style="height: 150px; object-fit: cover; background: #eee;">
 	
-						<div class="card-body">
-							<!-- 商品名 -->
+						<img th:unless="${#strings.startsWith(item.goods.image, '/')}"
+								th:src="@{/uploaded-images/{fileName}(fileName=${item.goods.image})}" 
+								class="card-img-top" 
+								alt="更新商品画像" 
+								style="height: 150px; object-fit: cover; background: #eee;">
+	
+						<div class="card-body d-flex flex-column">
 							<h5 class="card-title" th:text="${item.goods.name}">商品名</h5>
-							<!-- 価格 -->
-							<p class="card-text text-danger mb-0" th:text="|¥ ${item.goods.price}|">\0</p><!-- リテラル置換で価格を表示 -->
-							<!-- カテゴリ -->
-							<span class="badge rounded-pill bg-secondary fw-light mb-3" th:text="${item.category.name}"></span>
-							<div class="d-flex gap-1">
-								<!-- 商品説明ボタン -->
+							<p class="card-text text-danger mb-0" th:text="|¥ ${item.goods.price}|">\0</p>
+							<div class="mb-3">
+								<span class="badge rounded-pill bg-secondary fw-light" th:text="${item.category.name}"></span>
+							</div>
+							
+							<div class="d-flex gap-1 mt-auto">
 								<button type="button" 
 										class="btn btn-outline-secondary btn-sm flex-fill text-nowrap small py-1 px-1" 
 										data-bs-toggle="popover" 
@@ -56,20 +62,20 @@
 										th:data-bs-content="${item.goods.description}">
 									商品説明
 								</button>
-								<!-- カートに追加ボタン -->
-								<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="flex-fill d-flex">
+								<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="flex-fill d-flex m-0">
 									<input type="hidden" name="goodsId" th:value="${item.goods.id}">
 								 
 									<button type="submit" class="btn btn-primary btn-sm w-100 flex-fill text-nowrap small py-1 px-1">
 										カートに追加
 									</button>
 								</form>
-								
 							</div>
+							
 						</div>
 					</div>
 				</div>
 			</div>
+			
 			<nav aria-label="グッズ一覧ページナビゲーション" class="mt-5">
 				<ul class="pagination justify-content-center">
 					<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">

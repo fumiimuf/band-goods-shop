@@ -43,4 +43,15 @@
 		WHERE
 			id = #{id}
 	</update>
+	
+	<select id="findGeneralUsers" resultType="User">
+		SELECT * FROM user 
+		WHERE is_admin = 0 
+		ORDER BY id ASC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="countGeneralUsers" resultType="int">
+		SELECT COUNT(*) FROM user WHERE is_admin = 0
+	</select>
 </mapper>
