@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>一般ユーザー詳細</title>
+</head>
+<body>
+    <main layout:fragment="content" class="container my-5">
+        
+        <h1 class="h2 fw-bold mb-4 border-bottom pb-2">一般ユーザー詳細</h1>
+
+        <div class="card shadow-sm border-0 w-75 mx-auto">
+            <table class="table table-bordered mb-0">
+                <tr>
+                    <th class="bg-light w-25">ユーザーID</th>
+                    <td th:text="${user.id}"></td>
+                </tr>
+                <tr>
+                    <th class="bg-light">氏名</th>
+                    <td th:text="${user.name}"></td>
+                </tr>
+                <tr>
+                    <th class="bg-light">メールアドレス</th>
+                    <td th:text="${user.email}"></td>
+                </tr>
+                <tr>
+                    <th class="bg-light">郵便番号</th>
+                    <td th:text="${user.zipCode}"></td>
+                </tr>
+                <tr>
+                    <th class="bg-light">住所</th>
+                    <td th:text="${user.address}"></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="mt-4 text-center">
+            <a th:href="@{/admin/user/list}" class="btn btn-outline-dark px-4">戻る</a>
+        </div>
+        
+    </main>
+</body>
+</html>

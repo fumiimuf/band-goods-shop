@@ -24,8 +24,9 @@ public interface UserMapper {
 	
 	// 一般ユーザー全員を取得する
 	List<User> findGeneralUsers(
+			@Param("keyword") String keyword,
 			@Param("limit") int limit, 
 			@Param("offset") int offset);
 	
-	int countGeneralUsers();
+	int countGeneralUsers(String keyword);
 }

@@ -36,4 +36,13 @@
 		FROM `order` 
 		WHERE user_id = #{userId}
 	</select>
+	
+	<select id="findAllOrders" resultType="Order">
+		SELECT * FROM `order` 
+    	ORDER BY ordered_at DESC
+	</select>
+	
+	<select id="countAllOrders" resultType="long">
+	    SELECT COUNT(*) FROM `order`
+	</select>
 </mapper>

@@ -12,7 +12,7 @@ public interface UserService {
 	
 	boolean updateUser(User user);
 	
-	List<User> findGeneralUsers(int page, int size);
+	List<User> findGeneralUsers(String keyword, int page, int size);
 	
-	int countGeneralUsers();
+	int countGeneralUsers(String keyword);
 }

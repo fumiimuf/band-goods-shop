@@ -77,16 +77,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findGeneralUsers(int page, int size) {
+	public List<User> findGeneralUsers(String keyword, int page, int size) {
 		
 		int offset = page * size;
 		
-		return userMapper.findGeneralUsers(size, offset);
+		return userMapper.findGeneralUsers(keyword, size, offset);
 	}
 
 	@Override
-	public int countGeneralUsers() {
-		return userMapper.countGeneralUsers();
+	public int countGeneralUsers(String keyword) {
+		return userMapper.countGeneralUsers(keyword);
 	}
 	
 	

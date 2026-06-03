@@ -47,11 +47,18 @@
 	<select id="findGeneralUsers" resultType="User">
 		SELECT * FROM user 
 		WHERE is_admin = 0 
+		<if test="keyword != null and keyword != ''">
+        	AND (name LIKE CONCAT('%', #{keyword}, '%') OR email LIKE CONCAT('%', #{keyword}, '%'))
+    	</if>
 		ORDER BY id ASC
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
 	<select id="countGeneralUsers" resultType="int">
-		SELECT COUNT(*) FROM user WHERE is_admin = 0
+		SELECT COUNT(*) FROM user 
+		WHERE is_admin = 0 
+		<if test="keyword != null and keyword != ''">
+	        AND (name LIKE CONCAT('%', #{keyword}, '%') OR email LIKE CONCAT('%', #{keyword}, '%'))
+	    </if>
 	</select>
 </mapper>
