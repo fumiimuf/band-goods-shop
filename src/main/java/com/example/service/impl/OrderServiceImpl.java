@@ -130,6 +130,38 @@ public class OrderServiceImpl implements OrderService {
 		
 		return orderMapper.countByUserId(userId);
 	}
+
+	// 一般ユーザーの販売履歴を全件取得する
+	@Override
+	public List<OrderViewItem> getAllOrderHistoryByPage(int page, int size) {
+		
+		List<OrderViewItem> historyList = new ArrayList<>();
+		
+		int offset = page * size;
+		
+		// Mapperから全件取得
+		List<Order> orders = orderMapper.findAllOrdersByPage(size, offset);
+		
+		// 取得した注文履歴（親）をループし、それぞれに紐づく明細（子）をセットする
+		for (Order order : orders) {
+			OrderViewItem viewItem = new OrderViewItem();
+			
+			// 親をセット
+			viewItem.setOrder(order);
+			
+			// 既存の明細取得メソッドを利用して、この注文IDの明細を全て取得
+			List<OrderDetail> details = orderDetailMapper.findByOrderId(order.getId());
+			viewItem.setDetails(details);
+			
+			historyList.add(viewItem);
+		}
+		return historyList;
+	}
+
+	@Override
+	public long countAllOrders() {
+		return orderMapper.countAllOrders();
+	}
 	
 	
 }

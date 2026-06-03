@@ -18,4 +18,9 @@ public interface OrderService {
 	
 	// ログインユーザーの注文履歴が全部で何件あるか数える
 	long countByUserId(Integer userId);
+	
+	// 販売履歴を全件取得
+	List<OrderViewItem> getAllOrderHistoryByPage(int page, int size);
+	
+	long countAllOrders();
 }

@@ -1,15 +1,14 @@
 package com.example.model;
 
 import com.example.entity.Goods;
+import com.example.entity.User;
 
 import lombok.Data;
 
 @Data
 public class CartItem {
 
-	private Integer userId;
-	
-	private Integer goodsId;
+	private User user;
 	
 	private Goods goods;
 	

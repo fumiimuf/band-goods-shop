@@ -44,7 +44,15 @@
 					<tr th:each="item : ${cartList}">
 						<!-- 商品情報(商品画像) -->
 						<td>
-							<img th:src="@{/images/{img}(img=${item.goods.image})}" alt="商品画像" width="80" class="img-fluid rounded">
+							<img th:if="${#strings.startsWith(item.goods.image, '/')}"
+								th:src="@{/images{path}(path=${item.goods.image})}" 
+								class="card-img-top w-25" 
+								alt="初期商品画像">
+	
+							<img th:unless="${#strings.startsWith(item.goods.image, '/')}"
+									th:src="@{/uploaded-images/{fileName}(fileName=${item.goods.image})}" 
+									class="card-img-top w-25" 
+									alt="更新商品画像">
 						</td>
 						<!-- 商品情報(商品名) -->
 						<td>

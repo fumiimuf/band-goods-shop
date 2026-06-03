@@ -53,12 +53,20 @@
                                 <tbody>
                                     <tr th:each="item : ${cartList}">
                                         <td class="ps-4">
-                                            <img th:src="@{/{img}(img=${item.image})}" alt="商品画像" class="img-fluid rounded border shadow-sm" style="max-height: 70px;">
+                                            <img th:if="${#strings.startsWith(item.goods.image, '/')}"
+												th:src="@{/images{path}(path=${item.goods.image})}" 
+												class="card-img-top w-25" 
+												alt="初期商品画像">
+					
+											<img th:unless="${#strings.startsWith(item.goods.image, '/')}"
+													th:src="@{/uploaded-images/{fileName}(fileName=${item.goods.image})}" 
+													class="card-img-top w-25" 
+													alt="更新商品画像">
                                         </td>
                                         <td>
-                                            <span class="fw-bold" th:text="${item.name}">バンドTシャツ</span>
+                                            <span class="fw-bold" th:text="${item.goods.name}">バンドTシャツ</span>
                                         </td>
-                                        <td class="text-end" th:text="|¥ ${#numbers.formatInteger(item.price, 3, 'COMMA')}|">¥ 3,000</td>
+                                        <td class="text-end" th:text="|¥ ${#numbers.formatInteger(item.goods.price, 3, 'COMMA')}|">¥ 3,000</td>
                                         <td class="text-center" th:text="|${item.quantity} 個|">1 個</td>
                                         <td class="text-end pe-4 fw-bold text-primary" th:text="|¥ ${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}|">¥ 3,000</td>
                                     </tr>
