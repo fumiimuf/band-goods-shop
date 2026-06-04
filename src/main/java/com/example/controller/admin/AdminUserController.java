@@ -25,7 +25,7 @@ public class AdminUserController {
 	// 一般ユーザー一覧画面を表示する
 	@GetMapping("/list")
 	public String showUserList(
-					@RequestParam(name = "keyword", required = false) String keyword,
+					@RequestParam(name = "keyword", defaultValue = "") String keyword,
 					@RequestParam(name = "page", defaultValue = "0") int page, 
 					Model model) {
 		

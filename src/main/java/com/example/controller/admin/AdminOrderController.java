@@ -23,19 +23,21 @@ public class AdminOrderController {
 	
 	@GetMapping("/list")
 	public String showOrderList(
+			@RequestParam(defaultValue = "") String keyword,
 			@RequestParam(defaultValue = "0") int page,
 			Model model) {
 		
 		int size = 5;
 		
-		List<OrderViewItem> orderList = orderService.getAllOrderHistoryByPage(page, size);
+		List<OrderViewItem> orderList = orderService.getAllOrderHistoryByPage(keyword, page, size);
 		
-		long totalOrders = orderService.countAllOrders();
+		long totalOrders = orderService.countAllOrders(keyword);
 		int totalPages = (int) Math.ceil((double) totalOrders / size);
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("currentPage", page);
+		model.addAttribute("keyword", keyword);
 		
 		return "admin/order/list";
 	}

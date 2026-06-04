@@ -20,7 +20,7 @@ public interface OrderService {
 	long countByUserId(Integer userId);
 	
 	// 販売履歴を全件取得
-	List<OrderViewItem> getAllOrderHistoryByPage(int page, int size);
+	List<OrderViewItem> getAllOrderHistoryByPage(String keyword, int page, int size);
 	
-	long countAllOrders();
+	long countAllOrders(String keyword);
 }

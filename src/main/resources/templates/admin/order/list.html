@@ -66,18 +66,18 @@
             <ul class="pagination justify-content-center d-flex gap-1">
                 
                 <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(page=${currentPage - 1})}">前へ</a>
+                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${currentPage - 1})}">前へ</a>
                 </li>
                 
                 <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
                     th:classappend="${i == currentPage} ? 'active'">
                     <a class="page-link text-dark border-dark rounded-1" 
-                       th:href="@{/admin/order/list(page=${i})}" 
+                       th:href="@{/admin/order/list(keyword=${keyword}, page=${i})}" 
                        th:text="${i + 1}"></a>
                 </li>
                 
                 <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(page=${currentPage + 1})}">次へ</a>
+                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${currentPage + 1})}">次へ</a>
                 </li>
             </ul>
         </nav>

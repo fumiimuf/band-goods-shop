@@ -23,8 +23,8 @@ public interface OrderMapper {
 	long countByUserId(Integer userId);
 	
 	// 一般ユーザー全員の注文履歴を取得する
-	List<Order> findAllOrdersByPage(@Param("limit") int limit, @Param("offset") int offset);
+	List<Order> findAllOrdersByPage(@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
 	
 	// 一般ユーザー全員の注文履歴が全部で何件あるか教える
-	long countAllOrders();
+	long countAllOrders(String keyword);
 }
