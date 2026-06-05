@@ -3,7 +3,7 @@
 		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head></head>
 <body>
-    <header th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <header th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <div class="container-fluid">
             <!-- サイト名 -->
             <div sec:authorize="hasRole('USER')" class="d-flex align-items-center">
