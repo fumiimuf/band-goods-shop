@@ -32,19 +32,15 @@
 			<div class="row row-cols-1 row-cols-md-4 g-4">
 				<div class="col" th:each="item : ${goodsList}">
 					<div class="card h-100 shadow-sm">
-						
-						<img th:if="${#strings.startsWith(item.goods.image, '/')}"
-								th:src="@{/images{path}(path=${item.goods.image})}" 
-								class="card-img-top" 
-								alt="初期商品画像" 
-								style="height: 150px; object-fit: cover; background: #eee;">
-	
-						<img th:unless="${#strings.startsWith(item.goods.image, '/')}"
-								th:src="@{/uploaded-images/{fileName}(fileName=${item.goods.image})}" 
-								class="card-img-top" 
-								alt="更新商品画像" 
-								style="height: 150px; object-fit: cover; background: #eee;">
-	
+								
+						<div class="d-flex align-items-center justify-content-center" style="height: 160px;">
+					        <img th:src="${item.getImageUrl()}" 
+					             class="w-50 pt-3 object-fit-contain" 
+					             th:alt="${item.goods.name}">
+					    </div>
+					    
+					    <hr>
+								     
 						<div class="card-body d-flex flex-column">
 							<h5 class="card-title" th:text="${item.goods.name}">商品名</h5>
 							<p class="card-text text-danger mb-0" th:text="|¥ ${item.goods.price}|">\0</p>
