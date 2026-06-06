@@ -53,16 +53,12 @@
                                 <tbody>
                                     <tr th:each="item : ${cartList}">
                                         <td class="ps-4">
-                                            <img th:if="${#strings.startsWith(item.goods.image, '/')}"
-												th:src="@{/images{path}(path=${item.goods.image})}" 
-												class="card-img-top w-25" 
-												alt="初期商品画像">
-					
-											<img th:unless="${#strings.startsWith(item.goods.image, '/')}"
-													th:src="@{/uploaded-images/{fileName}(fileName=${item.goods.image})}" 
-													class="card-img-top w-25" 
-													alt="更新商品画像">
-                                        </td>
+											<div class="d-flex align-items-center justify-content-center overflow-hidden" style="height: 160px;">
+									        <img th:src="${item.getImageUrl()}" 
+									             class="w-50 h-50 object-fit-contain mx-auto" 
+									             th:alt="${item.goods.name}">
+									    	</div>
+										</td>
                                         <td>
                                             <span class="fw-bold" th:text="${item.goods.name}">バンドTシャツ</span>
                                         </td>
