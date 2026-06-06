@@ -21,4 +21,18 @@ public class CartItem {
     	}
     	return this.goods.getPrice() * this.quantity;
     }
+    
+    // カート画面用の画像URL判別メソッド
+    public String getImageUrl() {
+    	if (this.goods == null || this.goods.getImage() == null || this.goods.getImage().isEmpty()) {
+    		return "/images/no-image.png";
+    	}
+    	
+    	if (this.goods.getImage().length() > 30) {
+    		return "/uploaded-image/" + this.goods.getImage();
+    		
+    	} else {
+			return "/images/" + this.goods.getImage();
+		}
+    }
 }
