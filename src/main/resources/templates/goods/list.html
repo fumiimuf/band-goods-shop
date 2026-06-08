@@ -49,7 +49,8 @@
 							
 							<div class="d-flex gap-1 mt-auto">
 								<button type="button" 
-										class="btn btn-outline-secondary btn-sm w-50 text-nowrap small p-0" 
+										class="btn btn-outline-secondary btn-sm w-50 text-nowrap small py-1 px-0" 
+										style="font-size: 0.8rem;"
 										data-bs-toggle="popover" 
 										data-bs-placement="top" 
 										data-bs-container="body"
@@ -60,7 +61,7 @@
 								<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="w-50 d-flex m-0">
 									<input type="hidden" name="goodsId" th:value="${item.goods.id}">
 								 
-									<button type="submit" class="btn btn-primary btn-sm w-100 text-nowrap small">
+									<button type="submit" class="btn btn-primary btn-sm w-100 text-nowrap py-1 px-0" style="font-size: 0.8rem;">
 										カートに追加
 									</button>
 								</form>

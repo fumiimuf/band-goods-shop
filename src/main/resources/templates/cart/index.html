@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <!-- 1. layout:decorate で「どの外枠（ケース）を使うか」を指定します -->
 <!-- 住所は「layoutフォルダのlayoutファイル」という意味です -->
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 
 <head>
 <meta name="_csrf" th:content="${_csrf.token}" />
@@ -11,98 +13,117 @@
 <body>
 
 	<main layout:fragment="content">
-		<div class="container my-5">
-			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
-				<div data-quantity-error-toast class="toast align-items-center text-white bg-danger border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="container mt-5" style="max-width: 900px;">
+			<div
+				class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
+				style="z-index: 1080;">
+				<div data-quantity-error-toast
+					class="toast align-items-center text-white bg-danger border-0"
+					data-bs-delay="2000" role="alert" aria-live="assertive"
+					aria-atomic="true">
 					<div class="d-flex">
 						<div class="toast-body">エラーが発生しました!</div>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="d-flex justify-content-between align-items-center mb-4">
 				<h1 th:text="${loginUserName} + 'さんのカート'"></h1>
-				<form th:action="@{/cart/clear}" method="post" class="d-inline" onsubmit="return confirm('本当にカートを空にしますか？')">
+				<form th:action="@{/cart/clear}" method="post" class="d-inline"
+					onsubmit="return confirm('本当にカートを空にしますか？')">
 					<button type="submit" class="btn btn-danger btn-sm">カートを空にする</button>
 				</form>
 			</div>
+			<div class="card">
+				<div class="card-body">
+					<table class="table table-hover align-middle mb-4">
+						<thead>
+							<tr>
+								<th>商品情報</th>
+								<!-- ↓商品名が入ります。 -->
+								<th></th>
+								<th>単価</th>
+								<th>数量</th>
+								<th>小計</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="item : ${cartList}">
+								<!-- 商品情報(商品画像) -->
+								<td>
+									<div
+										class="d-flex align-items-center justify-content-center overflow-hidden"
+										style="height: 160px;">
+										<img th:src="${item.getImageUrl()}"
+											class="w-50 h-50 object-fit-contain mx-auto"
+											th:alt="${item.goods.name}">
+									</div>
+								</td>
+								<!-- 商品情報(商品名) -->
+								<td><span
+									th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
+									th:text="${item.goods.name}"></span> <!-- 販売終了バッジとそれを促すメッセージ -->
+									<div th:if="${item.goods.isDeleted}" class="mt-2">
+										<span class="badge bg-danger">販売終了</span> <br> <span
+											class="text-danger small fw-bold">※この商品は現在購入できません。削除してください。</span>
+									</div></td>
+								<!-- 単価 -->
+								<td th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
+									th:text="|¥ ${#numbers.formatInteger(item.goods.price, 3, 'COMMA')}|"></td>
+								<!-- 数量(ドロップダウン) -->
+								<td><span th:if="${item.goods.isDeleted}">-</span>
+									<form th:action="@{/api/cart/update-quantity}" method="post"
+										th:unless="${item.goods.isDeleted}" data-cart-quantity-form>
+										<input type="hidden" name="goodsId"
+											th:value="${item.goods.id}"> <select name="quantity"
+											class="form-select form-select-sm" data-cart-quantity-select>
+											<option th:each="i : ${#numbers.sequence(1, 10)}"
+												th:value="${i}" th:text="${i}"
+												th:selected="${i == item.quantity}"></option>
+										</select>
+
+										<!-- エラーメッセージ -->
+										<div data-quantity-error-message class="invalid-feedback"
+											style="display: none;"></div>
+									</form></td>
+
+								<!-- 小計 -->
+								<td data-item-subtotal
+									th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''">
+									<span th:if="${item.goods.isDeleted}">¥ 0</span> <span
+									th:unless="${item.goods.isDeleted}"
+									th:text="|¥ ${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}|"></span>
+								</td>
+								<!-- 削除ボタン -->
+								<td>
+									<form th:action="@{/cart/delete}" method="post">
+										<input type="hidden" name="goodsId"
+											th:value="${item.goods.id}">
+										<button type="submit" class="btn btn-danger btn-sm">削除</button>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="card mt-5">
+				<div class="card-body text-end">
+					<h3 class="mt-4 mb-4">
+						合計金額(税込み) : <span data-total-amount
+							th:text="${totalAmount != null} ? '¥' + ${#numbers.formatInteger(totalAmount, 3, 'COMMA')} : '¥0'"></span>
+					</h3>
+					<div class="d-flex justify-content-end gap-2">
+			            <a th:href="@{/goods/index}" class="btn btn-secondary">戻る</a> 
+			            <a th:href="@{/order/confirm}" class="btn"
+			               th:classappend="${cartList.^[goods.isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'">購入へ進む</a>
+			        </div>
+				</div>
+			</div>
 
 
-			<table class="table table-hover align-middle mb-4">
-				<thead>
-					<tr>
-						<th>商品情報</th>
-						<!-- ↓商品名が入ります。 -->
-						<th></th> 
-						<th>単価</th>
-						<th>数量</th>
-						<th>小計</th>
-						<th>操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="item : ${cartList}">
-						<!-- 商品情報(商品画像) -->
-						<td>
-							<div class="d-flex align-items-center justify-content-center overflow-hidden" style="height: 160px;">
-					        <img th:src="${item.getImageUrl()}" 
-					             class="w-50 h-50 object-fit-contain mx-auto" 
-					             th:alt="${item.goods.name}">
-					    	</div>
-						</td>
-						<!-- 商品情報(商品名) -->
-						<td>
-							<span th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
-								th:text="${item.goods.name}"></span>
-							<!-- 販売終了バッジとそれを促すメッセージ -->
-							<div th:if="${item.goods.isDeleted}" class="mt-2">
-				                <span class="badge bg-danger">販売終了</span>
-				                <br>
-				                <span class="text-danger small fw-bold">※この商品は現在購入できません。削除してください。</span>
-				            </div>
-						</td>
-						<!-- 単価 -->
-						<td th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
-							th:text="|¥ ${#numbers.formatInteger(item.goods.price, 3, 'COMMA')}|"></td>
-						<!-- 数量(ドロップダウン) -->
-						<td>
-							<span th:if="${item.goods.isDeleted}">-</span>
-							<form th:action="@{/api/cart/update-quantity}" method="post" th:unless="${item.goods.isDeleted}" data-cart-quantity-form>
-								<input type="hidden" name="goodsId" th:value="${item.goods.id}"> 
-								<select name="quantity" class="form-select form-select-sm" data-cart-quantity-select>
-									<option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i == item.quantity}"></option>
-								</select>
-								
-								<!-- エラーメッセージ -->
-								<div data-quantity-error-message class="invalid-feedback" style="display: none;"></div>
-							</form> 
-						</td>
-						
-						<!-- 小計 -->
-						<td data-item-subtotal th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''">
-							<span th:if="${item.goods.isDeleted}">¥ 0</span>
-    						<span th:unless="${item.goods.isDeleted}" 
-    							th:text="|¥ ${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}|"></span>
-						</td>
-						<!-- 削除ボタン -->
-						<td>
-							<form th:action="@{/cart/delete}" method="post">
-								<input type="hidden" name="goodsId" th:value="${item.goods.id}">
-								<button type="submit" class="btn btn-danger btn-sm">削除</button>
-							</form>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<h3 class="mt-4 mb-4">
-				合計金額(税込み) : <span data-total-amount th:text="${totalAmount != null} ? '¥' + ${#numbers.formatInteger(totalAmount, 3, 'COMMA')} : '¥0'"></span>
-			</h3>
-
-			<a th:href="@{/goods/index}" class="btn btn-secondary">戻る</a> 
-			<a th:href="@{/order/confirm}" 
-				class="btn" 
-				th:classappend="${cartList.^[goods.isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'">購入へ進む</a>
 		</div>
 
 	</main>
