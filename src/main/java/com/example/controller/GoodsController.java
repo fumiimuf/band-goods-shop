@@ -47,7 +47,7 @@ public class GoodsController {
 		model.addAttribute("totalPages", totalPages);// 全ページ数
 		
 		// グッズ一覧(一般ユーザー)を表示
-		return "goods/index";
+		return "goods/list";
 	}
 	
 }
