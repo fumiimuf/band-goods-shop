@@ -42,15 +42,10 @@
                                     th:text="${#numbers.formatInteger(viewItem.order.totalPrice, 1, 'COMMA') + '円'}"></td>
                                 
                                     <td class="text-center">
-									    <img th:if="${#strings.startsWith(item.orderedImage, '/')}"
-									         th:src="@{/images{path}(path=${item.orderedImage})}" 
-									         class="img-thumbnail"
-									         style="width: 50px; height: auto;" alt="商品画像">
-									
-									    <img th:unless="${#strings.startsWith(item.orderedImage, '/')}"
-									         th:src="@{/uploaded-images/{fileName}(fileName=${item.orderedImage})}" 
-									         class="img-thumbnail"
-									         style="width: 50px; height: auto;" alt="商品画像">
+									    <img th:src="${item.getOrderedImageUrl()}" 
+									         class="img-thumbnail" 
+									         style="width: 50px; height: auto;" 
+									         alt="商品画像">
 									</td>
                                 <td th:text="${item.orderedName}"></td>
                                 <td class="text-end" th:text="${#numbers.formatInteger(item.orderedPrice, 1, 'COMMA') + '円'}"></td>

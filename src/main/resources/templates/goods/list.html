@@ -7,10 +7,9 @@
 </head>
 <body>
 	<main layout:fragment="content">
-		<div class="container my-5" style="max-width: 900px;">
+		<div class="container mt-5" style="max-width: 900px;">
 			
 			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
-    
 			    <div data-cart-success-toast class="toast align-items-center text-white bg-success border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
 			        <div class="d-flex">
 			            <div class="toast-body">カートに追加しました!</div>
@@ -33,9 +32,9 @@
 				<div class="col" th:each="item : ${goodsList}">
 					<div class="card h-100 shadow-sm">
 								
-						<div class="d-flex align-items-center justify-content-center overflow-hidden" style="height: 160px;">
+						<div class="d-flex align-items-center justify-content-center" style="height: 150px;">
 					        <img th:src="${item.getImageUrl()}" 
-					             class="w-50 h-50 object-fit-contain mx-auto" 
+					             class="h-50 w-50 object-fit-contain mx-auto" 
 					             th:alt="${item.goods.name}">
 					    </div>
 					    
@@ -45,12 +44,12 @@
 							<h5 class="card-title" th:text="${item.goods.name}">商品名</h5>
 							<p class="card-text text-danger mb-0" th:text="|¥ ${item.goods.price}|">\0</p>
 							<div class="mb-3">
-								<span class="badge rounded-pill bg-secondary fw-light" th:text="${item.category.name}"></span>
+								<span class="badge rounded-1 bg-secondary" th:text="${item.category.name}"></span>
 							</div>
 							
 							<div class="d-flex gap-1 mt-auto">
 								<button type="button" 
-										class="btn btn-outline-secondary btn-sm flex-fill text-nowrap small py-1 px-1" 
+										class="btn btn-outline-secondary btn-sm w-50 text-nowrap small p-0" 
 										data-bs-toggle="popover" 
 										data-bs-placement="top" 
 										data-bs-container="body"
@@ -58,10 +57,10 @@
 										th:data-bs-content="${item.goods.description}">
 									商品説明
 								</button>
-								<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="flex-fill d-flex m-0">
+								<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="w-50 d-flex m-0">
 									<input type="hidden" name="goodsId" th:value="${item.goods.id}">
 								 
-									<button type="submit" class="btn btn-primary btn-sm w-100 flex-fill text-nowrap small py-1 px-1">
+									<button type="submit" class="btn btn-primary btn-sm w-100 text-nowrap small">
 										カートに追加
 									</button>
 								</form>
@@ -73,17 +72,17 @@
 			</div>
 			
 			<nav aria-label="グッズ一覧ページナビゲーション" class="mt-5">
-				<ul class="pagination justify-content-center">
+				<ul class="pagination justify-content-center d-flex gap-1">
 					<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-						<a class="page-link" th:href="@{/goods/index(page=${currentPage - 1})}">前へ</a>
+						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${currentPage - 1})}">前へ</a>
 					</li>
 	
 					<li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
-						<a class="page-link" th:href="@{/goods/index(page=${i})}" th:text="${i + 1}"></a>
+						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${i})}" th:text="${i + 1}"></a>
 					</li>
 	
 					<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-						<a class="page-link" th:href="@{/goods/index(page=${currentPage + 1})}">次へ</a>
+						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${currentPage + 1})}">次へ</a>
 					</li>
 				</ul>
 			</nav>
