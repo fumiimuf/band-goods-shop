@@ -36,8 +36,11 @@
 			g.is_deleted,
 			c.name AS category_name
 		FROM goods AS g
-		INNER JOIN category AS c ON g.category_id = c.id 
+		JOIN category AS c ON g.category_id = c.id 
 		WHERE g.is_deleted = #{isDeleted} 
+		<if test="keyword != null and keyword != ''">
+            AND g.name LIKE CONCAT('%', #{keyword}, '%')
+        </if>
 		ORDER BY c.id ASC, g.create_date_time DESC
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
@@ -45,6 +48,9 @@
 	<select id="count" resultType="long">
 		SELECT COUNT(*) FROM goods
 		WHERE is_deleted = #{isDeleted}
+		<if test="keyword != null and keyword != ''">
+            AND name LIKE CONCAT('%', #{keyword}, '%')
+        </if>
 	</select>
 	
 	<select id="findById" resultMap="GoodsItemMap">
