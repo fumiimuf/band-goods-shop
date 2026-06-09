@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.config.LoginUser;
 import com.example.entity.User;
-import com.example.form.RegisterForm;
+import com.example.form.UserRegisterForm;
 import com.example.form.UserEditForm;
 import com.example.service.UserService;
 
@@ -39,11 +39,11 @@ public class UserController {
 	/**
 	 * ユーザー登録画面を表示します。
 	 * 
-	 * @param registerForm 画面の入力値を保持するフォームオブジェクト
+	 * @param userRegisterForm 画面の入力値を保持するフォームオブジェクト
 	 * @return ユーザー登録画面のテンプレートパス
 	 */
 	@GetMapping("/register")
-	public String getRegister(@ModelAttribute RegisterForm registerForm) {
+	public String getRegister(@ModelAttribute UserRegisterForm userRegisterForm) {
 		
 		return "user/register";
 	}
@@ -52,12 +52,12 @@ public class UserController {
 	 * ユーザー登録処理を実行します。
 	 * バリデーションがある場合は登録画面に戻り、正常の場合はログイン画面へ遷移します。
 	 * 
-	 * @param registerForm 画面から送信された入力内容
+	 * @param userRegisterForm 画面から送信された入力内容
 	 * @param bindingResult バリデーションの結果。エラー有無を確認するために使用
 	 * @return 登録成功時はログイン画面へのリダイレクト、失敗時は登録画面のパス
 	 */
 	@PostMapping("/register")
-	public String postRegister(@ModelAttribute @Validated RegisterForm registerForm, 
+	public String postRegister(@ModelAttribute @Validated UserRegisterForm userRegisterForm, 
 			BindingResult bindingResult) {
 		
 		// 入力チェック
@@ -68,9 +68,9 @@ public class UserController {
 		}
 		
 		// formをUserクラスに変換
-		User user = modelMapper.map(registerForm, User.class);
+		User user = modelMapper.map(userRegisterForm, User.class);
 		
-		log.info("登録処理を開始します：Email={}, Name={}", registerForm.getEmail(), registerForm.getName());
+		log.info("登録処理を開始します：Email={}, Name={}", userRegisterForm.getEmail(), userRegisterForm.getName());
 		
 		
 		if (!userService.insertOne(user)) {
