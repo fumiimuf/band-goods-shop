@@ -18,14 +18,14 @@ public class GoodsServiceImpl implements GoodsService {
 	private final GoodsMapper goodsMapper;
 
 	@Override
-	public List<GoodsItem> findByPage(boolean isDeleted, int page, int size) {
+	public List<GoodsItem> findByPage(boolean isDeleted, String keyword, int page, int size) {
 		int offset = page * size;
-		return goodsMapper.findByPage(isDeleted, size, offset);
+		return goodsMapper.findByPage(isDeleted, keyword, size, offset);
 	}
 
 	@Override
-	public long count(boolean isDeleted) {
-		return goodsMapper.count(isDeleted);
+	public long count(boolean isDeleted, String keyword) {
+		return goodsMapper.count(isDeleted, keyword);
 	}
 
 	@Override

@@ -7,9 +7,9 @@ import com.example.model.GoodsItem;
 
 public interface GoodsService {
 
-	List<GoodsItem> findByPage(boolean isDeleted, int page, int size);
+	List<GoodsItem> findByPage(boolean isDeleted, String keyword, int page, int size);
 	
-	long count(boolean isDeleted);
+	long count(boolean isDeleted, String keyword);
 	
 	GoodsItem findById(int id);
 	
