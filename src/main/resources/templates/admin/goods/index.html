@@ -8,10 +8,10 @@
 </head>
 <body>
 
-<main layout:fragment="content" class="bg-light min-vh-100 py-5">
-    <div class="container">
+<main layout:fragment="content">
+    <div class="container min-vh-100 mt-4">
         
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center">
 		    <h2 class="fw-bold text-dark mb-0">グッズ管理一覧</h2>
 		    <a th:href="@{/admin/goods/register}" class="btn btn-primary">新規グッズ登録</a>
 		</div>
@@ -32,6 +32,19 @@
             </a>
         </div>
         
+        <form th:action="@{/goods/index}" method="get" class="mb-4">
+		    <div class="row row-cols-auto g-2 justify-content-end align-items-center">
+		        <div>
+		            <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="商品名">
+		        </div>
+		        <div>
+		            <button type="submit" class="btn btn-dark btn-sm">
+		                検索
+		            </button>
+		        </div>
+		    </div>
+		</form>
+        
         <table class="table table-bordered table-hover align-middle bg-white shadow-sm">
             <thead class="table-dark">
                 <tr>
@@ -49,13 +62,11 @@
             <tbody>
                 <tr th:each="item : ${goodsList}">
                     <td>
-					    <img th:if="${#strings.startsWith(item.goods.image, '/')}"
-					         th:src="@{/images{path}(path=${item.goods.image})}" 
-					         width="80" class="img-fluid rounded" alt="初期商品画像">
-					
-					    <img th:unless="${#strings.startsWith(item.goods.image, '/')}"
-					         th:src="@{/uploaded-images/{fileName}(fileName=${item.goods.image})}" 
-					         width="80" class="img-fluid rounded" alt="更新商品画像">
+					    <div class="d-flex align-items-center justify-content-center" style="height: 150px;">
+					        <img th:src="${item.getImageUrl()}" 
+					             class="h-50 w-50 object-fit-contain mx-auto" 
+					             th:alt="${item.goods.name}">
+					    </div>
 					</td>
                     <td th:text="${item.category.name}">カテゴリ</td>
                     <td th:text="${item.goods.name}" class="fw-bold">商品名</td>
