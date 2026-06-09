@@ -54,8 +54,9 @@ public class AdminGoodsController {
 	// 管理者用のグッズ一覧画面
 	@GetMapping("/index")
 	public String adminIndex(
-			@RequestParam(name = "status", defaultValue = "active") String status,
-			@RequestParam(name = "page", defaultValue = "0") int page,
+			@RequestParam(defaultValue = "active") String status,
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "") String keyword,
 			Model model) {
 
 		// 1ページの表示件数は「5件」
@@ -66,10 +67,10 @@ public class AdminGoodsController {
 		boolean isDeleted = status.equals("suspended");
 
 		// 条件に合うグッズを5件分だけ取得する
-		List<GoodsItem> goodsList = goodsService.findByPage(isDeleted, page, size);
+		List<GoodsItem> goodsList = goodsService.findByPage(isDeleted, keyword, page, size);
 
 		// 状態（販売中 or 停止中）に合わせた総件数を取得する
-		long totalCount = goodsService.count(isDeleted);
+		long totalCount = goodsService.count(isDeleted, keyword);
 
 		// 全体のページ数を計算（端数切り上げ。例：6件なら2ページ）
 		int totalPages = (int) Math.ceil((double) totalCount / size);
@@ -79,6 +80,7 @@ public class AdminGoodsController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("currentStatus", status);
+		model.addAttribute("keyword", keyword);
 
 		return "admin/goods/index";
 	}
