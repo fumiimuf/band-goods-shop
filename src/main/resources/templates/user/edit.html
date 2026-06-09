@@ -8,55 +8,56 @@
 <body>
 
     <main layout:fragment="content">
-        <div class="container mt-5 row justify-content-center">
-            <div class="col-md-8 col-lg-6">
+        <div class="container mt-5 row mx-auto" style="max-width: 400px;">
                 
-                <h2 class="text-start fw-bold mb-4">ユーザー登録情報の編集</h2>
-
-                <div class="card shadow-sm rounded-3">
-                    <div class="card-body p-4">
-
-                        <form th:action="@{/user/update}" th:object="${userEditForm}" method="post">
-                            
-                            <div class="mb-3 text-start">
-                                <label for="name" class="form-label fw-bold small text-secondary">氏名 <span class="badge bg-danger ms-1">必須</span></label>
-                                <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="山田 太郎">
-                                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                            </div>
-
-                            <div class="mb-3 text-start">
-                                <label for="email" class="form-label fw-bold small text-secondary">メールアドレス <span class="badge bg-danger ms-1">必須</span></label>
-                                <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="yamada_taro@example.com">
-                                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                            </div>
-
-                            <div class="mb-3 text-start">
-                                <label for="password" class="form-label fw-bold small text-secondary">新しいパスワード</label>
-                                <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="設定する場合のみ入力">
-                                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                            </div>
-
-                            <div class="mb-3 text-start">
-                                <label for="zipCode" class="form-label fw-bold small text-secondary">郵便番号 <span class="badge bg-danger ms-1">必須</span></label>
-                                <input type="text" th:field="*{zipCode}" class="form-control" id="zipCode" placeholder="123-4567">
-                                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
-                            </div>
-
-                            <div class="mb-4 text-start">
-                                <label for="address" class="form-label fw-bold small text-secondary">住所 <span class="badge bg-danger ms-1">必須</span></label>
-                                <textarea th:field="*{address}" class="form-control" id="address" rows="3" placeholder="東京都渋谷区..."></textarea>
-                                <div class="text-danger small mt-1" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
-                            </div>
-
-                            <div class="d-flex justify-content-center gap-3 mt-4">
-                                <a th:href="@{/user/profile}" class="btn btn-outline-secondary px-4">戻る</a>
-                                <button type="submit" class="btn btn-primary px-4">更新</button>
-                            </div>
-
-                        </form>
-
-                    </div>
-                </div> </div>
+	       <h2 class="text-center">ユーザー登録情報の編集</h2>
+	       
+	       <hr>
+	
+	       <div class="card shadow-sm rounded-3">
+	           <div class="card-body p-4">
+	
+	               <form th:action="@{/user/update}" th:object="${userEditForm}" method="post">
+	                   
+	                   <div class="mb-3 text-start">
+	                       <label for="name" class="form-label fw-bold small text-secondary">氏名 <span class="badge bg-danger ms-1">必須</span></label>
+	                       <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="山田 太郎">
+	                       <div class="text-danger small mt-1" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+	                   </div>
+	
+	                   <div class="mb-3 text-start">
+	                       <label for="email" class="form-label fw-bold small text-secondary">メールアドレス <span class="badge bg-danger ms-1">必須</span></label>
+	                       <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="yamada_taro@example.com">
+	                       <div class="text-danger small mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+	                   </div>
+	
+	                   <div class="mb-3 text-start">
+	                       <label for="password" class="form-label fw-bold small text-secondary">新しいパスワード</label>
+	                       <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="設定する場合のみ入力">
+	                       <div class="text-danger small mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+	                   </div>
+	
+	                   <div class="mb-3 text-start">
+	                       <label for="zipCode" class="form-label fw-bold small text-secondary">郵便番号 <span class="badge bg-danger ms-1">必須</span></label>
+	                       <input type="text" th:field="*{zipCode}" class="form-control" id="zipCode" placeholder="123-4567">
+	                       <div class="text-danger small mt-1" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
+	                   </div>
+	
+	                   <div class="mb-4 text-start">
+	                       <label for="address" class="form-label fw-bold small text-secondary">住所 <span class="badge bg-danger ms-1">必須</span></label>
+	                       <textarea th:field="*{address}" class="form-control" id="address" rows="3" placeholder="東京都渋谷区..."></textarea>
+	                       <div class="text-danger small mt-1" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+	                   </div>
+	
+	                   <div class="d-flex justify-content-center gap-3 mt-4">
+	                       <a th:href="@{/user/profile}" class="btn btn-outline-secondary px-4">戻る</a>
+	                       <button type="submit" class="btn btn-primary px-4">更新</button>
+	                   </div>
+	
+	               </form>
+	
+	           </div>
+	       </div>
         </div>
     </main>
 

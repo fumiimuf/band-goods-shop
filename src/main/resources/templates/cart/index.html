@@ -13,7 +13,7 @@
 <body>
 
 	<main layout:fragment="content">
-		<div class="container mt-5" style="max-width: 900px;">
+		<div class="container mt-4" style="max-width: 800px;">
 			<div
 				class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
 				style="z-index: 1080;">
@@ -34,6 +34,9 @@
 					<button type="submit" class="btn btn-danger btn-sm">カートを空にする</button>
 				</form>
 			</div>
+			
+			<hr>
+			
 			<div class="card">
 				<div class="card-body">
 					<table class="table table-hover align-middle mb-4">
@@ -116,7 +119,7 @@
 							th:text="${totalAmount != null} ? '¥' + ${#numbers.formatInteger(totalAmount, 3, 'COMMA')} : '¥0'"></span>
 					</h3>
 					<div class="d-flex justify-content-end gap-2">
-			            <a th:href="@{/goods/index}" class="btn btn-secondary">戻る</a> 
+			            <a th:href="@{/goods/index}" class="btn btn-outline-secondary">戻る</a> 
 			            <a th:href="@{/order/confirm}" class="btn"
 			               th:classappend="${cartList.^[goods.isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'">購入へ進む</a>
 			        </div>

@@ -7,7 +7,7 @@
 </head>
 <body>
 	<main layout:fragment="content">
-		<div class="container mt-5" style="max-width: 900px;">
+		<div class="container mt-4" style="max-width: 800px;">
 			
 			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
 			    <div data-cart-success-toast class="toast align-items-center text-white bg-success border-0" data-bs-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
@@ -24,7 +24,6 @@
 			</div>
 			
 			<h1 class="mb-4">グッズ一覧</h1>
-			<a th:href="@{/cart/index}">カート内容へ</a>
 	
 			<hr>
 	
@@ -41,7 +40,7 @@
 					    <hr class="my-0">
 								     
 						<div class="card-body d-flex flex-column justify-content-between flex-grow-1">
-							<h5 class="card-title" th:text="${item.goods.name}">商品名</h5>
+							<h5 class="card-title small" th:text="${item.goods.name}">商品名</h5>
 							<p class="card-text text-danger mb-0" th:text="|¥ ${item.goods.price}|">\0</p>
 							<div class="mb-3">
 								<span class="badge rounded-1 bg-secondary" th:text="${item.category.name}"></span>

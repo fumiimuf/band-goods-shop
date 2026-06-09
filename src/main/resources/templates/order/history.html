@@ -6,87 +6,88 @@
     <title>購入履歴</title>
 </head>
 <body>
-    <main layout:fragment="content" class="container my-5" style="max-width: 900px;">
-        <h1 class="mb-4">購入履歴</h1>
+    <main layout:fragment="content" >
+    	
+    	<div class="container mt-4" style="max-width: 800px;">
+    		<h1 class="text-center mb-3">購入履歴</h1>
+    		
+    		<hr>
         
-        <div th:if="${#lists.isEmpty(historyList)}" class="text-center my-5">
-            <p class="text-muted">購入履歴はありません。</p>
-        </div>
-
-        <div th:unless="${#lists.isEmpty(historyList)}" th:each="item : ${historyList}" class="card mb-4 shadow-sm border">
-            
-            <div class="card-header bg-light py-3 border-bottom">
-                <div class="row g-3">
-                    <div class="col-12 col-md-4">
-                        <div class="mb-1">
-                            <span class="text-muted small fw-bold">注文日時：</span>
-                            <span class="small" th:text="${#temporals.format(item.order.orderedAt, 'yyyy年MM月dd日')}"></span>
+	        <div th:if="${#lists.isEmpty(historyList)}" class="text-center my-5">
+	            <p class="text-muted">購入履歴はありません。</p>
+	        </div>
+	
+	        <div th:unless="${#lists.isEmpty(historyList)}" th:each="item : ${historyList}" class="card mb-4 shadow-sm border">
+	            
+	            <div class="card-header bg-light py-3 border-bottom">
+	                <div class="d-flex gap-5 mb-3">
+                        <div>
+                            <div class="text-muted small fw-bold">注文日</div>
+                            <div class="fw-bold" th:text="${#temporals.format(item.order.orderedAt, 'yyyy年MM月dd日')}"></div>
                         </div>
                         <div>
-                            <span class="text-muted small fw-bold">合計金額：</span>
-                            <span class="fw-bold text-danger" th:text="'¥ ' + ${#numbers.formatInteger(item.order.totalPrice, 1, 'COMMA')}"></span>
+                            <div class="text-muted small fw-bold">合計金額</div>
+                            <div class="fw-bold text-danger" th:text="'¥ ' + ${#numbers.formatInteger(item.order.totalPrice, 1, 'COMMA')}"></div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-8 text-md-end">
-                        <span class="text-muted small fw-bold">お届け先：</span>
-                        <span class="small" th:text="'〒' + ${item.order.orderedZipCode} + ' ' + ${item.order.orderedAddress}"></span>
-                        <div class="text-muted small mt-1">
-                            <span th:text="${item.order.orderedName}"></span> 様
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-body bg-white py-4">
-                <div th:each="detail, stat : ${item.details}" 
-                     class="row align-items-center" 
-                     th:classappend="${!stat.last} ? 'mb-4 border-bottom pb-3' : ''">
-                    
-                    <div class="col-3 col-sm-2 col-md-1">
-                        <img th:src="${detail.getOrderedImageUrl()}" class="img-fluid rounded border shadow-sm" alt="商品画像" style="max-height: 70px; object-fit: cover;">
-                    </div>
-                    
-                    <div class="col-9 col-sm-6 col-md-7">
-                        <h6 class="mb-0 fw-bold text-dark" th:text="${detail.orderedName}"></h6>
-                    </div>
-                    
-                    <div class="col-12 col-sm-4 col-md-4 text-sm-end mt-2 mt-sm-0">
-                        <span class="text-muted small" th:text="'単価: ¥ ' + ${#numbers.formatInteger(detail.orderedPrice, 1, 'COMMA')}">単価: ¥ 2,500</span>
-                        <span class="badge bg-secondary ms-2" th:text="${detail.quantity} + ' 個'"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ページネーション -->
-        <nav th:if="${totalPages > 1}" aria-label="注文履歴ページナビゲーション" class="mt-5">
-            <ul class="pagination justify-content-center d-flex gap-1">
-                
-                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/order/history(page=${currentPage - 1})}">前へ</a>
-                </li>
-
-                <li class="page-item" 
-                    th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
-                    th:classappend="${i == currentPage} ? 'active'">
-                    <a class="page-link text-dark border-dark rounded-1" 
-                       th:classappend="${i == currentPage} ? 'active'"
-                       th:href="@{/order/history(page=${i})}" 
-                       th:text="${i + 1}">1</a>
-                </li>
-
-                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/order/history(page=${currentPage + 1})}">次へ</a>
-                </li>
-                
-            </ul>
-        </nav>
-        
-        <div class="text-center mt-5">
-            <a th:href="@{/goods/index}" class="btn btn-outline-secondary px-4 py-2 shadow-sm">
-                <i class="bi bi-arrow-left me-2"></i>グッズ一覧へ戻る
-            </a>
-        </div>
-        
+                	</div>
+                	
+                	<div>
+                		<div class="text-muted small fw-bold">お届け先</div>
+                        <div class="fw-bold" th:text="'〒' + ${item.order.orderedZipCode} + ' ' + ${item.order.orderedAddress}"></div>
+                        <div class="fw-bold" th:text="${item.order.orderedName} + ' 様'"></div>
+                	</div>
+	            </div>
+	
+	            <div class="card-body bg-white py-4">
+	                <div th:each="detail, stat : ${item.details}" 
+	                     class="row align-items-center" 
+	                     th:classappend="${!stat.last} ? 'mb-4 border-bottom pb-3' : ''">
+	                    
+	                    <div class="col-3 col-sm-2 col-md-1">
+	                        <img th:src="${detail.getOrderedImageUrl()}" class="img-fluid rounded-1 shadow-sm" alt="商品画像" style="max-height: 70px; object-fit: cover;">
+	                    </div>
+	                    
+	                    <div class="col-9 col-sm-6 col-md-7">
+	                        <h6 class="mb-0 fw-bold text-dark" th:text="${detail.orderedName}"></h6>
+	                    </div>
+	                    
+	                    <div class="col-12 col-sm-4 col-md-4 text-sm-end mt-2 mt-sm-0">
+	                        <span class="text-muted small" th:text="'単価: ¥ ' + ${#numbers.formatInteger(detail.orderedPrice, 1, 'COMMA')}">単価: ¥ 2,500</span>
+	                        <span class="badge bg-secondary ms-2" th:text="${detail.quantity} + ' 個'"></span>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- ページネーション -->
+	        <nav th:if="${totalPages > 1}" aria-label="注文履歴ページナビゲーション" class="mt-5">
+	            <ul class="pagination justify-content-center d-flex gap-1">
+	                
+	                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+	                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/order/history(page=${currentPage - 1})}">前へ</a>
+	                </li>
+	
+	                <li class="page-item" 
+	                    th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+	                    th:classappend="${i == currentPage} ? 'active'">
+	                    <a class="page-link text-dark border-dark rounded-1" 
+	                       th:classappend="${i == currentPage} ? 'active'"
+	                       th:href="@{/order/history(page=${i})}" 
+	                       th:text="${i + 1}">1</a>
+	                </li>
+	
+	                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+	                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/order/history(page=${currentPage + 1})}">次へ</a>
+	                </li>
+	                
+	            </ul>
+	        </nav>
+	        
+	        <div class="text-center mt-3">
+	            <a th:href="@{/goods/index}" class="btn btn-outline-secondary px-4 py-2 shadow-sm">
+	                戻る
+	            </a>
+	        </div>
+    	</div>
     </main>
 </body>
 </html>
