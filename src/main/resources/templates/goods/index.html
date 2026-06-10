@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+		layout:decorate="~{layout/layout}">
+<head>
+	<title th:text="#{title.goodsList}"></title>
+</head>
+<body>
+	<main layout:fragment="content">
+		<div class="container mt-4" style="max-width: 800px;">
+			<!-- トースト -->
+			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
+			    <div data-cart-success-toast class="toast text-white bg-success border-0 text-center" data-bs-delay="2000">
+		            <div class="toast-body" th:text="#{toast.goodsList.addCartSuccess}"></div>
+			    </div>
+			
+			    <div data-cart-error-toast class="toast text-white bg-danger border-0 text-center" data-bs-delay="2000">
+	            	<div class="toast-body" th:text="#{toast.goodsList.addCartError}"></div>
+			    </div>
+			</div>
+			
+			<div class="d-flex justify-content-between align-items-center">
+				<!-- 大見出し -->
+				<h1 th:text="#{label.goodsList.title}"></h1>
+				
+				<form th:action="@{/goods/index}" method="get" class="d-flex gap-2 align-items-center">
+					<!-- 入力フォーム -->
+                    <input type="search" name="keyword" th:value="${keyword}" class="form-control" th:placeholder="#{placeholder.goodsList.goodsName}">
+                    <!-- 検索ボタン -->
+                  	<button type="submit" class="btn btn-dark btn-sm flex-shrink-0" th:text="#{btn.goodsList.search}"></button>
+                </form>
+			</div>
+			
+			<hr>
+	
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+				<div th:each="item : ${goodsList}">
+					<!-- カード -->
+					<div class="card h-100 w-100 shadow-sm">
+								
+						<div class="card-header  bg-white d-flex align-items-center justify-content-center" style="height: 150px;">
+					        <!-- 画像 -->
+					        <img th:src="${item.getImageUrl()}" 
+					             class="h-75 w-75 object-fit-contain" 
+					             th:alt="${item.goods.name}">
+					    </div>
+					    
+						<div class="card-body d-flex flex-column justify-content-between">
+							<!-- 商品名 -->
+							<div class="card-title small" th:text="${item.goods.name}"></div>
+							
+							<div class="mt-auto">
+								<!-- 価格 -->
+								<div class="text-danger" th:text="|¥ ${item.goods.price}|"></div>
+								<!-- カテゴリ名 -->
+								<div class="mb-3 badge rounded-1 bg-secondary" th:text="${item.category.name}"></div>
+								
+								<div class="d-flex gap-1">
+									<!-- 商品説明ボタン -->
+									<button type="button" 
+											class="btn btn-outline-secondary btn-sm w-50 text-nowrap small py-1 px-0" 
+											style="font-size: 0.8rem;"
+											data-bs-toggle="popover" 
+											data-bs-placement="top" 
+											data-bs-container="body"                               
+											th:data-bs-title="${item.goods.name}" 
+											th:data-bs-content="${item.goods.description}"
+											th:text="#{btn.goodsList.goodsDescription}">
+									</button>
+									<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="w-50 d-flex m-0">
+										<input type="hidden" name="goodsId" th:value="${item.goods.id}">
+									 	<!-- カートに追加ボタン -->
+										<button type="submit" class="btn btn-primary btn-sm w-100 text-nowrap py-1 px-0" style="font-size: 0.8rem;" th:text="#{btn.goodsList.addCart}"></button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- ページネーション -->
+			<nav aria-label="グッズ一覧ページナビゲーション" class="mt-5">
+				<ul class="pagination justify-content-center d-flex gap-1">
+					<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${currentPage - 1}, keyword=${keyword})}">前へ</a>
+					</li>
+	
+					<li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${i}, keyword=${keyword})}" th:text="${i + 1}"></a>
+					</li>
+	
+					<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${currentPage + 1}, keyword=${keyword})}">次へ</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</main>
+</body>
+</html>
