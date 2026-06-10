@@ -29,7 +29,7 @@ public class CartItem {
     	}
     	
     	if (this.goods.getImage().length() > 30) {
-    		return "/uploaded-image/" + this.goods.getImage();
+    		return "/uploaded-images/" + this.goods.getImage();
     		
     	} else {
 			return "/images/" + this.goods.getImage();
