@@ -49,7 +49,7 @@ public class GoodsController {
 		model.addAttribute("keyword", keyword);// 検索キーワード
 		
 		// グッズ一覧(一般ユーザー)を表示
-		return "goods/list";
+		return "goods/index";
 	}
 	
 }
