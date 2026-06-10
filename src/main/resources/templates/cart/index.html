@@ -8,7 +8,7 @@
 <head>
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
-<title>カート内容</title>
+<title th:text="#{title.cart}"></title>
 </head>
 <body>
 
@@ -54,9 +54,9 @@
 								<td>
 									<div
 										class="d-flex align-items-center justify-content-center overflow-hidden"
-										style="height: 160px;">
+										style="height: 150px;">
 										<img th:src="${item.getImageUrl()}"
-											class="w-50 h-50 object-fit-contain mx-auto"
+											class="w-75 h-75 object-fit-contain mx-auto"
 											th:alt="${item.goods.name}">
 									</div>
 								</td>
@@ -72,35 +72,41 @@
 								<td th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
 									th:text="|¥ ${#numbers.formatInteger(item.goods.price, 3, 'COMMA')}|"></td>
 								<!-- 数量(ドロップダウン) -->
-								<td><span th:if="${item.goods.isDeleted}">-</span>
+								<td>
+									<span th:if="${item.goods.isDeleted}">-</span>
+									
 									<form th:action="@{/api/cart/update-quantity}" method="post"
 										th:unless="${item.goods.isDeleted}" data-cart-quantity-form>
-										<input type="hidden" name="goodsId"
-											th:value="${item.goods.id}"> <select name="quantity"
-											class="form-select form-select-sm" data-cart-quantity-select>
+										
+										<input type="hidden" name="goodsId" th:value="${item.goods.id}"> 
+										
+										<select name="quantity" class="form-select form-select-sm" data-cart-quantity-select>
 											<option th:each="i : ${#numbers.sequence(1, 10)}"
 												th:value="${i}" th:text="${i}"
-												th:selected="${i == item.quantity}"></option>
+												th:selected="${i == item.quantity}">
+											</option>
 										</select>
-
 										<!-- エラーメッセージ -->
-										<div data-quantity-error-message class="invalid-feedback"
-											style="display: none;"></div>
-									</form></td>
+										<div  data-quantity-error-message
+												class="invalid-feedback"
+											 	th:text="#{msg.cart.QuantityError}"></div>
+									</form>
+								</td>
 
 								<!-- 小計 -->
-								<td data-item-subtotal
-									th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''">
-									<span th:if="${item.goods.isDeleted}">¥ 0</span> <span
-									th:unless="${item.goods.isDeleted}"
-									th:text="|¥ ${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}|"></span>
+								<td class="text-nowrap text-end" th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''">
+									<span th:if="${item.goods.isDeleted}">¥ 0</span>
+									
+									<span th:unless="${item.goods.isDeleted}">
+										¥ <span data-item-subtotal th:text="${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}"></span>
+									</span>
 								</td>
 								<!-- 削除ボタン -->
 								<td>
 									<form th:action="@{/cart/delete}" method="post">
 										<input type="hidden" name="goodsId"
 											th:value="${item.goods.id}">
-										<button type="submit" class="btn btn-danger btn-sm">削除</button>
+										<button type="submit" class="btn btn-danger btn-sm text-nowrap text-end">削除</button>
 									</form>
 								</td>
 							</tr>
