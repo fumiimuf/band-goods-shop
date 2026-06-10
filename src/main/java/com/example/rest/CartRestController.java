@@ -6,11 +6,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +32,6 @@ public class CartRestController {
 
 	private final CartService cartService;
 	private final ModelMapper modelMapper;
-	private final MessageSource messageSource;
 	
 	// カート追加
 	@PostMapping("/add")
@@ -71,13 +68,6 @@ public class CartRestController {
 		if (bindingResult.hasErrors()) {
 			
 			response.put("success", false);
-			
-			// エラーメッセージの取得
-			
-			for (FieldError error : bindingResult.getFieldErrors()) {
-				String message = messageSource.getMessage(error, locale);
-				response.put("message", message);
-			}
 			
 			return ResponseEntity.badRequest().body(response);
 		}
