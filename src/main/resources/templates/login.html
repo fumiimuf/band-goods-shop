@@ -10,11 +10,12 @@
 <!-- JS読込 -->
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
 
-<title>ログイン</title>
+<title th:text="#{title.login}"></title>
 </head>
 <body>
 	<div class="container mt-5 mx-auto" style="max-width: 350px;">
-		<h1 class="mb-3 text-center">ログイン</h1>
+		<!-- 大見出し -->
+		<h1 class="mb-3 text-center" th:text="#{label.login.title}"></h1>
 
 		<!-- エラーメッセージ -->
 		<div th:if="${param.error}" class="alert alert-danger border-danger text-danger alert-dismissible fade show mb-4" role="alert">
@@ -26,15 +27,17 @@
 		<form th:action="@{/login}" method="post">
 			<!--メールアドレス-->
 			<div class="mb-3">
-				<label class="form-label">メールアドレス</label> <br> <input type="email" name="email" class="form-control">
+				<label class="form-label" th:text="#{label.login.email}"></label>
+				<input type="email" name="email" class="form-control">
 			</div>
 			<!--パスワード-->
 			<div class="mb-3">
-				<label class="form-label">パスワード</label> <br> <input type="password" name="password" class="form-control">
+				<label class="form-label" th:text="#{label.login.password}"></label>
+				<input type="password" name="password" class="form-control">
 			</div>
 			<!--ログインボタン-->
 			<div class="d-grid mb-3">
-				<button type="submit" class="btn btn-primary btn-lg">ログイン</button>
+				<button type="submit" class="btn btn-primary btn-lg" th:text="#{btn.login}"></button>
 			</div>
 
 			<hr class="text-secondary my-4 opacity-25">
@@ -42,7 +45,7 @@
 			<!--リンク-->
 			<div class="mb-3 text-center">
 				<p class="text-muted small mb-1">ユーザー登録がまだなら</p>
-				<a th:href="@{/user/register}" class="text-decoration-none">新規ユーザー登録はこちら</a>
+				<a th:href="@{/user/register}" class="text-decoration-none" th:text="#{link.login.toRegister}"></a>
 			</div>
 		</form>
 	</div>
