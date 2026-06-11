@@ -35,7 +35,7 @@ jQuery(function($) {
 		const $form = $select.closest('[data-cart-quantity-form]');
 		
 		//「小計」のHTML要素を探しておく
-		//const $subtotalCell = $form.closest('tr').find('[data-item-subtotal]');
+		const $subtotalCell = $form.closest('tr').find('[data-item-subtotal]');
 		
 		// 新しく通信を始める前に、過去のエラー表示をリセットします
 		$('[data-cart-quantity-select]').removeClass('is-invalid');
@@ -47,10 +47,12 @@ jQuery(function($) {
 
 	        .done((res) => {
 				// 小計
-				$('[data-item-subtotal]').text(res.subtotal);
+				const formattedSubtotal = Number(res.subtotal).toLocaleString();
+			    $subtotalCell.text(formattedSubtotal);
 				
 				// 合計金額
-				$('[data-total-amount]').text(res.totalAmount);
+				const formattedTotalAmount = Number(res.totalAmount).toLocaleString();
+			    $('[data-total-amount]').text(formattedTotalAmount);
 				
 				// ヘッダーのカートアイコンの合計数
 				$('[data-header-cart-count]').text(res.totalQuantity);
