@@ -3,7 +3,7 @@
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
 		layout:decorate="~{layout/layout}">
 <head>
-	<title th:text="#{title.goodsList}"></title>
+	<title th:text="#{title.goods}"></title>
 </head>
 <body>
 	<main layout:fragment="content">
@@ -11,23 +11,23 @@
 			<!-- トースト -->
 			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
 			    <div data-cart-success-toast class="toast text-white bg-success border-0 text-center" data-bs-delay="2000">
-		            <div class="toast-body" th:text="#{toast.goodsList.addCartSuccess}"></div>
+		            <div class="toast-body" th:text="#{toast.goods.addCartSuccess}"></div>
 			    </div>
 			
 			    <div data-cart-error-toast class="toast text-white bg-danger border-0 text-center" data-bs-delay="2000">
-	            	<div class="toast-body" th:text="#{toast.goodsList.addCartError}"></div>
+	            	<div class="toast-body" th:text="#{toast.goods.addCartError}"></div>
 			    </div>
 			</div>
 			
 			<div class="d-flex justify-content-between align-items-center">
 				<!-- 大見出し -->
-				<h1 th:text="#{label.goodsList.title}"></h1>
+				<h1 th:text="#{label.goods.title}"></h1>
 				
 				<form th:action="@{/goods/index}" method="get" class="d-flex gap-2 align-items-center">
 					<!-- 入力フォーム -->
-                    <input type="search" name="keyword" th:value="${keyword}" class="form-control" th:placeholder="#{placeholder.goodsList.goodsName}">
+                    <input type="search" name="keyword" th:value="${keyword}" class="form-control" th:placeholder="#{placeholder.goods.goodsName}">
                     <!-- 検索ボタン -->
-                  	<button type="submit" class="btn btn-dark btn-sm flex-shrink-0" th:text="#{btn.goodsList.search}"></button>
+                  	<button type="submit" class="btn btn-dark btn-sm flex-shrink-0" th:text="#{btn.goods.search}"></button>
                 </form>
 			</div>
 			
@@ -65,12 +65,12 @@
 											data-bs-container="body"                               
 											th:data-bs-title="${item.goods.name}" 
 											th:data-bs-content="${item.goods.description}"
-											th:text="#{btn.goodsList.goodsDescription}">
+											th:text="#{btn.goods.goodsDescription}">
 									</button>
 									<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="w-50 d-flex m-0">
 										<input type="hidden" name="goodsId" th:value="${item.goods.id}">
 									 	<!-- カートに追加ボタン -->
-										<button type="submit" class="btn btn-primary btn-sm w-100 text-nowrap py-1 px-0" style="font-size: 0.8rem;" th:text="#{btn.goodsList.addCart}"></button>
+										<button type="submit" class="btn btn-primary btn-sm w-100 text-nowrap py-1 px-0" style="font-size: 0.8rem;" th:text="#{btn.goods.addCart}"></button>
 									</form>
 								</div>
 							</div>
