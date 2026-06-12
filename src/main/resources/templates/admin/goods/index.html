@@ -4,59 +4,56 @@
       layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>管理者用グッズ一覧</title>
+    <title th:text="#{title.admin.goods}"></title>
 </head>
 <body>
 
 <main layout:fragment="content">
-    <div class="container min-vh-100 mt-4">
+    <div class="container mt-4" style="max-width: 800px;">
         
         <div class="d-flex justify-content-between align-items-center">
-		    <h2 class="fw-bold text-dark mb-0">グッズ管理一覧</h2>
-		    <a th:href="@{/admin/goods/register}" class="btn btn-primary">新規グッズ登録</a>
+        	<!-- 大見出し -->
+		    <h2 class="fw-bold text-dark mb-0" th:text="#{label.admin.goods.title}"></h2>
+		    <!-- 新規グッズ登録ボタン -->
+		    <a th:href="@{/admin/goods/register}" class="btn btn-primary" th:text="#{btn.admin.goods.register}"></a>
 		</div>
 		
 		<hr>
         
         <div class="mb-4">
+        	<!-- 販売中ボタン -->
             <a th:href="@{/admin/goods/index(status='active')}" 
                class="btn me-2" 
-               th:classappend="${currentStatus == 'active'} ? 'btn-dark' : 'btn-outline-dark'">
-                販売中
-            </a>
-            
+               th:classappend="${currentStatus == 'active'} ? 'btn-dark' : 'btn-outline-dark'" th:text="#{btn.admin.goods.status.active}"></a>
+            <!-- 停止中ボタン -->
             <a th:href="@{/admin/goods/index(status='suspended')}" 
                class="btn" 
-               th:classappend="${currentStatus == 'suspended'} ? 'btn-dark' : 'btn-outline-dark'">
-                停止中
-            </a>
+               th:classappend="${currentStatus == 'suspended'} ? 'btn-dark' : 'btn-outline-dark'" th:text="#{btn.admin.goods.status.suspended}"></a>
         </div>
         
         <form th:action="@{/goods/index}" method="get" class="mb-4">
 		    <div class="row row-cols-auto g-2 justify-content-end align-items-center">
 		        <div>
-		            <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="商品名">
+		            <input type="search" name="keyword" th:value="${keyword}" class="form-control" th:placeholder="#{placeholder.admin.goods.name}">
 		        </div>
 		        <div>
-		            <button type="submit" class="btn btn-dark btn-sm">
-		                検索
-		            </button>
+		            <button type="submit" class="btn btn-dark btn-sm" th:text="#{btn.admin.goods.search}"></button>
 		        </div>
 		    </div>
 		</form>
         
         <table class="table table-bordered table-hover align-middle bg-white shadow-sm">
-            <thead class="table-dark">
+            <thead class="table-dark text-center">
                 <tr>
-                    <th>画像</th>
-                    <th>カテゴリ</th>
-                    <th>商品名</th>
-                    <th>単価</th>
+                    <th th:text="#{label.admin.goods.image}"></th>
+                    <th th:text="#{label.admin.goods.category}"></th>
+                    <th th:text="#{label.admin.goods.goodsName}"></th>
+                    <th th:text="#{label.admin.goods.price}"></th>
                     
-                    <th th:if="${currentStatus == 'active'}">登録日時</th>
-                    <th th:if="${currentStatus == 'suspended'}">削除日時</th>
+                    <th th:if="${currentStatus == 'active'}" th:text="#{label.admin.goods.registeredAt}"></th>
+                    <th th:if="${currentStatus == 'suspended'}" th:text="#{label.admin.goods.deletedAt}"></th>
                     
-                    <th>操作</th>
+                    <th th:text="#{label.admin.goods.action}"></th>
                 </tr>
             </thead>
             <tbody>
@@ -64,13 +61,13 @@
                     <td>
 					    <div class="d-flex align-items-center justify-content-center" style="height: 150px;">
 					        <img th:src="${item.getImageUrl()}" 
-					             class="h-50 w-50 object-fit-contain mx-auto" 
+					             class="h-75 w-75 object-fit-contain mx-auto" 
 					             th:alt="${item.goods.name}">
 					    </div>
 					</td>
-                    <td th:text="${item.category.name}">カテゴリ</td>
-                    <td th:text="${item.goods.name}" class="fw-bold">商品名</td>
-                    <td th:text="${item.goods.price} + '円'">0円</td>
+                    <td th:text="${item.category.name}"></td>
+                    <td th:text="${item.goods.name}" class="fw-bold"></td>
+                    <td th:text="${item.goods.price} + '円'"></td>
                     
                   	<td th:if="${currentStatus == 'active'}" 
                   		th:text="${#temporals.format(item.goods.createDateTime, 'yyyy/MM/dd HH:mm')}">

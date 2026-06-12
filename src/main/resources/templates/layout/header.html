@@ -7,14 +7,13 @@
         <div class="container-fluid">
             <!-- サイト名 -->
             <div sec:authorize="hasRole('USER')" class="d-flex align-items-center">
-                <a class="navbar-brand fw-bold" th:href="@{/goods/index}">バンドグッズECサイト</a>
+                <a class="navbar-brand fw-bold" th:href="@{/goods/index}" th:text="#{label.header.siteName}"></a>
             </div>
             
             <div sec:authorize="hasRole('ADMIN')" class="d-flex align-items-center">
-            	<a class="navbar-brand fw-bold" th:href="@{/admin/goods/index}">
-            		バンドグッズECサイト
-           		</a>
-           		<span class="badge bg-primary small">管理者用</span>
+            	<a class="navbar-brand fw-bold" th:href="@{/admin/goods/index}" th:text="#{label.header.admin.siteName}"></a>
+           		
+           		<span class="badge bg-primary small" th:text="#{label.header.adminBadge}"></span>
             </div>
             
             <button class="navbar-toggler" type="button"
@@ -31,45 +30,43 @@
                     <!-- 1. 一般ユーザー用メニュー (sec:authorizeで制御) -->
                     <th:block sec:authorize="hasRole('USER')">
                         <li class="nav-item me-2 pe-3 text-white border-end">
-                            <span th:text="${#authentication.principal.name} + ' 様'"></span>
+                            <span th:text="#{label.header.userHonorific(${#authentication.principal.name})}"></span>
                         </li>
                         <li class="nav-item px-2">
-                            <a class="nav-link text-white" th:href="@{/goods/index}">グッズ一覧</a>
+                            <a class="nav-link text-white" th:href="@{/goods/index}" th:text="#{btn.header.goodsIndex}"></a>
                         </li>
                         <li class="nav-item px-2">
-                            <!-- カートの個数は、後ほど共通処理でモデルに詰めます -->
                             <a class="nav-link text-white font-weight-bold" th:href="@{/cart/index}">
-                            	<!-- 【修正箇所】id="header-cart-count" を付与。これでJavaScriptから数字を操作できます -->
-                                カート(<span data-header-cart-count class="text-danger" th:text="${cartCount != null ? cartCount : 0}"></span>)
+                                [[#{btn.header.cart}]](<span data-header-cart-count class="text-danger" th:text="${cartCount != null ? cartCount : 0}"></span>)
                             </a>
                         </li>
                         <li class="nav-item px-2">
-                            <a class="nav-link text-white" th:href="@{/user/profile}">ユーザーページ</a>
+                            <a class="nav-link text-white" th:href="@{/user/profile}" th:text="#{btn.header.userProfile}"></a>
                         </li>
                         <li class="nav-item px-2">
-                            <a class="nav-link text-white" th:href="@{/order/history}">購入履歴</a>
+                            <a class="nav-link text-white" th:href="@{/order/history}" th:text="#{btn.header.orderHistory}"></a>
                         </li>
                     </th:block>
 
                     <!-- 2. 管理者用メニュー (Admin用) -->
                     <th:block sec:authorize="hasRole('ADMIN')">
                         <li class="nav-item px-2">
-                            <a class="nav-link text-white" th:href="@{/admin/goods/index}">グッズ一覧</a>
+                            <a class="nav-link text-white" th:href="@{/admin/goods/index}" th:text="#{btn.header.admin.goodsIndex}"></a>
                         </li>
                         
                         <li class="nav-item px-2">
-                            <a class="nav-link text-white" th:href="@{/admin/user/list}">一般ユーザー一覧</a>
+                            <a class="nav-link text-white" th:href="@{/admin/user/list}" th:text="#{btn.header.admin.userList}"></a>
                         </li>
                         
                         <li class="nav-item px-2">
-                        	<a class="nav-link text-white" th:href="@{/admin/order/list}">販売履歴</a>
+                        	<a class="nav-link text-white" th:href="@{/admin/order/list}" th:text="#{btn.header.admin.orderList}"></a>
                         </li>
                     </th:block>
 
                     <!-- 3. ログアウトボタン (共通) -->
                     <li class="nav-item ms-2 ms-sm-3">
                         <form th:action="@{/logout}" method="post">
-                            <button type="submit" class="btn btn-outline-light btn-sm">ログアウト</button>
+                            <button type="submit" class="btn btn-outline-light btn-sm" th:text="#{btn.header.logout}"></button>
                         </form>
                     </li>
                 </ul>
