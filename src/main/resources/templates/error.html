@@ -7,8 +7,7 @@
     <!-- CSS読込 -->
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 	
-	<!-- JS読込 -->
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
+	
 </head>
 <body class="bg-light">
 
@@ -18,17 +17,17 @@
             
             <div class="display-1 fw-bold text-danger mb-4">！</div>
             
-            <h1 class="h4 fw-bold text-dark mb-2">申し訳ございません。</h1>
-            <p class="text-secondary fs-5 mb-5">エラーが発生しました。</p>
+            <h1 class="h4 fw-bold text-dark mb-2" th:text="#{common.error.apology}"></h1>
+            <p class="text-secondary fs-5 mb-5" th:text="#{common.error.message}"></p>
             
             <form th:action="@{/logout}" method="post" class="d-grid">
-			    <button type="submit" class="btn btn-dark btn-lg fw-bold rounded-3 py-3">
-			        ログイン画面へ戻る
+			    <button type="submit" class="btn btn-dark btn-lg fw-bold rounded-3 py-3" th:text="#{common.error.btn.toLogin}">
 			    </button>
 			</form>
             
         </div>
     </div>
-
+	<!-- JS読込 -->
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
 </body>
 </html>

@@ -3,29 +3,35 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}"> <head>
     <meta charset="UTF-8">
-    <title>グッズ登録</title>
+    <title th:text="#{title.admin.goods.register}"></title>
 </head>
 <body>
 
 <main layout:fragment="content">
-    <div class="container mt-5" style="max-width: 600px;">
+    <div class="container mt-4" style="max-width: 600px;">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h2 class="card-title mb-4">グッズ登録</h2>
+                <h2 class="card-title mb-4" th:text="#{label.admin.goods.register.title}"></h2>
                 
                 <form th:action="@{/admin/goods/register}" th:object="${goodsForm}" method="post" enctype="multipart/form-data">
                     
                     <div class="mb-3">
-                        <label class="form-label">商品名 <span class="badge bg-danger">必須</span></label>
-                        <input type="text" th:field="*{name}" th:errorclass="is-invalid" class="form-control" placeholder="例：ツアーTシャツ2026 (Black)">
+                        <label class="form-label">
+                        	<span th:text="#{label.admin.goods.register.name}"></span>
+                        	<span class="badge bg-danger" th:text="#{label.admin.goods.register.required}"></span>
+                       	</label>
+                        <input type="text" th:field="*{name}" th:errorclass="is-invalid" class="form-control" th:placeholder="#{placeholder.admin.goods.register.name}">
                         <div class="text-danger small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                     </div>
 
                     <div class="mb-3">
-					    <label class="form-label">価格（税込） <span class="badge bg-danger">必須</span></label>
+					    <label class="form-label">
+					    	<span th:text="#{label.admin.goods.register.price}"></span>
+					    	<span class="badge bg-danger" th:text="#{label.admin.goods.register.required}"></span>
+				    	</label>
 					    
 					    <div class="d-flex align-items-center gap-2">
-					        <input type="text" th:field="*{price}" th:errorclass="is-invalid" class="form-control w-50" placeholder="例：3500">
+					        <input type="text" th:field="*{price}" th:errorclass="is-invalid" class="form-control w-50" th:placeholder="#{placeholder.admin.goods.register.price}">
 					        <span>円</span>
 					    </div>
 					    
@@ -33,29 +39,38 @@
 					</div>
 
                     <div class="mb-3">
-                        <label class="form-label">商品画像 <span class="badge bg-danger">必須</span></label>
+                        <label class="form-label">
+                        	<span th:text="#{label.admin.goods.register.image}"></span>
+                        	<span class="badge bg-danger" th:text="#{label.admin.goods.register.required}"></span>
+                        </label>
                         <input type="file" th:field="*{imageFile}" class="form-control" th:classappend="${#fields.hasErrors('imageFile')} ? 'is-invalid'" accept="image/*">
                         <div class="text-danger small" th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}"></div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">商品説明 <span class="badge bg-danger">必須</span></label>
-                        <textarea th:field="*{description}" th:errorclass="is-invalid" class="form-control" rows="4" placeholder="商品の詳細やサイズ展開、素材などについて入力してください。"></textarea>
+                        <label class="form-label">
+                        	<span th:text="#{label.admin.goods.register.description}"></span>
+                        	<span class="badge bg-danger" th:text="#{label.admin.goods.register.required}"></span>
+                        </label>
+                        <textarea th:field="*{description}" th:errorclass="is-invalid" class="form-control" rows="4" th:placeholder="#{placeholder.admin.goods.register.description}"></textarea>
                         <div class="text-danger small" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label">カテゴリ <span class="badge bg-danger">必須</span></label>
+                        <label class="form-label">
+                        	<span th:text="#{label.admin.goods.register.category}"></span>
+                        	<span class="badge bg-danger" th:text="#{label.admin.goods.register.required}"></span>
+                        </label>
                         <select th:field="*{categoryId}" th:errorclass="is-invalid" class="form-select">
-                            <option value="">カテゴリを選択してください</option>
+                            <option value="" th:text="#{option.admin.goods.register.categoryDefault}"></option>
                             <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                         </select>
                         <div class="text-danger small" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></div>
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <a th:href="@{/admin/goods/index}" class="btn btn-secondary">戻る</a>
-                        <button type="submit" class="btn btn-primary">登録</button>
+                        <a th:href="@{/admin/goods/index}" class="btn btn-secondary" th:text="#{btn.admin.goods.register.back}"></a>
+                        <button type="submit" class="btn btn-primary" th:text="#{btn.admin.goods.register.submit}"></button>
                     </div>
                     
                 </form>
