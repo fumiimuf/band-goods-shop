@@ -26,7 +26,7 @@ public class OrderDetail {
 		
 		// カート時と同じ判別ルール（文字数が30文字より多ければ更新された画像、それ以外は初期画像）
 		if (this.orderedImage.length() > 30) {
-			return "/uploaded-image/" + this.orderedImage;
+			return "/uploaded-images/" + this.orderedImage;
 		} else {
 			return "/images/" + this.orderedImage;
 		}
