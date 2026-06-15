@@ -70,7 +70,7 @@
 									<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="w-50 d-flex m-0">
 										<input type="hidden" name="goodsId" th:value="${item.goods.id}">
 									 	<!-- カートに追加ボタン -->
-										<button type="submit" class="btn btn-primary btn-sm w-100 text-nowrap py-1 px-0" style="font-size: 0.8rem;" th:text="#{btn.goods.addCart}"></button>
+										<button type="submit" class="btn btn-primary btn-sm text-nowrap py-1 px-0" style="font-size: 0.8rem;" th:text="#{btn.goods.addCart}"></button>
 									</form>
 								</div>
 							</div>
