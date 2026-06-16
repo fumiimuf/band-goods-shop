@@ -15,7 +15,7 @@ public class GoodsItem {
 	// 画像の正しいURLを自動で判断して返すメソッド
 	public String getImageUrl() {
 		// 1. 画像名が空、またはnullなら「画像なし(no-image.png)」のパスを返す
-		if (this.goods.getImage() == null || this.goods.getImage().isEmpty()) {
+		if (this.goods.getImage() == null || this.goods.getImage() == null || this.goods.getImage().isEmpty()) {
 			return "/images/no-image.png";
 		}
 		
