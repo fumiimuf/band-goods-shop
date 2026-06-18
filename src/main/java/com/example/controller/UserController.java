@@ -13,16 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.config.LoginUser;
 import com.example.entity.User;
-import com.example.form.UserRegisterForm;
 import com.example.form.UserEditForm;
+import com.example.form.UserRegisterForm;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-
-
-
 
 
 @Controller
@@ -36,26 +32,15 @@ public class UserController {
 	private final ModelMapper modelMapper;
 	
 	
-	/**
-	 * ユーザー登録画面を表示します。
-	 * 
-	 * @param userRegisterForm 画面の入力値を保持するフォームオブジェクト
-	 * @return ユーザー登録画面のテンプレートパス
-	 */
+	// ユーザー登録情報を表示
 	@GetMapping("/register")
 	public String getRegister(@ModelAttribute UserRegisterForm userRegisterForm) {
 		
 		return "user/register";
 	}
 	
-	/**
-	 * ユーザー登録処理を実行します。
-	 * バリデーションがある場合は登録画面に戻り、正常の場合はログイン画面へ遷移します。
-	 * 
-	 * @param userRegisterForm 画面から送信された入力内容
-	 * @param bindingResult バリデーションの結果。エラー有無を確認するために使用
-	 * @return 登録成功時はログイン画面へのリダイレクト、失敗時は登録画面のパス
-	 */
+	
+	// ユーザー登録処理
 	@PostMapping("/register")
 	public String postRegister(@ModelAttribute @Validated UserRegisterForm userRegisterForm, 
 			BindingResult bindingResult) {
@@ -77,14 +62,14 @@ public class UserController {
 			log.warn("登録失敗：メールアドレスが既に存在します：{}", user.getEmail());
 			
 			// 第1引数に"email"を指定することで、画面のメールアドレス入力欄にエラーを表示します
-			bindingResult.rejectValue("email", "error.duplicate");
+			bindingResult.rejectValue("email", "error.duplicate.email");
 			
 			return "user/register";
 		}
 		
 		log.info("ユーザー登録が正常に完了しました：{}", user.getEmail());
 		
-		return "redirect:/login?registerSuccess";
+		return "redirect:/login";
 	}
 	
 	/**
