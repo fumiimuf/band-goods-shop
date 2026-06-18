@@ -7,61 +7,76 @@
     <!-- CSS読込 -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 
-    <title th:text="#{title.userRegister}"></title>
+    <title th:text="#{title.user.register}"></title>
 </head>
 <body>
-    <div class="container mt-5 mx-auto" style="max-width: 400px;">
+    <div class="container mt-4 mx-auto" style="max-width: 400px;">
     	<!-- 大見出し -->
-    	<h1 class="mb-3 text-center" th:text="#{label.userRegister.title}"></h1>
+    	<h1 class="mb-3 text-center" th:text="#{label.user.register.title}"></h1>
     	
-    	<hr>
+    	<hr class="border-2 opacity-100">
     
     	<!-- 入力フォーム -->
     	<form th:action="@{/user/register}" th:object="${userRegisterForm}" method="post">
     		
     		<!-- 氏名 -->
     		<div class="mb-3">
-    			<label class="form-label" th:text="#{label.userRegister.name}"></label>
+    			<label class="form-label">
+    				<span th:text="#{label.user.register.name}"></span>
+    				<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
+    			</label>
     			<input type="text" class="form-control" th:field="*{name}" th:errorclass="is-invalid">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     		</div>
     		
     		<!-- メールアドレス -->
     		<div class="mb-3">
-    			<label class="form-label" th:text="#{label.userRegister.email}"></label>
+    			<label class="form-label">
+    				<span th:text="#{label.user.register.email}"></span>
+    				<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
+    			</label>
     			<input type="email" class="form-control" th:field="*{email}" th:errorclass="is-invalid">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
     		</div>
     		
     		<!-- パスワード -->
     		<div class="mb-3">
-    			<label class="form-label" th:text="#{label.userRegister.password}"></label>
+    			<label class="form-label">
+    				<span th:text="#{label.user.register.password}"></span>
+					<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
+    			</label>
     			<input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     		</div>
     		
     		<!-- 郵便番号 -->
     		<div class="mb-3">
-    			<label class="form-label" th:text="#{label.userRegister.zipCode}"></label>
+    			<label class="form-label">
+    				<span th:text="#{label.user.register.zipCode}"></span>
+					<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
+    			</label>
     			<input type="text" class="form-control" th:field="*{zipCode}" th:errorclass="is-invalid">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
     		</div>
     		
     		<!-- 住所 -->
     		<div class="mb-3">
-    			<label class="form-label" th:text="#{label.userRegister.address}"></label>
+    			<label class="form-label">
+    				<span th:text="#{label.user.register.address}"></span>
+					<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
+    			</label>
     			<textarea class="form-control" th:field="*{address}" rows="3" th:errorclass="is-invalid"></textarea>
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
     		</div>
     		
     		<!-- 登録ボタン -->
     		<div class="d-grid mb-3">
-    			<button type="submit" class="btn btn-primary btn-lg" th:text="#{btn.userRegister}"></button>
+    			<button type="submit" class="btn btn-primary btn-lg" th:text="#{btn.user.register.submit}"></button>
     		</div>
     		
     		<!-- リンク -->
     		<div class="mb-3 text-center">
-    			<a th:href="@{/login}" class="text-decoration-none" th:text="#{link.userRegister.toLogin}"></a>
+    			<a th:href="@{/login}" class="text-decoration-none" th:text="#{link.user.register.toLogin}"></a>
     		</div>
     		
     	</form>
