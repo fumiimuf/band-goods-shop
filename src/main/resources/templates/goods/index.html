@@ -86,7 +86,7 @@
 						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${currentPage - 1}, keyword=${keyword})}">前へ</a>
 					</li>
 	
-					<li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+					<li class="page-item" th:each="i : ${#numbers.sequence(startPage, endPage)}" th:classappend="${i == currentPage} ? 'active'">
 						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${i}, keyword=${keyword})}" th:text="${i + 1}"></a>
 					</li>
 	

@@ -42,11 +42,28 @@ public class GoodsController {
 		// 全体のページ数を計算します（端数は切り上げ。例：9件なら2ページ）
 		int totalPages = (int) Math.ceil((double) totalCount / size);
 		
+		// 表示するページボタンの範囲を最大3に設定
+		int displayButtonCount =3;
+		
+		// 開始ページ
+		int startPage = Math.max(0, page - (displayButtonCount / 2));
+		
+		// 終了ページ
+		int endPage = Math.min(totalPages -1,  startPage + displayButtonCount -1);
+		
+		// ページの終わりで方でボタンが3つ未満になってしまう場合の調整
+		if (endPage - startPage + 1 < displayButtonCount) {
+			startPage = Math.max(0, endPage - displayButtonCount + 1);
+		}
+		
 		// 画面（HTML）で使うためのデータをセットします
-		model.addAttribute("goodsList", goodsList);// 商品リスト
-		model.addAttribute("currentPage", page);// 現在のページ番号
-		model.addAttribute("totalPages", totalPages);// 全ページ数
-		model.addAttribute("keyword", keyword);// 検索キーワード
+		model.addAttribute("goodsList", goodsList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("keyword", keyword);
+		
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		
 		// グッズ一覧(一般ユーザー)を表示
 		return "goods/index";
