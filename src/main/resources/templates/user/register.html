@@ -25,7 +25,7 @@
     				<span th:text="#{label.user.register.name}"></span>
     				<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
     			</label>
-    			<input type="text" class="form-control" th:field="*{name}" th:errorclass="is-invalid">
+    			<input type="text" class="form-control" th:field="*{name}" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.name}">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     		</div>
     		
@@ -35,7 +35,7 @@
     				<span th:text="#{label.user.register.email}"></span>
     				<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
     			</label>
-    			<input type="email" class="form-control" th:field="*{email}" th:errorclass="is-invalid">
+    			<input type="email" class="form-control" th:field="*{email}" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.email}">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
     		</div>
     		
@@ -45,7 +45,7 @@
     				<span th:text="#{label.user.register.password}"></span>
 					<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
     			</label>
-    			<input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid">
+    			<input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.password}">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     		</div>
     		
@@ -55,7 +55,7 @@
     				<span th:text="#{label.user.register.zipCode}"></span>
 					<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
     			</label>
-    			<input type="text" class="form-control" th:field="*{zipCode}" th:errorclass="is-invalid">
+    			<input type="text" class="form-control" th:field="*{zipCode}" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.zipCode}">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
     		</div>
     		
@@ -65,7 +65,7 @@
     				<span th:text="#{label.user.register.address}"></span>
 					<span class="badge bg-danger" th:text="#{label.user.register.required}"></span>
     			</label>
-    			<textarea class="form-control" th:field="*{address}" rows="3" th:errorclass="is-invalid"></textarea>
+    			<textarea class="form-control" th:field="*{address}" rows="3" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.address}"></textarea>
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
     		</div>
     		
