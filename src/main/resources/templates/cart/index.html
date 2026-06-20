@@ -29,7 +29,7 @@
 				</form>
 			</div>
 			
-			<hr>
+			<hr class="border-2 opacity-100">
 			
 			<div class="card">
 				<div class="card-body">
@@ -50,16 +50,16 @@
 									<div class="d-flex align-items-center gap-3">
 										<!-- 商品画像 -->
 										<div
-											class="d-flex align-items-center justify-content-center overflow-hidden"
-											style="height: 150px;">
+											class="d-flex align-items-center justify-content-center flex-shrink-0"
+											style="height: 100px; width: 100px;">
 											<img th:src="${item.getImageUrl()}"
-												class="w-75 h-75 object-fit-contain mx-auto"
+												class="w-100 h-100 object-fit-contain"
 												th:alt="${item.goods.name}">
 										</div>
 										
 										<!-- 商品名 -->
 										<div>
-											<div th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
+											<div class="fw-bold" th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
 												th:text="${item.goods.name}">
 											</div>
 											
@@ -76,7 +76,7 @@
 								</td>
 								
 								<!-- 単価 -->
-								<td th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
+								<td class="fw-bold" th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
 									th:text="|¥ ${#numbers.formatInteger(item.goods.price, 3, 'COMMA')}|"></td>
 								<!-- 数量(ドロップダウン) -->
 								<td>
@@ -103,7 +103,7 @@
 								</td>
 
 								<!-- 小計 -->
-								<td class="text-nowrap text-end" th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''">
+								<td class="text-nowrap text-end fw-bold" th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''">
 									<div class="text-center">
 										<span th:if="${item.goods.isDeleted}">¥ 0</span>
 									</div>
@@ -127,10 +127,10 @@
 				</div>
 			</div>
 			<!-- 合計金額 -->
-			<div class="card mt-4">
-				<div class="card-body text-end">
+			<div class="card my-4">
+				<div class="card-body d-flex flex-column align-items-end justify-content-center">
 					<div class="fw-bold small" th:text="#{label.cart.totalAmount}"></div>
-					<div class="fw-bold fs-2 text-danger">
+					<div class="fw-bold fs-1 lh-1 text-danger">
 						¥ <span data-total-amount th:text="${#numbers.formatInteger(totalAmount, 3, 'COMMA')}"></span>
 					</div>
 				</div>
