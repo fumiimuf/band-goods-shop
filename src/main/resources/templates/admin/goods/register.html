@@ -39,12 +39,12 @@
 					</div>
 
                     <div class="mb-3">
-                        <label class="form-label">
+                        <label for="imageFile" class="form-label">
                         	<span th:text="#{label.admin.goods.register.image}"></span>
                         	<span class="badge bg-danger" th:text="#{label.admin.goods.register.required}"></span>
                         </label>
-                        <input type="file" th:field="*{imageFile}" class="form-control" th:classappend="${#fields.hasErrors('imageFile')} ? 'is-invalid'" accept="image/*">
-                        <div class="text-danger small" th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}"></div>
+                        <input type="file" th:field="*{imageFile}" id="imageFile" class="form-control" th:classappend="${#fields.hasErrors('imageFile')} ? 'is-invalid'" accept="image/*">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}"></div>
                     </div>
 
                     <div class="mb-3">
@@ -69,7 +69,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <a th:href="@{/admin/goods/index}" class="btn btn-secondary" th:text="#{btn.admin.goods.register.back}"></a>
+                        <a th:href="@{/admin/goods/index}" class="btn btn-outline-secondary" th:text="#{btn.admin.goods.register.back}"></a>
                         <button type="submit" class="btn btn-primary" th:text="#{btn.admin.goods.register.submit}"></button>
                     </div>
                     
