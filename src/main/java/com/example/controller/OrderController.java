@@ -80,19 +80,8 @@ public class OrderController {
 			// 【例外処理】もし販売終了の商品があってエラーが出た場合
 			log.error("購入処理エラー: {}", e.getMessage());
 			
-			// カート画面を表示するために必要なデータをModelに入れる
-			
-			// ログインユーザーのIDを取得
-			Integer userId = loginUser.getUserId();
-			
-			// 最新のカート情報を取得（これで item.isDeleted が true のものが混ざった状態になります）
-			List<CartItem> cartList = cartService.findByUserId(userId);
-			
-			// modelに登録
-			model.addAttribute("cartList", cartList);
-			
-			// カート画面へ戻る
-			return "cart/index";
+			// カート画面へリダイレクト
+			return "redirect:/cart/index";
 		}
 	}
 	
@@ -102,10 +91,10 @@ public class OrderController {
 		return "order/success";
 	}
 	
-	// 注文履歴の画面を表示
+	// 購入履歴の画面を表示
 	@GetMapping("/history")
 	public String getOrderHistory(
-					@RequestParam(name = "page", defaultValue = "0") int page,
+					@RequestParam(defaultValue = "0") int page,
 					@AuthenticationPrincipal LoginUser loginUser, 
 					Model model) {
 		
@@ -128,10 +117,27 @@ public class OrderController {
 		// 全体のページ数を計算する。
 		int totalPages = (int) Math.ceil((double) totalCount / size);
 		
+		// 表示するページボタンの範囲を最大3に設定
+		int displayButtonCount = 3;
+		
+		// 開始ページ
+		int startPage = Math.max(0, page - (displayButtonCount / 2));
+		
+		// 終了ページ
+		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
+		
+		// ページの終わりでボタンが3つ未満になってしまう場合の調整
+		if (endPage - startPage + 1 < displayButtonCount) {
+			startPage = Math.max(0, endPage - displayButtonCount + 1);
+		}
+		
 		// 画面(HTML)で使うためのデータをセットする
 		model.addAttribute("historyList", historyList);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
+		
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		
 		// 画面遷移
 		return "order/history";
