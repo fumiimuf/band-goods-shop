@@ -140,7 +140,7 @@
 		            <a th:href="@{/goods/index}" class="btn btn-outline-secondary" th:text="#{btn.cart.back}"></a> 
 		            <!-- 購入へ進むボタン -->
 		            <a th:href="@{/order/confirm}" class="btn"
-		               th:classappend="${cartList.^[goods.isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'" th:text="#{btn.cart.toPurchase}"></a>
+		               th:classappend="${#lists.isEmpty(cartList) || cartList.^[goods.isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'" th:text="#{btn.cart.toPurchase}"></a>
 		        </div>
 			</div>
 
