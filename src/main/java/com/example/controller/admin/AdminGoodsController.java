@@ -74,6 +74,20 @@ public class AdminGoodsController {
 
 		// 全体のページ数を計算（端数切り上げ。例：6件なら2ページ）
 		int totalPages = (int) Math.ceil((double) totalCount / size);
+		
+		// 表示するページボタンの範囲を最大3つに設定
+		int displayButtonCount = 3;
+		
+		// 開始ページ
+		int startPage = Math.max(0, page - (displayButtonCount / 2));
+		
+		// 終了ページ
+		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
+		
+		// ページの終わりでボタンが3つ未満になってしまう場合の調整
+		if (endPage - startPage + 1 < displayButtonCount) {
+			startPage = Math.max(0, endPage - displayButtonCount + 1);
+		}
 
 		// 画面（HTML）へ送るデータをセット
 		model.addAttribute("goodsList", goodsList);
@@ -81,6 +95,9 @@ public class AdminGoodsController {
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("currentStatus", status);
 		model.addAttribute("keyword", keyword);
+		
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 
 		return "admin/goods/index";
 	}
