@@ -18,7 +18,7 @@
 		    <a th:href="@{/admin/goods/register}" class="btn btn-primary" th:text="#{btn.admin.goods.register}"></a>
 		</div>
 		
-		<hr>
+		<hr class="border-2 opacity-100">
         
         <div class="mb-4">
         	<!-- 販売中ボタン -->
@@ -59,9 +59,9 @@
             <tbody>
                 <tr th:each="item : ${goodsList}">
                     <td>
-					    <div class="d-flex align-items-center justify-content-center" style="height: 150px;">
+					    <div class="d-flex align-items-center justify-content-center flex-shrink-0 mx-auto" style="height: 100px; width: 100px;">
 					        <img th:src="${item.getImageUrl()}" 
-					             class="h-75 w-75 object-fit-contain mx-auto" 
+					             class="h-100 w-100 object-fit-contain" 
 					             th:alt="${item.goods.name}">
 					    </div>
 					</td>
@@ -77,8 +77,8 @@
                     	th:text="${#temporals.format(item.goods.deleteDateTime, 'yyyy/MM/dd HH:mm')}">
                     </td>
                     
-                    <td>
-                    	<a th:href="@{/admin/goods/edit/{id}(id=${item.goods.id})}" class="btn btn-sm btn-primary px-3">更新</a>
+                    <td class="text-center">
+                    	<a th:href="@{/admin/goods/edit/{id}(id=${item.goods.id})}" class="btn btn-sm btn-primary px-3" th:text="#{btn.admin.goods.update}"></a>
                     </td>
                         
                 </tr>
@@ -89,10 +89,10 @@
             <ul class="pagination justify-content-center d-flex gap-1">
             	
             	<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-					<a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/goods/index(page=${currentPage - 1})}">前へ</a>
+					<a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/goods/index(page=${currentPage - 1})}" th:text="#{common.pagination.prev}"></a>
 				</li>
             	
-                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                <li class="page-item" th:each="i : ${#numbers.sequence(startPage, endPage)}" 
                     th:classappend="${i == currentPage} ? 'active'">
                     <a class="page-link text-dark border-dark rounded-1" 
                        th:href="@{/admin/goods/index(status=${currentStatus}, page=${i})}" 
@@ -100,7 +100,7 @@
                 </li>
                 
                 <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-					<a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/goods/index(page=${currentPage + 1})}">次へ</a>
+					<a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/goods/index(page=${currentPage + 1})}" th:text="#{common.pagination.next}"></a>
 				</li>
             </ul>
         </nav>
