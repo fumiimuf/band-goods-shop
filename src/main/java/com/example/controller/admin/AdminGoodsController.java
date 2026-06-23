@@ -104,7 +104,7 @@ public class AdminGoodsController {
 
 	// グッズ登録画面の表示
 	@GetMapping("register")
-	public String showRegisterForm(@ModelAttribute("goodsForm") GoodsRegisterForm goodsRegisterForm, Model model) {
+	public String showRegisterForm(@ModelAttribute("goodsRegisterForm") GoodsRegisterForm goodsRegisterForm, Model model) {
 		// ドロップダウンに表示するカテゴリ一覧をDBから取得してModelに詰める
 		List<Category> categories = categoryService.getAllCategories();
 		model.addAttribute("categories", categories);
@@ -114,29 +114,15 @@ public class AdminGoodsController {
 
 	// グッズ登録処理の実行
 	@PostMapping("register")
-	public String registerGoods(@ModelAttribute("goodsForm") @Valid GoodsRegisterForm goodsRegisterForm,
+	public String registerGoods(@ModelAttribute("goodsRegisterForm") @Valid GoodsRegisterForm goodsRegisterForm,
 			BindingResult bindingResult,
 			Model model) {
-
-		// 入力チェックでエラーがあった場合
-		if (bindingResult.hasErrors()) {
-			// 画面に戻る際、ドロップダウン用のカテゴリ一覧を再取得してModelに詰める
-			List<Category> categories = categoryService.getAllCategories();
-			model.addAttribute("categories", categories);
-
-			// エラーメッセージを表示した状態で、登録画面のHTMLを再表示する
-			return "admin/goods/register";
-		}
-
-		// formをGoodsクラスに変換
-		Goods goods = modelMapper.map(goodsRegisterForm, Goods.class);
-
+		
 		// 画面から送られてきた画像ファイルを取り出す
 		MultipartFile imageFile = goodsRegisterForm.getImageFile();
-
 		// DBの「画像」項目に保存するためのファイル名を入れる箱
 		String savedFileName = "";
-
+		
 		// 画像ファイルが選択されているかチェック
 		if (imageFile != null && !imageFile.isEmpty()) {
 			try {
@@ -153,32 +139,48 @@ public class AdminGoodsController {
 					// 600x600ピクセル以外の場合はエラーにする
 					if (width > 600 || height > 600) {
 						bindingResult.rejectValue("imageFile", "error.imageFile.size");
-						
-						// カテゴリ一覧を再取得して登録画面のHTMLへ送り返す
-						List<Category> categories = categoryService.getAllCategories();
-						model.addAttribute("categories", categories);
-						return "admin/goods/register";
 					}
 				}
 				
-				// 元のファイル名を取得
-				String originalFileName = imageFile.getOriginalFilename();
-
-				// 同名ファイルの上書きを防ぐため、UUID（ランダムな一意の文字列）を先頭に結合
-				savedFileName = UUID.randomUUID().toString() + "_" + originalFileName;
-
-				// application.properties から取得した保存先ディレクトリとファイル名を結合
-				String filePath = uploadDirectory + savedFileName;
-
-				// パソコンのフォルダへバイナリデータとして物理書き出し
-				byte[] bytes = imageFile.getBytes();
-				Files.write(Paths.get(filePath), bytes);
+				// エラーが1つもない場合のみ、パソコンのフォルダへ物理保存する
+				if (!bindingResult.hasErrors()) {
+					// 元のファイル名を取得
+					String originalFileName = imageFile.getOriginalFilename();
+					
+					// 同名ファイルの上書きを防ぐため、UUID（ランダムな一意の文字列）を先頭に結合
+					savedFileName = UUID.randomUUID().toString() + "_" + originalFileName;
+					
+					// application.properties から取得した保存先ディレクトリとファイル名を結合
+					String filePath = uploadDirectory + savedFileName;
+					
+					// パソコンのフォルダへバイナリデータとして物理書き出し
+					byte[] bytes = imageFile.getBytes();
+					Files.write(Paths.get(filePath), bytes);
+				}
 
 			} catch (IOException e) {
 				// ファイルの書き込みに失敗した場合はスタックトレースを出力
 				e.printStackTrace();
 			}
+		} else {
+			// ファイルがnull or 空(未選択)の場合
+			bindingResult.rejectValue("imageFile", "NotNull.goodsRegisterForm.imageFile");
 		}
+		
+		// 入力チェックor画像サイズでエラーがあった場合
+		if (bindingResult.hasErrors()) {
+			// 画面に戻る際、ドロップダウン用のカテゴリ一覧を再取得してModelに詰める
+			List<Category> categories = categoryService.getAllCategories();
+			model.addAttribute("categories", categories);
+
+			// エラーメッセージを表示した状態で、登録画面のHTMLを再表示する
+			return "admin/goods/register";
+		}
+
+		// すべてクリアした場合、DBへの登録処理を行う
+		
+		// formをGoodsクラスに変換
+		Goods goods = modelMapper.map(goodsRegisterForm, Goods.class);
 
 		// 後から決まった「唯一無二のファイル名」と「初期状態の削除フラグ(false=0)」をセットする
 		goods.setImage(savedFileName);
