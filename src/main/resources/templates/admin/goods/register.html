@@ -9,12 +9,16 @@
 
 <main layout:fragment="content">
     <div class="container mt-4" style="max-width: 600px;">
-        <div class="card shadow-sm">
+    	
+    	<!-- 大見出し -->
+        <h2 class="text-center mb-4" th:text="#{label.admin.goods.register.title}"></h2>
+        
+        <hr class="border-2 opacity-100">
+        
+        <div class="card shadow-sm my-3">
             <div class="card-body">
-                <h2 class="card-title mb-4" th:text="#{label.admin.goods.register.title}"></h2>
-                
-                <form th:action="@{/admin/goods/register}" th:object="${goodsForm}" method="post" enctype="multipart/form-data">
-                    
+                <form th:action="@{/admin/goods/register}" th:object="${goodsRegisterForm}" method="post" enctype="multipart/form-data">
+                    <!-- 商品名 -->
                     <div class="mb-3">
                         <label class="form-label">
                         	<span th:text="#{label.admin.goods.register.name}"></span>
@@ -23,7 +27,7 @@
                         <input type="text" th:field="*{name}" th:errorclass="is-invalid" class="form-control" th:placeholder="#{placeholder.admin.goods.register.name}">
                         <div class="text-danger small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                     </div>
-
+					<!-- 価格 -->
                     <div class="mb-3">
 					    <label class="form-label">
 					    	<span th:text="#{label.admin.goods.register.price}"></span>
@@ -37,16 +41,16 @@
 					    
 					    <div class="text-danger small mt-1" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
 					</div>
-
+					<!-- 商品画像 -->
                     <div class="mb-3">
                         <label for="imageFile" class="form-label">
                         	<span th:text="#{label.admin.goods.register.image}"></span>
                         	<span class="badge bg-danger" th:text="#{label.admin.goods.register.required}"></span>
                         </label>
-                        <input type="file" th:field="*{imageFile}" id="imageFile" class="form-control" th:classappend="${#fields.hasErrors('imageFile')} ? 'is-invalid'" accept="image/*">
-                        <div class="invalid-feedback" th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}"></div>
+                        <input type="file" th:field="*{imageFile}" id="imageFile" class="form-control" th:errorclass="is-invalid" accept="image/*">
+                        <div class="invalid-feedback" th:errors="*{imageFile}"></div>
                     </div>
-
+					<!-- 商品説明 -->
                     <div class="mb-3">
                         <label class="form-label">
                         	<span th:text="#{label.admin.goods.register.description}"></span>
@@ -55,7 +59,7 @@
                         <textarea th:field="*{description}" th:errorclass="is-invalid" class="form-control" rows="4" th:placeholder="#{placeholder.admin.goods.register.description}"></textarea>
                         <div class="text-danger small" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                     </div>
-
+					<!-- カテゴリ -->
                     <div class="mb-4">
                         <label class="form-label">
                         	<span th:text="#{label.admin.goods.register.category}"></span>
@@ -67,10 +71,10 @@
                         </select>
                         <div class="text-danger small" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></div>
                     </div>
-
-                    <div class="d-flex justify-content-between">
-                        <a th:href="@{/admin/goods/index}" class="btn btn-outline-secondary" th:text="#{btn.admin.goods.register.back}"></a>
-                        <button type="submit" class="btn btn-primary" th:text="#{btn.admin.goods.register.submit}"></button>
+					<!-- 戻る・登録ボタン -->
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        <a th:href="@{/admin/goods/index}" class="btn btn-outline-secondary px-4 py-2" th:text="#{btn.admin.goods.register.back}"></a>
+                        <button type="submit" class="btn btn-primary px-4 py-2" th:text="#{btn.admin.goods.register.submit}"></button>
                     </div>
                     
                 </form>
