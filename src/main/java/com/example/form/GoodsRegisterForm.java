@@ -22,8 +22,7 @@ public class GoodsRegisterForm {
 	@Min(0)
 	private Integer price;
 
-	// 💡 画像ファイルそのものを受け取るための型（必須）
-	@NotNull
+	// 画像ファイルそのものを受け取るための型
 	private MultipartFile imageFile;
 
 	// 商品説明（設計書より：必須、500文字以内）
