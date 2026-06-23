@@ -9,18 +9,22 @@
 <body>
 
 <main layout:fragment="content">
-    <div class="container mt-5" style="max-width: 600px;">
-        <div class="card shadow-sm">
+    <div class="container mt-4" style="max-width: 600px;">
+    	
+    	<!-- 大見出し -->
+    	<h2 class="text-center mb-4" th:text="#{label.admin.goods.edit.title}"></h2>
+    	
+    	<hr class="border-2 opacity-100">
+    	
+        <div class="card shadow-sm my-3">
             <div class="card-body">
-                <h2 class="card-title mb-4" th:text="#{label.admin.goods.edit.title}"></h2>
-                
                 <form th:action="@{/admin/goods/update}" 
                       th:object="${goodsEditForm}" 
                       method="post" 
                       enctype="multipart/form-data">
                     
                     <input type="hidden" th:field="*{id}">
-                    
+                    <!-- 商品名 -->
                     <div class="mb-3">
                         <label class="form-label">
 	                        <span th:text="#{label.admin.goods.edit.name}"></span>
@@ -29,10 +33,10 @@
                         <input type="text" 
                         		th:field="*{name}" 
                         		class="form-control" 
-                        		th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : 'is-valid'">
-                        <div class="text-danger small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                        		th:errorclass="is-invalid">
+                        <div class="invalid-feedback" th:errors="*{name}"></div>
                     </div>
-
+					<!-- 価格 -->
                     <div class="mb-3">
                         <label class="form-label">
 	                        <span th:text="#{label.admin.goods.edit.price}"></span>
@@ -42,12 +46,12 @@
                             <input type="text" 
                             		th:field="*{price}" 
                             		class="form-control w-50"
-                            		th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : 'is-valid'">
+                            		th:errorclass="is-invalid">
                             <span>円</span>
                         </div>
-                        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                        <div class="invalid-feedback" th:errors="*{price}"></div>
                     </div>
-
+					<!-- 商品画像 -->
                     <div class="mb-3">
                         <label class="form-label">
 	                        <span th:text="#{label.admin.goods.edit.image}"></span>
@@ -56,12 +60,12 @@
                         <input type="file" 
                         		th:field="*{imageFile}" 
                         		class="form-control" 
-                        		th:classappend="${#fields.hasErrors('imageFile')} ? 'is-invalid' : 'is-valid'" 
+                        		th:errorclass="is-invalid"
                         		accept="image/*">
-                        <div class="text-muted small mt-1">※変更する場合のみ選択してください。</div>
-                        <div class="text-danger small" th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}"></div>
+                        <div class="text-muted small mt-1" th:text="#{msg.admin.goods.edit.imageHint}"></div>
+                        <div class="invalid-feedback" th:errors="*{imageFile}"></div>
                     </div>
-
+					<!-- 商品説明 -->
                     <div class="mb-3">
                         <label class="form-label">
                         <span th:text="#{label.admin.goods.edit.description}"></span>
@@ -69,11 +73,11 @@
                         </label>
                         <textarea th:field="*{description}" 
                         			class="form-control" 
-                        			th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : 'is-valid'"
+                        			th:errorclass="is-invalid"
                         			rows="4" ></textarea>
-                        <div class="text-danger small" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                        <div class="invalid-feedback" th:errors="*{description}"></div>
                     </div>
-
+					<!-- カテゴリ -->
                     <div class="mb-3">
                         <label class="form-label">
 	                        <span th:text="#{label.admin.goods.edit.category}"></span>
@@ -81,12 +85,12 @@
                         </label>
                         <select th:field="*{categoryId}" 
                         		class="form-select"
-                        		th:classappend="${#fields.hasErrors('categoryId')} ? 'is-invalid' : 'is-valid'">
+                        		th:errorclass="is-invalid">
                             <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                         </select>
-                        <div class="text-danger small" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></div>
+                        <div class="invalid-feedback" th:errors="*{categoryId}"></div>
                     </div>
-
+					<!-- 販売状態 -->
                     <div class="mb-4">
                         <label class="form-label">
 	                        <span th:text="#{label.admin.goods.edit.status}"></span>
@@ -94,17 +98,17 @@
                         </label>
                         <select th:field="*{isDeleted}"
                         		class="form-select" 
-                        		th:classappend="${#fields.hasErrors('isDeleted')} ? 'is-invalid' : 'is-valid'">
+                        		th:errorclass="is-invalid">
                         		
                             <option th:value="false" th:text="#{option.admin.goods.edit.statusActive}"></option>
                             <option th:value="true" th:text="#{option.admin.goods.edit.statusSuspended}"></option>
                         </select>
-                        <div class="text-danger small" th:if="${#fields.hasErrors('isDeleted')}" th:errors="*{isDeleted}"></div>
+                        <div class="invalid-feedback" th:errors="*{isDeleted}"></div>
                     </div>
-
-                    <div class="d-flex justify-content-between">
-                        <a th:href="@{/admin/goods/index}" class="btn btn-secondary" th:text="#{btn.admin.goods.edit.back}"></a>
-                        <button type="submit" class="btn btn-primary" th:text="#{btn.admin.goods.edit.submit}"></button>
+					<!-- 戻る・更新ボタン -->
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        <a th:href="@{/admin/goods/index}" class="btn btn-outline-secondary px-4 py-2" th:text="#{btn.admin.goods.edit.back}"></a>
+                        <button type="submit" class="btn btn-primary px-4 py-2" th:text="#{btn.admin.goods.edit.submit}"></button>
                     </div>
                     
                 </form>
