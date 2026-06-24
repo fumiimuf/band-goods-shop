@@ -2,6 +2,8 @@ package com.example.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.entity.Goods;
 import com.example.model.GoodsItem;
 
@@ -13,8 +15,8 @@ public interface GoodsService {
 	
 	GoodsItem findById(int id);
 	
-	void registerGoods(Goods goods);
+	void registerGoods(Goods goods, MultipartFile imageFile);
 	
-	void updateGoods(Goods goods);
+	void updateGoods(Goods goods, MultipartFile imageFile);
 	
 }
