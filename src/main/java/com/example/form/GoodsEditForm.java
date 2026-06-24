@@ -34,6 +34,7 @@ public class GoodsEditForm {
 	@NotNull
 	private Integer categoryId;
 	
+	@NotNull
 	private Boolean isDeleted;
 	
 	private LocalDateTime deleteDateTime;
