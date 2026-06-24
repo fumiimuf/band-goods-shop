@@ -42,14 +42,14 @@
 	                        <span th:text="#{label.admin.goods.edit.price}"></span>
 	                        <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
                         </label>
-                        <div class="d-flex align-items-center gap-2">
+                        <div class="d-flex align-items-center flex-wrap gap-2">
                             <input type="text" 
                             		th:field="*{price}" 
                             		class="form-control w-50"
                             		th:errorclass="is-invalid">
-                            <span>円</span>
+                            <span class="fw-bold">円</span>
+                            <div class="invalid-feedback d-block w-100" th:errors="*{price}"></div>
                         </div>
-                        <div class="invalid-feedback" th:errors="*{price}"></div>
                     </div>
 					<!-- 商品画像 -->
                     <div class="mb-3">
