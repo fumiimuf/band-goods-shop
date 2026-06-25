@@ -3,42 +3,48 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <head>
-    <title>一般ユーザー詳細</title>
+    <title th:text="#{title.admin.user.detail}"></title>
 </head>
 <body>
-    <main layout:fragment="content" class="container my-5">
-        
-        <h1 class="h2 fw-bold mb-4 border-bottom pb-2">一般ユーザー詳細</h1>
+    <div layout:fragment="content">
+        <div class="container mt-4" style="max-width: 800px;">
+        	<!-- 大見出し -->
+        	<h2 th:text="#{label.admin.user.detail.title}"></h2>
+        	
+        	<hr class="border-2 opacity-100">
 
-        <div class="card shadow-sm border-0 w-75 mx-auto">
             <table class="table table-bordered mb-0">
+            	<!-- ユーザーID -->
                 <tr>
-                    <th class="bg-light w-25">ユーザーID</th>
+                    <th class="bg-light w-25" th:text="#{label.admin.user.detail.id}"></th>
                     <td th:text="${user.id}"></td>
                 </tr>
+                <!-- 氏名 -->
                 <tr>
-                    <th class="bg-light">氏名</th>
+                    <th class="bg-light" th:text="#{label.admin.user.detail.name}"></th>
                     <td th:text="${user.name}"></td>
                 </tr>
+                <!-- メールアドレス -->
                 <tr>
-                    <th class="bg-light">メールアドレス</th>
+                    <th class="bg-light" th:text="#{label.admin.user.detail.email}"></th>
                     <td th:text="${user.email}"></td>
                 </tr>
+                <!-- 郵便番号 -->
                 <tr>
-                    <th class="bg-light">郵便番号</th>
+                    <th class="bg-light" th:text="#{label.admin.user.detail.zipCode}"></th>
                     <td th:text="${user.zipCode}"></td>
                 </tr>
+                <!-- 住所 -->
                 <tr>
-                    <th class="bg-light">住所</th>
+                    <th class="bg-light" th:text="#{label.admin.user.detail.address}"></th>
                     <td th:text="${user.address}"></td>
                 </tr>
             </table>
+	        <!-- 戻るボタン -->
+	        <div class="mt-4 text-center">
+	            <a th:href="@{/admin/user/list}" class="btn btn-outline-secondary px-4" th:text="#{btn.admin.user.detail.back}"></a>
+	        </div>
         </div>
-        
-        <div class="mt-4 text-center">
-            <a th:href="@{/admin/user/list}" class="btn btn-outline-dark px-4">戻る</a>
-        </div>
-        
-    </main>
+    </div>
 </body>
 </html>
