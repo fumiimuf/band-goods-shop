@@ -31,13 +31,26 @@ public class AdminOrderController {
 		
 		List<OrderViewItem> orderList = orderService.getAllOrderHistoryByPage(keyword, page, size);
 		
-		long totalOrders = orderService.countAllOrders(keyword);
-		int totalPages = (int) Math.ceil((double) totalOrders / size);
+		long totalCount = orderService.countAllOrders(keyword);
+		int totalPages = (int) Math.ceil((double) totalCount / size);
+		
+		int displayButtonCount = 3;
+		
+		int startPage = Math.max(0, page - (displayButtonCount / 2));
+		
+		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
+		
+		if (endPage - startPage + 1 < displayButtonCount) {
+			startPage = Math.max(0, endPage - displayButtonCount + 1);
+		}
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("keyword", keyword);
+		
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		
 		return "admin/order/list";
 	}
