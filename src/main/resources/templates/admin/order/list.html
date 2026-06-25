@@ -1,87 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 <head>
-    <title th:text="#{title.admin.order.list}"></title>
+<title th:text="#{title.admin.order.list}"></title>
 </head>
 <body>
 
-    <main layout:fragment="content">
-    	<div class="container mt-4" style="max-width: 600px;">
-    		
-    	</div>
-        <!-- 大見出し -->
-        <h1 class="h2 fw-bold mb-4 border-bottom pb-2" th:text="#{label.admin.order.list.title}"></h1>
+	<main layout:fragment="content">
+		<div class="container mt-4" style="max-width: 1000px;">
+			<!-- 大見出し -->
+			<h2 th:text="#{label.admin.order.list.title}"></h2>
 
-        <form th:action="@{/admin/order/list}" method="get" class="mb-4">
-	        <div class="d-flex justify-content-end align-items-center gap-2">
-	        	<!-- 入力フォーム -->
-	            <input type="search" name="keyword" th:value="${keyword}" class="form-control w-50" th:placeholder="#{placeholder.admin.order.list.search}">
-	            
-	            <!-- 検索ボタン -->
-	            <button type="submit" class="btn btn-dark text-nowrap" th:text="#{btn.admin.order.list.search}"></button>
-	        </div>
-        </form>
-	        <table class="table table-bordered table-hover align-middle mb-0">
-	            <thead class="table-light">
-	                <tr class="text-center">
-	                    <th th:text="#{label.admin.order.list.orderedAt}"></th>
-	                    <th th:text="#{label.admin.order.list.userName}"></th>
-	                    <th th:text="#{label.admin.order.list.totalAmount}"></th>
-	                    <th th:text="#{label.admin.order.list.image}"></th>
-	                    <th th:text="#{label.admin.order.list.goodsName}"></th>
-	                    <th th:text="#{label.admin.order.list.price}"></th>
-	                    <th th:text="#{label.admin.order.list.quantity}"></th>
-	                </tr>
-	            </thead>
-	            <tbody>
-	                <th:block th:each="viewItem : ${orderList}">
-	                    <tr th:each="item, itemStat : ${viewItem.details}">
-	                        <td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-center"
-	                            th:text="${#temporals.format(viewItem.order.orderedAt, 'yyyy/MM/dd')}"></td>
-	                        <td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}"
-	                            th:text="${viewItem.order.orderedName}"></td>
-	                        <td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-end"
-	                            th:text="${#numbers.formatInteger(viewItem.order.totalPrice, 1, 'COMMA') + '円'}"></td>
-	                        
-                            <td class="text-center">
-							    <img th:src="${item.getOrderedImageUrl()}" 
-							         class="img-thumbnail" 
-							         style="width: 50px; height: auto;" 
-							         alt="商品画像">
-							</td>
-	                        <td th:text="${item.orderedName}"></td>
-	                        <td class="text-end" th:text="${#numbers.formatInteger(item.orderedPrice, 1, 'COMMA') + '円'}"></td>
-	                        <td class="text-center" th:text="${item.quantity}"></td>
-	                    </tr>
-	                </th:block>
-	            </tbody>
-	        </table>
-        <nav aria-label="販売履歴一覧ページナビゲーション" th:if="${totalPages > 0}" class="mt-5">
-            <ul class="pagination justify-content-center d-flex gap-1">
-                
-                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${currentPage - 1})}" th:text="#{common.pagination.prev}"></a>
-                </li>
-                
-                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
-                    th:classappend="${i == currentPage} ? 'active'">
-                    <a class="page-link text-dark border-dark rounded-1" 
-                       th:href="@{/admin/order/list(keyword=${keyword}, page=${i})}" 
-                       th:text="${i + 1}"></a>
-                </li>
-                
-                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${currentPage + 1})}" th:text="#{common.pagination.next}"></a>
-                </li>
-            </ul>
-        </nav>
-        
-        <div class="mt-4 text-center">
-            <a th:href="@{/admin/goods/index}" class="btn btn-outline-dark px-4" th:text="#{btn.admin.order.list.back}"></a>
-        </div>
-        
-    </main>
+			<hr class="border-2 opacity-100">
+
+			<form th:action="@{/admin/order/list}" method="get" class="mb-4">
+				<div class="d-flex justify-content-end align-items-center gap-2">
+					<!-- 入力フォーム -->
+					<input type="search" name="keyword" th:value="${keyword}" class="form-control w-50" th:placeholder="#{placeholder.admin.order.list.search}">
+
+					<!-- 検索ボタン -->
+					<button type="submit" class="btn btn-dark text-nowrap" th:text="#{btn.admin.order.list.search}"></button>
+				</div>
+			</form>
+			<!-- 一覧リスト -->
+			<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
+				<thead class="table-dark">
+					<tr class="text-center">
+						<th th:text="#{label.admin.order.list.orderedAt}"></th>
+						<th th:text="#{label.admin.order.list.userName}"></th>
+						<th th:text="#{label.admin.order.list.totalAmount}"></th>
+						<th th:text="#{label.admin.order.list.image}"></th>
+						<th th:text="#{label.admin.order.list.goodsName}"></th>
+						<th th:text="#{label.admin.order.list.price}"></th>
+						<th th:text="#{label.admin.order.list.quantity}"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="viewItem : ${orderList}">
+					
+						<tr th:each="item, itemStat : ${viewItem.details}">
+							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-center" th:text="${#temporals.format(viewItem.order.orderedAt, 'yyyy/MM/dd')}"></td>
+							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" th:text="${viewItem.order.orderedName}"></td>
+							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-end" th:text="${#numbers.formatInteger(viewItem.order.totalPrice, 1, 'COMMA') + '円'}"></td>
+
+							<td class="text-center"><img th:src="${item.getOrderedImageUrl()}" style="width: 50px; height: auto;" alt="商品画像"></td>
+							<td th:text="${item.orderedName}"></td>
+							<td class="text-end" th:text="${#numbers.formatInteger(item.orderedPrice, 1, 'COMMA') + '円'}"></td>
+							<td class="text-center" th:text="${item.quantity}"></td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+			<!-- ページネーション -->
+			<nav aria-label="販売履歴一覧ページナビゲーション" th:if="${totalPages > 0}" class="mt-5">
+				<ul class="pagination justify-content-center d-flex gap-1">
+
+					<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${currentPage - 1})}" th:text="#{common.pagination.prev}"></a></li>
+
+					<li class="page-item" th:each="i : ${#numbers.sequence(startPage, endPage)}" th:classappend="${i == currentPage} ? 'active'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${i})}" th:text="${i + 1}"></a></li>
+
+					<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${currentPage + 1})}" th:text="#{common.pagination.next}"></a></li>
+				</ul>
+			</nav>
+			<!-- 戻るボタン -->
+			<div class="mt-4 text-center mb-3">
+				<a th:href="@{/admin/goods/index}" class="btn btn-outline-secondary px-4" th:text="#{btn.admin.order.list.back}"></a>
+			</div>
+		</div>
+
+
+	</main>
 </body>
 </html>
