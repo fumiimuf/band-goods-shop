@@ -17,7 +17,7 @@
     	<hr class="border-2 opacity-100">
     
     	<!-- 入力フォーム -->
-    	<form th:action="@{/user/register}" th:object="${userRegisterForm}" method="post">
+    	<form th:action="@{/user/register}" th:object="${userRegisterForm}" method="post" novalidate>
     		
     		<!-- 氏名 -->
     		<div class="mb-3">

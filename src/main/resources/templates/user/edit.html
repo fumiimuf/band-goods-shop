@@ -16,7 +16,7 @@
 			<div class="card shadow-sm">
 				<div class="card-body">
 
-					<form th:action="@{/user/update}" th:object="${userEditForm}" method="post">
+					<form th:action="@{/user/update}" th:object="${userEditForm}" method="post" novalidate>
 
 						<!-- 氏名 -->
 						<div class="mb-3">
