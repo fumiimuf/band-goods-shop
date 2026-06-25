@@ -25,8 +25,8 @@ public class AdminUserController {
 	// 一般ユーザー一覧画面を表示する
 	@GetMapping("/list")
 	public String showUserList(
-					@RequestParam(name = "keyword", defaultValue = "") String keyword,
-					@RequestParam(name = "page", defaultValue = "0") int page, 
+					@RequestParam(defaultValue = "") String keyword,
+					@RequestParam(defaultValue = "0") int page, 
 					Model model) {
 		
 		int size = 5;
@@ -37,17 +37,30 @@ public class AdminUserController {
 		
 		int totalPages = (int) Math.ceil((double) totalUsers / size);
 		
+		int displayButtonCount = 3;
+		
+		int startPage = Math.max(0, page - (displayButtonCount / 2));
+		
+		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
+		
+		if (endPage - startPage + 1 < displayButtonCount) {
+			startPage = Math.max(0, endPage - displayButtonCount + 1);
+		}
+		
 		model.addAttribute("userList", userList);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("keyword", keyword);
+		
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		
 		return "admin/user/list";
 	}
 	
 	// 一般ユーザー詳細画面を表示
 	@GetMapping("/detail/{id}")
-	public String showUserDetail(@PathVariable("id") Integer id, Model model) {
+	public String showUserDetail(@PathVariable Integer id, Model model) {
 		
 		User user = userService.findById(id);
 		
