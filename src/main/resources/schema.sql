@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` VARCHAR(255) NOT NULL COMMENT 'パスワード（ハッシュ値）',
   `zip_code` VARCHAR(8) NOT NULL COMMENT '郵便番号',
   `address` VARCHAR(255) NOT NULL COMMENT '住所',
-  `is_admin` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '管理者フラグ(0:一般, 1:管理者)',
+  `is_admin` TINYINT NOT NULL DEFAULT '0' COMMENT '管理者フラグ(0:一般, 1:管理者)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 );
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `goods` (
   `category_id` INT NOT NULL COMMENT 'カテゴリID',
   `create_date_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
   `delete_date_time` DATETIME DEFAULT NULL COMMENT '削除日時',
-  `is_deleted` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '削除フラグ(0:販売中, 1:削除済み)',
+  `is_deleted` TINYINT NOT NULL DEFAULT '0' COMMENT '削除フラグ(0:販売中, 1:削除済み)',
   PRIMARY KEY (`id`), 
   CONSTRAINT `fk_goods_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 );
