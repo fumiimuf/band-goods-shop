@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.config.LoginUser;
-import com.example.entity.Cart;
 import com.example.model.CartItem;
 import com.example.service.CartService;
 
@@ -46,28 +45,6 @@ public class CartController {
 		return "cart/index";
 	}
 	
-	// カート内グッズの数量の変更
-	@PostMapping("/update")
-	public String updateQuantity(
-			@RequestParam("goodsId") Integer goodsId, 
-			@RequestParam("quantity") Integer quantity, 
-			@AuthenticationPrincipal LoginUser loginUser) {
-		
-		// ログインユーザーIDを取得
-		Integer userId = loginUser.getUserId();
-		
-		// カート情報を新しく作り、IDと新しい数量をセットする
-		Cart cart = new Cart();
-		cart.setUserId(userId);
-		cart.setGoodsId(goodsId);
-		cart.setQuantity(quantity);
-		
-		// DBを更新する
-		cartService.updateQuantity(cart);
-		
-		// カート内容画面へリダイレクトして再表示
-		return "redirect:/cart/index";
-	}
 	
 	// カート内の特定のグッズを削除
 	@PostMapping("/delete")
