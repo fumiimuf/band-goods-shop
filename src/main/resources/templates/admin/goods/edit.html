@@ -47,7 +47,7 @@
                             		th:field="*{price}" 
                             		class="form-control w-50"
                             		th:errorclass="is-invalid">
-                            <span class="fw-bold">円</span>
+                            <span class="fw-bold" th:text="#{common.label.yen}"></span>
                             <div class="invalid-feedback d-block w-100" th:errors="*{price}"></div>
                         </div>
                     </div>

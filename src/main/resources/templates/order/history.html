@@ -27,14 +27,14 @@
                         </div>
                         <div>
                             <div class="text-muted small fw-bold" th:text="#{label.order.history.totalAmount}"></div>
-                            <div class="fw-bold text-danger" th:text="'¥ ' + ${#numbers.formatInteger(item.order.totalPrice, 1, 'COMMA')}"></div>
+                            <div class="fw-bold text-danger" th:text="#{common.price.format.symbol(${item.order.totalPrice})}"></div>
                         </div>
                 	</div>
                 	
                 	<div>
                 		<div class="text-muted small fw-bold" th:text="#{label.order.history.address}"></div>
-                        <div class="fw-bold" th:text="'〒' + ${item.order.orderedZipCode} + ' ' + ${item.order.orderedAddress}"></div>
-                        <div class="fw-bold" th:text="${item.order.orderedName} + ' 様'"></div>
+                        <div class="fw-bold" th:text="#{common.zipCode.format(${item.order.orderedZipCode})} + ' ' + ${item.order.orderedAddress}"></div>
+                        <div class="fw-bold" th:text="#{common.user.honorific(${item.order.orderedName})}"></div>
                 	</div>
 	            </div>
 	
@@ -52,7 +52,7 @@
 						        <h6 class="mb-2 fw-bold text-dark" th:text="${detail.orderedName}"></h6>
 						        <div>
 							        <span class="text-muted small" th:text="#{label.order.history.price(${#numbers.formatInteger(detail.orderedPrice, 1, 'COMMA')})}"></span>
-							        <span class="badge bg-secondary ms-2" th:text="#{label.order.history.quantity(${detail.quantity})}"></span>
+							        <span class="badge bg-secondary ms-2" th:text="#{common.quantity.format(${detail.quantity})}"></span>
 							    </div>
 						    </div>
 						</div>

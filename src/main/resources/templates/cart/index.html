@@ -77,7 +77,7 @@
 								
 								<!-- 単価 -->
 								<td class="fw-bold" th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''"
-									th:text="|¥ ${#numbers.formatInteger(item.goods.price, 3, 'COMMA')}|"></td>
+									th:text="#{common.price.format.symbol(${item.goods.price})}"></td>
 								<!-- 数量(ドロップダウン) -->
 								<td>
 									<div class="text-center">
@@ -105,11 +105,11 @@
 								<!-- 小計 -->
 								<td class="text-nowrap text-end fw-bold" th:classappend="${item.goods.isDeleted} ? 'text-muted' : ''">
 									<div class="text-center">
-										<span th:if="${item.goods.isDeleted}">¥ 0</span>
+										<span th:if="${item.goods.isDeleted}" th:text="#{common.price.zero.symbol}"></span>
 									</div>
 									
 									<div th:unless="${item.goods.isDeleted}">
-										¥ <span data-item-subtotal th:text="${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}"></span>
+										<span data-item-subtotal th:text="#{common.price.format.symbol(${item.subtotal})}"></span>
 									</div>
 								</td>
 								<!-- 削除ボタン -->
@@ -131,7 +131,7 @@
 				<div class="card-body d-flex flex-column align-items-end justify-content-center">
 					<div class="fw-bold small" th:text="#{label.cart.totalAmount}"></div>
 					<div class="fw-bold fs-1 lh-1 text-danger">
-						¥ <span data-total-amount th:text="${#numbers.formatInteger(totalAmount, 3, 'COMMA')}"></span>
+						<span data-total-amount th:text="#{common.price.format.symbol(${totalAmount})}"></span>
 					</div>
 				</div>
 				

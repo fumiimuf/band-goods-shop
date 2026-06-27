@@ -51,7 +51,7 @@
 							
 							<div class="mt-auto">
 								<!-- 価格 -->
-								<div class="text-danger fw-bold" th:text="|¥ ${item.goods.price}|"></div>
+								<div class="text-danger fw-bold" th:text="#{common.price.format.symbol(${item.goods.price})}"></div>
 								<!-- カテゴリ名 -->
 								<div class="mb-3 badge rounded-1 bg-secondary" th:text="${item.category.name}"></div>
 								

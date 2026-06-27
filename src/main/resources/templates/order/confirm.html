@@ -20,7 +20,7 @@
 				<div class="card-body">
 					<div class="mb-3">
 						<div class="text-muted small fw-bold mb-1" th:text="#{label.order.confirm.zipCode}"></div>
-						<p class="h5 mb-0 fw-bold" th:text="|〒 ${user.zipCode}|"></p>
+						<p class="h5 mb-0 fw-bold" th:text="#{common.zipCode.format(${user.zipCode})}"></p>
 					</div>
 					<div class="mb-3">
 						<div class="text-muted small fw-bold mb-1" th:text="#{label.order.confirm.address}"></div>
@@ -28,7 +28,7 @@
 					</div>
 					<div class="mb-0">
 						<div class="text-muted small fw-bold mb-1" th:text="#{label.order.confirm.deliveryName}"></div>
-						<p class="h5 mb-0 fw-bold" th:text="|${user.name} 様|"></p>
+						<p class="h5 mb-0 fw-bold" th:text="#{common.user.honorific(${user.name})}"></p>
 					</div>
 				</div>
 			</div>
@@ -57,9 +57,9 @@
 									</div>
 								</td>
 								<td class="fw-bold" th:text="${item.goods.name}"></td>
-								<td class="fw-bold" th:text="|¥ ${#numbers.formatInteger(item.goods.price, 3, 'COMMA')}|"></td>
-								<td class="fw-bold" th:text="|${item.quantity} 個|"></td>
-								<td class="fw-bold text-primary" th:text="|¥ ${#numbers.formatInteger(item.subtotal, 3, 'COMMA')}|"></td>
+								<td class="fw-bold" th:text="#{common.price.format.symbol(${item.goods.price})}"></td>
+								<td class="fw-bold" th:text="#{common.quantity.format(${item.quantity})}"></td>
+								<td class="fw-bold text-primary" th:text="#{common.price.format.symbol(${item.subtotal})}"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -69,7 +69,7 @@
                     <div class="d-flex flex-column align-items-end justify-content-center mb-3">
                         <div class="text-danger fw-bold fs-2">
                             <span th:text="#{label.order.confirm.totalAmount}"></span>
-                            <span th:text="| ¥ ${#numbers.formatInteger(totalAmount, 3, 'COMMA')}|" class="fs-1"></span>
+                            <span th:text="#{common.price.format.symbol(${totalAmount})}" class="fs-1"></span>
                         </div>
                     </div>
                     

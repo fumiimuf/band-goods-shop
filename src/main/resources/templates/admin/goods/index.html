@@ -67,14 +67,14 @@
 					</td>
                     <td th:text="${item.category.name}"></td>
                     <td th:text="${item.goods.name}" class="fw-bold"></td>
-                    <td th:text="${item.goods.price} + '円'"></td>
+                    <td th:text="#{common.price.format.symbol(${item.goods.price})}"></td>
                     
                   	<td th:if="${currentStatus == 'active'}" 
-                  		th:text="${#temporals.format(item.goods.createDateTime, 'yyyy/MM/dd HH:mm')}">
+                  		th:text="${#temporals.format(item.goods.createDateTime, 'yyyy/MM/dd')}">
                		</td>
                     
                     <td th:if="${currentStatus == 'suspended'}"
-                    	th:text="${#temporals.format(item.goods.deleteDateTime, 'yyyy/MM/dd HH:mm')}">
+                    	th:text="${#temporals.format(item.goods.deleteDateTime, 'yyyy/MM/dd')}">
                     </td>
                     
                     <td class="text-center">

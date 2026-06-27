@@ -40,11 +40,11 @@
 						<tr th:each="item, itemStat : ${viewItem.details}">
 							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-center" th:text="${#temporals.format(viewItem.order.orderedAt, 'yyyy/MM/dd')}"></td>
 							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" th:text="${viewItem.order.orderedName}"></td>
-							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-end" th:text="${#numbers.formatInteger(viewItem.order.totalPrice, 1, 'COMMA') + '円'}"></td>
+							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-end" th:text="#{common.price.format.yen(${viewItem.order.totalPrice})}"></td>
 
 							<td class="text-center"><img th:src="${item.getOrderedImageUrl()}" style="width: 50px; height: auto;" alt="商品画像"></td>
 							<td th:text="${item.orderedName}"></td>
-							<td class="text-end" th:text="${#numbers.formatInteger(item.orderedPrice, 1, 'COMMA') + '円'}"></td>
+							<td class="text-end" th:text="#{common.price.format.yen(${item.orderedPrice})}"></td>
 							<td class="text-center" th:text="${item.quantity}"></td>
 						</tr>
 					</th:block>

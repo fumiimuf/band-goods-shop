@@ -36,7 +36,7 @@
 					    
 					    <div class="d-flex align-items-center gap-2">
 					        <input type="text" th:field="*{price}" th:errorclass="is-invalid" class="form-control w-50" th:placeholder="#{placeholder.admin.goods.register.price}">
-					        <span>円</span>
+					        <span class="fw-bold" th:text="#{common.label.yen}"></span>
 					    </div>
 					    
 					    <div class="text-danger small mt-1" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
