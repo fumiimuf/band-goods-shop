@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.entity.User;
 import com.example.model.CartItem;
 import com.example.model.OrderViewItem;
+import com.example.model.PageResult;
 
 public interface OrderService {
 
@@ -23,4 +24,8 @@ public interface OrderService {
 	List<OrderViewItem> getAllOrderHistoryByPage(String keyword, int page, int size);
 	
 	long countAllOrders(String keyword);
+	
+	PageResult<OrderViewItem> getOrderPage(Integer userId, int page);
+	
+	PageResult<OrderViewItem> getAdminOrderPage(String keyword, int page);
 }

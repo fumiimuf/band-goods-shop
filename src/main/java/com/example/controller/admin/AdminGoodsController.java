@@ -25,6 +25,7 @@ import com.example.entity.Goods;
 import com.example.form.GoodsEditForm;
 import com.example.form.GoodsRegisterForm;
 import com.example.model.GoodsItem;
+import com.example.model.PageResult;
 import com.example.service.CategoryService;
 import com.example.service.GoodsService;
 
@@ -50,46 +51,17 @@ public class AdminGoodsController {
 			@RequestParam(defaultValue = "") String keyword,
 			Model model) {
 
-		// 1ページの表示件数は「5件」
-		int size = 5;
-
-		// 1. 文字列の status（active / suspended）を boolean（false / true）に翻訳する
-		// status が "suspended"（停止中）なら true（削除済み）、それ以外なら false（販売中）
-		boolean isDeleted = status.equals("suspended");
-
-		// 条件に合うグッズを5件分だけ取得する
-		List<GoodsItem> goodsList = goodsService.findByPage(isDeleted, keyword, page, size);
-
-		// 状態（販売中 or 停止中）に合わせた総件数を取得する
-		long totalCount = goodsService.count(isDeleted, keyword);
-
-		// 全体のページ数を計算（端数切り上げ。例：6件なら2ページ）
-		int totalPages = (int) Math.ceil((double) totalCount / size);
-		
-		// 表示するページボタンの範囲を最大3つに設定
-		int displayButtonCount = 3;
-		
-		// 開始ページ
-		int startPage = Math.max(0, page - (displayButtonCount / 2));
-		
-		// 終了ページ
-		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
-		
-		// ページの終わりでボタンが3つ未満になってしまう場合の調整
-		if (endPage - startPage + 1 < displayButtonCount) {
-			startPage = Math.max(0, endPage - displayButtonCount + 1);
-		}
+		PageResult<GoodsItem> pageResult = goodsService.getAdminGoodsPage(status, keyword, page);
 
 		// 画面（HTML）へ送るデータをセット
-		model.addAttribute("goodsList", goodsList);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("goodsList", pageResult.getContent());
+		model.addAttribute("currentPage", pageResult.getCurrentPage());
+		model.addAttribute("totalPages", pageResult.getTotalPages());
+		model.addAttribute("startPage", pageResult.getStartPage());
+		model.addAttribute("endPage", pageResult.getEndPage());
 		model.addAttribute("currentStatus", status);
 		model.addAttribute("keyword", keyword);
 		
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage);
-
 		return "admin/goods/index";
 	}
 
@@ -114,26 +86,8 @@ public class AdminGoodsController {
 		
 		// 画像ファイルが選択されているかチェック
 		if (imageFile != null && !imageFile.isEmpty()) {
-			try {
-				// 画像の縦横サイズチェック
-				// マルチパートファイルをJava標準のBufferedImageに変換
-				BufferedImage bufferedImage = ImageIO.read(imageFile.getInputStream());
-				
-				if (bufferedImage != null) {
-					// 画像の横幅を取得
-					int width = bufferedImage.getWidth();
-					// 画像の縦幅を取得
-					int height = bufferedImage.getHeight();
-					
-					// 600x600ピクセル以外の場合はエラーにする
-					if (width > 600 || height > 600) {
-						bindingResult.rejectValue("imageFile", "error.imageFile.size");
-					}
-				}
-			} catch (IOException e) {
-				// ファイルの書き込みに失敗した場合はスタックトレースを出力
-				e.printStackTrace();
-			}
+			
+			validateImageSize(imageFile, bindingResult);
 		} else {
 			// ファイルがnull or 空(未選択)の場合
 			bindingResult.rejectValue("imageFile", "NotNull.goodsRegisterForm.imageFile");
@@ -195,27 +149,7 @@ public class AdminGoodsController {
 		MultipartFile imageFile = goodsEditForm.getImageFile();
 
 		if (imageFile != null && !imageFile.isEmpty()) {
-			// パターンA：新しく画像が選択されている場合→新規保存処理を行う（登録時と同じロジック）
-			try {
-				// 画像の縦横サイズチェック
-				// マルチパートファイルをJava標準のBufferedImageに変換
-				BufferedImage bufferedImage = ImageIO.read(imageFile.getInputStream());
-				
-				if (bufferedImage != null) {
-					// 画像の横幅を取得
-					int width = bufferedImage.getWidth();
-					// 画像の縦幅を取得
-					int height = bufferedImage.getHeight();
-					
-					// 600x600ピクセル以外の場合はエラーにする
-					if (width > 600 || height > 600) {
-						bindingResult.rejectValue("imageFile", "error.imageFile.size");
-					}
-				}
-			} catch (IOException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
+			validateImageSize(imageFile, bindingResult);
 		}
 		
 		// 入力チェック・画像サイズチェックをまとめて判定する
@@ -236,6 +170,30 @@ public class AdminGoodsController {
 
 		// すべて正常に完了したら、管理者用のグッズ一覧画面へリダイレクト
 		return "redirect:/admin/goods/index";
+	}
+	
+	// 画像サイズチェック用の共通プライベートメソッド
+	private void validateImageSize(MultipartFile imageFile, BindingResult bindingResult) {
+		try {
+			// 画像の縦横サイズチェック
+			// マルチパートファイルをJava標準のBufferedImageに変換
+			BufferedImage bufferedImage = ImageIO.read(imageFile.getInputStream());
+			
+			if (bufferedImage != null) {
+				// 画像の横幅を取得
+				int width = bufferedImage.getWidth();
+				// 画像の縦幅を取得
+				int height = bufferedImage.getHeight();
+				
+				// 600x600ピクセル以外の場合はエラーにする
+				if (width > 600 || height > 600) {
+					bindingResult.rejectValue("imageFile", "error.imageFile.size");
+				}
+			}
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -14,6 +14,7 @@ import com.example.config.LoginUser;
 import com.example.entity.User;
 import com.example.model.CartItem;
 import com.example.model.OrderViewItem;
+import com.example.model.PageResult;
 import com.example.service.CartService;
 import com.example.service.OrderService;
 import com.example.service.UserService;
@@ -36,7 +37,7 @@ public class OrderController {
 
 	// 購入確認画面を表示
 	@GetMapping("/confirm")
-	public String getMethodName(@AuthenticationPrincipal LoginUser loginUser, Model model) {
+	public String showConfirm(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		
 		// ログインユーザーのIDを取得
 		Integer userId = loginUser.getUserId();
@@ -87,7 +88,7 @@ public class OrderController {
 	
 	// 注文完了画面を表示
 	@GetMapping("/success")
-	public String getMethodName() {
+	public String showSuccess() {
 		return "order/success";
 	}
 	
@@ -105,39 +106,14 @@ public class OrderController {
 		User user = userService.findById(userId);
 		model.addAttribute("user",user);
 		
-		// 1ページあたりの表示件数は「2件」と決める
-		int size = 2;
-		
-		// Serviceにページ番号で必要な2件分を取得する
-		List<OrderViewItem> historyList = orderService.getOrderHistoryByPage(userId, page, size);
-		
-		// ログインユーザーの全注文件数を取得する
-		long totalCount = orderService.countByUserId(userId);
-		
-		// 全体のページ数を計算する。
-		int totalPages = (int) Math.ceil((double) totalCount / size);
-		
-		// 表示するページボタンの範囲を最大3に設定
-		int displayButtonCount = 3;
-		
-		// 開始ページ
-		int startPage = Math.max(0, page - (displayButtonCount / 2));
-		
-		// 終了ページ
-		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
-		
-		// ページの終わりでボタンが3つ未満になってしまう場合の調整
-		if (endPage - startPage + 1 < displayButtonCount) {
-			startPage = Math.max(0, endPage - displayButtonCount + 1);
-		}
+		PageResult<OrderViewItem> pageResult = orderService.getOrderPage(userId, page);
 		
 		// 画面(HTML)で使うためのデータをセットする
-		model.addAttribute("historyList", historyList);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", totalPages);
-		
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage);
+		model.addAttribute("historyList", pageResult.getContent());
+		model.addAttribute("currentPage", pageResult.getCurrentPage());
+		model.addAttribute("totalPages", pageResult.getTotalPages());
+		model.addAttribute("startPage", pageResult.getStartPage());
+		model.addAttribute("endPage", pageResult.getEndPage());
 		
 		// 画面遷移
 		return "order/history";

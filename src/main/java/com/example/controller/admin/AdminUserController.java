@@ -1,7 +1,5 @@
 package com.example.controller.admin;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.User;
+import com.example.model.PageResult;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,31 +28,14 @@ public class AdminUserController {
 					@RequestParam(defaultValue = "0") int page, 
 					Model model) {
 		
-		int size = 5;
+		PageResult<User> pageResult = userService.getAdminUserPage(keyword, page);
 		
-		List<User> userList = userService.findGeneralUsers(keyword, page, size);
-		
-		int totalUsers = userService.countGeneralUsers(keyword);
-		
-		int totalPages = (int) Math.ceil((double) totalUsers / size);
-		
-		int displayButtonCount = 3;
-		
-		int startPage = Math.max(0, page - (displayButtonCount / 2));
-		
-		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
-		
-		if (endPage - startPage + 1 < displayButtonCount) {
-			startPage = Math.max(0, endPage - displayButtonCount + 1);
-		}
-		
-		model.addAttribute("userList", userList);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("userList", pageResult.getContent());
+		model.addAttribute("currentPage", pageResult.getCurrentPage());
+		model.addAttribute("totalPages", pageResult.getTotalPages());
+		model.addAttribute("startPage", pageResult.getStartPage());
+		model.addAttribute("endPage", pageResult.getEndPage());
 		model.addAttribute("keyword", keyword);
-		
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage);
 		
 		return "admin/user/list";
 	}

@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.User;
+import com.example.model.PageResult;
 import com.example.repository.UserMapper;
 import com.example.service.UserService;
 
@@ -87,6 +88,36 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int countGeneralUsers(String keyword) {
 		return userMapper.countGeneralUsers(keyword);
+	}
+
+	@Override
+	public PageResult<User> getAdminUserPage(String keyword, int page) {
+		
+		int size = 5;
+		
+		List<User> userList = findGeneralUsers(keyword, page, size);
+		
+		int totalUsers = countGeneralUsers(keyword);
+		
+		int totalPages = (int) Math.ceil((double) totalUsers / size);
+		
+		if (totalPages == 0) {
+			totalPages = 1;
+		}
+		
+		int displayButtonCount = 3;
+		
+		int startPage = Math.max(0, page - (displayButtonCount / 2));
+		
+		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
+		
+		if (endPage - startPage + 1 < displayButtonCount) {
+			startPage = Math.max(0, endPage - displayButtonCount + 1);
+		}
+		
+		PageResult<User> result = new PageResult<User>(userList, page, totalPages, startPage, endPage);
+		
+		return result;
 	}
 	
 	
