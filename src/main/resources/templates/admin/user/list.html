@@ -9,7 +9,7 @@
 		<div class="container mt-4" style="max-width: 800px;">
 			<!-- 大見出し -->
 			<h2 class="fw-bold" th:text="#{label.admin.user.list.title}"></h2>
-			
+
 			<hr class="border-2 opacity-100">
 
 			<div class="mb-4">
@@ -24,33 +24,34 @@
 				</form>
 			</div>
 			<!-- ユーザーリスト -->
-			<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
-				<thead class="table-dark">
-					<tr>
-						<th th:text="#{label.admin.user.list.id}"></th>
-						<th th:text="#{label.admin.user.list.name}"></th>
-						<th th:text="#{label.admin.user.list.email}"></th>
-						<th th:text="#{label.admin.user.list.detail}"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="user : ${userList}" class="fw-bold">
-						<td th:text="${user.id}"></td>
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
+					<thead class="table-dark">
+						<tr>
+							<th th:text="#{label.admin.user.list.id}"></th>
+							<th th:text="#{label.admin.user.list.name}"></th>
+							<th th:text="#{label.admin.user.list.email}"></th>
+							<th th:text="#{label.admin.user.list.detail}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user : ${userList}" class="fw-bold">
+							<td th:text="${user.id}"></td>
 
-						<td th:text="${user.name}"></td>
+							<td th:text="${user.name}"></td>
 
-						<td th:text="${user.email}"></td>
+							<td th:text="${user.email}"></td>
 
-						<td class="text-center">
-							<a th:href="@{/admin/user/detail/{id}(id=${user.id})}" class="btn btn-primary btn-sm px-3" th:text="#{btn.admin.user.list.detail}"></a>
-						</td>
-					</tr>
+							<td class="text-center"><a th:href="@{/admin/user/detail/{id}(id=${user.id})}" class="btn btn-primary btn-sm px-3" th:text="#{btn.admin.user.list.detail}"></a></td>
+						</tr>
 
-					<tr th:if="${#lists.isEmpty(userList)}">
-						<td colspan="4" class="text-center text-muted py-4">一般ユーザーは登録されていません。</td>
-					</tr>
-				</tbody>
-			</table>
+						<tr th:if="${#lists.isEmpty(userList)}">
+							<td colspan="4" class="text-center text-muted py-4">一般ユーザーは登録されていません。</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
 			<!-- ページネーション -->
 			<nav aria-label="一般ユーザー一覧ページナビゲーション" th:if="${totalPages > 0}" class="mt-5">
 				<ul class="pagination justify-content-center d-flex gap-1">

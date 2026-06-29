@@ -22,34 +22,37 @@
 				</div>
 			</form>
 			<!-- 一覧リスト -->
-			<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
-				<thead class="table-dark">
-					<tr class="text-center">
-						<th th:text="#{label.admin.order.list.orderedAt}"></th>
-						<th th:text="#{label.admin.order.list.userName}"></th>
-						<th th:text="#{label.admin.order.list.totalAmount}"></th>
-						<th th:text="#{label.admin.order.list.image}"></th>
-						<th th:text="#{label.admin.order.list.goodsName}"></th>
-						<th th:text="#{label.admin.order.list.price}"></th>
-						<th th:text="#{label.admin.order.list.quantity}"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<th:block th:each="viewItem : ${orderList}">
-					
-						<tr th:each="item, itemStat : ${viewItem.details}">
-							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-center" th:text="${#temporals.format(viewItem.order.orderedAt, 'yyyy/MM/dd')}"></td>
-							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" th:text="${viewItem.order.orderedName}"></td>
-							<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-end" th:text="#{common.price.format.yen(${viewItem.order.totalPrice})}"></td>
-
-							<td class="text-center"><img th:src="${item.getOrderedImageUrl()}" style="width: 50px; height: auto;" alt="商品画像"></td>
-							<td th:text="${item.orderedName}"></td>
-							<td class="text-end" th:text="#{common.price.format.yen(${item.orderedPrice})}"></td>
-							<td class="text-center" th:text="${item.quantity}"></td>
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
+					<thead class="table-dark">
+						<tr class="text-center">
+							<th th:text="#{label.admin.order.list.orderedAt}"></th>
+							<th th:text="#{label.admin.order.list.userName}"></th>
+							<th th:text="#{label.admin.order.list.totalAmount}"></th>
+							<th th:text="#{label.admin.order.list.image}"></th>
+							<th th:text="#{label.admin.order.list.goodsName}"></th>
+							<th th:text="#{label.admin.order.list.price}"></th>
+							<th th:text="#{label.admin.order.list.quantity}"></th>
 						</tr>
-					</th:block>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<th:block th:each="viewItem : ${orderList}">
+
+							<tr th:each="item, itemStat : ${viewItem.details}">
+								<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-center" th:text="${#temporals.format(viewItem.order.orderedAt, 'yyyy/MM/dd')}"></td>
+								<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" th:text="${viewItem.order.orderedName}"></td>
+								<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-end" th:text="#{common.price.format.yen(${viewItem.order.totalPrice})}"></td>
+
+								<td class="text-center"><img th:src="${item.getOrderedImageUrl()}" style="width: 50px; height: auto;" alt="商品画像"></td>
+								<td th:text="${item.orderedName}"></td>
+								<td class="text-end" th:text="#{common.price.format.yen(${item.orderedPrice})}"></td>
+								<td class="text-center" th:text="${item.quantity}"></td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+
 			<!-- ページネーション -->
 			<nav aria-label="販売履歴一覧ページナビゲーション" th:if="${totalPages > 0}" class="mt-5">
 				<ul class="pagination justify-content-center d-flex gap-1">
