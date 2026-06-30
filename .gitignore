@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### 💡 ここから追記した設定 ###
+# 初期画像は残し、画面から新しくアップロードされたテスト画像（UUIDの「-」が必ず入る）だけをGitの監視から外す
+/src/main/resources/static/images/product/*-*
