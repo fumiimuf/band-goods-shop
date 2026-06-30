@@ -21,15 +21,9 @@ public class OrderDetail {
 	public String getOrderedImageUrl() {
 		// 画像名が空っぽ、またはnullの場合は「画像なし」の共通画像を返す
 		if (this.orderedImage == null || this.orderedImage.isEmpty()) {
-			return "/images/no_image.png";
+			return "/images/product/no_image.png";
 		}
-		
-		// カート時と同じ判別ルール（文字数が30文字より多ければ更新された画像、それ以外は初期画像）
-		if (this.orderedImage.length() > 30) {
-			return "/uploaded-images/" + this.orderedImage;
-		} else {
-			return "/images/" + this.orderedImage;
-		}
+		return "/images/product/" + this.orderedImage;
 	}
 	
 }

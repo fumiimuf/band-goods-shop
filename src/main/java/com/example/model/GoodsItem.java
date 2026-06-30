@@ -14,16 +14,11 @@ public class GoodsItem {
 	
 	// 画像の正しいURLを自動で判断して返すメソッド
 	public String getImageUrl() {
-		// 1. 画像名が空、またはnullなら「画像なし(no-image.png)」のパスを返す
-		if (this.goods.getImage() == null || this.goods.getImage() == null || this.goods.getImage().isEmpty()) {
-			return "/images/no_image.png";
+		// 1. 画像名が空、またはnullなら「画像なし(no_image.png)」のパスを返す
+		if (this.goods == null || this.goods.getImage() == null || this.goods.getImage().isEmpty()) {
+			return "/images/product/no_image.png";
 		}
 		
-		// 2. 文字数が30文字より長ければ「アップロード画像」、短ければ「初期画像」のパスを返す
-		if (this.goods.getImage().length() > 30) {
-			return "/uploaded-images/" + this.goods.getImage();
-		} else {
-			return "/images/" + this.goods.getImage();
-		}
+		return "/images/product/" + this.goods.getImage();
 	}
 }

@@ -24,15 +24,11 @@ public class CartItem {
     
     // カート画面用の画像URL判別メソッド
     public String getImageUrl() {
-    	if (this.goods == null || this.goods.getImage() == null || this.goods.getImage().isEmpty()) {
-    		return "/images/no_image.png";
-    	}
-    	
-    	if (this.goods.getImage().length() > 30) {
-    		return "/uploaded-images/" + this.goods.getImage();
-    		
-    	} else {
-			return "/images/" + this.goods.getImage();
+    	// 1. 画像名が空、またはnullなら「画像なし(no_image.png)」のパスを返す
+		if (this.goods == null || this.goods.getImage() == null || this.goods.getImage().isEmpty()) {
+			return "/images/product/no_image.png";
 		}
+		
+		return "/images/product/" + this.goods.getImage();
     }
 }
