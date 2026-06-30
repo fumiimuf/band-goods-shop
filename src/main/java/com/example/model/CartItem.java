@@ -25,7 +25,7 @@ public class CartItem {
     // カート画面用の画像URL判別メソッド
     public String getImageUrl() {
     	if (this.goods == null || this.goods.getImage() == null || this.goods.getImage().isEmpty()) {
-    		return "/images/no-image.png";
+    		return "/images/no_image.png";
     	}
     	
     	if (this.goods.getImage().length() > 30) {
