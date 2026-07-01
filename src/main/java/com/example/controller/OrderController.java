@@ -94,7 +94,7 @@ public class OrderController {
 	
 	// 購入履歴の画面を表示
 	@GetMapping("/history")
-	public String getOrderHistory(
+	public String showOrderHistory(
 					@RequestParam(defaultValue = "0") int page,
 					@AuthenticationPrincipal LoginUser loginUser, 
 					Model model) {

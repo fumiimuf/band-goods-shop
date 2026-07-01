@@ -23,7 +23,7 @@ public class GoodsController {
 	
 	// 一般ユーザー用のグッズ一覧画面
 	@GetMapping("/index")
-	public String index(
+	public String showGoodsIndex(
 		// URLの ?page=数字 を受け取ります。指定がない場合は 0 にします。
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "") String keyword,

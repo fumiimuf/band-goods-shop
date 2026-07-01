@@ -34,7 +34,7 @@ public class UserController {
 	
 	// ユーザー登録情報を表示
 	@GetMapping("/register")
-	public String getRegister(@ModelAttribute UserRegisterForm userRegisterForm) {
+	public String showRegister(@ModelAttribute UserRegisterForm userRegisterForm) {
 		
 		return "user/register";
 	}
@@ -42,7 +42,7 @@ public class UserController {
 	
 	// ユーザー登録処理
 	@PostMapping("/register")
-	public String postRegister(@ModelAttribute @Validated UserRegisterForm userRegisterForm, 
+	public String registerUser(@ModelAttribute @Validated UserRegisterForm userRegisterForm, 
 			BindingResult bindingResult) {
 		
 		// 入力チェック
@@ -79,7 +79,7 @@ public class UserController {
 	 * @return ユーザーページ画面のテンプレートパス
 	 */
 	@GetMapping("/profile")
-	public String getUserProfile(@AuthenticationPrincipal LoginUser loginUser, Model model) {
+	public String showUserProfile(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		
 		// ログインユーザーのIDを取得
 		Integer userId = loginUser.getUserId();
@@ -102,7 +102,7 @@ public class UserController {
 	 * @return ユーザー編集画面のテンプレートパス
 	 */
 	@GetMapping("/edit")
-	public String getUserEdit(@AuthenticationPrincipal LoginUser loginUser, 
+	public String showUserEdit(@AuthenticationPrincipal LoginUser loginUser, 
 					@ModelAttribute UserEditForm userEditForm) {
 		
 		// ログインユーザーのIDを取得
@@ -129,7 +129,7 @@ public class UserController {
 	 * @return 更新成功時はプロフィール画面へのリダイレクト、失敗時は編集画面のパス
 	 */
 	@PostMapping("/update")
-	public String postUpdate(@ModelAttribute @Validated UserEditForm userEditForm, 
+	public String updateUser(@ModelAttribute @Validated UserEditForm userEditForm, 
 					BindingResult bindingResult,
 					@AuthenticationPrincipal LoginUser loginUser) {
 		

@@ -45,7 +45,7 @@ public class AdminGoodsController {
 
 	// 管理者用のグッズ一覧画面
 	@GetMapping("/index")
-	public String adminIndex(
+	public String showGoodsIndex(
 			@RequestParam(defaultValue = "active") String status,
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "") String keyword,
@@ -66,8 +66,8 @@ public class AdminGoodsController {
 	}
 
 	// グッズ登録画面の表示
-	@GetMapping("register")
-	public String showRegisterForm(@ModelAttribute GoodsRegisterForm goodsRegisterForm, Model model) {
+	@GetMapping("/register")
+	public String showRegisterGoods(@ModelAttribute GoodsRegisterForm goodsRegisterForm, Model model) {
 		// ドロップダウンに表示するカテゴリ一覧をDBから取得してModelに詰める
 		List<Category> categories = categoryService.getAllCategories();
 		model.addAttribute("categories", categories);
@@ -76,7 +76,7 @@ public class AdminGoodsController {
 	}
 
 	// グッズ登録処理の実行
-	@PostMapping("register")
+	@PostMapping("/register")
 	public String registerGoods(@ModelAttribute @Valid GoodsRegisterForm goodsRegisterForm,
 			BindingResult bindingResult,
 			Model model) {
@@ -116,7 +116,7 @@ public class AdminGoodsController {
 
 	// グッズ更新画面を表示
 	@GetMapping("/edit/{id}")
-	public String showEditForm(@PathVariable int id,
+	public String showGoodsEdit(@PathVariable int id,
 			@ModelAttribute GoodsEditForm goodsEditForm,
 			Model model) {
 
@@ -140,7 +140,7 @@ public class AdminGoodsController {
 	}
 
 	// グッズ更新処理を実行
-	@PostMapping("update")
+	@PostMapping("/update")
 	public String updateGoods(@ModelAttribute @Valid GoodsEditForm goodsEditForm,
 			BindingResult bindingResult,
 			Model model) {
