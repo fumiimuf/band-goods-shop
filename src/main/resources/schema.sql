@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `goods` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` VARCHAR(100) NOT NULL COMMENT '商品名',
   `price` INT NOT NULL COMMENT '価格',
-  `image` VARCHAR(255) DEFAULT NULL COMMENT '商品画像（ファイルパス）',
+  `image` VARCHAR(255) NOT NULL COMMENT '商品画像（ファイルパス）',
   `description` TEXT NOT NULL COMMENT '商品説明',
   `category_id` INT NOT NULL COMMENT 'カテゴリID',
   `create_date_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
