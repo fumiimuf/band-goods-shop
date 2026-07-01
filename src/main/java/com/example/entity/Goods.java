@@ -24,4 +24,11 @@ public class Goods {
 	private LocalDateTime deleteDateTime;
 	
 	private Boolean isDeleted;
+	
+	public String getImageUrl() {
+		if (this.image == null || this.image.isEmpty()) {
+			return "/images/product/no_image.png";
+		}
+		return "/images/product/" + this.image;
+	}
 }
