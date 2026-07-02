@@ -18,12 +18,10 @@ import com.example.form.UserRegisterForm;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
 @RequestMapping("/user")
-@Slf4j
 @RequiredArgsConstructor
 public class UserController {
 
@@ -47,27 +45,18 @@ public class UserController {
 		
 		// 入力チェック
 		if (bindingResult.hasErrors()) {
-			log.warn("登録内容に不備があります：{}", bindingResult.getAllErrors());
-			
 			return "user/register";
 		}
 		
 		// formをUserクラスに変換
 		User user = modelMapper.map(userRegisterForm, User.class);
 		
-		log.info("登録処理を開始します：Email={}, Name={}", userRegisterForm.getEmail(), userRegisterForm.getName());
-		
-		
 		if (!userService.insertOne(user)) {
-			log.warn("登録失敗：メールアドレスが既に存在します：{}", user.getEmail());
-			
 			// 第1引数に"email"を指定することで、画面のメールアドレス入力欄にエラーを表示します
 			bindingResult.rejectValue("email", "error.duplicate.email");
 			
 			return "user/register";
 		}
-		
-		log.info("ユーザー登録が正常に完了しました：{}", user.getEmail());
 		
 		return "redirect:/login";
 	}
@@ -135,7 +124,6 @@ public class UserController {
 		
 		// 入力チェック
 		if(bindingResult.hasErrors()) {
-			log.warn("ユーザー更新内容に不備があります：{}", bindingResult.getAllErrors());
 			return "user/edit";
 		}
 		
@@ -148,18 +136,13 @@ public class UserController {
 		// 取得したIDをuserオブジェクトにセットする
 		user.setId(userId);
 		
-		log.info("更新処理を開始します：ID={}, Email={}", user.getId(), user.getEmail());
-		
 		// Serviceの更新処理を呼び出す
 		// メールアドレス重複などで失敗した場合は、編集画面に戻してエラーを表示します
 		if (!userService.updateUser(user)) {
-			log.warn("更新失敗：メールアドレスが既に存在します：{}", user.getEmail());
 			bindingResult.rejectValue("email", "error.duplicate.email");
 			
 			return "user/edit";
 		}
-		
-		log.info("ユーザー情報の更新が正常に完了しました：ID={}", user.getId());
 		
 		// 更新が成功したら、ユーザーページへリダイレクト
 		return "redirect:/user/profile";

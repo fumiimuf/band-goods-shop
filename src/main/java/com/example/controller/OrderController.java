@@ -20,12 +20,10 @@ import com.example.service.OrderService;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 
 @Controller
 @RequestMapping("/order")
-@Slf4j
 @RequiredArgsConstructor
 public class OrderController {
 	
@@ -78,9 +76,6 @@ public class OrderController {
 			return "redirect:/order/success";
 			
 		} catch (IllegalStateException e) {
-			// 【例外処理】もし販売終了の商品があってエラーが出た場合
-			log.error("購入処理エラー: {}", e.getMessage());
-			
 			// カート画面へリダイレクト
 			return "redirect:/cart/index";
 		}
