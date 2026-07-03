@@ -30,6 +30,7 @@ public class UserController {
 	private final ModelMapper modelMapper;
 	
 	
+	
 	// ユーザー登録情報を表示
 	@GetMapping("/register")
 	public String showRegister(@ModelAttribute UserRegisterForm userRegisterForm) {
@@ -37,11 +38,15 @@ public class UserController {
 		return "user/register";
 	}
 	
-	
 	// ユーザー登録処理
 	@PostMapping("/register")
 	public String registerUser(@ModelAttribute @Validated UserRegisterForm userRegisterForm, 
 			BindingResult bindingResult) {
+		
+		// メールアドレス重複チェック
+		if (userService.existEmail(userRegisterForm.getEmail())) {
+			bindingResult.rejectValue("email", "error.duplicate.email");
+		}
 		
 		// 入力チェック
 		if (bindingResult.hasErrors()) {
@@ -51,12 +56,7 @@ public class UserController {
 		// formをUserクラスに変換
 		User user = modelMapper.map(userRegisterForm, User.class);
 		
-		if (!userService.insertOne(user)) {
-			// 第1引数に"email"を指定することで、画面のメールアドレス入力欄にエラーを表示します
-			bindingResult.rejectValue("email", "error.duplicate.email");
-			
-			return "user/register";
-		}
+		userService.insertOne(user);
 		
 		return "redirect:/login";
 	}
