@@ -29,4 +29,7 @@ public interface CartMapper {
 	
 	// ログインユーザーのカート情報をすべて削除する
 	void deleteAllByUserId(@Param("userId") Integer userId);
+	
+	// ユーザーIDに紐づくカート内の合計金額を取得する
+	int selectTotalAmountByUserId(Integer userId);
 }
