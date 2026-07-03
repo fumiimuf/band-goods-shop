@@ -20,7 +20,7 @@
 	</resultMap>
 	
 	<!-- カートのグッズを取得 -->
-	<select id="findByGoodsId" resultType="Cart">
+	<select id="selectByUserIdAndGoodsId" resultType="Cart">
 		SELECT * FROM cart 
 		WHERE user_id = #{userId} 
 		AND goods_id = #{goodsId}

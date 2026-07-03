@@ -20,7 +20,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void addOrUpdateCart(Integer userId, Integer goodsId) {
 		// DBに同じグッズがあるか確認
-		Cart existingCart = cartMapper.findByGoodsId(userId, goodsId);
+		Cart existingCart = cartMapper.selectByUserIdAndGoodsId(userId, goodsId);
 
 		if (existingCart != null) {
 			// あれば個数を +1 して更新（UPDATE）
