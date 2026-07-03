@@ -22,15 +22,12 @@ public interface CartService {
 	//ログインしているユーザーの特定のグッズを削除する
 	void deleteByGoodsId(Integer userId, Integer goodsId);
 	
-	// カートの小計金額の計算
-	int calculateSubtotal(List<CartItem> cartList, Integer goodsId);
-	
-	// カートの合計金額の計算
-	int calculateTotalAmount(List<CartItem> cartlist);
-	
 	// ログインユーザーのカート内商品の合計個数を取得
 	int getTotalQuantity(Integer userId);
 	
 	// ログインユーザーのカート内グッズをすべて削除する
 	void deleteAllByUserId(Integer userId);
+	
+	// ユーザーIDに紐づくカート内の合計金額を取得する
+	int getTotalAmount(Integer userId);
 }
