@@ -10,6 +10,9 @@ import com.example.entity.User;
 @Mapper
 public interface UserMapper {
 
+	// メールアドレスの登録件数を取得
+	int selectCountByEmail(String email);
+	
 	// メールアドレスでユーザー情報を1件取得
 	User selectByEmail(String email);
 	
