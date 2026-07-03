@@ -3,6 +3,13 @@
 
 <mapper namespace="com.example.repository.UserMapper">
 	
+	<!-- メールアドレスの件数を取得 -->
+	<select id="selectCountByEmail" resultType="int">
+		SELECT COUNT(*) FROM user 
+		WHERE email = #{email} 
+	</select>
+	
+	
 	<!-- メールアドレスでユーザー情報を取得 -->
 	<select id="selectByEmail" resultType="User">
 		SELECT * FROM user WHERE email = #{email}
