@@ -37,6 +37,9 @@ jQuery(function($) {
 		//「小計」のHTML要素を探しておく
 		const $subtotalCell = $form.closest('tr').find('[data-item-subtotal]');
 		
+		// HTMLの隠しフィールド <input type="hidden" name="goodsId"> からグッズIDを取得して数値に変換
+		const targetGoodsId = Number($form.find('input[name="goodsId"]').val());
+		
 		// 新しく通信を始める前に、過去のエラー表示をリセットします
 		$('[data-cart-quantity-select]').removeClass('is-invalid');
 		$('[data-quantity-error-message]').hide();
@@ -47,12 +50,24 @@ jQuery(function($) {
 
 	        .done((res) => {
 				// 小計
-				const formattedSubtotal = Number(res.subtotal).toLocaleString();
-			    $subtotalCell.text(formattedSubtotal);
+				// サーバーから返ってきた cartList から、変更したグッズIDと同じ行のデータを探す
+				const targetItem = res.cartList.find(item => item.goods && item.goods.id === targetGoodsId);
+				
+				if (targetItem) {
+					// Java側の getSubtotal() の計算結果を取得（万が一に備え、フロント側での計算も安全策として用意）
+					const subtotal = targetItem.subtotal !== undefined 
+									? targetItem.subtotal 
+									: targetItem.goods.price * targetItem.quantity;
+					
+					// 3桁カンマに変換
+					const formattedSubtotal = Number(subtotal).toLocaleString();
+					
+					$subtotalCell.text("¥ " + formattedSubtotal);
+				}
 				
 				// 合計金額
 				const formattedTotalAmount = Number(res.totalAmount).toLocaleString();
-			    $('[data-total-amount]').text(formattedTotalAmount);
+			    $('[data-total-amount]').text("¥ " + formattedTotalAmount);
 				
 				// ヘッダーのカートアイコンの合計数
 				$('[data-header-cart-count]').text(res.totalQuantity);
