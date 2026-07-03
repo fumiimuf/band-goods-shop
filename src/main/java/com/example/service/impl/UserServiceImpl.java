@@ -19,26 +19,17 @@ public class UserServiceImpl implements UserService {
 	private final UserMapper userMapper;
 	
 	private final PasswordEncoder passwordEncoder;
-
+	
 	@Override
-	public boolean insertOne(User user) {
-		
-		// メールアドレスの重複チェック
-		User existingUser = userMapper.selectByEmail(user.getEmail());
-		if (existingUser != null) {
-			// すでに登録されている場合は、falseを返す
-			return false;
-		}
-		
+	public boolean existEmail(String email) {
+		return userMapper.selectCountByEmail(email) > 0;
+	}
+	
+	@Override
+	public void insertOne(User user) {
 		// パスワードの暗号化
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		
-		// 登録処理の実行
 		userMapper.insertOne(user);
-		
-		// 成功したらtrueを返す
-		return true;
-		
 	}
 
 	@Override
@@ -119,6 +110,8 @@ public class UserServiceImpl implements UserService {
 		
 		return result;
 	}
+
+	
 	
 	
 }

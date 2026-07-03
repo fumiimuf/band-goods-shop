@@ -6,8 +6,10 @@ import com.example.entity.User;
 import com.example.model.PageResult;
 
 public interface UserService {
+	
+	boolean existEmail(String email);
 
-	public boolean insertOne(User user);
+	public void insertOne(User user);
 	
 	User findById(Integer userId);
 	
