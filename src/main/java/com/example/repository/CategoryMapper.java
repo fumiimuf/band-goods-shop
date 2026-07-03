@@ -9,5 +9,5 @@ import com.example.entity.Category;
 @Mapper
 public interface CategoryMapper {
 
-	List<Category> findAll();
+	List<Category> selectAll();
 }
