@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	public boolean insertOne(User user) {
 		
 		// メールアドレスの重複チェック
-		User existingUser = userMapper.findByEmail(user.getEmail());
+		User existingUser = userMapper.selectByEmail(user.getEmail());
 		if (existingUser != null) {
 			// すでに登録されている場合は、falseを返す
 			return false;
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findById(Integer userId) {
-		return userMapper.findById(userId);
+		return userMapper.selectById(userId);
 	}
 
 	// ユーザー情報を更新する
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 	public boolean updateUser(User user) {
 		
 		// メールアドレスの重複チェック
-		User existingUser = userMapper.findByEmail(user.getEmail());
+		User existingUser = userMapper.selectByEmail(user.getEmail());
 		
 		// 同じメールアドレスが存在し、かつ、そのIDが自分自身のIDと異なる場合はと重複エラー
 		if (existingUser != null && !existingUser.getId().equals(user.getId())) {
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 			
 		} else {
 			// 空の場合：パスワード変更しないので、DBの元のパスワードをそのままセット
-			User currentUser = userMapper.findById(user.getId());
+			User currentUser = userMapper.selectById(user.getId());
 			user.setPassword(currentUser.getPassword());
 		}
 		
@@ -82,12 +82,12 @@ public class UserServiceImpl implements UserService {
 		
 		int offset = page * size;
 		
-		return userMapper.findGeneralUsers(keyword, size, offset);
+		return userMapper.selectAllUsers(keyword, size, offset);
 	}
 
 	@Override
 	public int countGeneralUsers(String keyword) {
-		return userMapper.countGeneralUsers(keyword);
+		return userMapper.selectCountAllUsers(keyword);
 	}
 
 	@Override

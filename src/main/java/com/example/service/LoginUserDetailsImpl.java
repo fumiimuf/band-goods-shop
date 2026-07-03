@@ -20,7 +20,7 @@ public class LoginUserDetailsImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		
-		User user = userMapper.findByEmail(email);
+		User user = userMapper.selectByEmail(email);
 		
 		if (user == null) {
 			

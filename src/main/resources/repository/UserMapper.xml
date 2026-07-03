@@ -4,7 +4,7 @@
 <mapper namespace="com.example.repository.UserMapper">
 	
 	<!-- メールアドレスでユーザー情報を取得 -->
-	<select id="findByEmail" resultType="User">
+	<select id="selectByEmail" resultType="User">
 		SELECT * FROM user WHERE email = #{email}
 	</select>
 	
@@ -27,7 +27,7 @@
 	</insert>
 	
 	<!-- IDでユーザー情報を取得 -->
-	<select id="findById" resultType="User">
+	<select id="selectById" resultType="User">
 		SELECT * FROM user WHERE id = #{userId}
 	</select>
 	
@@ -44,7 +44,7 @@
 			id = #{id}
 	</update>
 	
-	<select id="findGeneralUsers" resultType="User">
+	<select id="selectAllUsers" resultType="User">
 		SELECT * FROM user 
 		WHERE is_admin = 0 
 		<if test="keyword != null and keyword != ''">
@@ -54,7 +54,7 @@
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
-	<select id="countGeneralUsers" resultType="int">
+	<select id="selectCountAllUsers" resultType="int">
 		SELECT COUNT(*) FROM user 
 		WHERE is_admin = 0 
 		<if test="keyword != null and keyword != ''">
