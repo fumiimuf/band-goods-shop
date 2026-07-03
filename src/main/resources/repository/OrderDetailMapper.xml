@@ -19,7 +19,7 @@
 		)
 	</insert>
 	
-	<select id="findByOrderId" resultType="OrderDetail">
+	<select id="selectByOrderId" resultType="OrderDetail">
 		SELECT * FROM order_detail 
 		WHERE order_id = #{orderId}
 	</select>

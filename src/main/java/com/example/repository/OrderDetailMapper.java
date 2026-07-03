@@ -13,6 +13,6 @@ public interface OrderDetailMapper {
 	int insert(OrderDetail orderDetail);
 	
 	// 注文IDからその注文の明細(子)を「すべて」取得する
-	List<OrderDetail> findByOrderId(Integer userId);
+	List<OrderDetail> selectByOrderId(Integer userId);
 	
 }

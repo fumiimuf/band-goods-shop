@@ -84,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
 			viewItem.setOrder(order);
 			
 			// この注文IDに紐づく明細リストを取得
-			List<OrderDetail> details = orderDetailMapper.findByOrderId(order.getId());
+			List<OrderDetail> details = orderDetailMapper.selectByOrderId(order.getId());
 			// 子をセット
 			viewItem.setDetails(details);
 			
@@ -114,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
 			viewItem.setOrder(order);
 			
 			// この注文履歴に紐づくすべての明細リストを取得
-			List<OrderDetail> details = orderDetailMapper.findByOrderId(order.getId());
+			List<OrderDetail> details = orderDetailMapper.selectByOrderId(order.getId());
 			// 明細(子)をセット
 			viewItem.setDetails(details);
 			
@@ -151,7 +151,7 @@ public class OrderServiceImpl implements OrderService {
 			viewItem.setOrder(order);
 			
 			// 既存の明細取得メソッドを利用して、この注文IDの明細を全て取得
-			List<OrderDetail> details = orderDetailMapper.findByOrderId(order.getId());
+			List<OrderDetail> details = orderDetailMapper.selectByOrderId(order.getId());
 			viewItem.setDetails(details);
 			
 			historyList.add(viewItem);
