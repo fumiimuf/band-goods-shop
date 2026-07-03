@@ -33,8 +33,8 @@ public class CartController {
 		// DBからそのユーザーのカート内商品をすべて取得
 		List<CartItem> cartList = cartService.findByUserId(userId);
 
-		// 3. 合計金額を計算するメソッドを呼び出す
-		int totalAmount = cartService.calculateTotalAmount(cartList);
+		// 合計金額を取得する
+		int totalAmount = cartService.getTotalAmount(userId);
 
 		// HTMLに渡すデータを登録
 		model.addAttribute("loginUserName", loginUser.getName());

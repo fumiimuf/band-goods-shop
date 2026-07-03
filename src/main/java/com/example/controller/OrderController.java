@@ -46,7 +46,7 @@ public class OrderController {
 		List<CartItem> cartList = cartService.findByUserId(userId);
 		
 		// 合計金額を取得
-		int totalAmount = cartService.calculateTotalAmount(cartList);
+		int totalAmount = cartService.getTotalAmount(userId);
 		
 		// modelに登録
 		model.addAttribute("user", user);
@@ -67,7 +67,7 @@ public class OrderController {
 			// 登録に必要な情報をすべて集める
 			User user = userService.findById(userId);
 			List<CartItem> cartlist = cartService.findByUserId(userId);
-			int totalAmount = cartService.calculateTotalAmount(cartlist);
+			int totalAmount = cartService.getTotalAmount(userId);
 			
 			// 購入処理を呼び出す
 			orderService.createOrder(user, cartlist, totalAmount);
