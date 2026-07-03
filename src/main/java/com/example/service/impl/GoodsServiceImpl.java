@@ -36,18 +36,18 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<GoodsItem> findByPage(boolean isDeleted, String keyword, int page, int size) {
 		int offset = page * size;
-		return goodsMapper.findByPage(isDeleted, keyword, size, offset);
+		return goodsMapper.selectByPage(isDeleted, keyword, size, offset);
 	}
 
 	@Override
 	public long count(boolean isDeleted, String keyword) {
-		return goodsMapper.count(isDeleted, keyword);
+		return goodsMapper.selectCount(isDeleted, keyword);
 	}
 
 	@Override
 	public GoodsItem findById(int id) {
 		// Mapperを呼び出して1件取得
-		return goodsMapper.findById(id);
+		return goodsMapper.selectById(id);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 		// 変更前の「古いグッズ情報」をDBから1件取得
 		// 画面から画像が送られてこなかった場合、元の画像ファイル名をDBから引き継ぐために使用します
-		GoodsItem existingGoods = goodsMapper.findById(goods.getId());
+		GoodsItem existingGoods = goodsMapper.selectById(goods.getId());
 
 		// 削除フラグが停止中(true)に変更された場合、現在日時をセットする
 		if (goods.getIsDeleted()) {

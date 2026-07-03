@@ -11,16 +11,16 @@ import com.example.model.GoodsItem;
 @Mapper
 public interface GoodsMapper {
 
-	List<GoodsItem> findByPage(
+	List<GoodsItem> selectByPage(
 					@Param("isDeleted") boolean isDeleted,
 					@Param("keyword") String keyword,
 					@Param("limit") int limit, 
 					@Param("offset") int offset);
 	
-	long count(@Param("isDeleted") boolean isDeleted, @Param("keyword") String keyword);
+	long selectCount(@Param("isDeleted") boolean isDeleted, @Param("keyword") String keyword);
 	
 	// 指定したIDのグッズを1件だけ取得
-	GoodsItem findById(int id);
+	GoodsItem selectById(int id);
 	
 	// グッズを新しく登録
 	void insert(Goods goods);

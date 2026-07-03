@@ -23,7 +23,7 @@
 	</resultMap>
 	
 	
-	<select id="findByPage" resultMap="GoodsItemMap">
+	<select id="selectByPage" resultMap="GoodsItemMap">
 		SELECT 
 			g.id AS goods_id,
 			g.name AS goods_name,
@@ -45,7 +45,7 @@
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
-	<select id="count" resultType="long">
+	<select id="selectCount" resultType="long">
 		SELECT COUNT(*) FROM goods
 		WHERE is_deleted = #{isDeleted}
 		<if test="keyword != null and keyword != ''">
@@ -53,7 +53,7 @@
         </if>
 	</select>
 	
-	<select id="findById" resultMap="GoodsItemMap">
+	<select id="selectById" resultMap="GoodsItemMap">
 		SELECT 
 			g.id AS goods_id,
 			g.name AS goods_name,
