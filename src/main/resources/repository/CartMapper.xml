@@ -57,6 +57,18 @@
 			c.user_id = #{userId}
 	</select>
 	
+	<!-- 合計金額を取得する -->
+	<select id="selectTotalAmountByUserId" resultType="int">
+		SELECT 
+	        COALESCE(SUM(g.price * c.quantity), 0) 
+	    FROM 
+	        ec_db.cart AS c
+	    INNER JOIN 
+	        ec_db.goods AS g ON c.goods_id = g.id
+	    WHERE 
+	        c.user_id = #{userId}
+	</select>
+	
 	<!-- 特定のグッズを削除 -->
 	<delete id="deleteByGoodsId">
 		DELETE FROM cart 
