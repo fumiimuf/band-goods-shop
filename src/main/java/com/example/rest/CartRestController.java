@@ -35,7 +35,7 @@ public class CartRestController {
 	
 	// カート追加
 	@PostMapping("/add")
-	public Map<String, Integer> addCart(@RequestParam("goodsId") Integer goodsId, 
+	public Map<String, Integer> addCart(@RequestParam Integer goodsId, 
 			@AuthenticationPrincipal LoginUser loginUser) {
 		
 		// ログインユーザーのIDを取得
@@ -82,19 +82,15 @@ public class CartRestController {
 		// Serviceを呼び出してDBの個数をUPDATE
 		cartService.updateQuantity(cart);
 		
-		// 最新のカート情報を取得
 		List<CartItem> cartList = cartService.findByUserId(userId);
 		
-		// Serviceを呼び出して、変更した商品の「小計金額」を計算
-		int subTotal = cartService.calculateSubtotal(cartList, cart.getGoodsId());
-		
-		// Serviceを呼び出して「全体合計金額」を計算
-		int totalAmount = cartService.calculateTotalAmount(cartList);
+		// ユーザーIDに紐づくカート内の合計金額を取得する
+		int totalAmount = cartService.getTotalAmount(userId);
 		
 		// レスポンスデータを詰める
 		response.put("success", true);
 		response.put("totalAmount", totalAmount);
-		response.put("subtotal", subTotal);
+		response.put("cartList", cartList);
 		
 		// 最新カート内「グッズ合計個数」を取得する
 		int totalQuantity = cartService.getTotalQuantity(userId);
