@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
 		List<OrderViewItem> historyList = new ArrayList<>();
 		
 		// ログインユーザーの注文履歴(親)を取得
-		List<Order> orders = orderMapper.findByUserId(userId);
+		List<Order> orders = orderMapper.selectByUserId(userId);
 		
 		// 注文の件数文ループを回して、それぞれの明細(子)を回収する
 		for (Order order : orders) {
@@ -104,7 +104,7 @@ public class OrderServiceImpl implements OrderService {
 		int offset = page * size;
 		
 		// ページに必要な件数だけの注文履歴(親)を取得
-		List<Order> orders = orderMapper.findByPage(userId, size, offset);
+		List<Order> orders = orderMapper.selectByPage(userId, size, offset);
 		
 		// 取得した件数文(最大2件分)だけループで回して、それぞれの明細(子)を回収する
 		for (Order order : orders) {
@@ -129,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public long countByUserId(Integer userId) {
 		
-		return orderMapper.countByUserId(userId);
+		return orderMapper.selectCountByUserId(userId);
 	}
 
 	// 一般ユーザーの販売履歴を全件取得する
@@ -141,7 +141,7 @@ public class OrderServiceImpl implements OrderService {
 		int offset = page * size;
 		
 		// Mapperから全件取得
-		List<Order> orders = orderMapper.findAllOrdersByPage(keyword, size, offset);
+		List<Order> orders = orderMapper.selectAllOrdersByPage(keyword, size, offset);
 		
 		// 取得した注文履歴（親）をループし、それぞれに紐づく明細（子）をセットする
 		for (Order order : orders) {
@@ -161,7 +161,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public long countAllOrders(String keyword) {
-		return orderMapper.countAllOrders(keyword);
+		return orderMapper.selectCountAllOrders(keyword);
 	}
 
 	@Override
