@@ -39,15 +39,7 @@ public class UserServiceImpl implements UserService {
 
 	// ユーザー情報を更新する
 	@Override
-	public boolean updateUser(User user) {
-		
-		// メールアドレスの重複チェック
-		User existingUser = userMapper.selectByEmail(user.getEmail());
-		
-		// 同じメールアドレスが存在し、かつ、そのIDが自分自身のIDと異なる場合はと重複エラー
-		if (existingUser != null && !existingUser.getId().equals(user.getId())) {
-			return false;
-		}
+	public void updateUser(User user) {
 		
 		// パスワードの変更有無による処理分岐
 		// 画面で新しいパスワードが入力されているかチェック
@@ -64,8 +56,6 @@ public class UserServiceImpl implements UserService {
 		
 		// DBのデータを更新する
 		userMapper.updateUser(user);
-		
-		return true;
 	}
 
 	@Override

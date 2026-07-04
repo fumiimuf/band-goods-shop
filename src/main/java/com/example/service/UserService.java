@@ -9,11 +9,11 @@ public interface UserService {
 	
 	boolean existEmail(String email);
 
-	public void insertOne(User user);
+	void insertOne(User user);
 	
 	User findById(Integer userId);
 	
-	boolean updateUser(User user);
+	void updateUser(User user);
 	
 	List<User> findGeneralUsers(String keyword, int page, int size);
 	
