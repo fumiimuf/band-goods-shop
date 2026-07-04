@@ -61,12 +61,6 @@ public class UserController {
 		return "redirect:/login";
 	}
 	
-	/**
-	 * ユーザーページ（登録情報確認画面）を表示します。
-	 * * @param loginUser 認証情報から取得したログイン中のユーザーオブジェクト
-	 * @param model 画面へデータを渡すためのオブジェクト
-	 * @return ユーザーページ画面のテンプレートパス
-	 */
 	@GetMapping("/profile")
 	public String showUserProfile(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		
@@ -83,13 +77,6 @@ public class UserController {
 		return "user/profile";
 	}
 	
-	/**
-	 * ユーザー編集画面を表示します。
-	 * * @param loginUser 認証情報から取得したログイン中のユーザーオブジェクト
-	 * @param userEditForm 画面に初期値を渡すためのフォームオブジェクト
-	 * @param model 画面へデータを渡すためのオブジェクト（必要に応じて使用）
-	 * @return ユーザー編集画面のテンプレートパス
-	 */
 	@GetMapping("/edit")
 	public String showUserEdit(@AuthenticationPrincipal LoginUser loginUser, 
 					@ModelAttribute UserEditForm userEditForm) {
@@ -110,17 +97,19 @@ public class UserController {
 		return "user/edit";
 	}
 	
-	/**
-	 * ユーザー情報の更新処理を実行します。
-	 * * @param userEditForm 画面から送信された入力内容
-	 * @param bindingResult バリデーションの結果
-	 * @param loginUser ログイン中のユーザーオブジェクト
-	 * @return 更新成功時はプロフィール画面へのリダイレクト、失敗時は編集画面のパス
-	 */
 	@PostMapping("/update")
 	public String updateUser(@ModelAttribute @Validated UserEditForm userEditForm, 
 					BindingResult bindingResult,
 					@AuthenticationPrincipal LoginUser loginUser) {
+		
+		User currentUser = userService.findById(loginUser.getUserId());
+		
+		if (!userEditForm.getEmail().equals(currentUser.getEmail())) {
+			// メールアドレス重複チェック
+			if (userService.existEmail(userEditForm.getEmail())) {
+				bindingResult.rejectValue("email", "error.duplicate.email");
+			}
+		}
 		
 		// 入力チェック
 		if(bindingResult.hasErrors()) {
@@ -129,23 +118,12 @@ public class UserController {
 		
 		// フォームオブジェクトをUserクラスに変換
 		User user = modelMapper.map(userEditForm, User.class);
-			
-		// ログインユーザーのIDを取得
-		Integer userId = loginUser.getUserId();
 		
-		// 取得したIDをuserオブジェクトにセットする
-		user.setId(userId);
+		user.setId(loginUser.getUserId());
 		
-		// Serviceの更新処理を呼び出す
-		// メールアドレス重複などで失敗した場合は、編集画面に戻してエラーを表示します
-		if (!userService.updateUser(user)) {
-			bindingResult.rejectValue("email", "error.duplicate.email");
-			
-			return "user/edit";
-		}
+		userService.updateUser(user);
 		
-		// 更新が成功したら、ユーザーページへリダイレクト
+		// ユーザーページへリダイレクト
 		return "redirect:/user/profile";
 	}
-	
 }
