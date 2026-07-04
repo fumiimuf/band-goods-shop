@@ -9,6 +9,12 @@
 		WHERE email = #{email} 
 	</select>
 	
+	
+	<!-- メールアドレスでユーザー情報を取得 -->
+	<select id="selectByEmail" resultType="User">
+		SELECT * FROM user WHERE email = #{email}
+	</select>
+	
 	<!-- ユーザー情報1件を登録する -->
 	<insert id="insertOne">
 		INSERT INTO user(

@@ -13,6 +13,9 @@ public interface UserMapper {
 	// メールアドレスの登録件数を取得
 	int selectCountByEmail(String email);
 	
+	// メールアドレスでユーザー情報を1件取得
+	User selectByEmail(String email);
+	
 	// ユーザー情報1件を登録する
 	public void insertOne(User user);
 	
