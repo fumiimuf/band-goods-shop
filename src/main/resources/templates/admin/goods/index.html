@@ -52,18 +52,18 @@
 					</thead>
 					<tbody>
 						<tr th:each="item : ${goodsList}">
-							<td>
+							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'">
 								<div class="d-flex align-items-center justify-content-center flex-shrink-0 mx-auto" style="height: 100px; width: 100px;">
 									<img th:src="${item.getImageUrl()}" class="h-100 w-100 object-fit-contain" th:alt="${item.goods.name}">
 								</div>
 							</td>
-							<td th:text="${item.category.name}"></td>
-							<td th:text="${item.goods.name}" class="fw-bold"></td>
-							<td th:text="#{common.price.format.symbol(${item.goods.price})}"></td>
+							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="${item.category.name}"></td>
+							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="${item.goods.name}" class="fw-bold"></td>
+							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="#{common.price.format.symbol(${item.goods.price})}"></td>
 
-							<td th:if="${currentStatus == 'active'}" th:text="${#temporals.format(item.goods.createDateTime, 'yyyy/MM/dd')}"></td>
+							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:if="${currentStatus == 'active'}" th:text="${#temporals.format(item.goods.createDateTime, 'yyyy/MM/dd')}"></td>
 
-							<td th:if="${currentStatus == 'suspended'}" th:text="${#temporals.format(item.goods.deleteDateTime, 'yyyy/MM/dd')}"></td>
+							<td th:if="${currentStatus == 'suspended'}" th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="${#temporals.format(item.goods.deleteDateTime, 'yyyy/MM/dd')}"></td>
 
 							<td class="text-center"><a th:href="@{/admin/goods/edit/{id}(id=${item.goods.id})}" class="btn btn-sm btn-primary px-3" th:text="#{btn.admin.goods.update}"></a></td>
 
