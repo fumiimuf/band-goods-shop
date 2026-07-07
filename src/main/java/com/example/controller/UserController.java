@@ -123,6 +123,10 @@ public class UserController {
 		
 		userService.updateUser(user);
 		
+		if (loginUser != null) {
+			loginUser.setName(user.getName());
+		}
+		
 		// ユーザーページへリダイレクト
 		return "redirect:/user/profile";
 	}
