@@ -12,7 +12,7 @@ public class LoginUser extends User {
 	private final Integer userId;
 	
 	// 自分だけの追加項目：名前
-	private final String name;
+	private String name;
 
 	// コンストラクタ：親クラスのコンストラクタを呼びつつ、IDをセットします
 	public LoginUser(com.example.entity.User user, Collection<? extends GrantedAuthority> authorities) {
@@ -30,5 +30,10 @@ public class LoginUser extends User {
 	// 名前を取り出すためのメソッド
 	public String getName() {
 		return name;
+	}
+	
+	// 外部から最新の名前を受け取って上書きするメソッド
+	public void setName(String name) {
+		this.name = name;
 	}
 }
