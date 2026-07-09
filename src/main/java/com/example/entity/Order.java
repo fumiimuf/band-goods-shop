@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -20,5 +21,7 @@ public class Order {
 	private Integer totalPrice;
 	
 	private LocalDateTime orderedAt;
+	
+	private List<OrderDetail> details;
 	
 }
