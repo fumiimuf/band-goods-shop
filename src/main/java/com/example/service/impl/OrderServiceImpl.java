@@ -68,32 +68,6 @@ public class OrderServiceImpl implements OrderService {
 		 cartService.deleteAllByUserId(user.getId());
 	}
 	
-	// ログインユーザーの注文履歴と明細をすべて取得する
-	@Override
-	public List<OrderViewItem> getOrderHistory(Integer userId) {
-		
-		List<OrderViewItem> historyList = new ArrayList<>();
-		
-		// ログインユーザーの注文履歴(親)を取得
-		List<Order> orders = orderMapper.selectByUserId(userId);
-		
-		// 注文の件数文ループを回して、それぞれの明細(子)を回収する
-		for (Order order : orders) {
-			OrderViewItem viewItem = new OrderViewItem();
-			// 親をセット
-			viewItem.setOrder(order);
-			
-			// この注文IDに紐づく明細リストを取得
-			List<OrderDetail> details = orderDetailMapper.selectByOrderId(order.getId());
-			// 子をセット
-			viewItem.setDetails(details);
-			
-			// 親子セットになったものを大元に格納
-			historyList.add(viewItem);
-		}
-		return historyList;
-	}
-
 	// ログインユーザーの注文履歴と明細をページ指定して取得する
 	@Override
 	public List<OrderViewItem> getOrderHistoryByPage(Integer userId, int page, int size) {
@@ -104,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
 		int offset = page * size;
 		
 		// ページに必要な件数だけの注文履歴(親)を取得
-		List<Order> orders = orderMapper.selectByPage(userId, size, offset);
+		List<Order> orders = orderMapper.selectOrdersWithDetailsByUserIdByPage(userId, size, offset);
 		
 		// 取得した件数文(最大2件分)だけループで回して、それぞれの明細(子)を回収する
 		for (Order order : orders) {
@@ -113,10 +87,8 @@ public class OrderServiceImpl implements OrderService {
 			// 注文履歴(親)をセット
 			viewItem.setOrder(order);
 			
-			// この注文履歴に紐づくすべての明細リストを取得
-			List<OrderDetail> details = orderDetailMapper.selectByOrderId(order.getId());
 			// 明細(子)をセット
-			viewItem.setDetails(details);
+			viewItem.setDetails(order.getDetails());
 			
 			// 親子セットが完成した一組を、表示用のリストに格納
 			historyList.add(viewItem);
@@ -141,18 +113,17 @@ public class OrderServiceImpl implements OrderService {
 		int offset = page * size;
 		
 		// Mapperから全件取得
-		List<Order> orders = orderMapper.selectAllOrdersByPage(keyword, size, offset);
+		List<Order> orders = orderMapper.selectAllOrdersWithDetailsByPage(keyword, size, offset);
 		
-		// 取得した注文履歴（親）をループし、それぞれに紐づく明細（子）をセットする
+		// 取得したデータを画面表示用の「OrderViewItem」に詰替える
 		for (Order order : orders) {
 			OrderViewItem viewItem = new OrderViewItem();
 			
 			// 親をセット
 			viewItem.setOrder(order);
 			
-			// 既存の明細取得メソッドを利用して、この注文IDの明細を全て取得
-			List<OrderDetail> details = orderDetailMapper.selectByOrderId(order.getId());
-			viewItem.setDetails(details);
+			// 子をセット
+			viewItem.setDetails(order.getDetails());
 			
 			historyList.add(viewItem);
 		}
