@@ -147,28 +147,8 @@ public class OrderServiceImpl implements OrderService {
 		// ログインユーザーの全注文件数を取得する
 		long totalCount = countByUserId(userId);
 		
-		// 全体のページ数を計算する。
-		int totalPages = (int) Math.ceil((double) totalCount / size);
 		
-		if (totalPages == 0) {
-			totalPages = 1;
-		}
-		
-		// 表示するページボタンの範囲を最大3に設定
-		int displayButtonCount = 3;
-		
-		// 開始ページ
-		int startPage = Math.max(0, page - (displayButtonCount / 2));
-		
-		// 終了ページ
-		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
-		
-		// ページの終わりでボタンが3つ未満になってしまう場合の調整
-		if (endPage - startPage + 1 < displayButtonCount) {
-			startPage = Math.max(0, endPage - displayButtonCount + 1);
-		}
-		
-		PageResult<OrderViewItem> result = new PageResult<OrderViewItem>(historyList, page, totalPages, startPage, endPage);
+		PageResult<OrderViewItem> result = new PageResult<OrderViewItem>(historyList, page, totalCount, size);
 		
 		return result;
 	}
@@ -182,23 +162,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		long totalCount = countAllOrders(keyword);
 		
-		int totalPages = (int) Math.ceil((double) totalCount / size);
-		
-		if (totalPages == 0) {
-			totalPages = 1;
-		}
-		
-		int displayButtonCount = 3;
-		
-		int startPage = Math.max(0, page - (displayButtonCount / 2));
-		
-		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
-		
-		if (endPage - startPage + 1 < displayButtonCount) {
-			startPage = Math.max(0, endPage - displayButtonCount + 1);
-		}
-		
-		PageResult<OrderViewItem> result = new PageResult<OrderViewItem>(orderList, page, totalPages, startPage, endPage);
+		PageResult<OrderViewItem> result = new PageResult<OrderViewItem>(orderList, page, totalCount, size);
 		
 		return result;
 	}

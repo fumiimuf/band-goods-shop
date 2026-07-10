@@ -80,23 +80,7 @@ public class UserServiceImpl implements UserService {
 		
 		int totalUsers = countGeneralUsers(keyword);
 		
-		int totalPages = (int) Math.ceil((double) totalUsers / size);
-		
-		if (totalPages == 0) {
-			totalPages = 1;
-		}
-		
-		int displayButtonCount = 3;
-		
-		int startPage = Math.max(0, page - (displayButtonCount / 2));
-		
-		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
-		
-		if (endPage - startPage + 1 < displayButtonCount) {
-			startPage = Math.max(0, endPage - displayButtonCount + 1);
-		}
-		
-		PageResult<User> result = new PageResult<User>(userList, page, totalPages, startPage, endPage);
+		PageResult<User> result = new PageResult<User>(userList, page, totalUsers, size);
 		
 		return result;
 	}

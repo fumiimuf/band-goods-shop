@@ -105,29 +105,8 @@ public class GoodsServiceImpl implements GoodsService {
 		// 全体の件数を数えます（全何ページあるか計算するため）
 		long totalCount = count(false, keyword);
 
-		// 全体のページ数を計算します（端数は切り上げ。例：9件なら2ページ）
-		int totalPages = (int) Math.ceil((double) totalCount / size);
-		
-		if (totalPages == 0) {
-			totalPages = 1;
-		}
-
-		// 表示するページボタンの範囲を最大3に設定
-		int displayButtonCount = 3;
-
-		// 開始ページ
-		int startPage = Math.max(0, page - (displayButtonCount / 2));
-
-		// 終了ページ
-		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
-
-		// ページの終わりで方でボタンが3つ未満になってしまう場合の調整
-		if (endPage - startPage + 1 < displayButtonCount) {
-			startPage = Math.max(0, endPage - displayButtonCount + 1);
-		}
-
 		// 大きな変数(お盆)に組み立てる
-		PageResult<GoodsItem> result = new PageResult<GoodsItem>(goodsList, page, totalPages, startPage, endPage);
+		PageResult<GoodsItem> result = new PageResult<GoodsItem>(goodsList, page, totalCount, size);
 
 		return result;
 	}
@@ -144,32 +123,10 @@ public class GoodsServiceImpl implements GoodsService {
 
 		// 条件に合うグッズを5件分だけ取得する
 		List<GoodsItem> goodsList = findByPage(isDeleted, keyword, page, size);
-
-		// 状態（販売中 or 停止中）に合わせた総件数を取得する
+		
 		long totalCount = count(isDeleted, keyword);
-		
-		// 全体のページ数を計算（端数切り上げ。例：6件なら2ページ）
-		int totalPages = (int) Math.ceil((double) totalCount / size);
-		
-		if (totalPages == 0) {
-			totalPages = 1;
-		}
-		
-		// 表示するページボタンの範囲を最大3つに設定
-		int displayButtonCount = 3;
-		
-		// 開始ページ
-		int startPage = Math.max(0, page - (displayButtonCount / 2));
-		
-		// 終了ページ
-		int endPage = Math.min(totalPages - 1, startPage + displayButtonCount - 1);
-		
-		// ページの終わりでボタンが3つ未満になってしまう場合の調整
-		if (endPage - startPage + 1 < displayButtonCount) {
-			startPage = Math.max(0, endPage - displayButtonCount + 1);
-		}
-		
-		PageResult<GoodsItem> result = new PageResult<GoodsItem>(goodsList, page, totalPages, startPage, endPage);
+
+		PageResult<GoodsItem> result = new PageResult<GoodsItem>(goodsList, page, totalCount, size);
 		
 		return result;
 	}
