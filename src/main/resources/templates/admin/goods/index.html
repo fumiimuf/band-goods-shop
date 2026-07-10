@@ -24,8 +24,11 @@
 				<!-- 停止中ボタン -->
 				<a th:href="@{/admin/goods/index(status='suspended')}" class="btn" th:classappend="${currentStatus == 'suspended'} ? 'btn-dark' : 'btn-outline-dark'" th:text="#{btn.admin.goods.status.suspended}"></a>
 			</div>
-
-			<form th:action="@{/goods/index}" method="get" class="mb-4">
+			
+			<form th:action="@{/admin/goods/index}" method="get" class="mb-4">
+				
+				<input type="hidden" name="status" th:value="${currentStatus}">
+				
 				<div class="row row-cols-auto g-2 justify-content-end align-items-center">
 					<div>
 						<input type="search" name="keyword" th:value="${keyword}" class="form-control" th:placeholder="#{placeholder.admin.goods.name}">
