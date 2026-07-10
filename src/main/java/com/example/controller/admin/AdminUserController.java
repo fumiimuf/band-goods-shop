@@ -30,8 +30,8 @@ public class AdminUserController {
 		
 		PageResult<User> pageResult = userService.getAdminUserPage(keyword, page);
 		
-		model.addAttribute("userList", pageResult.getContent());
-		model.addAttribute("currentPage", pageResult.getCurrentPage());
+		model.addAttribute("userList", pageResult.getList());
+		model.addAttribute("currentPage", pageResult.getPage());
 		model.addAttribute("totalPages", pageResult.getTotalPages());
 		model.addAttribute("startPage", pageResult.getStartPage());
 		model.addAttribute("endPage", pageResult.getEndPage());

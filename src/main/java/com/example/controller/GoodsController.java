@@ -32,8 +32,8 @@ public class GoodsController {
 		PageResult<GoodsItem> pageResult = goodsService.getGoodsPage(keyword, page);
 		
 		// 画面（HTML）で使うためのデータをセットします
-		model.addAttribute("goodsList", pageResult.getContent());
-		model.addAttribute("currentPage", pageResult.getCurrentPage());
+		model.addAttribute("goodsList", pageResult.getList());
+		model.addAttribute("currentPage", pageResult.getPage());
 		model.addAttribute("totalPages", pageResult.getTotalPages());
 		model.addAttribute("startPage", pageResult.getStartPage());
 		model.addAttribute("endPage", pageResult.getEndPage());

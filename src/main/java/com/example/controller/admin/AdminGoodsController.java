@@ -50,15 +50,15 @@ public class AdminGoodsController {
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "") String keyword,
 			Model model) {
-
-		PageResult<GoodsItem> pageResult = goodsService.getAdminGoodsPage(status, keyword, page);
+		
+		PageResult<GoodsItem> result = goodsService.getAdminGoodsPage(status, keyword, page);
 
 		// 画面（HTML）へ送るデータをセット
-		model.addAttribute("goodsList", pageResult.getContent());
-		model.addAttribute("currentPage", pageResult.getCurrentPage());
-		model.addAttribute("totalPages", pageResult.getTotalPages());
-		model.addAttribute("startPage", pageResult.getStartPage());
-		model.addAttribute("endPage", pageResult.getEndPage());
+		model.addAttribute("goodsList", result.getList());
+		model.addAttribute("currentPage", result.getPage());
+		model.addAttribute("totalPages", result.getTotalPages());
+		model.addAttribute("startPage", result.getStartPage());
+		model.addAttribute("endPage", result.getEndPage());
 		model.addAttribute("currentStatus", status);
 		model.addAttribute("keyword", keyword);
 		

@@ -28,9 +28,9 @@ public class AdminOrderController {
 		
 		PageResult<OrderViewItem> pageResult = orderService.getAdminOrderPage(keyword, page);
 		
-		model.addAttribute("orderList", pageResult.getContent());
+		model.addAttribute("orderList", pageResult.getList());
 		model.addAttribute("totalPages", pageResult.getTotalPages());
-		model.addAttribute("currentPage", pageResult.getCurrentPage());
+		model.addAttribute("currentPage", pageResult.getPage());
 		model.addAttribute("startPage", pageResult.getStartPage());
 		model.addAttribute("endPage", pageResult.getEndPage());
 		model.addAttribute("keyword", keyword);

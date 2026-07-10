@@ -104,8 +104,8 @@ public class OrderController {
 		PageResult<OrderViewItem> pageResult = orderService.getOrderPage(userId, page);
 		
 		// 画面(HTML)で使うためのデータをセットする
-		model.addAttribute("historyList", pageResult.getContent());
-		model.addAttribute("currentPage", pageResult.getCurrentPage());
+		model.addAttribute("historyList", pageResult.getList());
+		model.addAttribute("currentPage", pageResult.getPage());
 		model.addAttribute("totalPages", pageResult.getTotalPages());
 		model.addAttribute("startPage", pageResult.getStartPage());
 		model.addAttribute("endPage", pageResult.getEndPage());
