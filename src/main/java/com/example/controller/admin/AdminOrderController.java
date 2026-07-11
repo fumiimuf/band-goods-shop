@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.model.OrderViewItem;
-import com.example.model.PageResult;
+import com.example.model.Pagination;
 import com.example.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,13 +26,9 @@ public class AdminOrderController {
 			@RequestParam(defaultValue = "0") int page,
 			Model model) {
 		
-		PageResult<OrderViewItem> pageResult = orderService.getAdminOrderPage(keyword, page);
+		Pagination<OrderViewItem> pagination = orderService.getAdminOrderPage(keyword, page);
 		
-		model.addAttribute("orderList", pageResult.getList());
-		model.addAttribute("totalPages", pageResult.getTotalPages());
-		model.addAttribute("currentPage", pageResult.getPage());
-		model.addAttribute("startPage", pageResult.getStartPage());
-		model.addAttribute("endPage", pageResult.getEndPage());
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("keyword", keyword);
 		
 		return "admin/order/list";

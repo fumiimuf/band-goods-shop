@@ -14,7 +14,7 @@ import com.example.config.LoginUser;
 import com.example.entity.User;
 import com.example.model.CartItem;
 import com.example.model.OrderViewItem;
-import com.example.model.PageResult;
+import com.example.model.Pagination;
 import com.example.service.CartService;
 import com.example.service.OrderService;
 import com.example.service.UserService;
@@ -101,14 +101,11 @@ public class OrderController {
 		User user = userService.findById(userId);
 		model.addAttribute("user",user);
 		
-		PageResult<OrderViewItem> pageResult = orderService.getOrderPage(userId, page);
+		Pagination<OrderViewItem> pagination = orderService.getOrderPage(userId, page);
 		
 		// 画面(HTML)で使うためのデータをセットする
-		model.addAttribute("historyList", pageResult.getList());
-		model.addAttribute("currentPage", pageResult.getPage());
-		model.addAttribute("totalPages", pageResult.getTotalPages());
-		model.addAttribute("startPage", pageResult.getStartPage());
-		model.addAttribute("endPage", pageResult.getEndPage());
+		model.addAttribute("pagination", pagination);
+		
 		
 		// 画面遷移
 		return "order/history";

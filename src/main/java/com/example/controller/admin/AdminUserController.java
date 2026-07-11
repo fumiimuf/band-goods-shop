@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.User;
-import com.example.model.PageResult;
+import com.example.model.Pagination;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,13 +28,9 @@ public class AdminUserController {
 					@RequestParam(defaultValue = "0") int page, 
 					Model model) {
 		
-		PageResult<User> pageResult = userService.getAdminUserPage(keyword, page);
+		Pagination<User> pagination = userService.getAdminUserPage(keyword, page);
 		
-		model.addAttribute("userList", pageResult.getList());
-		model.addAttribute("currentPage", pageResult.getPage());
-		model.addAttribute("totalPages", pageResult.getTotalPages());
-		model.addAttribute("startPage", pageResult.getStartPage());
-		model.addAttribute("endPage", pageResult.getEndPage());
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("keyword", keyword);
 		
 		return "admin/user/list";

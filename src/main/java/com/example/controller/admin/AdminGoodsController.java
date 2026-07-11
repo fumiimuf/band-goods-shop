@@ -25,7 +25,7 @@ import com.example.entity.Goods;
 import com.example.form.GoodsEditForm;
 import com.example.form.GoodsRegisterForm;
 import com.example.model.GoodsItem;
-import com.example.model.PageResult;
+import com.example.model.Pagination;
 import com.example.service.CategoryService;
 import com.example.service.GoodsService;
 
@@ -51,14 +51,10 @@ public class AdminGoodsController {
 			@RequestParam(defaultValue = "") String keyword,
 			Model model) {
 		
-		PageResult<GoodsItem> result = goodsService.getAdminGoodsPage(status, keyword, page);
+		Pagination<GoodsItem> pagination = goodsService.getAdminGoodsPage(status, keyword, page);
 
 		// 画面（HTML）へ送るデータをセット
-		model.addAttribute("goodsList", result.getList());
-		model.addAttribute("currentPage", result.getPage());
-		model.addAttribute("totalPages", result.getTotalPages());
-		model.addAttribute("startPage", result.getStartPage());
-		model.addAttribute("endPage", result.getEndPage());
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("currentStatus", status);
 		model.addAttribute("keyword", keyword);
 		

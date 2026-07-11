@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.model.GoodsItem;
-import com.example.model.PageResult;
+import com.example.model.Pagination;
 import com.example.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,14 +29,10 @@ public class GoodsController {
 		@RequestParam(defaultValue = "") String keyword,
 		Model model) {
 		
-		PageResult<GoodsItem> pageResult = goodsService.getGoodsPage(keyword, page);
+		Pagination<GoodsItem> pagination = goodsService.getGoodsPage(keyword, page);
 		
 		// 画面（HTML）で使うためのデータをセットします
-		model.addAttribute("goodsList", pageResult.getList());
-		model.addAttribute("currentPage", pageResult.getPage());
-		model.addAttribute("totalPages", pageResult.getTotalPages());
-		model.addAttribute("startPage", pageResult.getStartPage());
-		model.addAttribute("endPage", pageResult.getEndPage());
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("keyword", keyword);
 		
 		// グッズ一覧(一般ユーザー)を表示
