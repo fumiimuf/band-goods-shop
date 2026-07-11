@@ -13,11 +13,11 @@
     		
     		<hr class="border-2 opacity-100">
         
-	        <div th:if="${#lists.isEmpty(historyList)}" class="text-center my-5">
+	        <div th:if="${#lists.isEmpty(pagination.content)}" class="text-center my-5">
 	            <p class="text-muted" th:text="#{msg.order.history.noOrderHistory}"></p>
 	        </div>
 	
-	        <div th:unless="${#lists.isEmpty(historyList)}" th:each="item : ${historyList}" class="card mb-4 shadow-sm border">
+	        <div th:unless="${#lists.isEmpty(pagination.content)}" th:each="item : ${pagination.content}" class="card mb-4 shadow-sm border">
 	            
 	            <div class="card-header bg-light py-3 border-bottom">
 	                <div class="d-flex gap-5 mb-3">
@@ -60,24 +60,24 @@
 	            </div>
 	        </div>
 	        <!-- ページネーション -->
-	        <nav th:if="${totalPages > 1}" aria-label="注文履歴ページナビゲーション" class="mt-5">
+	        <nav th:if="${pagination.totalPages > 1}" aria-label="注文履歴ページナビゲーション" class="mt-5">
 	            <ul class="pagination justify-content-center d-flex gap-1">
 	                
-	                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-	                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/order/history(page=${currentPage - 1})}" th:text="#{common.pagination.prev}"></a>
+	                <li class="page-item" th:classappend="${pagination.currentPage == 0} ? 'disabled'">
+	                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/order/history(page=${pagination.currentPage - 1})}" th:text="#{common.pagination.prev}"></a>
 	                </li>
 	
 	                <li class="page-item" 
-	                    th:each="i : ${#numbers.sequence(startPage, endPage)}" 
-	                    th:classappend="${i == currentPage} ? 'active'">
+	                    th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}" 
+	                    th:classappend="${i == pagination.currentPage} ? 'active'">
 	                    <a class="page-link text-dark border-dark rounded-1" 
-	                       th:classappend="${i == currentPage} ? 'active'"
+	                       th:classappend="${i == pagination.currentPage} ? 'active'"
 	                       th:href="@{/order/history(page=${i})}" 
 	                       th:text="${i + 1}"></a>
 	                </li>
 	
-	                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-	                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/order/history(page=${currentPage + 1})}" th:text="#{common.pagination.next}"></a>
+	                <li class="page-item" th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'">
+	                    <a class="page-link text-dark border-dark rounded-1" th:href="@{/order/history(page=${pagination.currentPage + 1})}" th:text="#{common.pagination.next}"></a>
 	                </li>
 	                
 	            </ul>

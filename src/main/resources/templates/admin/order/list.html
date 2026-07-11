@@ -36,7 +36,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<th:block th:each="viewItem : ${orderList}">
+						<th:block th:each="viewItem : ${pagination.content}">
 
 							<tr th:each="item, itemStat : ${viewItem.details}">
 								<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-center" th:text="${#temporals.format(viewItem.order.orderedAt, 'yyyy/MM/dd')}"></td>
@@ -54,14 +54,14 @@
 			</div>
 
 			<!-- ページネーション -->
-			<nav aria-label="販売履歴一覧ページナビゲーション" th:if="${totalPages > 0}" class="mt-5">
+			<nav aria-label="販売履歴一覧ページナビゲーション" th:if="${pagination.totalPages > 0}" class="mt-5">
 				<ul class="pagination justify-content-center d-flex gap-1">
 
-					<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${currentPage - 1})}" th:text="#{common.pagination.prev}"></a></li>
+					<li class="page-item" th:classappend="${pagination.currentPage == 0} ? 'disabled'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${pagination.currentPage - 1})}" th:text="#{common.pagination.prev}"></a></li>
 
-					<li class="page-item" th:each="i : ${#numbers.sequence(startPage, endPage)}" th:classappend="${i == currentPage} ? 'active'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${i})}" th:text="${i + 1}"></a></li>
+					<li class="page-item" th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}" th:classappend="${i == pagination.currentPage} ? 'active'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${i})}" th:text="${i + 1}"></a></li>
 
-					<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${currentPage + 1})}" th:text="#{common.pagination.next}"></a></li>
+					<li class="page-item" th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/order/list(keyword=${keyword}, page=${pagination.currentPage + 1})}" th:text="#{common.pagination.next}"></a></li>
 				</ul>
 			</nav>
 			<!-- 戻るボタン -->
