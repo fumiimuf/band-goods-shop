@@ -5,11 +5,11 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class PageResult<T> {
+public class Pagination<T> {
 
-	private final List<T> list;
+	private final List<T> content;
 	
-	private final int page;
+	private final int currentPage;
 	
 	private final int totalPages;
 	
@@ -17,9 +17,9 @@ public class PageResult<T> {
 	
 	private final int endPage;
 	
-	public PageResult(List<T> list, int page, long totalCount, int size) {
-		this.list = list;
-		this.page = page;
+	public Pagination(List<T> list, int page, long totalCount, int size) {
+		this.content = list;
+		this.currentPage = page;
 		
 		// 全体のページ数を計算
 		int pages = (int) Math.ceil((double) totalCount / size);
