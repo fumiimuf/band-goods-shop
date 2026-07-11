@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.User;
-import com.example.model.PageResult;
+import com.example.model.Pagination;
 import com.example.repository.UserMapper;
 import com.example.service.UserService;
 
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public PageResult<User> getAdminUserPage(String keyword, int page) {
+	public Pagination<User> getAdminUserPage(String keyword, int page) {
 		
 		int size = 5;
 		
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 		
 		int totalUsers = countGeneralUsers(keyword);
 		
-		PageResult<User> result = new PageResult<User>(userList, page, totalUsers, size);
+		Pagination<User> result = new Pagination<User>(userList, page, totalUsers, size);
 		
 		return result;
 	}

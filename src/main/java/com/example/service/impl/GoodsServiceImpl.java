@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.entity.Goods;
 import com.example.model.GoodsItem;
-import com.example.model.PageResult;
+import com.example.model.Pagination;
 import com.example.repository.GoodsMapper;
 import com.example.service.GoodsService;
 
@@ -94,7 +94,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public PageResult<GoodsItem> getGoodsPage(String keyword, int page) {
+	public Pagination<GoodsItem> getGoodsPage(String keyword, int page) {
 
 		// 1ページあたりの表示件数は「8件」と決めます
 		int size = 8;
@@ -106,13 +106,13 @@ public class GoodsServiceImpl implements GoodsService {
 		long totalCount = count(false, keyword);
 
 		// 大きな変数(お盆)に組み立てる
-		PageResult<GoodsItem> result = new PageResult<GoodsItem>(goodsList, page, totalCount, size);
+		Pagination<GoodsItem> pagination = new Pagination<GoodsItem>(goodsList, page, totalCount, size);
 
-		return result;
+		return pagination;
 	}
 	
 	@Override
-	public PageResult<GoodsItem> getAdminGoodsPage(String status, String keyword, int page) {
+	public Pagination<GoodsItem> getAdminGoodsPage(String status, String keyword, int page) {
 		
 		// 1ページの表示件数は「5件」
 		int size = 5;
@@ -126,7 +126,7 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		long totalCount = count(isDeleted, keyword);
 
-		PageResult<GoodsItem> result = new PageResult<GoodsItem>(goodsList, page, totalCount, size);
+		Pagination<GoodsItem> result = new Pagination<GoodsItem>(goodsList, page, totalCount, size);
 		
 		return result;
 	}

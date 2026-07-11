@@ -11,7 +11,7 @@ import com.example.entity.OrderDetail;
 import com.example.entity.User;
 import com.example.model.CartItem;
 import com.example.model.OrderViewItem;
-import com.example.model.PageResult;
+import com.example.model.Pagination;
 import com.example.repository.OrderDetailMapper;
 import com.example.repository.OrderMapper;
 import com.example.service.CartService;
@@ -136,7 +136,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public PageResult<OrderViewItem> getOrderPage(Integer userId, int page) {
+	public Pagination<OrderViewItem> getOrderPage(Integer userId, int page) {
 		
 		// 1ページあたりの表示件数は「2件」と決める
 		int size = 2;
@@ -148,13 +148,13 @@ public class OrderServiceImpl implements OrderService {
 		long totalCount = countByUserId(userId);
 		
 		
-		PageResult<OrderViewItem> result = new PageResult<OrderViewItem>(historyList, page, totalCount, size);
+		Pagination<OrderViewItem> result = new Pagination<OrderViewItem>(historyList, page, totalCount, size);
 		
 		return result;
 	}
 
 	@Override
-	public PageResult<OrderViewItem> getAdminOrderPage(String keyword, int page) {
+	public Pagination<OrderViewItem> getAdminOrderPage(String keyword, int page) {
 		
 		int size = 5;
 		
@@ -162,7 +162,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		long totalCount = countAllOrders(keyword);
 		
-		PageResult<OrderViewItem> result = new PageResult<OrderViewItem>(orderList, page, totalCount, size);
+		Pagination<OrderViewItem> result = new Pagination<OrderViewItem>(orderList, page, totalCount, size);
 		
 		return result;
 	}

@@ -3,7 +3,7 @@ package com.example.service;
 import java.util.List;
 
 import com.example.entity.User;
-import com.example.model.PageResult;
+import com.example.model.Pagination;
 
 public interface UserService {
 	
@@ -19,5 +19,5 @@ public interface UserService {
 	
 	int countGeneralUsers(String keyword);
 	
-	PageResult<User> getAdminUserPage(String keyword, int page);
+	Pagination<User> getAdminUserPage(String keyword, int page);
 }
