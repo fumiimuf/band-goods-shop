@@ -10,9 +10,6 @@ public interface CartService {
 	// 現在のカートに同じ商品があるか確認する あり→個数追加 なし→商品追加
 	public void addOrUpdateCart(Integer userId, Integer goodsId);
 	
-	// 新しく商品を登録する(個数1)
-	void insert(Cart cart);
-	
 	// すでにある商品の個数を増やす
 	void updateQuantity(Cart cart);
 	

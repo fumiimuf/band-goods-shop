@@ -37,11 +37,6 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void insert(Cart cart) {
-		cartMapper.insert(cart);
-	}
-
-	@Override
 	public void updateQuantity(Cart cart) {
 		cartMapper.updateQuantity(cart);
 	}
