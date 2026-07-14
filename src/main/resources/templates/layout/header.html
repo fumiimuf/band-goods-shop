@@ -6,13 +6,11 @@
 		<div class="container-fluid">
 			<!-- サイト名 -->
 			<div sec:authorize="hasRole('USER')" class="d-flex align-items-center">
-				<!-- 💡 サイト名の前に家のアイコンを追加 -->
 				<a class="navbar-brand fw-bold" th:href="@{/goods/index}"> <i class="fa-solid fa-house me-1"></i>[[#{label.header.siteName}]]
 				</a>
 			</div>
 
 			<div sec:authorize="hasRole('ADMIN')" class="d-flex align-items-center">
-				<!-- 💡 管理者用サイト名の前に家のアイコンを追加 -->
 				<a class="navbar-brand fw-bold" th:href="@{/admin/goods/index}"> <i class="fa-solid fa-house me-1"></i>[[#{label.header.admin.siteName}]]
 				</a> <span class="badge bg-primary small" th:text="#{label.header.adminBadge}"></span>
 			</div>
@@ -24,43 +22,43 @@
 			<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 				<ul class="navbar-nav flex-row align-items-center w-100 justify-content-end py-2 py-lg-0">
 
-					<!-- 1. 一般ユーザー用メニュー (sec:authorizeで制御) -->
+					<!-- 1. 一般ユーザー用メニュー -->
 					<th:block sec:authorize="hasRole('USER')">
 						<li class="nav-item me-2 pe-3 text-white border-end">
-							<!-- 💡 ユーザー名の前に人のアイコンを追加 --> <i class="fa-solid fa-user me-1"></i><span th:text="#{common.user.honorific(${loginUser.name})}"></span>
+							<i class="fa-solid fa-user me-1"></i><span th:text="#{common.user.honorific(${loginUser.name})}"></span>
 						</li>
 						<li class="nav-item px-2">
-							<!-- 💡 グッズ一覧の前に箱のアイコンを追加 --> <a class="nav-link text-white" th:href="@{/goods/index}"> <i class="fa-solid fa-box me-1"></i>[[#{btn.header.goodsIndex}]]
+							<a class="nav-link text-white" th:href="@{/goods/index}"> <i class="fa-solid fa-box me-1"></i>[[#{btn.header.goodsIndex}]]
 						</a>
 						</li>
 						<li class="nav-item px-2">
-							<!-- 💡 カートの前に買い物かごアイコンを追加 --> <a class="nav-link text-white font-weight-bold" th:href="@{/cart/index}"> <i class="fa-solid fa-cart-shopping me-1"></i>[[#{btn.header.cart}]](<span data-header-cart-count class="text-danger" th:text="${cartCount != null ? cartCount : 0}"></span>)
+							<a class="nav-link text-white font-weight-bold" th:href="@{/cart/index}"> <i class="fa-solid fa-cart-shopping me-1"></i>[[#{btn.header.cart}]](<span data-header-cart-count class="text-danger" th:text="${cartCount != null ? cartCount : 0}"></span>)
 						</a>
 						</li>
 						<li class="nav-item px-2">
-							<!-- 💡 会員情報の前に名札アイコンを追加 --> <a class="nav-link text-white" th:href="@{/user/profile}"> <i class="fa-solid fa-address-card me-1"></i>[[#{btn.header.userProfile}]]
+							<a class="nav-link text-white" th:href="@{/user/profile}"> <i class="fa-solid fa-address-card me-1"></i>[[#{btn.header.userProfile}]]
 						</a>
 						</li>
 						<li class="nav-item px-2">
-							<!-- 💡 注文履歴の前に時計（履歴）アイコンを追加 --> <a class="nav-link text-white" th:href="@{/order/history}"> <i class="fa-solid fa-clock-rotate-left me-1"></i>[[#{btn.header.orderHistory}]]
+							<a class="nav-link text-white" th:href="@{/order/history}"> <i class="fa-solid fa-clock-rotate-left me-1"></i>[[#{btn.header.orderHistory}]]
 						</a>
 						</li>
 					</th:block>
 
-					<!-- 2. 管理者用メニュー (Admin用) -->
+					<!-- 2. 管理者用メニュー -->
 					<th:block sec:authorize="hasRole('ADMIN')">
 						<li class="nav-item px-2">
-							<!-- 💡 管理者用グッズ一覧の前に箱のアイコンを追加 --> <a class="nav-link text-white" th:href="@{/admin/goods/index}"> <i class="fa-solid fa-box me-1"></i>[[#{btn.header.admin.goodsIndex}]]
+							<a class="nav-link text-white" th:href="@{/admin/goods/index}"> <i class="fa-solid fa-box me-1"></i>[[#{btn.header.admin.goodsIndex}]]
 						</a>
 						</li>
 
 						<li class="nav-item px-2">
-							<!-- 💡 会員一覧の前にグループ（複数人）アイコンを追加 --> <a class="nav-link text-white" th:href="@{/admin/user/list}"> <i class="fa-solid fa-users me-1"></i>[[#{btn.header.admin.userList}]]
+							<a class="nav-link text-white" th:href="@{/admin/user/list}"> <i class="fa-solid fa-users me-1"></i>[[#{btn.header.admin.userList}]]
 						</a>
 						</li>
 
 						<li class="nav-item px-2">
-							<!-- 💡 受注一覧の前にリスト（注文台帳）アイコンを追加 --> <a class="nav-link text-white" th:href="@{/admin/order/list}"> <i class="fa-solid fa-list-check me-1"></i>[[#{btn.header.admin.orderList}]]
+							<a class="nav-link text-white" th:href="@{/admin/order/list}"> <i class="fa-solid fa-list-check me-1"></i>[[#{btn.header.admin.orderList}]]
 						</a>
 						</li>
 					</th:block>
@@ -68,7 +66,6 @@
 					<!-- 3. ログアウトボタン (共通) -->
 					<li class="nav-item ms-2 ms-sm-3">
 						<form th:action="@{/logout}" method="post">
-							<!-- 💡 ログアウトボタンの中にサインアウトのアイコンを追加 -->
 							<button type="submit" class="btn btn-outline-light btn-sm">
 								<i class="fa-solid fa-right-from-bracket me-1"></i>[[#{btn.header.logout}]]
 							</button>

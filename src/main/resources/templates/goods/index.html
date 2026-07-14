@@ -1,75 +1,62 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-		layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 <head>
-	<title th:text="#{title.goods}"></title>
+<title th:text="#{title.goods}"></title>
 </head>
 <body>
 	<main layout:fragment="content">
 		<div class="container mt-4" style="max-width: 800px;">
 			<!-- トースト -->
 			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
-			    <div data-cart-success-toast class="toast text-white bg-success border-0 text-center" data-bs-delay="2000">
-		            <div class="toast-body" th:text="#{toast.goods.addCartSuccess}"></div>
-			    </div>
-			
-			    <div data-cart-error-toast class="toast text-white bg-danger border-0 text-center" data-bs-delay="2000">
-	            	<div class="toast-body" th:text="#{toast.goods.addCartError}"></div>
-			    </div>
+				<div data-cart-success-toast class="toast text-white bg-success border-0 text-center" data-bs-delay="2000">
+					<div class="toast-body" th:text="#{toast.goods.addCartSuccess}"></div>
+				</div>
+
+				<div data-cart-error-toast class="toast text-white bg-danger border-0 text-center" data-bs-delay="2000">
+					<div class="toast-body" th:text="#{toast.goods.addCartError}"></div>
+				</div>
 			</div>
-			
+
 			<div class="d-flex justify-content-between align-items-center">
 				<!-- 大見出し -->
 				<h1 th:text="#{label.goods.title}"></h1>
-				
+
 				<form th:action="@{/goods/index}" method="get" class="d-flex gap-2 align-items-center">
 					<!-- 入力フォーム -->
-                    <input type="search" name="keyword" th:value="${keyword}" class="form-control" th:placeholder="#{placeholder.goods.goodsName}">
-                    <!-- 検索ボタン -->
-                  	<button type="submit" class="btn btn-dark btn-sm flex-shrink-0" th:text="#{btn.goods.search}"></button>
-                </form>
+					<input type="search" name="keyword" th:value="${keyword}" class="form-control" th:placeholder="#{placeholder.goods.goodsName}">
+					<!-- 検索ボタン -->
+					<button type="submit" class="btn btn-dark btn-sm flex-shrink-0" th:text="#{btn.goods.search}"></button>
+				</form>
 			</div>
-			
+
 			<hr class="border-2 opacity-100">
-	
+
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 				<div th:each="item : ${pagination.content}">
 					<!-- カード -->
 					<div class="card h-100 w-100 shadow-sm">
-								
+
 						<div class="card-header  bg-white d-flex align-items-center justify-content-center" style="height: 150px;">
-					        <!-- 画像 -->
-					        <img th:src="${item.getImageUrl()}" 
-					             class="h-75 w-75 object-fit-contain" 
-					             th:alt="${item.goods.name}">
-					    </div>
-					    
+							<!-- 画像 -->
+							<img th:src="${item.getImageUrl()}" class="h-75 w-75 object-fit-contain" th:alt="${item.goods.name}">
+						</div>
+
 						<div class="card-body d-flex flex-column justify-content-between">
 							<!-- 商品名 -->
 							<div class="card-title small fw-bold" th:text="${item.goods.name}"></div>
-							
+
 							<div class="mt-auto">
 								<!-- 価格 -->
 								<div class="text-danger fw-bold" th:text="#{common.price.format.symbol(${item.goods.price})}"></div>
 								<!-- カテゴリ名 -->
 								<div class="mb-3 badge rounded-1 bg-secondary" th:text="${item.category.name}"></div>
-								
+
 								<div class="d-flex gap-2">
 									<!-- 商品説明ボタン -->
-									<button type="button" 
-											class="btn btn-outline-secondary btn-sm flex-grow-1 text-nowrap small py-1 px-1" 
-											style="font-size: 0.75rem;"
-											data-bs-toggle="popover" 
-											data-bs-placement="top" 
-											data-bs-container="body"                               
-											th:data-bs-title="${item.goods.name}" 
-											th:data-bs-content="${item.goods.description}"
-											th:text="#{btn.goods.goodsDescription}">
-									</button>
+									<button type="button" class="btn btn-outline-secondary btn-sm flex-grow-1 text-nowrap small py-1 px-1" style="font-size: 0.75rem;" data-bs-toggle="popover" data-bs-placement="top" data-bs-container="body" th:data-bs-title="${item.goods.name}" th:data-bs-content="${item.goods.description}" th:text="#{btn.goods.goodsDescription}"></button>
 									<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="flex-grow-1 d-flex">
 										<input type="hidden" name="goodsId" th:value="${item.goods.id}">
-									 	<!-- カートに追加ボタン -->
+										<!-- カートに追加ボタン -->
 										<button type="submit" class="btn btn-primary btn-sm text-nowrap w-100 py-1 px-1" style="font-size: 0.75rem;" th:text="#{btn.goods.addCart}"></button>
 									</form>
 								</div>
@@ -78,27 +65,21 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- ページネーション -->
 			<nav aria-label="グッズ一覧ページナビゲーション" class="mt-5">
 				<ul class="pagination justify-content-center d-flex gap-1">
-					<li class="page-item" th:classappend="${pagination.currentPage == 0} ? 'disabled'">
-						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${pagination.currentPage - 1}, keyword=${keyword})}" th:text="#{common.pagination.prev}"></a>
-					</li>
-	
-					<li class="page-item" th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}" th:classappend="${i == pagination.currentPage} ? 'active'">
-						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${i}, keyword=${keyword})}" th:text="${i + 1}"></a>
-					</li>
-	
-					<li class="page-item" th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'">
-						<a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${pagination.currentPage + 1}, keyword=${keyword})}" th:text="#{common.pagination.next}"></a>
-					</li>
+					<li class="page-item" th:classappend="${pagination.currentPage == 0} ? 'disabled'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${pagination.currentPage - 1}, keyword=${keyword})}" th:text="#{common.pagination.prev}"></a></li>
+
+					<li class="page-item" th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}" th:classappend="${i == pagination.currentPage} ? 'active'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${i}, keyword=${keyword})}" th:text="${i + 1}"></a></li>
+
+					<li class="page-item" th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/goods/index(page=${pagination.currentPage + 1}, keyword=${keyword})}" th:text="#{common.pagination.next}"></a></li>
 				</ul>
 			</nav>
 		</div>
-		
+
 		<script th:src="@{/js/goods/goods-index.js}" defer></script>
-		
+
 	</main>
 </body>
 </html>

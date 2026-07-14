@@ -5,10 +5,8 @@
 <title th:text="#{title.admin.goods}"></title>
 </head>
 <body>
-
 	<main layout:fragment="content">
 		<div class="container mt-4" style="max-width: 800px;">
-
 			<div class="d-flex justify-content-between align-items-center">
 				<!-- 大見出し -->
 				<h2 class="fw-bold text-dark mb-0" th:text="#{label.admin.goods.title}"></h2>
@@ -24,16 +22,18 @@
 				<!-- 停止中ボタン -->
 				<a th:href="@{/admin/goods/index(status='suspended')}" class="btn" th:classappend="${currentStatus == 'suspended'} ? 'btn-dark' : 'btn-outline-dark'" th:text="#{btn.admin.goods.status.suspended}"></a>
 			</div>
-			
+
 			<form th:action="@{/admin/goods/index}" method="get" class="mb-4">
-				
+
 				<input type="hidden" name="status" th:value="${currentStatus}">
-				
+
 				<div class="row row-cols-auto g-2 justify-content-end align-items-center">
 					<div>
+						<!-- 入力欄 -->
 						<input type="search" name="keyword" th:value="${keyword}" class="form-control" th:placeholder="#{placeholder.admin.goods.name}">
 					</div>
 					<div>
+						<!-- 検索ボタン -->
 						<button type="submit" class="btn btn-dark btn-sm" th:text="#{btn.admin.goods.search}"></button>
 					</div>
 				</div>
@@ -46,7 +46,6 @@
 							<th th:text="#{label.admin.goods.category}"></th>
 							<th th:text="#{label.admin.goods.goodsName}"></th>
 							<th th:text="#{label.admin.goods.price}"></th>
-
 							<th th:if="${currentStatus == 'active'}" th:text="#{label.admin.goods.registeredAt}"></th>
 							<th th:if="${currentStatus == 'suspended'}" th:text="#{label.admin.goods.deletedAt}"></th>
 
@@ -57,25 +56,27 @@
 						<tr th:each="item : ${pagination.content}">
 							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'">
 								<div class="d-flex align-items-center justify-content-center flex-shrink-0 mx-auto" style="height: 100px; width: 100px;">
+									<!-- 画像 -->
 									<img th:src="${item.getImageUrl()}" class="h-100 w-100 object-fit-contain" th:alt="${item.goods.name}">
 								</div>
 							</td>
+							<!-- カテゴリ -->
 							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="${item.category.name}"></td>
+							<!-- 商品名 -->
 							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="${item.goods.name}" class="fw-bold"></td>
+							<!-- 単価 -->
 							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="#{common.price.format.symbol(${item.goods.price})}"></td>
-
+							<!-- 登録日時 -->
 							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:if="${currentStatus == 'active'}" th:text="${#temporals.format(item.goods.createDateTime, 'yyyy/MM/dd')}"></td>
-
+							<!-- 削除日時 -->
 							<td th:if="${currentStatus == 'suspended'}" th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="${#temporals.format(item.goods.deleteDateTime, 'yyyy/MM/dd')}"></td>
-
+							<!-- 更新ボタン -->
 							<td class="text-center"><a th:href="@{/admin/goods/edit/{id}(id=${item.goods.id})}" class="btn btn-sm btn-primary px-3" th:text="#{btn.admin.goods.update}"></a></td>
-
 						</tr>
 					</tbody>
 				</table>
 			</div>
-
-
+			<!-- ページネーション -->
 			<nav aria-label="管理者用グッズ一覧ページナビゲーション" th:if="${pagination.totalPages > 0}" class="mt-5">
 				<ul class="pagination justify-content-center d-flex gap-1">
 
@@ -86,9 +87,7 @@
 					<li class="page-item" th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'"><a class="page-link text-dark border-dark rounded-1" th:href="@{/admin/goods/index(page=${pagination.currentPage + 1})}" th:text="#{common.pagination.next}"></a></li>
 				</ul>
 			</nav>
-
 		</div>
 	</main>
-
 </body>
 </html>

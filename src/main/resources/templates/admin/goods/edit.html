@@ -1,121 +1,77 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title th:text="#{title.admin.goods.edit}"></title>
+<meta charset="UTF-8">
+<title th:text="#{title.admin.goods.edit}"></title>
 </head>
 <body>
+	<main layout:fragment="content">
+		<div class="container mt-4" style="max-width: 600px;">
+			<!-- 大見出し -->
+			<h2 class="text-center mb-4" th:text="#{label.admin.goods.edit.title}"></h2>
 
-<main layout:fragment="content">
-    <div class="container mt-4" style="max-width: 600px;">
-    	
-    	<!-- 大見出し -->
-    	<h2 class="text-center mb-4" th:text="#{label.admin.goods.edit.title}"></h2>
-    	
-    	<hr class="border-2 opacity-100">
-    	
-        <div class="card shadow-sm my-3">
-            <div class="card-body">
-                <form th:action="@{/admin/goods/update}" 
-                      th:object="${goodsEditForm}" 
-                      method="post" 
-                      enctype="multipart/form-data">
-                    
-                    <input type="hidden" th:field="*{id}">
-                    <!-- 商品名 -->
-                    <div class="mb-3">
-                        <label class="form-label">
-	                        <span th:text="#{label.admin.goods.edit.name}"></span>
-	                        <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
-                        </label>
-                        <input type="text" 
-                        		th:field="*{name}" 
-                        		class="form-control" 
-                        		th:errorclass="is-invalid">
-                        <div class="invalid-feedback" th:errors="*{name}"></div>
-                    </div>
-					<!-- 価格 -->
-                    <div class="mb-3">
-                        <label class="form-label">
-	                        <span th:text="#{label.admin.goods.edit.price}"></span>
-	                        <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
-                        </label>
-                        <div class="d-flex align-items-center flex-wrap gap-2">
-                            <input type="text" 
-                            		th:field="*{price}" 
-                            		class="form-control w-50"
-                            		th:errorclass="is-invalid">
-                            <span class="fw-bold" th:text="#{common.label.yen}"></span>
-                            <div class="invalid-feedback d-block w-100" th:errors="*{price}"></div>
-                        </div>
-                    </div>
-					<!-- 商品画像 -->
-                    <div class="mb-3">
-                        <label class="form-label">
-	                        <span th:text="#{label.admin.goods.edit.image}"></span>
-	                        <span class="badge bg-secondary" th:text="#{label.admin.goods.edit.optional}"></span>
-                        </label>
-                        <input type="file" 
-                        		th:field="*{imageFile}" 
-                        		class="form-control" 
-                        		th:errorclass="is-invalid"
-                        		accept="image/*">
-                        <div class="text-muted small mt-1" th:text="#{msg.admin.goods.edit.imageHint}"></div>
-                        <div class="invalid-feedback" th:errors="*{imageFile}"></div>
-                    </div>
-					<!-- 商品説明 -->
-                    <div class="mb-3">
-                        <label class="form-label">
-                        <span th:text="#{label.admin.goods.edit.description}"></span>
-                        <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
-                        </label>
-                        <textarea th:field="*{description}" 
-                        			class="form-control" 
-                        			th:errorclass="is-invalid"
-                        			rows="4" ></textarea>
-                        <div class="invalid-feedback" th:errors="*{description}"></div>
-                    </div>
-					<!-- カテゴリ -->
-                    <div class="mb-3">
-                        <label class="form-label">
-	                        <span th:text="#{label.admin.goods.edit.category}"></span>
-	                        <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
-                        </label>
-                        <select th:field="*{categoryId}" 
-                        		class="form-select"
-                        		th:errorclass="is-invalid">
-                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-                        </select>
-                        <div class="invalid-feedback" th:errors="*{categoryId}"></div>
-                    </div>
-					<!-- 販売状態 -->
-                    <div class="mb-4">
-                        <label class="form-label">
-	                        <span th:text="#{label.admin.goods.edit.status}"></span>
-	                        <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
-                        </label>
-                        <select th:field="*{isDeleted}"
-                        		class="form-select" 
-                        		th:errorclass="is-invalid">
-                        		
-                            <option th:value="false" th:text="#{option.admin.goods.edit.statusActive}"></option>
-                            <option th:value="true" th:text="#{option.admin.goods.edit.statusSuspended}"></option>
-                        </select>
-                        <div class="invalid-feedback" th:errors="*{isDeleted}"></div>
-                    </div>
-					<!-- 戻る・更新ボタン -->
-                    <div class="d-flex justify-content-center gap-3 mt-4">
-                        <a th:href="@{/admin/goods/index}" class="btn btn-outline-secondary px-4 py-2" th:text="#{btn.admin.goods.edit.back}"></a>
-                        <button type="submit" class="btn btn-primary px-4 py-2" th:text="#{btn.admin.goods.edit.submit}"></button>
-                    </div>
-                    
-                </form>
-            </div>
-        </div>
-    </div>
-</main>
+			<hr class="border-2 opacity-100">
 
+			<div class="card shadow-sm my-3">
+				<div class="card-body">
+					<form th:action="@{/admin/goods/update}" th:object="${goodsEditForm}" method="post" enctype="multipart/form-data">
+						<input type="hidden" th:field="*{id}">
+						<!-- 商品名 -->
+						<div class="mb-3">
+							<label class="form-label"> <span th:text="#{label.admin.goods.edit.name}"></span> <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
+							</label> <input type="text" th:field="*{name}" class="form-control" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:errors="*{name}"></div>
+						</div>
+						<!-- 価格 -->
+						<div class="mb-3">
+							<label class="form-label"> <span th:text="#{label.admin.goods.edit.price}"></span> <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
+							</label>
+							<div class="d-flex align-items-center flex-wrap gap-2">
+								<input type="text" th:field="*{price}" class="form-control w-50" th:errorclass="is-invalid"> <span class="fw-bold" th:text="#{common.label.yen}"></span>
+								<div class="invalid-feedback d-block w-100" th:errors="*{price}"></div>
+							</div>
+						</div>
+						<!-- 商品画像 -->
+						<div class="mb-3">
+							<label class="form-label"> <span th:text="#{label.admin.goods.edit.image}"></span> <span class="badge bg-secondary" th:text="#{label.admin.goods.edit.optional}"></span>
+							</label> <input type="file" th:field="*{imageFile}" class="form-control" th:errorclass="is-invalid" accept="image/*">
+							<div class="text-muted small mt-1" th:text="#{msg.admin.goods.edit.imageHint}"></div>
+							<div class="invalid-feedback" th:errors="*{imageFile}"></div>
+						</div>
+						<!-- 商品説明 -->
+						<div class="mb-3">
+							<label class="form-label"> <span th:text="#{label.admin.goods.edit.description}"></span> <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
+							</label>
+							<textarea th:field="*{description}" class="form-control" th:errorclass="is-invalid" rows="4"></textarea>
+							<div class="invalid-feedback" th:errors="*{description}"></div>
+						</div>
+						<!-- カテゴリ -->
+						<div class="mb-3">
+							<label class="form-label"> <span th:text="#{label.admin.goods.edit.category}"></span> <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
+							</label> <select th:field="*{categoryId}" class="form-select" th:errorclass="is-invalid">
+								<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+							</select>
+							<div class="invalid-feedback" th:errors="*{categoryId}"></div>
+						</div>
+						<!-- 販売状態 -->
+						<div class="mb-4">
+							<label class="form-label"> <span th:text="#{label.admin.goods.edit.status}"></span> <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
+							</label> <select th:field="*{isDeleted}" class="form-select" th:errorclass="is-invalid">
+
+								<option th:value="false" th:text="#{option.admin.goods.edit.statusActive}"></option>
+								<option th:value="true" th:text="#{option.admin.goods.edit.statusSuspended}"></option>
+							</select>
+							<div class="invalid-feedback" th:errors="*{isDeleted}"></div>
+						</div>
+						<!-- 戻る・更新ボタン -->
+						<div class="d-flex justify-content-center gap-3 mt-4">
+							<a th:href="@{/admin/goods/index}" class="btn btn-outline-secondary px-4 py-2" th:text="#{btn.admin.goods.edit.back}"></a>
+							<button type="submit" class="btn btn-primary px-4 py-2" th:text="#{btn.admin.goods.edit.submit}"></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
 </body>
 </html>

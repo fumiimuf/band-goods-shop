@@ -11,19 +11,15 @@
 </head>
 <body>
 	<div class="container mt-5 mx-auto" style="max-width: 350px;">
-	
 		<!-- 大見出し -->
 		<h1 class="mb-3 text-center" th:text="#{label.login.title}"></h1>
-
 		<!-- エラーメッセージ -->
 		<div th:if="${param.error}" 
 				class="alert alert-danger border-danger text-danger alert-dismissible fade show mb-4" 
 				role="alert">
-			
 			<span th:text="#{msg.login.error}"></span>
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
-
 		<!-- 入力フォーム -->
 		<form th:action="@{/login}" method="post">
 			<!--メールアドレス-->

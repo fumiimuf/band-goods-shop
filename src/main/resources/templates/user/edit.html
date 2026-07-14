@@ -5,80 +5,57 @@
 <title th:text="#{title.user.edit}"></title>
 </head>
 <body>
-
 	<main layout:fragment="content">
 		<div class="container mt-5 row mx-auto" style="max-width: 400px;">
-
+			<!-- 大見出し -->
 			<h2 class="text-center" th:text="#{label.user.edit.title}"></h2>
 
 			<hr class="border-2 opacity-100">
 
 			<div class="card shadow-sm">
 				<div class="card-body">
-
 					<form th:action="@{/user/update}" th:object="${userEditForm}" method="post" novalidate>
-
 						<!-- 氏名 -->
 						<div class="mb-3">
-							<label for="name" class="form-label fw-bold small text-secondary"> 
-								<span th:text="#{label.user.edit.name}"></span> 
-								<span class="badge bg-danger ms-1" th:text="#{label.user.edit.required}"></span>
-							</label> 
-							<input type="text" th:field="*{name}" class="form-control" th:placeholder="#{placeholder.user.edit.name}">
+							<label for="name" class="form-label fw-bold small text-secondary"> <span th:text="#{label.user.edit.name}"></span> <span class="badge bg-danger ms-1" th:text="#{label.user.edit.required}"></span>
+							</label> <input type="text" th:field="*{name}" class="form-control" th:placeholder="#{placeholder.user.edit.name}">
 							<div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 						</div>
-
 						<!-- メールアドレス -->
 						<div class="mb-3">
-							<label for="email" class="form-label fw-bold small text-secondary"> 
-								<span th:text="#{label.user.edit.email}"></span> 
-								<span class="badge bg-danger ms-1" th:text="#{label.user.edit.required}"></span>
-							</label> 
-							<input type="email" th:field="*{email}" class="form-control" th:placeholder="#{placeholder.user.edit.email}">
+							<label for="email" class="form-label fw-bold small text-secondary"> <span th:text="#{label.user.edit.email}"></span> <span class="badge bg-danger ms-1" th:text="#{label.user.edit.required}"></span>
+							</label> <input type="email" th:field="*{email}" class="form-control" th:placeholder="#{placeholder.user.edit.email}">
 							<div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 						</div>
-
 						<!-- 新しパスワード -->
 						<div class="mb-3">
-							<label for="password" class="form-label fw-bold small text-secondary">
-								<span th:text="#{label.user.edit.newPassword}"></span>
-							</label> 
-							<input type="password" th:field="*{password}" class="form-control" th:placeholder="#{placeholder.user.edit.newPassword}">
+							<label for="password" class="form-label fw-bold small text-secondary"> <span th:text="#{label.user.edit.newPassword}"></span>
+							</label> <input type="password" th:field="*{password}" class="form-control" th:placeholder="#{placeholder.user.edit.newPassword}">
 							<div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 						</div>
-
 						<!-- 郵便番号 -->
 						<div class="mb-3">
-							<label for="zipCode" class="form-label fw-bold small text-secondary">
-								<span th:text="#{label.user.edit.zipCode}"></span> 
-								<span class="badge bg-danger ms-1" th:text="#{label.user.edit.required}"></span>
+							<label for="zipCode" class="form-label fw-bold small text-secondary"> <span th:text="#{label.user.edit.zipCode}"></span> <span class="badge bg-danger ms-1" th:text="#{label.user.edit.required}"></span>
 							</label> <input type="text" th:field="*{zipCode}" class="form-control" th:placeholder="#{placeholder.user.edit.zipCode}">
 							<div class="text-danger" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
 						</div>
-
 						<!-- 住所 -->
 						<div class="mb-3">
-							<label for="address" class="form-label fw-bold small text-secondary">
-								<span th:text="#{label.user.edit.address}"></span>
-								<span class="badge bg-danger ms-1" th:text="#{label.user.edit.required}"></span>
+							<label for="address" class="form-label fw-bold small text-secondary"> <span th:text="#{label.user.edit.address}"></span> <span class="badge bg-danger ms-1" th:text="#{label.user.edit.required}"></span>
 							</label>
 							<textarea th:field="*{address}" class="form-control" rows="3" th:placeholder="#{placeholder.user.edit.address}"></textarea>
 							<div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
 						</div>
-						
-						<!-- 戻る・更新ボタン -->
 						<div class="d-flex justify-content-center gap-3 mt-4">
+							<!-- 戻るボタン -->
 							<a th:href="@{/user/profile}" class="btn btn-outline-secondary px-4" th:text="#{btn.user.edit.back}"></a>
-							
+							<!-- 更新ボタン -->
 							<button type="submit" class="btn btn-primary px-4" th:text="#{btn.user.edit.submit}"></button>
 						</div>
-
 					</form>
-
 				</div>
 			</div>
 		</div>
 	</main>
-
 </body>
 </html>

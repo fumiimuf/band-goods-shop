@@ -4,7 +4,6 @@
 <title th:text="#{title.admin.user.list}"></title>
 </head>
 <body>
-
 	<main layout:fragment="content">
 		<div class="container mt-4" style="max-width: 800px;">
 			<!-- 大見出し -->
@@ -20,7 +19,6 @@
 						<!-- 検索ボタン -->
 						<button type="submit" class="btn btn-dark text-nowrap" th:text="#{btn.admin.user.list.search}"></button>
 					</div>
-
 				</form>
 			</div>
 			<!-- ユーザーリスト -->
@@ -36,18 +34,18 @@
 					</thead>
 					<tbody>
 						<tr th:each="user : ${pagination.content}" class="fw-bold">
+							<!-- ID -->
 							<td th:text="${user.id}"></td>
-
+							<!-- 氏名 -->
 							<td th:text="${user.name}"></td>
-
+							<!-- メールアドレス -->
 							<td th:text="${user.email}"></td>
-
+							<!-- 詳細を表示ボタン -->
 							<td class="text-center"><a th:href="@{/admin/user/detail/{id}(id=${user.id})}" class="btn btn-primary btn-sm px-3" th:text="#{btn.admin.user.list.detail}"></a></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-
 			<!-- ページネーション -->
 			<nav aria-label="一般ユーザー一覧ページナビゲーション" th:if="${pagination.totalPages > 0}" class="mt-5">
 				<ul class="pagination justify-content-center d-flex gap-1">

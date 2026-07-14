@@ -18,7 +18,6 @@
     
     	<!-- 入力フォーム -->
     	<form th:action="@{/user/register}" th:object="${userRegisterForm}" method="post" novalidate>
-    		
     		<!-- 氏名 -->
     		<div class="mb-3">
     			<label class="form-label">
@@ -28,7 +27,6 @@
     			<input type="text" class="form-control" th:field="*{name}" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.name}">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     		</div>
-    		
     		<!-- メールアドレス -->
     		<div class="mb-3">
     			<label class="form-label">
@@ -38,7 +36,6 @@
     			<input type="email" class="form-control" th:field="*{email}" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.email}">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
     		</div>
-    		
     		<!-- パスワード -->
     		<div class="mb-3">
     			<label class="form-label">
@@ -48,7 +45,6 @@
     			<input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.password}">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     		</div>
-    		
     		<!-- 郵便番号 -->
     		<div class="mb-3">
     			<label class="form-label">
@@ -58,7 +54,6 @@
     			<input type="text" class="form-control" th:field="*{zipCode}" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.zipCode}">
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
     		</div>
-    		
     		<!-- 住所 -->
     		<div class="mb-3">
     			<label class="form-label">
@@ -68,17 +63,14 @@
     			<textarea class="form-control" th:field="*{address}" rows="3" th:errorclass="is-invalid" th:placeholder="#{placeholder.user.register.address}"></textarea>
     			<div class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
     		</div>
-    		
     		<!-- 登録ボタン -->
     		<div class="d-grid mb-3">
     			<button type="submit" class="btn btn-primary btn-lg" th:text="#{btn.user.register.submit}"></button>
     		</div>
-    		
     		<!-- リンク -->
     		<div class="mb-3 text-center">
     			<a th:href="@{/login}" class="text-decoration-none" th:text="#{link.user.register.toLogin}"></a>
     		</div>
-    		
     	</form>
     </div>
     <!-- JS読込 -->

@@ -4,7 +4,6 @@
 <title th:text="#{title.admin.order.list}"></title>
 </head>
 <body>
-
 	<main layout:fragment="content">
 		<div class="container mt-4" style="max-width: 1000px;">
 			<!-- 大見出し -->
@@ -16,7 +15,6 @@
 				<div class="d-flex justify-content-end align-items-center gap-2">
 					<!-- 入力フォーム -->
 					<input type="search" name="keyword" th:value="${keyword}" class="form-control w-50" th:placeholder="#{placeholder.admin.order.list.search}">
-
 					<!-- 検索ボタン -->
 					<button type="submit" class="btn btn-dark text-nowrap" th:text="#{btn.admin.order.list.search}"></button>
 				</div>
@@ -37,22 +35,26 @@
 					</thead>
 					<tbody>
 						<th:block th:each="viewItem : ${pagination.content}">
-
 							<tr th:each="item, itemStat : ${viewItem.details}">
+								<!-- 購入日 -->
 								<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-center" th:text="${#temporals.format(viewItem.order.orderedAt, 'yyyy/MM/dd')}"></td>
+								<!-- 購入者 -->
 								<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" th:text="${viewItem.order.orderedName}"></td>
+								<!-- 合計金額 -->
 								<td th:if="${itemStat.first}" th:rowspan="${#lists.size(viewItem.details)}" class="text-end" th:text="#{common.price.format.yen(${viewItem.order.totalPrice})}"></td>
-
+								<!-- 画像 -->
 								<td class="text-center"><img th:src="${item.getOrderedImageUrl()}" style="width: 50px; height: auto;" alt="商品画像"></td>
+								<!-- 購入商品名 -->
 								<td th:text="${item.orderedName}"></td>
+								<!-- 単価 -->
 								<td class="text-end" th:text="#{common.price.format.yen(${item.orderedPrice})}"></td>
+								<!-- 個数 -->
 								<td class="text-center" th:text="${item.quantity}"></td>
 							</tr>
 						</th:block>
 					</tbody>
 				</table>
 			</div>
-
 			<!-- ページネーション -->
 			<nav aria-label="販売履歴一覧ページナビゲーション" th:if="${pagination.totalPages > 0}" class="mt-5">
 				<ul class="pagination justify-content-center d-flex gap-1">
@@ -69,8 +71,6 @@
 				<a th:href="@{/admin/goods/index}" class="btn btn-outline-secondary px-4" th:text="#{btn.admin.order.list.back}"></a>
 			</div>
 		</div>
-
-
 	</main>
 </body>
 </html>
