@@ -19,20 +19,17 @@
 		</association>
 	</resultMap>
 	
-	<!-- カートのグッズを取得 -->
 	<select id="selectByUserIdAndGoodsId" resultType="Cart">
 		SELECT * FROM cart 
 		WHERE user_id = #{userId} 
 		AND goods_id = #{goodsId}
 	</select>
 	
-	<!-- カートにグッズを追加 -->
 	<insert id="insert">
 		INSERT INTO cart (user_id, goods_id, quantity) 
 		VALUES (#{userId}, #{goodsId}, #{quantity}) 
 	</insert>
 	
-	<!-- グッズの個数を更新 -->
 	<update id="updateQuantity">
 		UPDATE cart 
 		SET quantity = #{quantity} 
@@ -40,7 +37,6 @@
 		AND goods_id = #{goodsId}
 	</update>
 	
-	<!-- ログインユーザーのカート内のグッズをすべて取得 -->
 	<select id="findByUserId" resultMap="CartItemMap">
 		SELECT
 			g.id, 
@@ -57,7 +53,6 @@
 			c.user_id = #{userId}
 	</select>
 	
-	<!-- 合計金額を取得する -->
 	<select id="selectTotalAmountByUserId" resultType="int">
 		SELECT 
 	        COALESCE(SUM(g.price * c.quantity), 0) 
@@ -70,14 +65,12 @@
         	AND g.is_deleted = 0 
 	</select>
 	
-	<!-- 特定のグッズを削除 -->
 	<delete id="deleteByGoodsId">
 		DELETE FROM cart 
 		WHERE user_id = #{userId} 
 		AND goods_id = #{goodsId}
 	</delete>
 	
-	<!-- ログインユーザーのカート情報をすべて削除（一括削除） -->
 	<delete id="deleteAllByUserId">
 		DELETE FROM cart
 		WHERE user_id = #{userId}

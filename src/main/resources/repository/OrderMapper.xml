@@ -4,7 +4,6 @@
 <mapper namespace="com.example.repository.OrderMapper">
 	
 	<resultMap id="OrderWithDetailMap" type="Order">
-		<!-- 親(Order)の項目マッピング -->
 		<id property="id" column="order_id" />
 	    <result property="userId" column="user_id" />
 	    <result property="orderedName" column="ordered_name" />
@@ -13,12 +12,10 @@
 	    <result property="totalPrice" column="total_price" />
 	    <result property="orderedAt" column="ordered_at" />
 	    
-	    <!-- 子（OrderDetail）のListを自動で詰め込ませる設定 -->
 	    <collection property="details" ofType="com.example.entity.OrderDetail">
 	        <id property="id" column="detail_id" />
 	        <result property="orderId" column="order_id" />
 	        <result property="orderedImage" column="ordered_image" />
-	        <!-- 別名(detail_ordered_name)を、OrderDetailクラスのorderedNameに紐付けます -->
 	        <result property="orderedName" column="detail_ordered_name" />
 	        <result property="orderedPrice" column="ordered_price" />
 	        <result property="quantity" column="quantity" />

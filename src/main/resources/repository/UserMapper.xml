@@ -3,19 +3,15 @@
 
 <mapper namespace="com.example.repository.UserMapper">
 	
-	<!-- メールアドレスの件数を取得 -->
 	<select id="selectCountByEmail" resultType="int">
 		SELECT COUNT(*) FROM user 
 		WHERE email = #{email} 
 	</select>
 	
-	
-	<!-- メールアドレスでユーザー情報を取得 -->
 	<select id="selectByEmail" resultType="User">
 		SELECT * FROM user WHERE email = #{email}
 	</select>
 	
-	<!-- ユーザー情報1件を登録する -->
 	<insert id="insertOne">
 		INSERT INTO user(
 			name, 
@@ -33,12 +29,10 @@
 		)
 	</insert>
 	
-	<!-- IDでユーザー情報を取得 -->
 	<select id="selectById" resultType="User">
 		SELECT * FROM user WHERE id = #{userId}
 	</select>
 	
-	<!-- ユーザー情報を更新 -->
 	<update id="updateUser">
 		UPDATE user 
 		SET
