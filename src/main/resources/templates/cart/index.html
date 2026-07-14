@@ -3,6 +3,10 @@
 
 <head>
 <title th:text="#{title.cart}"></title>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/cart-index.js}" defer></script>
+</th:block>
 </head>
 <body>
 
