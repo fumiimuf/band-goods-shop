@@ -29,8 +29,6 @@ public class UserController {
 	
 	private final ModelMapper modelMapper;
 	
-	
-	
 	// ユーザー登録情報を表示
 	@GetMapping("/register")
 	public String showRegister(@ModelAttribute UserRegisterForm userRegisterForm) {
@@ -43,17 +41,14 @@ public class UserController {
 	public String registerUser(@ModelAttribute @Validated UserRegisterForm userRegisterForm, 
 			BindingResult bindingResult) {
 		
-		// メールアドレス重複チェック
 		if (userService.existEmail(userRegisterForm.getEmail())) {
 			bindingResult.rejectValue("email", "error.duplicate.email");
 		}
 		
-		// 入力チェック
 		if (bindingResult.hasErrors()) {
 			return "user/register";
 		}
 		
-		// formをUserクラスに変換
 		User user = modelMapper.map(userRegisterForm, User.class);
 		
 		userService.insertOne(user);
@@ -61,42 +56,36 @@ public class UserController {
 		return "redirect:/login";
 	}
 	
+	// ユーザーページ画面を表示
 	@GetMapping("/profile")
 	public String showUserProfile(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		
-		// ログインユーザーのIDを取得
 		Integer userId = loginUser.getUserId();
 		
-		// DBから最新のユーザー情報を取得
 		User user = userService.findById(userId);
 		
-		// modelに登録
 		model.addAttribute("user", user);
 		
-		// ユーザーページ画面へ遷移
 		return "user/profile";
 	}
 	
+	// ユーザー編集画面の表示
 	@GetMapping("/edit")
 	public String showUserEdit(@AuthenticationPrincipal LoginUser loginUser, 
 					@ModelAttribute UserEditForm userEditForm) {
 		
-		// ログインユーザーのIDを取得
 		Integer userId = loginUser.getUserId();
 		
-		// DBから最新のユーザー情報を取得
 		User user = userService.findById(userId);
 		
-		// ModelMapperを使い、DBから取得した情報を画面用の器（Form）に丸ごとコピーします
 		modelMapper.map(user, userEditForm);
 		
-		// 4. パスワードだけは画面設計書の仕様（空欄で表示）に基づき、意図的に空っぽ（空文字）にクリアします
 		userEditForm.setPassword("");
 		
-		// ユーザー更新画面へ遷移
 		return "user/edit";
 	}
 	
+	// ユーザー更新処理
 	@PostMapping("/update")
 	public String updateUser(@ModelAttribute @Validated UserEditForm userEditForm, 
 					BindingResult bindingResult,
@@ -105,18 +94,15 @@ public class UserController {
 		User currentUser = userService.findById(loginUser.getUserId());
 		
 		if (!userEditForm.getEmail().equals(currentUser.getEmail())) {
-			// メールアドレス重複チェック
 			if (userService.existEmail(userEditForm.getEmail())) {
 				bindingResult.rejectValue("email", "error.duplicate.email");
 			}
 		}
 		
-		// 入力チェック
 		if(bindingResult.hasErrors()) {
 			return "user/edit";
 		}
 		
-		// フォームオブジェクトをUserクラスに変換
 		User user = modelMapper.map(userEditForm, User.class);
 		
 		user.setId(loginUser.getUserId());
@@ -127,7 +113,6 @@ public class UserController {
 			loginUser.setName(user.getName());
 		}
 		
-		// ユーザーページへリダイレクト
 		return "redirect:/user/profile";
 	}
 }

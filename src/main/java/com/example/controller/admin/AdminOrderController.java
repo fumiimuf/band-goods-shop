@@ -20,6 +20,7 @@ public class AdminOrderController {
 
 	private final OrderService orderService;
 	
+	// 販売履歴一覧を表示
 	@GetMapping("/list")
 	public String showOrderList(
 			@RequestParam(defaultValue = "") String keyword,

@@ -27,16 +27,12 @@ public class CartController {
 	@GetMapping("/index")
 	public String showCartIndex(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 
-		//ログインユーザーのIDを取得
 		Integer userId = loginUser.getUserId();
 
-		// DBからそのユーザーのカート内商品をすべて取得
 		List<CartItem> cartList = cartService.findByUserId(userId);
 
-		// 合計金額を取得する
 		int totalAmount = cartService.getTotalAmount(userId);
 
-		// HTMLに渡すデータを登録
 		model.addAttribute("loginUserName", loginUser.getName());
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("totalAmount", totalAmount);
@@ -50,17 +46,15 @@ public class CartController {
 			@RequestParam Integer goodsId,
 			@AuthenticationPrincipal LoginUser loginUser) {
 
-		// ログインユーザーのIDを使って、特定のグッズを削除
 		cartService.deleteByGoodsId(loginUser.getUserId(), goodsId);
 
-		// 削除後はカート内容画面へリダイレクト
 		return "redirect:/cart/index";
 	}
 
+	// カート内のすべてのグッズを削除
 	@PostMapping("/clear")
 	public String clearCart(@AuthenticationPrincipal LoginUser loginUser) {
 
-		// ログインユーザーのIDを使って、カートを一括削除
 		cartService.deleteAllByUserId(loginUser.getUserId());
 
 		return "redirect:/cart/index";

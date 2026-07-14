@@ -37,18 +37,14 @@ public class OrderController {
 	@GetMapping("/confirm")
 	public String showConfirm(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		
-		// ログインユーザーのIDを取得
 		Integer userId = loginUser.getUserId();
-		// ログインユーザー情報を取得
+		
 		User user = userService.findById(userId);
 		
-		// ログインユーザーのカート内商品をすべて取得
 		List<CartItem> cartList = cartService.findByUserId(userId);
 		
-		// 合計金額を取得
 		int totalAmount = cartService.getTotalAmount(userId);
 		
-		// modelに登録
 		model.addAttribute("user", user);
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("totalAmount", totalAmount);
@@ -61,22 +57,17 @@ public class OrderController {
 	public String completeOrder(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		
 		try {
-			// ログインユーザーのIDを取得
 			Integer userId = loginUser.getUserId();
 			
-			// 登録に必要な情報をすべて集める
 			User user = userService.findById(userId);
 			List<CartItem> cartlist = cartService.findByUserId(userId);
 			int totalAmount = cartService.getTotalAmount(userId);
 			
-			// 購入処理を呼び出す
 			orderService.createOrder(user, cartlist, totalAmount);
 			
-			// 成功したら購入完了画面へリダイレクト
 			return "redirect:/order/success";
 			
 		} catch (IllegalStateException e) {
-			// カート画面へリダイレクト
 			return "redirect:/cart/index";
 		}
 	}
@@ -94,22 +85,15 @@ public class OrderController {
 					@AuthenticationPrincipal LoginUser loginUser, 
 					Model model) {
 		
-		// ログインユーザーのIDを取得
 		Integer userId = loginUser.getUserId();
 		
-		// ユーザー情報を取得してModelに登録
 		User user = userService.findById(userId);
 		model.addAttribute("user",user);
 		
 		Pagination<OrderViewItem> pagination = orderService.getOrderPage(userId, page);
 		
-		// 画面(HTML)で使うためのデータをセットする
 		model.addAttribute("pagination", pagination);
 		
-		
-		// 画面遷移
 		return "order/history";
 	}
-	
-	
 }

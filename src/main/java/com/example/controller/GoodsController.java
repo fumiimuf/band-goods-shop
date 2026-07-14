@@ -20,7 +20,6 @@ public class GoodsController {
 
 	private final GoodsService goodsService;
 	
-	
 	// 一般ユーザー用のグッズ一覧画面
 	@GetMapping("/index")
 	public String showGoodsIndex(
@@ -31,11 +30,9 @@ public class GoodsController {
 		
 		Pagination<GoodsItem> pagination = goodsService.getGoodsPage(keyword, page);
 		
-		// 画面（HTML）で使うためのデータをセットします
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("keyword", keyword);
 		
-		// グッズ一覧(一般ユーザー)を表示
 		return "goods/index";
 	}
 	

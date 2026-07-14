@@ -16,7 +16,7 @@ public class LayoutControllerAdvice {
 
 	private final CartService cartService;
 
-	@ModelAttribute // 全画面共通のデータを見つけて実行する
+	@ModelAttribute
 	public void addCommonDataToModel(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 
 		int cartCount = 0;
