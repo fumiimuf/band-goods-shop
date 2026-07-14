@@ -4,10 +4,6 @@
 		layout:decorate="~{layout/layout}">
 <head>
 	<title th:text="#{title.goods}"></title>
-	
-	<th:block layout:fragment="script">
-        <script th:src="@{/js/goods-index.js}" defer></script>
-    </th:block>
 </head>
 <body>
 	<main layout:fragment="content">
@@ -100,6 +96,9 @@
 				</ul>
 			</nav>
 		</div>
+		
+		<script th:src="@{/js/goods/goods-index.js}" defer></script>
+		
 	</main>
 </body>
 </html>

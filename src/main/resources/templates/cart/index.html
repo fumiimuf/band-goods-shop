@@ -2,11 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
-<title th:text="#{title.cart}"></title>
-
-<th:block layout:fragment="script">
-    <script th:src="@{/js/cart-index.js}" defer></script>
-</th:block>
+	<title th:text="#{title.cart}"></title>
 </head>
 <body>
 
@@ -129,7 +125,9 @@
 
 
 		</div>
-
+		
+		<script th:src="@{/js/cart/cart-index.js}" defer></script>
+		
 	</main>
 </body>
 </html>
