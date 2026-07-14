@@ -19,13 +19,9 @@ public interface GoodsMapper {
 	
 	long selectCount(@Param("isDeleted") boolean isDeleted, @Param("keyword") String keyword);
 	
-	// 指定したIDのグッズを1件だけ取得
 	GoodsItem selectById(int id);
 	
-	// グッズを新しく登録
 	void insert(Goods goods);
 	
-	// 指定したIDのグッズ情報を上書き更新
 	void update(Goods goods);
-	
 }
