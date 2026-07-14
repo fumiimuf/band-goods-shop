@@ -19,15 +19,12 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public void addOrUpdateCart(Integer userId, Integer goodsId) {
-		// DBに同じグッズがあるか確認
 		Cart existingCart = cartMapper.selectByUserIdAndGoodsId(userId, goodsId);
 
 		if (existingCart != null) {
-			// あれば個数を +1 して更新（UPDATE）
 			existingCart.setQuantity(existingCart.getQuantity() + 1);
 			cartMapper.updateQuantity(existingCart);
 		} else {
-			// C. なければ新規登録（INSERT）
 			Cart newCart = new Cart();
 			newCart.setUserId(userId);
 			newCart.setGoodsId(goodsId);
@@ -51,7 +48,6 @@ public class CartServiceImpl implements CartService {
 		cartMapper.deleteByGoodsId(userId, goodsId);
 	}
 
-	// ユーザーIDに紐づくカート内の合計金額を取得する
 	@Override
 	public int getTotalAmount(Integer userId) {
 		return cartMapper.selectTotalAmountByUserId(userId);
@@ -59,15 +55,11 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int getTotalQuantity(Integer userId) {
-		// ログインユーザーのカート情報をすべて取得する
 		List<CartItem> cartList = cartMapper.findByUserId(userId);
 
-		// 合計金額を入れる箱を用意
 		int totalCount = 0;
-		// カートの中身を一つずつ取り出して、個数を足していく
 		if (cartList != null) {
 			for (CartItem item : cartList) {
-				// 販売終了（isDeletedがtrue）の商品は合計個数に含めない
 				if (item.getGoods() != null && item.getGoods().getIsDeleted() != null
 						&& item.getGoods().getIsDeleted()) {
 					continue;
@@ -82,5 +74,4 @@ public class CartServiceImpl implements CartService {
 	public void deleteAllByUserId(Integer userId) {
 		cartMapper.deleteAllByUserId(userId);
 	}
-
 }

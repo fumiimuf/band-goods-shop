@@ -24,12 +24,11 @@ public class LoginUserDetailsImpl implements UserDetailsService {
 		
 		if (user == null) {
 			
-			throw new UsernameNotFoundException("User not found with email: " + email);
+			throw new UsernameNotFoundException("メールアドレスが見つかりません。: " + email);
 		}
 		
 		String role = (user.getIsAdmin() != null && user.getIsAdmin()) ? "ROLE_ADMIN" : "ROLE_USER";
 		
-		// 自作したLoginUser を return するようにします
 		return new LoginUser(user, AuthorityUtils.createAuthorityList(role));
 	}
 }

@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void insertOne(User user) {
-		// パスワードの暗号化
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userMapper.insertOne(user);
 	}
@@ -37,24 +36,18 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectById(userId);
 	}
 
-	// ユーザー情報を更新する
 	@Override
 	public void updateUser(User user) {
 		
-		// パスワードの変更有無による処理分岐
-		// 画面で新しいパスワードが入力されているかチェック
 		if (user.getPassword() != null && !user.getPassword().isEmpty()) {
 			
-			// 入力されている場合：パスワードを暗号化してセットする
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			
 		} else {
-			// 空の場合：パスワード変更しないので、DBの元のパスワードをそのままセット
 			User currentUser = userMapper.selectById(user.getId());
 			user.setPassword(currentUser.getPassword());
 		}
 		
-		// DBのデータを更新する
 		userMapper.updateUser(user);
 	}
 
