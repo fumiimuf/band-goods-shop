@@ -23,7 +23,7 @@ public class CartItem {
     
     public String getImageUrl() {
 		if (this.goods == null) {
-			return "/images/product/no_image.png";
+			return "/images/test/no_image.png";
 		}
 		return this.goods.getImageUrl();
     }

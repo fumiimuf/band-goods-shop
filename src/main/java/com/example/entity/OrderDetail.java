@@ -19,7 +19,7 @@ public class OrderDetail {
 	
 	public String getOrderedImageUrl() {
 		if (this.orderedImage == null || this.orderedImage.isEmpty()) {
-			return "/images/product/no_image.png";
+			return "/images/test/no_image.png";
 		}
 		return "/images/product/" + this.orderedImage;
 	}

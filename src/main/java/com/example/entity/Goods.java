@@ -27,7 +27,7 @@ public class Goods {
 	
 	public String getImageUrl() {
 		if (this.image == null || this.image.isEmpty()) {
-			return "/images/product/no_image.png";
+			return "/images/test/no_image.png";
 		}
 		return "/images/product/" + this.image;
 	}
