@@ -2,30 +2,35 @@ package com.example.model;
 
 import java.util.List;
 
-import lombok.Data;
-
-@Data
 public class Pagination<T> {
 
-	private final List<T> content;
+	public List<T> content;
 	
-	private final int currentPage;
+	public int currentPage;
 	
-	private final int totalPages;
+	public int totalPages;
 	
-	private final int startPage;
+	public final int startPage;
 	
-	private final int endPage;
+	public final int endPage;
 	
-	public Pagination(List<T> list, int page, long totalCount, int size) {
-		this.content = list;
-		this.currentPage = page;
+	public Pagination(int page, long totalCount, int size) {
 		
 		int pages = (int) Math.ceil((double) totalCount / size);
 		this.totalPages = (pages == 0) ? 1 : pages;
 		
+		int validatiedPage = page;
+		
+		if (validatiedPage < 0) {
+			validatiedPage = 0;
+			
+		} else if (validatiedPage >= this.totalPages) {
+			validatiedPage = this.totalPages -1;
+		}
+		this.currentPage = validatiedPage;
+		
         int displayButtonCount = 3;
-        int start = Math.max(0, page - (displayButtonCount / 2));
+        int start = Math.max(0, this.currentPage - (displayButtonCount / 2));
         int end = Math.min(this.totalPages - 1, start + displayButtonCount - 1);
 
         if (end - start + 1 < displayButtonCount) {
@@ -35,4 +40,9 @@ public class Pagination<T> {
         this.startPage = start;
         this.endPage = end;
 	}
+
+	public void setContent(List<T> content) {
+		this.content = content;
+	}
+
 }

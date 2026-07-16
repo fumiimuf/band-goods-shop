@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,15 @@ public class GoodsController {
 		@RequestParam(defaultValue = "") String keyword,
 		Model model) {
 		
-		Pagination<GoodsItem> pagination = goodsService.getGoodsPage(keyword, page);
+		final int size = 8;
+		
+		long totalCount = goodsService.count(false, keyword);
+		
+		Pagination<GoodsItem> pagination = new Pagination<>(page, totalCount, size);
+		
+		List<GoodsItem> goodslist = goodsService.findByPage(false, keyword, pagination.currentPage, size);
+		
+		pagination.setContent(goodslist);
 		
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("keyword", keyword);
