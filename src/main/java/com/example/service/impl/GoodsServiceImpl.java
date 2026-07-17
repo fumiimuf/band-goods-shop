@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.entity.Goods;
 import com.example.model.GoodsItem;
-import com.example.model.Pagination;
 import com.example.repository.GoodsMapper;
 import com.example.service.GoodsService;
 
@@ -37,7 +36,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public long count(boolean isDeleted, String keyword) {
+	public long getGoodsCount(boolean isDeleted, String keyword) {
 		return goodsMapper.selectCount(isDeleted, keyword);
 	}
 
@@ -80,36 +79,6 @@ public class GoodsServiceImpl implements GoodsService {
 			}
 		}
 		goodsMapper.update(goods);
-	}
-
-	@Override
-	public Pagination<GoodsItem> getGoodsPage(String keyword, int page) {
-
-		int size = 8;
-
-		List<GoodsItem> goodsList = findByPage(false, keyword, page, size);
-
-		long totalCount = count(false, keyword);
-
-		Pagination<GoodsItem> pagination = new Pagination<GoodsItem>(goodsList, page, totalCount, size);
-
-		return pagination;
-	}
-	
-	@Override
-	public Pagination<GoodsItem> getAdminGoodsPage(String status, String keyword, int page) {
-		
-		int size = 5;
-
-		boolean isDeleted = status.equals("suspended");
-
-		List<GoodsItem> goodsList = findByPage(isDeleted, keyword, page, size);
-		
-		long totalCount = count(isDeleted, keyword);
-
-		Pagination<GoodsItem> result = new Pagination<GoodsItem>(goodsList, page, totalCount, size);
-		
-		return result;
 	}
 
 	// 画像をパソコンのフォルダに物理保存するための共通プライベートメソッド

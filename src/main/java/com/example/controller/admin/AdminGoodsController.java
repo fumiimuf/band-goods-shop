@@ -41,6 +41,9 @@ public class AdminGoodsController {
 	private final CategoryService categoryService;
 
 	private final ModelMapper modelMapper;
+	
+	// sizeを定数で定義する
+	public static final int SIZE = 5;
 
 
 	// 管理者用のグッズ一覧画面
@@ -51,7 +54,17 @@ public class AdminGoodsController {
 			@RequestParam(defaultValue = "") String keyword,
 			Model model) {
 		
-		Pagination<GoodsItem> pagination = goodsService.getAdminGoodsPage(status, keyword, page);
+		// status取得
+		boolean isDeleted = status.equals("suspended");
+		// count取得
+		long totalCount = goodsService.getGoodsCount(isDeleted, keyword);
+		// Pagenation コンストラクタ取得ここでページ範囲外のチェックを行う
+		Pagination<GoodsItem> pagination = new Pagination<>(page, totalCount, SIZE);
+		// Listを取得
+		List<GoodsItem> goodsList = goodsService.findByPage(isDeleted, keyword, pagination.getCurrentPage(), SIZE);
+		// 取得したリストをPaginationのcontentにセット
+		pagination.setContent(goodsList);
+		
 
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("currentStatus", status);

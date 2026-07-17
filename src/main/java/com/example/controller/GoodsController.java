@@ -22,6 +22,8 @@ public class GoodsController {
 
 	private final GoodsService goodsService;
 	
+	private final int SIZE = 8;
+	
 	// 一般ユーザー用のグッズ一覧画面
 	@GetMapping("/index")
 	public String showGoodsIndex(
@@ -30,13 +32,11 @@ public class GoodsController {
 		@RequestParam(defaultValue = "") String keyword,
 		Model model) {
 		
-		final int size = 8;
+		long totalCount = goodsService.getGoodsCount(false, keyword);
 		
-		long totalCount = goodsService.count(false, keyword);
+		Pagination<GoodsItem> pagination = new Pagination<>(page, totalCount, SIZE);
 		
-		Pagination<GoodsItem> pagination = new Pagination<>(page, totalCount, size);
-		
-		List<GoodsItem> goodslist = goodsService.findByPage(false, keyword, pagination.currentPage, size);
+		List<GoodsItem> goodslist = goodsService.findByPage(false, keyword, pagination.getCurrentPage(), SIZE);
 		
 		pagination.setContent(goodslist);
 		

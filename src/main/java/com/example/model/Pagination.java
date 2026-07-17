@@ -2,17 +2,24 @@ package com.example.model;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public class Pagination<T> {
 
-	public List<T> content;
+	@Setter
+	private List<T> content;
 	
-	public int currentPage;
+	private int currentPage;
 	
-	public int totalPages;
+	private int totalPages;
 	
-	public final int startPage;
+	private int startPage;
 	
-	public final int endPage;
+	private int endPage;
+	
+	public static final int DISPLAY_BUTTON_COUNT = 3;
 	
 	public Pagination(int page, long totalCount, int size) {
 		
@@ -21,28 +28,29 @@ public class Pagination<T> {
 		
 		int validatiedPage = page;
 		
-		if (validatiedPage < 0) {
+		if (page < 0) {
 			validatiedPage = 0;
 			
-		} else if (validatiedPage >= this.totalPages) {
+		} else if (page >= this.totalPages) {
 			validatiedPage = this.totalPages -1;
 		}
 		this.currentPage = validatiedPage;
 		
-        int displayButtonCount = 3;
-        int start = Math.max(0, this.currentPage - (displayButtonCount / 2));
-        int end = Math.min(this.totalPages - 1, start + displayButtonCount - 1);
+        int start = Math.max(0, this.currentPage - (DISPLAY_BUTTON_COUNT / 2));
+        int end = Math.min(this.totalPages - 1, start + DISPLAY_BUTTON_COUNT - 1);
 
-        if (end - start + 1 < displayButtonCount) {
-            start = Math.max(0, end - displayButtonCount + 1);
+        if (end - start + 1 < DISPLAY_BUTTON_COUNT) {
+            start = Math.max(0, end - DISPLAY_BUTTON_COUNT + 1);
         }
 
         this.startPage = start;
         this.endPage = end;
 	}
 
-	public void setContent(List<T> content) {
-		this.content = content;
-	}
+//	public void setContent(List<T> content) {
+//		this.content = content;
+//	}
 
+	
+	
 }
