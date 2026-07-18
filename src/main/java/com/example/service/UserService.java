@@ -3,7 +3,6 @@ package com.example.service;
 import java.util.List;
 
 import com.example.entity.User;
-import com.example.model.Pagination;
 
 public interface UserService {
 	
@@ -15,9 +14,7 @@ public interface UserService {
 	
 	void updateUser(User user);
 	
-	List<User> findGeneralUsers(String keyword, int page, int size);
+	List<User> getAllUsers(String keyword, int page, int size);
 	
-	int countGeneralUsers(String keyword);
-	
-	Pagination<User> getAdminUserPage(String keyword, int page);
+	int getCountUsers(String keyword);
 }
