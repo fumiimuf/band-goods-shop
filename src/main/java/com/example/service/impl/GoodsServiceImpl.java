@@ -41,7 +41,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public GoodsItem findById(int id) {
+	public GoodsItem getOneGoodsById(int id) {
 		return goodsMapper.selectById(id);
 	}
 

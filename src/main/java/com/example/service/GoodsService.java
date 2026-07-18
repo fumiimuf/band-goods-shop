@@ -13,7 +13,7 @@ public interface GoodsService {
 	
 	long getGoodsCount(boolean isDeleted, String keyword);
 	
-	GoodsItem findById(int id);
+	GoodsItem getOneGoodsById(int id);
 	
 	void registerGoods(Goods goods, MultipartFile imageFile);
 	
