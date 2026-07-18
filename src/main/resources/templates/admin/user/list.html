@@ -21,8 +21,14 @@
 					</div>
 				</form>
 			</div>
-			<!-- ユーザーリスト -->
-			<div class="table-responsive">
+			
+			<!-- 0件の場合のメッセージ -->
+			<div th:if="${#lists.isEmpty(pagination.content)}" class="text-center my-5">
+			    <p class="text-muted" th:text="#{msg.admin.user.list.noUser}"></p>
+			</div>
+			
+			<!-- データがある場合のみテーブルを表示 -->
+			<div th:unless="${#lists.isEmpty(pagination.content)}" class="table-responsive">
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark">
 						<tr>

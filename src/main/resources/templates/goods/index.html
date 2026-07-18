@@ -30,8 +30,14 @@
 			</div>
 
 			<hr class="border-2 opacity-100">
-
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+			
+			<!-- 0件の場合のメッセージ -->
+			<div th:if="${#lists.isEmpty(pagination.content)}" class="text-center my-5">
+			    <p class="text-muted" th:text="#{msg.goods.noGoods}"></p>
+			</div>
+			
+			<!-- データがある場合のみ表示 -->
+			<div th:unless="${#lists.isEmpty(pagination.content)}" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 				<div th:each="item : ${pagination.content}">
 					<!-- カード -->
 					<div class="card h-100 w-100 shadow-sm">
