@@ -22,7 +22,7 @@ public class GoodsController {
 
 	private final GoodsService goodsService;
 	
-	private final int SIZE = 8;
+	private final int PAGE_SIZE = 8;
 	
 	// 一般ユーザー用のグッズ一覧画面
 	@GetMapping("/index")
@@ -34,9 +34,9 @@ public class GoodsController {
 		
 		long totalCount = goodsService.getGoodsCount(false, keyword);
 		
-		Pagination<GoodsItem> pagination = new Pagination<>(page, totalCount, SIZE);
+		Pagination<GoodsItem> pagination = new Pagination<>(page, totalCount, PAGE_SIZE);
 		
-		List<GoodsItem> goodslist = goodsService.findByPage(false, keyword, pagination.getCurrentPage(), SIZE);
+		List<GoodsItem> goodslist = goodsService.getGoodsByPage(false, keyword, pagination.getCurrentPage(), PAGE_SIZE);
 		
 		pagination.setContent(goodslist);
 		
