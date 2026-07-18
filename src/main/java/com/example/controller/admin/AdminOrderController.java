@@ -1,5 +1,7 @@
 package com.example.controller.admin;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,8 @@ public class AdminOrderController {
 
 	private final OrderService orderService;
 	
+	private final int PAGE_SIZE = 5;
+	
 	// 販売履歴一覧を表示
 	@GetMapping("/list")
 	public String showOrderList(
@@ -27,7 +31,13 @@ public class AdminOrderController {
 			@RequestParam(defaultValue = "0") int page,
 			Model model) {
 		
-		Pagination<OrderViewItem> pagination = orderService.getAdminOrderPage(keyword, page);
+		long totalCount = orderService.countAllOrders(keyword);
+		
+		Pagination<OrderViewItem> pagination = new Pagination<>(page, totalCount, PAGE_SIZE);
+		
+		List<OrderViewItem> orderList = orderService.getAllOrderHistoryByPage(keyword, pagination.getCurrentPage(), PAGE_SIZE);
+		
+		pagination.setContent(orderList);
 		
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("keyword", keyword);
