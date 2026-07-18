@@ -1,5 +1,7 @@
 package com.example.controller.admin;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,8 @@ public class AdminUserController {
 
 	private final UserService userService;
 	
+	private final int PAGE_SIZE = 5;
+	
 	// 一般ユーザー一覧画面を表示する
 	@GetMapping("/list")
 	public String showUserList(
@@ -28,7 +32,13 @@ public class AdminUserController {
 					@RequestParam(defaultValue = "0") int page, 
 					Model model) {
 		
-		Pagination<User> pagination = userService.getAdminUserPage(keyword, page);
+		int totalCount = userService.getCountUsers(keyword);
+		
+		Pagination<User> pagination = new Pagination<>(page, totalCount, PAGE_SIZE);
+		
+		List<User> userList = userService.getAllUsers(keyword, pagination.getCurrentPage(), PAGE_SIZE);
+		
+		pagination.setContent(userList);
 		
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("keyword", keyword);
