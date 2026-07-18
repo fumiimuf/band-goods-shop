@@ -11,7 +11,6 @@ import com.example.entity.OrderDetail;
 import com.example.entity.User;
 import com.example.model.CartItem;
 import com.example.model.OrderViewItem;
-import com.example.model.Pagination;
 import com.example.repository.OrderDetailMapper;
 import com.example.repository.OrderMapper;
 import com.example.service.CartService;
@@ -83,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public long countByUserId(Integer userId) {
+	public long getOrderCountByUserId(Integer userId) {
 		
 		return orderMapper.selectCountByUserId(userId);
 	}
@@ -112,33 +111,5 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public long countAllOrders(String keyword) {
 		return orderMapper.selectCountAllOrders(keyword);
-	}
-
-	@Override
-	public Pagination<OrderViewItem> getOrderPage(Integer userId, int page) {
-		
-		int size = 2;
-		
-		List<OrderViewItem> historyList = getOrderHistoryByPage(userId, page, size);
-		
-		long totalCount = countByUserId(userId);
-		
-		Pagination<OrderViewItem> result = new Pagination<OrderViewItem>(historyList, page, totalCount, size);
-		
-		return result;
-	}
-
-	@Override
-	public Pagination<OrderViewItem> getAdminOrderPage(String keyword, int page) {
-		
-		int size = 5;
-		
-		List<OrderViewItem> orderList = getAllOrderHistoryByPage(keyword, page, size);
-		
-		long totalCount = countAllOrders(keyword);
-		
-		Pagination<OrderViewItem> result = new Pagination<OrderViewItem>(orderList, page, totalCount, size);
-		
-		return result;
 	}
 }
