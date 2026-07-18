@@ -32,6 +32,8 @@ public class OrderController {
 	private final CartService cartService;
 	
 	private final OrderService orderService;
+	
+	private final int PAGE_SIZE = 2;
 
 	// 購入確認画面を表示
 	@GetMapping("/confirm")
@@ -90,7 +92,13 @@ public class OrderController {
 		User user = userService.findById(userId);
 		model.addAttribute("user",user);
 		
-		Pagination<OrderViewItem> pagination = orderService.getOrderPage(userId, page);
+		long totalCount = orderService.getOrderCountByUserId(userId);
+		
+		Pagination<OrderViewItem> pagination = new Pagination<>(page, totalCount, PAGE_SIZE);
+		
+		List<OrderViewItem> historyList = orderService.getOrderHistoryByPage(userId, pagination.getCurrentPage(), PAGE_SIZE);
+		
+		pagination.setContent(historyList);
 		
 		model.addAttribute("pagination", pagination);
 		
