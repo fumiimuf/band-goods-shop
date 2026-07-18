@@ -9,7 +9,7 @@ import com.example.model.GoodsItem;
 
 public interface GoodsService {
 
-	List<GoodsItem> findByPage(boolean isDeleted, String keyword, int page, int size);
+	List<GoodsItem> getGoodsByPage(boolean isDeleted, String keyword, int page, int size);
 	
 	long getGoodsCount(boolean isDeleted, String keyword);
 	

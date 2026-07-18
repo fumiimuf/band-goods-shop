@@ -30,7 +30,7 @@ public class GoodsServiceImpl implements GoodsService {
 	private String uploadDirectory;
 
 	@Override
-	public List<GoodsItem> findByPage(boolean isDeleted, String keyword, int page, int size) {
+	public List<GoodsItem> getGoodsByPage(boolean isDeleted, String keyword, int page, int size) {
 		int offset = page * size;
 		return goodsMapper.selectByPage(isDeleted, keyword, size, offset);
 	}
