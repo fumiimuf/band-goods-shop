@@ -42,9 +42,7 @@ public class AdminGoodsController {
 
 	private final ModelMapper modelMapper;
 	
-	// sizeを定数で定義する
 	public static final int SIZE = 5;
-
 
 	// 管理者用のグッズ一覧画面
 	@GetMapping("/index")
@@ -54,18 +52,16 @@ public class AdminGoodsController {
 			@RequestParam(defaultValue = "") String keyword,
 			Model model) {
 		
-		// status取得
 		boolean isDeleted = status.equals("suspended");
-		// count取得
+		
 		long totalCount = goodsService.getGoodsCount(isDeleted, keyword);
-		// Pagenation コンストラクタ取得ここでページ範囲外のチェックを行う
+		
 		Pagination<GoodsItem> pagination = new Pagination<>(page, totalCount, SIZE);
-		// Listを取得
-		List<GoodsItem> goodsList = goodsService.findByPage(isDeleted, keyword, pagination.getCurrentPage(), SIZE);
-		// 取得したリストをPaginationのcontentにセット
+		
+		List<GoodsItem> goodsList = goodsService.getGoodsByPage(isDeleted, keyword, pagination.getCurrentPage(), SIZE);
+		
 		pagination.setContent(goodsList);
 		
-
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("currentStatus", status);
 		model.addAttribute("keyword", keyword);
