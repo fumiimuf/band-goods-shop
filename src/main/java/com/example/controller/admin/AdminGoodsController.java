@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.entity.Category;
 import com.example.entity.Goods;
@@ -109,16 +110,20 @@ public class AdminGoodsController {
 	}
 
 	// グッズ更新画面を表示
-	@GetMapping("/edit/{id}")
-	public String showGoodsEdit(@PathVariable int id,
+	@GetMapping({"/edit/{id}", "/edit", "/edit/"})
+	public String showGoodsEdit(
+			@PathVariable(required = false) Integer id,
 			@ModelAttribute GoodsEditForm goodsEditForm,
-			Model model) {
+			Model model, 
+			RedirectAttributes redirectAttributes) {
 
-		GoodsItem goodsItem = goodsService.findById(id);
-
-		if (goodsItem == null) {
+		if (id == null || goodsService.getOneGoodsById(id) == null) {
+			redirectAttributes.addFlashAttribute("showErrorToast", true);
+			
 			return "redirect:/admin/goods/index";
 		}
+		
+		GoodsItem goodsItem = goodsService.getOneGoodsById(id);
 
 		modelMapper.map(goodsItem.getGoods(), goodsEditForm);
 
