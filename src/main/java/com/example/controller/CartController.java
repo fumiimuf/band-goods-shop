@@ -6,13 +6,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.config.LoginUser;
 import com.example.model.CartItem;
 import com.example.service.CartService;
+import com.example.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class CartController {
 
 	private final CartService cartService;
+	
+	private final GoodsService goodsService;
 
 	// カート内容表示
 	@GetMapping("/index")
@@ -41,10 +45,32 @@ public class CartController {
 	}
 
 	// カート内の特定のグッズを削除
-	@PostMapping("/delete")
+	@PostMapping({"/delete/{goodsId}", "/delete", "/delete/"})
 	public String deleteByGoodsId(
-			@RequestParam Integer goodsId,
-			@AuthenticationPrincipal LoginUser loginUser) {
+			@PathVariable(required = false) Integer goodsId,
+			@AuthenticationPrincipal LoginUser loginUser, 
+			RedirectAttributes redirectAttributes) {
+		
+		Integer userId = loginUser.getUserId();
+		
+		List<CartItem> cartList = cartService.findByUserId(userId);
+		
+		boolean isExist = false;
+		
+		if (goodsId != null && cartList != null) {
+			for(CartItem item : cartList) {
+				if (item.getGoods() != null && item.getGoods().getId().equals(goodsId)) {
+					isExist = true;
+					break;
+				}
+			}
+		}
+		
+		if (!isExist) {
+			redirectAttributes.addFlashAttribute("showErrorToast", true);
+			
+			return "redirect:/cart/index";
+		}
 
 		cartService.deleteByGoodsId(loginUser.getUserId(), goodsId);
 

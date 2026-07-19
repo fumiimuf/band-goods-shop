@@ -2,10 +2,18 @@ $(function() {
 
 	console.log("goods-index.jsが読み込まれました。");
 
-	// 1. ポップオーバーの初期化 (既存の処理)
-	$('[data-bs-toggle="popover"]').popover();
+	// 1. ポップオーバーの初期化（標準のclickトリガーを使用）
+	const $popovers = $('[data-bs-toggle="popover"]').popover();
 
-	console.log("[初期化] Bootstrapポップオーバーを有効化しました。");
+	// ボタン以外をクリックしたときに閉じるための補正コード
+	$(document).on('click', function(e) {
+		// クリックされた要素が「商品説明ボタン」でもなく、「ポップオーバーの吹き出し内」でもない場合
+		if (!$(e.target).closest('[data-bs-toggle="popover"]').length && !$(e.target).closest('.popover').length) {
+			$popovers.popover('hide'); // すべてのポップオーバーを閉じる
+		}
+	});
+
+	console.log("[初期化] Bootstrapポップオーバー(clickトリガー)を有効化しました。");
 
 	// 2. カート追加（Ajax送信）
 	$('[data-cart-add-form]').on('submit', function(e) {

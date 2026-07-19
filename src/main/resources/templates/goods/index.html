@@ -59,7 +59,7 @@
 
 								<div class="d-flex gap-2">
 									<!-- 商品説明ボタン -->
-									<button type="button" class="btn btn-outline-secondary btn-sm flex-grow-1 text-nowrap small py-1 px-1" style="font-size: 0.75rem;" data-bs-toggle="popover" data-bs-placement="top" data-bs-container="body" th:data-bs-title="${item.goods.name}" th:data-bs-content="${item.goods.description}" th:text="#{btn.goods.goodsDescription}"></button>
+									<button type="button" class="btn btn-outline-secondary btn-sm flex-grow-1 text-nowrap small py-1 px-1" style="font-size: 0.75rem;" data-bs-toggle="popover" data-bs-trigger="click" data-bs-placement="top" data-bs-container="body" th:data-bs-title="${item.goods.name}" th:data-bs-content="${item.goods.description}" th:text="#{btn.goods.goodsDescription}"></button>
 									<form th:action="@{/api/cart/add}" method="post" data-cart-add-form class="flex-grow-1 d-flex">
 										<input type="hidden" name="goodsId" th:value="${item.goods.id}">
 										<!-- カートに追加ボタン -->
