@@ -18,22 +18,6 @@ public class CartServiceImpl implements CartService {
 	private final CartMapper cartMapper;
 
 	@Override
-	public void addOrUpdateCart(Integer userId, Integer goodsId) {
-		Cart existingCart = cartMapper.selectByUserIdAndGoodsId(userId, goodsId);
-
-		if (existingCart != null) {
-			existingCart.setQuantity(existingCart.getQuantity() + 1);
-			cartMapper.updateQuantity(existingCart);
-		} else {
-			Cart newCart = new Cart();
-			newCart.setUserId(userId);
-			newCart.setGoodsId(goodsId);
-			newCart.setQuantity(1);
-			cartMapper.insert(newCart);
-		}
-	}
-
-	@Override
 	public void updateQuantity(Cart cart) {
 		cartMapper.updateQuantity(cart);
 	}
@@ -79,6 +63,9 @@ public class CartServiceImpl implements CartService {
 	public Cart getCartByUserAndGoods(Integer userId, Integer goodsId) {
 		return cartMapper.selectByUserIdAndGoodsId(userId, goodsId);
 	}
-	
-	
+
+	@Override
+	public void registerCart(Cart cart) {
+		cartMapper.insertOne(cart);
+	}
 }

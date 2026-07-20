@@ -7,7 +7,7 @@ import com.example.model.CartItem;
 
 public interface CartService {
 
-	public void addOrUpdateCart(Integer userId, Integer goodsId);
+	public void registerCart(Cart cart);
 	
 	void updateQuantity(Cart cart);
 	
