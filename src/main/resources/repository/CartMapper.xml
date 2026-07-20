@@ -25,7 +25,7 @@
 		AND goods_id = #{goodsId}
 	</select>
 	
-	<insert id="insert">
+	<insert id="insertOne">
 		INSERT INTO cart (user_id, goods_id, quantity) 
 		VALUES (#{userId}, #{goodsId}, #{quantity}) 
 	</insert>
