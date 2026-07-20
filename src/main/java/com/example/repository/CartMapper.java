@@ -13,7 +13,11 @@ public interface CartMapper {
 
 	Cart selectByUserIdAndGoodsId(@Param("userId") Integer userId, @Param("goodsId") Integer goodsId);
 	
+	// selectAll(userId);追加
+	
 	void insert(Cart cart);
+	
+	// update(cart);追加
 	
 	void updateQuantity(Cart cart);
 	

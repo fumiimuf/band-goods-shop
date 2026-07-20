@@ -74,4 +74,11 @@ public class CartServiceImpl implements CartService {
 	public void deleteAllByUserId(Integer userId) {
 		cartMapper.deleteAllByUserId(userId);
 	}
+
+	@Override
+	public Cart getCartByUserAndGoods(Integer userId, Integer goodsId) {
+		return cartMapper.selectByUserIdAndGoodsId(userId, goodsId);
+	}
+	
+	
 }

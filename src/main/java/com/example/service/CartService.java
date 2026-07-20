@@ -20,4 +20,6 @@ public interface CartService {
 	void deleteAllByUserId(Integer userId);
 	
 	int getTotalAmount(Integer userId);
+	
+	Cart getCartByUserAndGoods(Integer userId, Integer goodsId);
 }
