@@ -46,11 +46,4 @@ public class Pagination<T> {
         this.startPage = start;
         this.endPage = end;
 	}
-
-//	public void setContent(List<T> content) {
-//		this.content = content;
-//	}
-
-	
-	
 }
