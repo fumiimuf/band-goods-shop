@@ -25,7 +25,6 @@ import com.example.service.CartService;
 import lombok.RequiredArgsConstructor;
 
 
-
 @RestController
 @RequestMapping("/api/cart")
 @RequiredArgsConstructor
@@ -39,7 +38,7 @@ public class CartRestController {
 	
 	// カート追加処理
 	@PostMapping("/add")
-	public Map<String, Integer> addCart(
+	public ResponseEntity<Map<String, Object>> addCart(
 			@RequestParam Integer goodsId, 
 			@AuthenticationPrincipal LoginUser loginUser, 
 			Locale locale) {
@@ -51,9 +50,15 @@ public class CartRestController {
 		// 該当商品がカートにあるのか確認するためのカート情報を取得
 		Cart existingCart = cartService.getCartByUserAndGoods(userId, goodsId);
 		
-		// 取得したカートがnullの場合、登録処理して、成功時、メッセージを入れてresponseで返す
-		// 取得したカートがあれば、更新処理する。「<10」の条件処理も追加。成功時、メッセージを入れてresponseで返す
-		// 10を超えていて失敗時、メッセージを入れてメッセージを入れてresponseで返す
+		if (existingCart != null && existingCart.getQuantity() >= 10) {
+			String errorMessage = messageSource.getMessage("toast.goods.cartLimitError", null, locale);
+			
+			response.put("success", false);
+			response.put("message", errorMessage);
+			
+			return ResponseEntity.badRequest().body(response);
+		}
+		
 		if (existingCart == null) {
 			Cart newCart = new Cart();
 			newCart.setUserId(userId);
@@ -61,34 +66,20 @@ public class CartRestController {
 			newCart.setQuantity(1);
 			
 			cartService.registerCart(newCart);
-			
-			// ここにJSファイルに送るmessages.propertiesのキー名を詰めたい。
-			String message = messageSource.getMessage("toast.goods.addCartSuccess", null, locale);
-			// JSのdoneメソッドに送れるようにしたい。
-			response.put("success", true);
-			
-			return ResponseEntity.of(response);
-			
 		} else {
-			if(existingCart.getQuantity() >= 10) {
-				
-			}
 			existingCart.setQuantity(existingCart.getQuantity() + 1);
-			cartService.updateCart(existingCart);
+			cartService.updateQuantity(existingCart);
 		}
 		
-		
-		
-		
-		
-		cartService.addOrUpdateCart(userId, goodsId);
+		String successMessage = messageSource.getMessage("toast.goods.addCartSuccess", null, locale);
 		
 		int totalQuantity = cartService.getTotalQuantity(userId);
 		
-		Map<String, Integer> response = new HashMap<>();
+		response.put("success", true);
+		response.put("message", successMessage);
 		response.put("newCartCount", totalQuantity);
-				
-		return response;
+		
+		return ResponseEntity.ok(response);
 	}
 	
 	// カート内グッズの数量を更新
@@ -102,8 +93,10 @@ public class CartRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		if (bindingResult.hasErrors()) {
+			String errorMessage = messageSource.getMessage("", null, locale);
 			
 			response.put("success", false);
+//			response.put("message", errorMessage);
 			
 			return ResponseEntity.badRequest().body(response);
 		}
