@@ -6,14 +6,14 @@
 <body>
 	<main layout:fragment="content">
 		<div class="container mt-4" style="max-width: 800px;">
-			<!-- トースト -->
 			<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
+				<!-- 成功時のトースト -->
 				<div data-cart-success-toast class="toast text-white bg-success border-0 text-center" data-bs-delay="2000">
-					<div class="toast-body" th:text="#{toast.goods.addCartSuccess}"></div>
+					<div class="toast-body"></div>
 				</div>
-
+				<!-- 失敗時のトースト -->
 				<div data-cart-error-toast class="toast text-white bg-danger border-0 text-center" data-bs-delay="2000">
-					<div class="toast-body" th:text="#{toast.goods.addCartError}"></div>
+					<div class="toast-body" data-cart-error-message></div>
 				</div>
 			</div>
 
