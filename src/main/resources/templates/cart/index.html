@@ -31,7 +31,7 @@
 				<h1 th:text="#{label.cart.title(${loginUserName})}"></h1>
 				<form th:action="@{/cart/clear}" method="post">
 					<!-- カートを空にするボタン -->
-					<button type="submit" class="btn btn-danger btn-sm" th:text="#{btn.cart.cartEmpty}" th:onclick="return confirm([[#{msg.cart.clearConfirm}]])"></button>
+					<button type="submit" class="btn btn-danger btn-sm" th:text="#{btn.cart.cartEmpty}" th:disabled="${#lists.isEmpty(cartList)}" th:onclick="return confirm([[#{msg.cart.clearConfirm}]])"></button>
 				</form>
 			</div>
 
