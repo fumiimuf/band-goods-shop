@@ -46,7 +46,7 @@ public class AdminGoodsController {
 	public static final int SIZE = 5;
 
 	// 管理者用のグッズ一覧画面
-	@GetMapping("/index")
+	@GetMapping({"/", "/index"})
 	public String showGoodsIndex(
 			@RequestParam(defaultValue = "active") String status,
 			@RequestParam(defaultValue = "0") int page,
