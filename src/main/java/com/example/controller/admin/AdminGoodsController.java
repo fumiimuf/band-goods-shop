@@ -117,13 +117,13 @@ public class AdminGoodsController {
 			Model model, 
 			RedirectAttributes redirectAttributes) {
 
-		if (id == null || goodsService.getOneGoodsById(id) == null) {
+		if (id == null || goodsService.getOneGoodsItemById(id) == null) {
 			redirectAttributes.addFlashAttribute("showErrorToast", true);
 			
 			return "redirect:/admin/goods/index";
 		}
 		
-		GoodsItem goodsItem = goodsService.getOneGoodsById(id);
+		GoodsItem goodsItem = goodsService.getOneGoodsItemById(id);
 
 		modelMapper.map(goodsItem.getGoods(), goodsEditForm);
 
