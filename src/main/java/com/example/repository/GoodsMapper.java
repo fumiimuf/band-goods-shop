@@ -24,4 +24,6 @@ public interface GoodsMapper {
 	void insert(Goods goods);
 	
 	void update(Goods goods);
+	
+	Goods findActiveGoodsById(Integer goodsId);
 }
