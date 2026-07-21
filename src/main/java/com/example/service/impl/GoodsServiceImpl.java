@@ -41,7 +41,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public GoodsItem getOneGoodsById(int id) {
+	public GoodsItem getOneGoodsItemById(int id) {
 		return goodsMapper.selectById(id);
 	}
 
@@ -80,6 +80,15 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 		goodsMapper.update(goods);
 	}
+	
+	@Override
+	public boolean isAvailableGoods(Integer goodsId) {
+		Goods goods = goodsMapper.findActiveGoodsById(goodsId);
+		
+		return goods != null;
+	}
+	
+	
 
 	// 画像をパソコンのフォルダに物理保存するための共通プライベートメソッド
 	private String saveImage(MultipartFile imageFile) {
@@ -99,4 +108,6 @@ public class GoodsServiceImpl implements GoodsService {
 			throw new RuntimeException("画像の保存に失敗しました", e);
 		}
 	}
+
+	
 }
