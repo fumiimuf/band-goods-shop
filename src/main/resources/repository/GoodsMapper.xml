@@ -101,4 +101,9 @@
 		WHERE
 			id = #{id}
 	</update>
+	
+	<select id="findActiveGoodsById" resultType="Goods">
+		SELECT * FROM goods 
+		WHERE id = #{goodsId} AND is_deleted = 0
+	</select>
 </mapper>
