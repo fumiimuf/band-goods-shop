@@ -21,6 +21,7 @@ import com.example.entity.Cart;
 import com.example.form.CartForm;
 import com.example.model.CartItem;
 import com.example.service.CartService;
+import com.example.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +32,8 @@ import lombok.RequiredArgsConstructor;
 public class CartRestController {
 
 	private final CartService cartService;
+	
+	private final GoodsService goodsService;
 	
 	private final MessageSource messageSource;
 	
@@ -44,6 +47,15 @@ public class CartRestController {
 			Locale locale) {
 		
 		Map<String, Object> response = new HashMap<>();
+		
+		if (!goodsService.isAvailableGoods(goodsId)) {
+			String message = messageSource.getMessage("msg.goods.noGoods", null, locale);
+			
+			response.put("success", false);
+			response.put("message", message);
+			
+			return ResponseEntity.badRequest().body(response);
+		}
 		
 		Integer userId = loginUser.getUserId();
 		
