@@ -24,4 +24,6 @@ public interface CartMapper {
 	void deleteAllByUserId(Integer userId);
 	
 	int selectTotalAmountByUserId(Integer userId);
+	
+	List<CartItem> selectActiveItemsInCart(Integer userId);
 }
