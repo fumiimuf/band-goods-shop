@@ -75,4 +75,23 @@
 		DELETE FROM cart
 		WHERE user_id = #{userId}
 	</delete>
+	
+	<select id="selectActiveItemsInCart" resultMap="CartItemMap">
+		SELECT
+			c.user_id,
+			c.goods_id,
+			c.quantity,
+			g.id, 
+			g.name, 
+			g.price, 
+			g.image, 
+			g.is_deleted 
+		FROM
+			cart AS c
+		INNER JOIN 
+			goods AS g ON c.goods_id = g.id
+		WHERE
+			c.user_id = #{userId}
+			AND g.is_deleted = 0
+	</select>
 </mapper>
