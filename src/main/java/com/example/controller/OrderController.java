@@ -93,9 +93,6 @@ public class OrderController {
 
 		Integer userId = loginUser.getUserId();
 
-		User user = userService.findById(userId);
-		model.addAttribute("user", user);
-
 		long totalCount = orderService.getOrderCountByUserId(userId);
 
 		Pagination<OrderViewItem> pagination = new Pagination<>(page, totalCount, PAGE_SIZE);
