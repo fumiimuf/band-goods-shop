@@ -41,9 +41,14 @@ public class OrderController {
 		
 		Integer userId = loginUser.getUserId();
 		
-		User user = userService.findById(userId);
+		List<CartItem> cartList = cartService.getActiveItemsInCart(userId);
 		
-		List<CartItem> cartList = cartService.findByUserId(userId);
+		if (cartList == null || cartList.isEmpty()) {
+			
+			return "redirect:/cart/index";
+		}
+		
+		User user = userService.findById(userId);
 		
 		int totalAmount = cartService.getTotalAmount(userId);
 		
