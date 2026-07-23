@@ -105,17 +105,28 @@ public class CartRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		if (bindingResult.hasErrors()) {
-			String errorMessage = messageSource.getMessage("", null, locale);
+			String errorMessage = messageSource.getMessage("toast.cart.quantityError", null, locale);
 			
 			response.put("success", false);
-//			response.put("message", errorMessage);
+			response.put("message", errorMessage);
+			
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		Integer userId = loginUser.getUserId();
+		
+		Cart existingCart = cartService.getCartByUserAndGoods(userId, form.getGoodsId());
+		if (existingCart == null) {
+			String errorMessage = messageSource.getMessage("toast.cart.noGoodsId", null, locale);
+			response.put("success", false);
+			response.put("message", errorMessage);
 			
 			return ResponseEntity.badRequest().body(response);
 		}
 		
 		Cart cart = modelMapper.map(form, Cart.class);
 		
-		Integer userId = loginUser.getUserId();
+		
 		cart.setUserId(userId);
 		
 		cartService.updateQuantity(cart);
