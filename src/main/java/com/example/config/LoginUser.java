@@ -10,12 +10,15 @@ public class LoginUser extends User {
 	private final Integer userId;
 	
 	private String name;
+	
+	private String email;
 
-	// コンストラクタ：親クラスのコンストラクタを呼びつつ、IDをセット
+	// コンストラクタ：親クラス(User)に認証情報を渡しつつ、各フィールド値をセット
 	public LoginUser(com.example.entity.User user, Collection<? extends GrantedAuthority> authorities) {
 		super(user.getEmail(), user.getPassword(), authorities);
 		this.userId = user.getId();
 		this.name = user.getName();
+		this.email = user.getEmail();
 	}
 
 	// IDを取り出すためのメソッド
@@ -26,6 +29,11 @@ public class LoginUser extends User {
 	// 名前を取り出すためのメソッド
 	public String getName() {
 		return name;
+	}
+	
+	// メールアドレスを取り出すためのメソッド
+	public String getEmail() {
+		return email;
 	}
 	
 	// 外部から最新の名前を受け取って上書きするメソッド
