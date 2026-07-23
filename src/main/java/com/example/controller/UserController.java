@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.config.LoginUser;
 import com.example.entity.User;
@@ -39,7 +40,8 @@ public class UserController {
 	// ユーザー登録処理
 	@PostMapping("/register")
 	public String registerUser(@ModelAttribute @Validated UserRegisterForm userRegisterForm, 
-			BindingResult bindingResult) {
+			BindingResult bindingResult, 
+			RedirectAttributes redirectAttributes) {
 		
 		if (userService.existEmail(userRegisterForm.getEmail())) {
 			bindingResult.rejectValue("email", "error.duplicate.email");
@@ -52,6 +54,8 @@ public class UserController {
 		User user = modelMapper.map(userRegisterForm, User.class);
 		
 		userService.insertOne(user);
+		
+		redirectAttributes.addFlashAttribute("registerSuccess", "msg.user.register.completeUserRegister");
 		
 		return "redirect:/login";
 	}
@@ -89,11 +93,10 @@ public class UserController {
 	@PostMapping("/update")
 	public String updateUser(@ModelAttribute @Validated UserEditForm userEditForm, 
 					BindingResult bindingResult,
-					@AuthenticationPrincipal LoginUser loginUser) {
+					@AuthenticationPrincipal LoginUser loginUser, 
+					RedirectAttributes redirectAttributes) {
 		
-		User currentUser = userService.findById(loginUser.getUserId());
-		
-		if (!userEditForm.getEmail().equals(currentUser.getEmail())) {
+		if (!userEditForm.getEmail().equals(loginUser.getEmail())) {
 			if (userService.existEmail(userEditForm.getEmail())) {
 				bindingResult.rejectValue("email", "error.duplicate.email");
 			}
@@ -112,6 +115,8 @@ public class UserController {
 		if (loginUser != null) {
 			loginUser.setName(user.getName());
 		}
+		
+		redirectAttributes.addFlashAttribute("editSuccess", "msg.user.profile.completeUserEdit");
 		
 		return "redirect:/user/profile";
 	}
