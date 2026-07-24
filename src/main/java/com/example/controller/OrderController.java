@@ -42,7 +42,7 @@ public class OrderController {
 
 		List<CartItem> cartList = cartService.findByUserId(userId);
 
-		if (isInvalidCart(cartList)) {
+		if (!isValidCart(cartList)) {
 			return "redirect:/cart/index";
 		}
 
@@ -65,7 +65,7 @@ public class OrderController {
 
 		List<CartItem> cartList = cartService.findByUserId(userId);
 
-		if (isInvalidCart(cartList)) {
+		if (!isValidCart(cartList)) {
 			return "redirect:/cart/index";
 		}
 
@@ -108,15 +108,15 @@ public class OrderController {
 	}
 
 	// カートチェック処理をするプライベートメソッド
-	private boolean isInvalidCart(List<CartItem> cartList) {
+	private boolean isValidCart(List<CartItem> cartList) {
 		if (cartList == null || cartList.isEmpty()) {
-			return true;
+			return false;
 		}
 		for (CartItem item : cartList) {
 			if (item.getGoods() != null && item.getGoods().getIsDeleted()) {
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 }
