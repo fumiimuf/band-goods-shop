@@ -60,9 +60,9 @@ public class CartRestController {
 		Integer userId = loginUser.getUserId();
 		
 		// 該当商品がカートにあるのか確認するためのカート情報を取得
-		Cart existingCart = cartService.getCartByUserAndGoods(userId, goodsId);
+		Cart targetCart = cartService.getTargetCart(userId, goodsId);
 		
-		if (existingCart != null && existingCart.getQuantity() >= 10) {
+		if (targetCart != null && targetCart.getQuantity() >= 10) {
 			String errorMessage = messageSource.getMessage("toast.goods.cartLimitError", null, locale);
 			
 			response.put("success", false);
@@ -71,7 +71,7 @@ public class CartRestController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		if (existingCart == null) {
+		if (targetCart == null) {
 			Cart newCart = new Cart();
 			newCart.setUserId(userId);
 			newCart.setGoodsId(goodsId);
@@ -79,8 +79,8 @@ public class CartRestController {
 			
 			cartService.registerCart(newCart);
 		} else {
-			existingCart.setQuantity(existingCart.getQuantity() + 1);
-			cartService.updateQuantity(existingCart);
+			targetCart.setQuantity(targetCart.getQuantity() + 1);
+			cartService.updateQuantity(targetCart);
 		}
 		
 		String successMessage = messageSource.getMessage("toast.goods.addCartSuccess", null, locale);
@@ -115,8 +115,9 @@ public class CartRestController {
 		
 		Integer userId = loginUser.getUserId();
 		
-		Cart existingCart = cartService.getCartByUserAndGoods(userId, form.getGoodsId());
-		if (existingCart == null) {
+		Cart targetCart = cartService.getTargetCart(userId, form.getGoodsId());
+		
+		if (targetCart == null) {
 			String errorMessage = messageSource.getMessage("toast.cart.noGoodsId", null, locale);
 			response.put("success", false);
 			response.put("message", errorMessage);
