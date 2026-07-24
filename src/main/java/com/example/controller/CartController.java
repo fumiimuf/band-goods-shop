@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.config.LoginUser;
+import com.example.entity.Cart;
 import com.example.model.CartItem;
 import com.example.service.CartService;
-import com.example.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,8 +25,6 @@ public class CartController {
 
 	private final CartService cartService;
 	
-	private final GoodsService goodsService;
-
 	// カート内容表示
 	@GetMapping("/index")
 	public String showCartIndex(@AuthenticationPrincipal LoginUser loginUser, Model model) {
@@ -51,27 +49,17 @@ public class CartController {
 			@AuthenticationPrincipal LoginUser loginUser, 
 			RedirectAttributes redirectAttributes) {
 		
+		
 		Integer userId = loginUser.getUserId();
 		
-		List<CartItem> cartList = cartService.findByUserId(userId);
+		Cart targetCart = cartService.getTargetCart(userId, goodsId);
 		
-		boolean isExist = false;
-		
-		if (goodsId != null && cartList != null) {
-			for(CartItem item : cartList) {
-				if (item.getGoods() != null && item.getGoods().getId().equals(goodsId)) {
-					isExist = true;
-					break;
-				}
-			}
-		}
-		
-		if (!isExist) {
+		if (goodsId == null || targetCart == null) {
 			redirectAttributes.addFlashAttribute("showErrorToast", true);
 			
 			return "redirect:/cart/index";
 		}
-
+		
 		cartService.deleteByGoodsId(loginUser.getUserId(), goodsId);
 
 		return "redirect:/cart/index";
