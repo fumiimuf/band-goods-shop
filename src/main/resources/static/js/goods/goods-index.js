@@ -34,8 +34,9 @@ $(function() {
                 new bootstrap.Toast($('[data-cart-success-toast]')[0]).show();
             })
             .fail((xhr) => {
-				// サーバー（Java）から届いたメッセージを取得（届いていなければ空文字）
-                const errorMsg = xhr.responseJSON?.message || "";
+				// サーバーからのエラーメッセージを取得。無ければネットワークエラー用のメッセージを設定
+			    const defaultMsg = "通信に失敗しました。ネットワーク接続を確認してください。";
+			    const errorMsg = xhr.responseJSON?.message || defaultMsg;
 
                 // 3. エラートーストの本文にメッセージをセットして表示
                 $('[data-cart-error-message]').text(errorMsg);
