@@ -6,6 +6,16 @@
 <body>
 	<main layout:fragment="content">
 		<div class="container mt-4" style="max-width: 800px;">
+		<!-- トーストコンテナ -->
+		<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
+		    <!-- エラー時に表示するトースト -->
+		    <div th:if="${toastError}" class="toast show text-white bg-danger border-0 align-items-center p-2" data-bs-autohide="false" style="width: 350px;">
+		        <div class="d-flex align-items-center justify-content-between">
+		            <div class="toast-body text-center w-100 p-0" th:text="${#messages.msg(toastError)}"></div>
+		            <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="toast" aria-label="Close"></button>
+		        </div>
+		    </div>
+		</div>
 			<!-- 大見出し -->
 			<h2 class="fw-bold" th:text="#{label.admin.user.list.title}"></h2>
 
