@@ -14,7 +14,7 @@
 
 			<div class="card shadow-sm">
 				<div class="card-body">
-					<form th:action="@{/user/update}" th:object="${userEditForm}" method="post" novalidate>
+					<form th:action="@{/user/update}" th:object="${userEditForm}" method="post">
 						<!-- 氏名 -->
 						<div class="mb-3">
 							<label for="name" class="form-label fw-bold small text-secondary"> <span th:text="#{label.user.edit.name}"></span> <span class="badge bg-danger ms-1" th:text="#{label.user.edit.required}"></span>
