@@ -84,7 +84,8 @@ public class AdminGoodsController {
 	@PostMapping("/register")
 	public String registerGoods(@ModelAttribute @Valid GoodsRegisterForm goodsRegisterForm,
 			BindingResult bindingResult,
-			Model model) {
+			Model model, 
+			RedirectAttributes redirectAttributes) {
 		
 		MultipartFile imageFile = goodsRegisterForm.getImageFile();
 		
@@ -105,26 +106,27 @@ public class AdminGoodsController {
 		Goods goods = modelMapper.map(goodsRegisterForm, Goods.class);
 
 		goodsService.registerGoods(goods, imageFile);
+		
+		redirectAttributes.addFlashAttribute("toastSuccess", "msg.admin.goods.register.success");
 
 		return "redirect:/admin/goods/index";
 	}
 
 	// グッズ更新画面を表示
-	@GetMapping({"/edit/{id}", "/edit", "/edit/"})
+	@GetMapping({"/edit/{id}", "/edit/", "/edit"})
 	public String showGoodsEdit(
 			@PathVariable(required = false) Integer id,
 			@ModelAttribute GoodsEditForm goodsEditForm,
 			Model model, 
 			RedirectAttributes redirectAttributes) {
-
-		if (id == null || goodsService.getOneGoodsItemById(id) == null) {
-			redirectAttributes.addFlashAttribute("showErrorToast", true);
-			
-			return "redirect:/admin/goods/index";
-		}
 		
-		GoodsItem goodsItem = goodsService.getOneGoodsItemById(id);
+		if (id == null || goodsService.getOneGoodsItemById(id) == null) {
+	        redirectAttributes.addFlashAttribute("toastError", "msg.admin.goods.edit.noGoods");
+	        return "redirect:/admin/goods/index";
+	    }
 
+	    GoodsItem goodsItem = goodsService.getOneGoodsItemById(id);
+		
 		modelMapper.map(goodsItem.getGoods(), goodsEditForm);
 
 		List<Category> categories = categoryService.getAllCategories();
@@ -134,10 +136,18 @@ public class AdminGoodsController {
 	}
 
 	// グッズ更新処理を実行
-	@PostMapping("/update")
-	public String updateGoods(@ModelAttribute @Valid GoodsEditForm goodsEditForm,
+	@PostMapping({"/update/{id}", "/update/", "/update"})
+	public String updateGoods(
+			@PathVariable(required = false) Integer id,
+			@ModelAttribute @Valid GoodsEditForm goodsEditForm,
 			BindingResult bindingResult,
-			Model model) {
+			Model model, 
+			RedirectAttributes redirectAttributes) {
+		
+		if (id == null || goodsService.getOneGoodsItemById(id) == null) {
+			redirectAttributes.addFlashAttribute("toastError", "msg.admin.goods.edit.noGoods");
+	        return "redirect:/admin/goods/index";
+		}
 
 		MultipartFile imageFile = goodsEditForm.getImageFile();
 
@@ -155,6 +165,8 @@ public class AdminGoodsController {
 		Goods goods = modelMapper.map(goodsEditForm, Goods.class);
 		
 		goodsService.updateGoods(goods, imageFile);
+		
+		redirectAttributes.addFlashAttribute("toastSuccess", "msg.admin.goods.edit.success");
 
 		return "redirect:/admin/goods/index";
 	}
