@@ -14,8 +14,7 @@
 
 			<div class="card shadow-sm my-3">
 				<div class="card-body">
-					<form th:action="@{/admin/goods/update}" th:object="${goodsEditForm}" method="post" enctype="multipart/form-data">
-						<input type="hidden" th:field="*{id}">
+					<form th:action="@{/admin/goods/update/{id}(id=*{id})}" th:object="${goodsEditForm}" method="post" enctype="multipart/form-data">
 						<!-- 商品名 -->
 						<div class="mb-3">
 							<label class="form-label"> <span th:text="#{label.admin.goods.edit.name}"></span> <span class="badge bg-danger" th:text="#{label.admin.goods.edit.required}"></span>
