@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.entity.User;
 import com.example.model.Pagination;
@@ -47,10 +48,18 @@ public class AdminUserController {
 	}
 	
 	// 一般ユーザー詳細画面を表示
-	@GetMapping("/detail/{id}")
-	public String showUserDetail(@PathVariable Integer id, Model model) {
+	@GetMapping({"/detail/{id}", "/detail/", "/detail"})
+	public String showUserDetail(
+			@PathVariable(required = false) Integer id, 
+			Model model, 
+			RedirectAttributes redirectAttributes) {
 		
 		User user = userService.findById(id);
+		
+		if (user == null) {
+			redirectAttributes.addFlashAttribute("toastError", "msg.admin.user.list.noUser");
+			return "redirect:/admin/user/list";
+		}
 		
 		model.addAttribute("user", user);
 		
