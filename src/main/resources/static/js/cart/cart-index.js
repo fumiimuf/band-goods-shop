@@ -36,18 +36,33 @@ $(function() {
 				$('[data-header-cart-count]').text(res.totalQuantity);
 			})
 			.fail((xhr) => {
-				// サーバー（Java）から届いたメッセージを取得（届いていなければ空文字）
-				const errorMsg = xhr.responseJSON?.message || "";
+				// サーバーから返ってきたJSONメッセージを取得
+			    const res = xhr.responseJSON;
 
-				$select.addClass('is-invalid');
-				$form.find('[data-quantity-error-message]').text(errorMsg).show();
-				// トーストの本文にエラーメッセージをセットして表示
-				const $errorToast = $('[data-quantity-error-toast]');
-				if (errorMsg) {
-					$errorToast.find('.toast-body').text(errorMsg);
-				}
-				
-				new bootstrap.Toast($('[data-quantity-error-toast]')[0]).show();
+			    let toastMsg = "";
+			    let fieldMsg = "";
+
+			    if (res) {
+			        // 【パターンA】入力エラー等の場合（両方表示）
+			        toastMsg = res.message;      // トースト用メッセージ
+			        fieldMsg = res.fieldError;   // ドロップダウン下用メッセージ
+			    } else {
+			        // 【パターンB】通信エラーの場合（トーストのみ表示）
+			        toastMsg = "通信に失敗しました。ネットワーク接続を確認してください。";
+			    }
+
+			    // 1. バリデーションエラーメッセージ（fieldMsg）がある場合のみ、ドロップダウン下に表示
+			    if (fieldMsg) {
+			        $select.addClass('is-invalid');
+			        $form.find('[data-quantity-error-message]').text(fieldMsg).show();
+			    }
+
+			    // 2. トーストを表示（通信エラー・入力エラーどちらでも表示）
+			    const $errorToast = $('[data-quantity-error-toast]');
+			    if ($errorToast.length) {
+			        $errorToast.find('.toast-body').text(toastMsg);
+			        new bootstrap.Toast($errorToast[0]).show();
+			    }
 			});
 	});
 });
