@@ -10,6 +10,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,10 +106,15 @@ public class CartRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		if (bindingResult.hasErrors()) {
-			String errorMessage = messageSource.getMessage("toast.cart.quantityError", null, locale);
+			
+			String toastErrorMessage = messageSource.getMessage("msg.cart.toastError", null, locale);
+			
+			FieldError fieldError = bindingResult.getFieldError();
+		    String fieldErrorMessage = messageSource.getMessage(fieldError, locale);
 			
 			response.put("success", false);
-			response.put("message", errorMessage);
+			response.put("message", toastErrorMessage);
+			response.put("fieldError", fieldErrorMessage);
 			
 			return ResponseEntity.badRequest().body(response);
 		}
