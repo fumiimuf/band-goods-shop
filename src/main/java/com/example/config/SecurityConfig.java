@@ -15,8 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
 	@Autowired
-	private CustomSuccessHandler customSuccessHandler; 
-	
+	private CustomSuccessHandler customSuccessHandler;
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	    
@@ -35,14 +35,22 @@ public class SecurityConfig {
 					.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 					.requestMatchers("/login", "/user/register").permitAll()
 					.requestMatchers("/admin/**").hasRole("ADMIN")
+					.requestMatchers("/goods/**", "/cart/**", "/order/**", "/user/**").hasRole("USER")
 					.anyRequest().authenticated()
-					);
+			)
+			.exceptionHandling()
+			.accessDEniedPgge();
+			        
+			        
+			        
+	        );
+		
 		return http.build();
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
-	
+
 }
