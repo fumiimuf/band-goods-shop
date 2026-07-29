@@ -1,6 +1,5 @@
 package com.example.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,16 +13,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	@Autowired
-	private CustomSuccessHandler customSuccessHandler;
-
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	    
 		http.formLogin(login -> login
 				.loginPage("/login")
 				.usernameParameter("email")
-				.successHandler(customSuccessHandler)
+				.defaultSuccessUrl("/", true)
 				.failureUrl("/login?error")
 				.permitAll()
 			)
@@ -38,13 +34,10 @@ public class SecurityConfig {
 					.requestMatchers("/goods/**", "/cart/**", "/order/**", "/user/**").hasRole("USER")
 					.anyRequest().authenticated()
 			)
-			.exceptionHandling()
-			.accessDEniedPgge();
+			.exceptionHandling(exception -> exception.accessDeniedPage("/access-denied")
+					
+			);
 			        
-			        
-			        
-	        );
-		
 		return http.build();
 	}
 
