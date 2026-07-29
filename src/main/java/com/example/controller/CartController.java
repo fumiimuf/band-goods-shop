@@ -43,9 +43,9 @@ public class CartController {
 	}
 
 	// カート内の特定のグッズを削除
-	@PostMapping({"/delete/{goodsId}", "/delete", "/delete/"})
+	@PostMapping("/delete/{goodsId}")
 	public String deleteByGoodsId(
-			@PathVariable(required = false) Integer goodsId,
+			@PathVariable Integer goodsId,
 			@AuthenticationPrincipal LoginUser loginUser, 
 			RedirectAttributes redirectAttributes) {
 		
@@ -54,7 +54,7 @@ public class CartController {
 		
 		Cart targetCart = cartService.getTargetCart(userId, goodsId);
 		
-		if (goodsId == null || targetCart == null) {
+		if (targetCart == null) {
 			redirectAttributes.addFlashAttribute("showErrorToast", true);
 			
 			return "redirect:/cart/index";
