@@ -5,10 +5,15 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public class LoginUser extends User {
 
 	private final Integer userId;
 	
+	@Setter
 	private String name;
 	
 	private String email;
@@ -19,25 +24,5 @@ public class LoginUser extends User {
 		this.userId = user.getId();
 		this.name = user.getName();
 		this.email = user.getEmail();
-	}
-
-	// IDを取り出すためのメソッド
-	public Integer getUserId() {
-		return userId;
-	}
-	
-	// 名前を取り出すためのメソッド
-	public String getName() {
-		return name;
-	}
-	
-	// メールアドレスを取り出すためのメソッド
-	public String getEmail() {
-		return email;
-	}
-	
-	// 外部から最新の名前を受け取って上書きするメソッド
-	public void setName(String name) {
-		this.name = name;
 	}
 }
