@@ -36,9 +36,9 @@
 
 			<div class="mb-4">
 				<!-- 販売中ボタン -->
-				<a th:href="@{/admin/goods/index(status='active')}" class="btn me-2" th:classappend="${currentStatus == 'active'} ? 'btn-dark' : 'btn-outline-dark'" th:text="#{btn.admin.goods.status.active}"></a>
+				<a th:href="@{/admin/goods/index(status='active')}" class="btn me-2" th:classappend="${currentStatus == 'active'} ? 'btn-dark' : 'btn-outline-secondary'" th:text="#{btn.admin.goods.status.active}"></a>
 				<!-- 停止中ボタン -->
-				<a th:href="@{/admin/goods/index(status='suspended')}" class="btn" th:classappend="${currentStatus == 'suspended'} ? 'btn-dark' : 'btn-outline-dark'" th:text="#{btn.admin.goods.status.suspended}"></a>
+				<a th:href="@{/admin/goods/index(status='suspended')}" class="btn" th:classappend="${currentStatus == 'suspended'} ? 'btn-dark' : 'btn-outline-secondary'" th:text="#{btn.admin.goods.status.suspended}"></a>
 			</div>
 
 			<form th:action="@{/admin/goods/index}" method="get" class="mb-4">
