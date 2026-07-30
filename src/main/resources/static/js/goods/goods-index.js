@@ -2,6 +2,11 @@ $(function() {
 
     // 1. ポップオーバーの初期化（標準のclickトリガーを使用）
     const $popovers = $('[data-bs-toggle="popover"]').popover();
+	
+	// いずれかのポップオーバーが開く「直前」に、他のポップオーバーをすべて閉じる
+	    $('[data-bs-toggle="popover"]').on('show.bs.popover', function () {
+	        $popovers.not(this).popover('hide');
+	    });
 
     // ボタン以外をクリックしたときに閉じるための補正コード
     $(document).on('click', function(e) {
