@@ -113,9 +113,9 @@ public class AdminGoodsController {
 	}
 
 	// グッズ更新画面を表示
-	@GetMapping({"/edit/{id}", "/edit/", "/edit"})
+	@GetMapping("/edit/{id}")
 	public String showGoodsEdit(
-			@PathVariable(required = false) Integer id,
+			@PathVariable Integer id,
 			@ModelAttribute GoodsEditForm goodsEditForm,
 			Model model, 
 			RedirectAttributes redirectAttributes) {
@@ -136,9 +136,9 @@ public class AdminGoodsController {
 	}
 
 	// グッズ更新処理を実行
-	@PostMapping({"/update/{id}", "/update/", "/update"})
+	@PostMapping("/update/{id}")
 	public String updateGoods(
-			@PathVariable(required = false) Integer id,
+			@PathVariable Integer id,
 			@ModelAttribute @Valid GoodsEditForm goodsEditForm,
 			BindingResult bindingResult,
 			Model model, 
