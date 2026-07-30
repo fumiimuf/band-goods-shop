@@ -48,9 +48,9 @@ public class AdminUserController {
 	}
 	
 	// 一般ユーザー詳細画面を表示
-	@GetMapping({"/detail/{id}", "/detail/", "/detail"})
+	@GetMapping("/detail/{id}")
 	public String showUserDetail(
-			@PathVariable(required = false) Integer id, 
+			@PathVariable Integer id, 
 			Model model, 
 			RedirectAttributes redirectAttributes) {
 		
