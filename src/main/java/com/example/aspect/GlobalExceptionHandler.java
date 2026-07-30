@@ -22,10 +22,18 @@ public class GlobalExceptionHandler {
 		
 		log.warn("【404エラー】存在しないページへアクセスされました", e);
 		
-		redirectAttributes.addFlashAttribute("toastError", "messages.propertiesで後で定義します。");
+		redirectAttributes.addFlashAttribute("toastError", "toast.error.notFound");
 		
 		return "redirect:" + getTopUrlByRole(authentication);
 	}
+	
+	@ExceptionHandler(Exception.class)
+    public String handleException(Exception e) {
+		
+		log.warn("【システムエラー】予期せぬ例外が発生しました", e);
+		
+        return "error/error";
+    }
 	
 	// ログイン中の権限(Role)に応じて適切なトップページURLを返却するプライベートメソッド
 	private String getTopUrlByRole(Authentication authentication) {
