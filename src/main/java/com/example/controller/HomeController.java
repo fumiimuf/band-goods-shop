@@ -34,7 +34,7 @@ public class HomeController {
 	public String accessDenied(@AuthenticationPrincipal LoginUser loginUser,
 					RedirectAttributes redirectAttributes) {
 		
-		redirectAttributes.addFlashAttribute("toastError", "messages.propertiesで後で定義します。");
+		redirectAttributes.addFlashAttribute("toastError", "toast.error.notFound");
 		
 		if (loginUser == null) {
             return "redirect:/login";
