@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.config.LoginUser;
 import com.example.entity.Cart;
 import com.example.form.CartForm;
 import com.example.model.CartItem;
+import com.example.model.LoginUser;
 import com.example.service.CartService;
 import com.example.service.GoodsService;
 
