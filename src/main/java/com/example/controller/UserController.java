@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.config.LoginUser;
 import com.example.entity.User;
 import com.example.form.UserEditForm;
 import com.example.form.UserRegisterForm;
+import com.example.model.LoginUser;
 import com.example.service.UserService;
 
 import lombok.RequiredArgsConstructor;
