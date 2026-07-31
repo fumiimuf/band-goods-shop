@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.model;
 
 import java.util.Collection;
 
