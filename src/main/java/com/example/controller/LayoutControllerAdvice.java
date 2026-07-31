@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.example.config.LoginUser;
+import com.example.model.LoginUser;
 import com.example.service.CartService;
 
 import lombok.RequiredArgsConstructor;
