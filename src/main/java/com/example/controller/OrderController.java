@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.config.LoginUser;
 import com.example.entity.User;
 import com.example.model.CartItem;
+import com.example.model.LoginUser;
 import com.example.model.OrderViewItem;
 import com.example.model.Pagination;
 import com.example.service.CartService;
