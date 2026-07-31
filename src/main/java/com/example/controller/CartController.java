@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.config.LoginUser;
 import com.example.entity.Cart;
 import com.example.model.CartItem;
+import com.example.model.LoginUser;
 import com.example.service.CartService;
 
 import lombok.RequiredArgsConstructor;
