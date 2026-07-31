@@ -1,69 +1,129 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
 <meta charset="UTF-8">
 <title th:text="#{title.admin.goods}"></title>
 </head>
 <body>
 	<main layout:fragment="content">
-		<div class="container mt-4" style="max-width: 800px;">
-		<!-- トーストコンテナ -->
-		<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
-		    <!-- 成功時に表示するトースト -->
-		    <div th:if="${toastSuccess}" class="toast show text-white bg-success border-0 text-center p-2" data-bs-autohide="false" style="width: 350px;">
-		        <div class="d-flex align-items-center justify-content-between">
-		            <div class="toast-body text-center w-100 p-0" th:text="${#messages.msg(toastSuccess)}"></div>
-		            <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="toast" aria-label="Close"></button>
-		        </div>
-		    </div>
-		    <!-- エラー時に表示するトースト -->
-		    <div th:if="${toastError}" class="toast show text-white bg-danger border-0 align-items-center p-2" data-bs-autohide="false" style="width: 350px;">
-		        <div class="d-flex align-items-center justify-content-between">
-		            <div class="toast-body text-center w-100 p-0" th:text="${#messages.msg(toastError)}"></div>
-		            <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="toast" aria-label="Close"></button>
-		        </div>
-		    </div>
-		</div>
-		
+		<div
+			class="container mt-4"
+			style="max-width: 800px;">
+			<!-- トーストコンテナ -->
+			<div
+				class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
+				style="z-index: 1080;">
+				<!-- 成功時に表示するトースト -->
+				<div
+					th:if="${toastSuccess}"
+					class="toast show text-white bg-success border-0 text-center p-2"
+					data-bs-autohide="false"
+					style="width: 350px;">
+					<div class="d-flex align-items-center justify-content-between">
+						<div
+							class="toast-body text-center w-100 p-0"
+							th:text="${#messages.msg(toastSuccess)}"></div>
+						<button
+							type="button"
+							class="btn-close btn-close-white ms-2"
+							data-bs-dismiss="toast"
+							aria-label="Close"></button>
+					</div>
+				</div>
+				<!-- エラー時に表示するトースト -->
+				<div
+					th:if="${toastError}"
+					class="toast show text-white bg-danger border-0 align-items-center p-2"
+					data-bs-autohide="false"
+					style="width: 350px;">
+					<div class="d-flex align-items-center justify-content-between">
+						<div
+							class="toast-body text-center w-100 p-0"
+							th:text="${#messages.msg(toastError)}"></div>
+						<button
+							type="button"
+							class="btn-close btn-close-white ms-2"
+							data-bs-dismiss="toast"
+							aria-label="Close"></button>
+					</div>
+				</div>
+			</div>
+
 			<div class="d-flex justify-content-between align-items-center">
 				<!-- 大見出し -->
-				<h2 class="fw-bold text-dark mb-0" th:text="#{label.admin.goods.title}"></h2>
+				<h2
+					class="fw-bold text-dark mb-0"
+					th:text="#{label.admin.goods.title}"></h2>
 				<!-- 新規グッズ登録ボタン -->
-				<a th:href="@{/admin/goods/register}" class="btn btn-primary" th:text="#{btn.admin.goods.register}"></a>
+				<a
+					th:href="@{/admin/goods/register}"
+					class="btn btn-primary"
+					th:text="#{btn.admin.goods.register}"></a>
 			</div>
 
 			<hr class="border-2 opacity-100">
 
 			<div class="mb-4">
 				<!-- 販売中ボタン -->
-				<a th:href="@{/admin/goods/index(status='active')}" class="btn me-2" th:classappend="${currentStatus == 'active'} ? 'btn-dark' : 'btn-outline-secondary'" th:text="#{btn.admin.goods.status.active}"></a>
+				<a
+					th:href="@{/admin/goods/index(status='active')}"
+					class="btn me-2"
+					th:classappend="${currentStatus == 'active'} ? 'btn-dark' : 'btn-outline-secondary'"
+					th:text="#{btn.admin.goods.status.active}"></a>
 				<!-- 停止中ボタン -->
-				<a th:href="@{/admin/goods/index(status='suspended')}" class="btn" th:classappend="${currentStatus == 'suspended'} ? 'btn-dark' : 'btn-outline-secondary'" th:text="#{btn.admin.goods.status.suspended}"></a>
+				<a
+					th:href="@{/admin/goods/index(status='suspended')}"
+					class="btn"
+					th:classappend="${currentStatus == 'suspended'} ? 'btn-dark' : 'btn-outline-secondary'"
+					th:text="#{btn.admin.goods.status.suspended}"></a>
 			</div>
 
-			<form th:action="@{/admin/goods/index}" method="get" class="mb-4">
+			<form
+				th:action="@{/admin/goods/index}"
+				method="get"
+				class="mb-4">
 
-				<input type="hidden" name="status" th:value="${currentStatus}">
+				<input
+					type="hidden"
+					name="status"
+					th:value="${currentStatus}">
 
 				<div class="row row-cols-auto g-2 justify-content-end align-items-center">
 					<div>
 						<!-- 入力欄 -->
-						<input type="search" name="keyword" th:value="${keyword}" class="form-control" th:placeholder="#{placeholder.admin.goods.name}">
+						<input
+							type="search"
+							name="keyword"
+							th:value="${keyword}"
+							class="form-control"
+							th:placeholder="#{placeholder.admin.goods.name}">
 					</div>
 					<div>
 						<!-- 検索ボタン -->
-						<button type="submit" class="btn btn-dark btn-sm" th:text="#{btn.admin.goods.search}"></button>
+						<button
+							type="submit"
+							class="btn btn-dark btn-sm"
+							th:text="#{btn.admin.goods.search}"></button>
 					</div>
 				</div>
 			</form>
-			
+
 			<!-- 0件の場合のメッセージ -->
-			<div th:if="${#lists.isEmpty(pagination.content)}" class="text-center my-5">
-			    <p class="text-muted" th:text="#{msg.admin.goods.noGoods}"></p>
+			<div
+				th:if="${#lists.isEmpty(pagination.content)}"
+				class="text-center my-5">
+				<p
+					class="text-muted"
+					th:text="#{msg.admin.goods.noGoods}"></p>
 			</div>
-			
+
 			<!-- データがある場合のみテーブルを表示 -->
-			<div th:unless="${#lists.isEmpty(pagination.content)}" class="table-responsive">
+			<div
+				th:unless="${#lists.isEmpty(pagination.content)}"
+				class="table-responsive">
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark text-center">
 						<tr>
@@ -71,8 +131,12 @@
 							<th th:text="#{label.admin.goods.category}"></th>
 							<th th:text="#{label.admin.goods.goodsName}"></th>
 							<th th:text="#{label.admin.goods.price}"></th>
-							<th th:if="${currentStatus == 'active'}" th:text="#{label.admin.goods.registeredAt}"></th>
-							<th th:if="${currentStatus == 'suspended'}" th:text="#{label.admin.goods.deletedAt}"></th>
+							<th
+								th:if="${currentStatus == 'active'}"
+								th:text="#{label.admin.goods.registeredAt}"></th>
+							<th
+								th:if="${currentStatus == 'suspended'}"
+								th:text="#{label.admin.goods.deletedAt}"></th>
 
 							<th th:text="#{label.admin.goods.action}"></th>
 						</tr>
@@ -80,44 +144,80 @@
 					<tbody>
 						<tr th:each="item : ${pagination.content}">
 							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'">
-								<div class="d-flex align-items-center justify-content-center flex-shrink-0 mx-auto" style="height: 100px; width: 100px;">
+								<div
+									class="d-flex align-items-center justify-content-center flex-shrink-0 mx-auto"
+									style="height: 100px; width: 100px;">
 									<!-- 画像 -->
-									<img th:src="${item.getImageUrl()}" class="h-100 w-100 object-fit-contain" th:alt="${item.goods.name}">
+									<img
+										th:src="${item.getImageUrl()}"
+										class="h-100 w-100 object-fit-contain"
+										th:alt="${item.goods.name}">
 								</div>
 							</td>
 							<!-- カテゴリ -->
-							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="${item.category.name}"></td>
+							<td
+								th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'"
+								th:text="${item.category.name}"></td>
 							<!-- 商品名 -->
-							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="${item.goods.name}" class="fw-bold"></td>
+							<td
+								th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'"
+								th:text="${item.goods.name}"
+								class="fw-bold"></td>
 							<!-- 単価 -->
-							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="#{common.price.format.symbol(${item.goods.price})}"></td>
+							<td
+								th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'"
+								th:text="#{common.price.format.symbol(${item.goods.price})}"></td>
 							<!-- 登録日時 -->
-							<td th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:if="${currentStatus == 'active'}" th:text="${#temporals.format(item.goods.createDateTime, 'yyyy/MM/dd')}"></td>
+							<td
+								th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'"
+								th:if="${currentStatus == 'active'}"
+								th:text="${#temporals.format(item.goods.createDateTime, 'yyyy/MM/dd')}"></td>
 							<!-- 削除日時 -->
-							<td th:if="${currentStatus == 'suspended'}" th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'" th:text="${#temporals.format(item.goods.deleteDateTime, 'yyyy/MM/dd')}"></td>
+							<td
+								th:if="${currentStatus == 'suspended'}"
+								th:classappend="${currentStatus == 'suspended'} ? 'opacity-50'"
+								th:text="${#temporals.format(item.goods.deleteDateTime, 'yyyy/MM/dd')}"></td>
 							<!-- 更新ボタン -->
-							<td class="text-center"><a th:href="@{/admin/goods/edit/{id}(id=${item.goods.id})}" class="btn btn-sm btn-primary px-3" th:text="#{btn.admin.goods.update}"></a></td>
+							<td class="text-center">
+								<a
+									th:href="@{/admin/goods/edit/{id}(id=${item.goods.id})}"
+									class="btn btn-sm btn-primary px-3"
+									th:text="#{btn.admin.goods.update}"></a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<!-- ページネーション -->
-			<nav th:if="${pagination.totalPages > 1}" aria-label="管理者用グッズ一覧ページナビゲーション" class="mt-5">
+			<nav
+				th:if="${pagination.totalPages > 1}"
+				aria-label="管理者用グッズ一覧ページナビゲーション"
+				class="mt-5">
 				<ul class="pagination justify-content-center d-flex gap-1">
-			
-					<li class="page-item" th:classappend="${pagination.currentPage == 0} ? 'disabled'"><a
+
+					<li
+						class="page-item"
+						th:classappend="${pagination.currentPage == 0} ? 'disabled'">
+						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/admin/goods/index(status=${currentStatus}, page=${pagination.currentPage - 1}, keyword=${keyword})}"
 							th:text="#{common.pagination.prev}"></a>
 					</li>
-			
-					<li class="page-item" th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
-						th:classappend="${i == pagination.currentPage} ? 'active'"><a
+
+					<li
+						class="page-item"
+						th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
+						th:classappend="${i == pagination.currentPage} ? 'active'">
+						<a
 							class="page-link text-dark border-dark rounded-1"
-							th:href="@{/admin/goods/index(status=${currentStatus}, page=${i}, keyword=${keyword})}" th:text="${i + 1}"></a>
+							th:href="@{/admin/goods/index(status=${currentStatus}, page=${i}, keyword=${keyword})}"
+							th:text="${i + 1}"></a>
 					</li>
-			
-					<li class="page-item" th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'"><a
+
+					<li
+						class="page-item"
+						th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'">
+						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/admin/goods/index(status=${currentStatus}, page=${pagination.currentPage + 1}, keyword=${keyword})}"
 							th:text="#{common.pagination.next}"></a>
