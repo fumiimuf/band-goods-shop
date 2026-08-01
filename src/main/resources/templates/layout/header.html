@@ -1,73 +1,138 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head></head>
 <body>
-	<header th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+	<header
+		th:fragment="header"
+		class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
 		<div class="container-fluid">
 			<!-- サイト名 -->
-			<div sec:authorize="hasRole('USER')" class="d-flex align-items-center">
-				<a class="navbar-brand fw-bold" th:href="@{/goods/index}"> <i class="fa-solid fa-house me-1"></i>[[#{label.header.siteName}]]
+			<div
+				sec:authorize="hasRole('USER')"
+				class="d-flex align-items-center">
+				<a
+					class="navbar-brand fw-bold"
+					th:href="@{/goods/index}">
+					<i class="fa-solid fa-house me-1"></i>
+					[[#{label.header.siteName}]]
 				</a>
 			</div>
 
-			<div sec:authorize="hasRole('ADMIN')" class="d-flex align-items-center">
-				<a class="navbar-brand fw-bold" th:href="@{/admin/goods/index}"> <i class="fa-solid fa-house me-1"></i>[[#{label.header.admin.siteName}]]
-				</a> <span class="badge bg-primary small" th:text="#{label.header.adminBadge}"></span>
+			<div
+				sec:authorize="hasRole('ADMIN')"
+				class="d-flex align-items-center">
+				<a
+					class="navbar-brand fw-bold"
+					th:href="@{/admin/goods/index}">
+					<i class="fa-solid fa-house me-1"></i>
+					[[#{label.header.admin.siteName}]]
+				</a>
+				<span
+					class="badge bg-primary small"
+					th:text="#{label.header.adminBadge}"></span>
 			</div>
 
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-expanded="false">
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarNavDropdown"
+				aria-expanded="false">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+			<div
+				class="collapse navbar-collapse justify-content-end"
+				id="navbarNavDropdown">
 				<ul class="navbar-nav flex-row align-items-center w-100 justify-content-end py-2 py-lg-0">
 
 					<!-- 1. 一般ユーザー用メニュー -->
 					<th:block sec:authorize="hasRole('USER')">
 						<li class="nav-item me-2 pe-3 text-white border-end">
-							<i class="fa-solid fa-user me-1"></i><span th:text="#{common.user.honorific(${loginUser.name})}"></span>
+							<i class="fa-solid fa-user me-1"></i>
+							<span th:text="#{common.user.honorific(${loginUser.name})}"></span>
 						</li>
 						<li class="nav-item px-2">
-							<a class="nav-link text-white" th:href="@{/goods/index}"> <i class="fa-solid fa-box me-1"></i>[[#{btn.header.goodsIndex}]]
-						</a>
+							<a
+								class="nav-link text-white"
+								th:href="@{/goods/index}">
+								<i class="fa-solid fa-box me-1"></i>
+								[[#{btn.header.goodsIndex}]]
+							</a>
 						</li>
 						<li class="nav-item px-2">
-							<a class="nav-link text-white font-weight-bold" th:href="@{/cart/index}"> <i class="fa-solid fa-cart-shopping me-1"></i>[[#{btn.header.cart}]](<span data-header-cart-count class="text-danger" th:text="${cartCount != null ? cartCount : 0}"></span>)
-						</a>
+							<a
+								class="nav-link text-white font-weight-bold"
+								th:href="@{/cart/index}">
+								<i class="fa-solid fa-cart-shopping me-1"></i>
+								[[#{btn.header.cart}]](
+								<span
+									data-header-cart-count
+									class="text-danger"
+									th:text="${cartCount != null ? cartCount : 0}"></span>
+								)
+							</a>
 						</li>
 						<li class="nav-item px-2">
-							<a class="nav-link text-white" th:href="@{/user/profile}"> <i class="fa-solid fa-address-card me-1"></i>[[#{btn.header.userProfile}]]
-						</a>
+							<a
+								class="nav-link text-white"
+								th:href="@{/user/profile}">
+								<i class="fa-solid fa-address-card me-1"></i>
+								[[#{btn.header.userProfile}]]
+							</a>
 						</li>
 						<li class="nav-item px-2">
-							<a class="nav-link text-white" th:href="@{/order/history}"> <i class="fa-solid fa-clock-rotate-left me-1"></i>[[#{btn.header.orderHistory}]]
-						</a>
+							<a
+								class="nav-link text-white"
+								th:href="@{/order/history}">
+								<i class="fa-solid fa-clock-rotate-left me-1"></i>
+								[[#{btn.header.orderHistory}]]
+							</a>
 						</li>
 					</th:block>
 
 					<!-- 2. 管理者用メニュー -->
 					<th:block sec:authorize="hasRole('ADMIN')">
 						<li class="nav-item px-2">
-							<a class="nav-link text-white" th:href="@{/admin/goods/index}"> <i class="fa-solid fa-box me-1"></i>[[#{btn.header.admin.goodsIndex}]]
-						</a>
+							<a
+								class="nav-link text-white"
+								th:href="@{/admin/goods/index}">
+								<i class="fa-solid fa-box me-1"></i>
+								[[#{btn.header.admin.goodsIndex}]]
+							</a>
 						</li>
 
 						<li class="nav-item px-2">
-							<a class="nav-link text-white" th:href="@{/admin/user/list}"> <i class="fa-solid fa-users me-1"></i>[[#{btn.header.admin.userList}]]
-						</a>
+							<a
+								class="nav-link text-white"
+								th:href="@{/admin/user/list}">
+								<i class="fa-solid fa-users me-1"></i>
+								[[#{btn.header.admin.userList}]]
+							</a>
 						</li>
 
 						<li class="nav-item px-2">
-							<a class="nav-link text-white" th:href="@{/admin/order/list}"> <i class="fa-solid fa-list-check me-1"></i>[[#{btn.header.admin.orderList}]]
-						</a>
+							<a
+								class="nav-link text-white"
+								th:href="@{/admin/order/list}">
+								<i class="fa-solid fa-list-check me-1"></i>
+								[[#{btn.header.admin.orderList}]]
+							</a>
 						</li>
 					</th:block>
 
 					<!-- 3. ログアウトボタン (共通) -->
 					<li class="nav-item ms-2 ms-sm-3">
-						<form th:action="@{/logout}" method="post">
-							<button type="submit" class="btn btn-outline-light btn-sm">
-								<i class="fa-solid fa-right-from-bracket me-1"></i>[[#{btn.header.logout}]]
+						<form
+							th:action="@{/logout}"
+							method="post">
+							<button
+								type="submit"
+								class="btn btn-outline-light btn-sm">
+								<i class="fa-solid fa-right-from-bracket me-1"></i>
+								[[#{btn.header.logout}]]
 							</button>
 						</form>
 					</li>

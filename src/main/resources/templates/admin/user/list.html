@@ -1,44 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
 <title th:text="#{title.admin.user.list}"></title>
 </head>
 <body>
 	<main layout:fragment="content">
-		<div class="container mt-4" style="max-width: 800px;">
-		<!-- トーストコンテナ -->
-		<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
-		    <!-- エラー時に表示するトースト -->
-		    <div th:if="${toastError}" class="toast show text-white bg-danger border-0 align-items-center p-2" data-bs-autohide="false" style="width: 350px;">
-		        <div class="d-flex align-items-center justify-content-between">
-		            <div class="toast-body text-center w-100 p-0" th:text="${#messages.msg(toastError)}"></div>
-		            <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="toast" aria-label="Close"></button>
-		        </div>
-		    </div>
-		</div>
+		<div
+			class="container mt-4"
+			style="max-width: 800px;">
+			<!-- トーストコンテナ -->
+			<div
+				class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
+				style="z-index: 1080;">
+				<!-- エラー時に表示するトースト -->
+				<div
+					th:if="${toastError}"
+					class="toast show text-white bg-danger border-0 align-items-center p-2"
+					data-bs-autohide="false"
+					style="width: 350px;">
+					<div class="d-flex align-items-center justify-content-between">
+						<div
+							class="toast-body text-center w-100 p-0"
+							th:text="${#messages.msg(toastError)}"></div>
+						<button
+							type="button"
+							class="btn-close btn-close-white ms-2"
+							data-bs-dismiss="toast"
+							aria-label="Close"></button>
+					</div>
+				</div>
+			</div>
 			<!-- 大見出し -->
-			<h2 class="fw-bold" th:text="#{label.admin.user.list.title}"></h2>
+			<h2
+				class="fw-bold"
+				th:text="#{label.admin.user.list.title}"></h2>
 
 			<hr class="border-2 opacity-100">
 
 			<div class="mb-4">
-				<form th:action="@{/admin/user/list}" method="get">
+				<form
+					th:action="@{/admin/user/list}"
+					method="get">
 					<div class="d-flex justify-content-end align-items-center gap-2">
 						<!-- 入力フォーム -->
-						<input type="search" name="keyword" th:value="${keyword}" class="form-control w-50" th:placeholder="#{placeholder.admin.user.list.nameOrEmail}">
+						<input
+							type="search"
+							name="keyword"
+							th:value="${keyword}"
+							class="form-control w-50"
+							th:placeholder="#{placeholder.admin.user.list.nameOrEmail}">
 						<!-- 検索ボタン -->
-						<button type="submit" class="btn btn-dark text-nowrap" th:text="#{btn.admin.user.list.search}"></button>
+						<button
+							type="submit"
+							class="btn btn-dark text-nowrap"
+							th:text="#{btn.admin.user.list.search}"></button>
 					</div>
 				</form>
 			</div>
-			
+
 			<!-- 0件の場合のメッセージ -->
-			<div th:if="${#lists.isEmpty(pagination.content)}" class="text-center my-5">
-			    <p class="text-muted" th:text="#{msg.admin.user.list.noUser}"></p>
+			<div
+				th:if="${#lists.isEmpty(pagination.content)}"
+				class="text-center my-5">
+				<p
+					class="text-muted"
+					th:text="#{msg.admin.user.list.noUser}"></p>
 			</div>
-			
+
 			<!-- データがある場合のみテーブルを表示 -->
-			<div th:unless="${#lists.isEmpty(pagination.content)}" class="table-responsive">
+			<div
+				th:unless="${#lists.isEmpty(pagination.content)}"
+				class="table-responsive">
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark">
 						<tr>
@@ -49,7 +84,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="user : ${pagination.content}" class="fw-bold">
+						<tr
+							th:each="user : ${pagination.content}"
+							class="fw-bold">
 							<!-- ID -->
 							<td th:text="${user.id}"></td>
 							<!-- 氏名 -->
@@ -57,29 +94,46 @@
 							<!-- メールアドレス -->
 							<td th:text="${user.email}"></td>
 							<!-- 詳細を表示ボタン -->
-							<td class="text-center"><a th:href="@{/admin/user/detail/{id}(id=${user.id})}" class="btn btn-primary btn-sm px-3" th:text="#{btn.admin.user.list.detail}"></a></td>
+							<td class="text-center">
+								<a
+									th:href="@{/admin/user/detail/{id}(id=${user.id})}"
+									class="btn btn-primary btn-sm px-3"
+									th:text="#{btn.admin.user.list.detail}"></a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<!-- ページネーション -->
-			<nav th:if="${pagination.totalPages > 1}" aria-label="一般ユーザー一覧ページナビゲーション" class="mt-5">
+			<nav
+				th:if="${pagination.totalPages > 1}"
+				aria-label="一般ユーザー一覧ページナビゲーション"
+				class="mt-5">
 				<ul class="pagination justify-content-center d-flex gap-1">
-			
-					<li class="page-item" th:classappend="${pagination.currentPage == 0} ? 'disabled'"><a
+
+					<li
+						class="page-item"
+						th:classappend="${pagination.currentPage == 0} ? 'disabled'">
+						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/admin/user/list(keyword=${keyword}, page=${pagination.currentPage - 1})}"
 							th:text="#{common.pagination.prev}"></a>
 					</li>
-			
-					<li class="page-item" th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
-						th:classappend="${i == pagination.currentPage} ? 'active'"><a
+
+					<li
+						class="page-item"
+						th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
+						th:classappend="${i == pagination.currentPage} ? 'active'">
+						<a
 							class="page-link text-dark border-dark rounded-1"
-							th:href="@{/admin/user/list(keyword=${keyword}, page=${i})}" 
+							th:href="@{/admin/user/list(keyword=${keyword}, page=${i})}"
 							th:text="${i + 1}"></a>
 					</li>
-			
-					<li class="page-item" th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'"><a
+
+					<li
+						class="page-item"
+						th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'">
+						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/admin/user/list(keyword=${keyword}, page=${pagination.currentPage + 1})}"
 							th:text="#{common.pagination.next}"></a>
@@ -88,7 +142,10 @@
 			</nav>
 			<!-- 戻るボタン -->
 			<div class="mt-4 text-center">
-				<a th:href="@{/admin/goods/index}" class="btn btn-outline-secondary px-4" th:text="#{btn.admin.user.list.back}"></a>
+				<a
+					th:href="@{/admin/goods/index}"
+					class="btn btn-outline-secondary px-4"
+					th:text="#{btn.admin.user.list.back}"></a>
 			</div>
 		</div>
 	</main>

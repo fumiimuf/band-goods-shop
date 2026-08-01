@@ -1,60 +1,98 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{layout/layout}">
+<html
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
-    <title th:text="#{title.user.profile}"></title>
+<title th:text="#{title.user.profile}"></title>
 </head>
 <body class="bg-light">
-    <main layout:fragment="content">
-        <div class="container mt-4" style="max-width: 600px;">
-        
-        	<!-- ユーザー編集成功時に表示するトースト -->
-			<div th:if="${editSuccess}" class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
-			    <div class="toast show text-white bg-success border-0 position-relative" style="width: 350px; min-height: 50px;">
-			        <div class="d-flex align-items-center justify-content-center h-100 p-3">
-			            <div class="w-100 text-center toast-body p-0" th:text="${#messages.msg(editSuccess)}"></div>
-			            <button type="button" class="btn-close btn-close-white position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="toast" aria-label="Close"></button>
-			        </div>
-			    </div>
+	<main layout:fragment="content">
+		<div
+			class="container mt-4"
+			style="max-width: 600px;">
+
+			<!-- ユーザー編集成功時に表示するトースト -->
+			<div
+				th:if="${editSuccess}"
+				class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
+				style="z-index: 1080;">
+				<div
+					class="toast show text-white bg-success border-0 position-relative"
+					style="width: 350px; min-height: 50px;">
+					<div class="d-flex align-items-center justify-content-center h-100 p-3">
+						<div
+							class="w-100 text-center toast-body p-0"
+							th:text="${#messages.msg(editSuccess)}"></div>
+						<button
+							type="button"
+							class="btn-close btn-close-white position-absolute top-50 end-0 translate-middle-y me-3"
+							data-bs-dismiss="toast"
+							aria-label="Close"></button>
+					</div>
+				</div>
 			</div>
-        
-            <!-- 大見出し -->
-            <h1 class="text-center" th:text="#{label.user.profile.title}"></h1>
-            
-            <hr class="border-2 opacity-100">
-            
-            <div class="card border-secondary-subtle rounded-4 shadow-sm p-4 mb-4 bg-white">
-                <!-- 氏名 -->
-                <div class="mb-4">
-                    <div class="small text-muted fw-bold mb-1" th:text="#{label.user.profile.name}"></div>
-                    <div class="fs-5 fw-bold text-dark" th:text="${user.name}"></div>
-                </div>
-                <!-- メールアドレス -->
-                <div class="mb-4">
-                    <div class="small text-muted fw-bold mb-1" th:text="#{label.user.profile.email}"></div>
-                    <div class="fs-5 fw-bold text-dark" th:text="${user.email}"></div>
-                </div>
-                <!-- 郵便番号 -->
-                <div class="mb-4">
-                    <div class="small text-muted fw-bold mb-1" th:text="#{label.user.profile.zipCode}"></div>
-                    <div class="fs-5 fw-bold text-dark" th:text="${user.zipCode}"></div>
-                </div>
-                <!-- 住所 -->
-                <div class="mb-0">
-                    <div class="small text-muted fw-bold mb-1" th:text="#{label.user.profile.address}"></div>
-                    <div class="fs-5 fw-bold text-dark lh-base" th:text="${user.address}"></div>
-                </div>
-                
-            </div>
-            
-            <div class="d-flex gap-3 justify-content-center my-4">
-            	<!-- 戻るボタン -->
-                <a th:href="@{/goods/index}" class="btn btn-outline-secondary px-4 py-2 rounded-1" th:text="#{btn.user.profile.back}"></a>
-                <!-- 編集ボタン -->
-                <a th:href="@{/user/edit}" class="btn btn-primary px-4 py-2 rounded-1" th:text="#{btn.user.profile.edit}"></a>
-            </div>
-        </div>
-    </main>
+
+			<!-- 大見出し -->
+			<h1
+				class="text-center"
+				th:text="#{label.user.profile.title}"></h1>
+
+			<hr class="border-2 opacity-100">
+
+			<div class="card border-secondary-subtle rounded-4 shadow-sm p-4 mb-4 bg-white">
+				<!-- 氏名 -->
+				<div class="mb-4">
+					<div
+						class="small text-muted fw-bold mb-1"
+						th:text="#{label.user.profile.name}"></div>
+					<div
+						class="fs-5 fw-bold text-dark"
+						th:text="${user.name}"></div>
+				</div>
+				<!-- メールアドレス -->
+				<div class="mb-4">
+					<div
+						class="small text-muted fw-bold mb-1"
+						th:text="#{label.user.profile.email}"></div>
+					<div
+						class="fs-5 fw-bold text-dark"
+						th:text="${user.email}"></div>
+				</div>
+				<!-- 郵便番号 -->
+				<div class="mb-4">
+					<div
+						class="small text-muted fw-bold mb-1"
+						th:text="#{label.user.profile.zipCode}"></div>
+					<div
+						class="fs-5 fw-bold text-dark"
+						th:text="${user.zipCode}"></div>
+				</div>
+				<!-- 住所 -->
+				<div class="mb-0">
+					<div
+						class="small text-muted fw-bold mb-1"
+						th:text="#{label.user.profile.address}"></div>
+					<div
+						class="fs-5 fw-bold text-dark lh-base"
+						th:text="${user.address}"></div>
+				</div>
+
+			</div>
+
+			<div class="d-flex gap-3 justify-content-center my-4">
+				<!-- 戻るボタン -->
+				<a
+					th:href="@{/goods/index}"
+					class="btn btn-outline-secondary px-4 py-2 rounded-1"
+					th:text="#{btn.user.profile.back}"></a>
+				<!-- 編集ボタン -->
+				<a
+					th:href="@{/user/edit}"
+					class="btn btn-primary px-4 py-2 rounded-1"
+					th:text="#{btn.user.profile.edit}"></a>
+			</div>
+		</div>
+	</main>
 </body>
 </html>
