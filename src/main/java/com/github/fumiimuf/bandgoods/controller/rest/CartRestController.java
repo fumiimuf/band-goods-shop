@@ -1,4 +1,4 @@
-package com.github.fumiimuf.bandgoods.rest;
+package com.github.fumiimuf.bandgoods.controller.rest;
 
 import java.util.HashMap;
 import java.util.List;
