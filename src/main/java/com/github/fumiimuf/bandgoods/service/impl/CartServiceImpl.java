@@ -60,7 +60,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart getTargetCart(Integer userId, Integer goodsId) {
+	public Cart getCart(Integer userId, Integer goodsId) {
 		return cartMapper.selectByUserIdAndGoodsId(userId, goodsId);
 	}
 

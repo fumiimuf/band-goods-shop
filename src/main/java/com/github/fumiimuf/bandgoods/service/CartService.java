@@ -21,7 +21,7 @@ public interface CartService {
 	
 	int getTotalAmount(Integer userId);
 	
-	Cart getTargetCart(Integer userId, Integer goodsId);
+	Cart getCart(Integer userId, Integer goodsId);
 	
 	List<CartItem> getActiveItemsInCart(Integer userId);
 }

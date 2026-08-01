@@ -61,7 +61,7 @@ public class CartRestController {
 		Integer userId = loginUser.getUserId();
 		
 		// 該当商品がカートにあるのか確認するためのカート情報を取得
-		Cart targetCart = cartService.getTargetCart(userId, goodsId);
+		Cart targetCart = cartService.getCart(userId, goodsId);
 		
 		if (targetCart != null && targetCart.getQuantity() >= 10) {
 			String errorMessage = messageSource.getMessage("toast.goods.cartLimitError", null, locale);
@@ -121,7 +121,7 @@ public class CartRestController {
 		
 		Integer userId = loginUser.getUserId();
 		
-		Cart targetCart = cartService.getTargetCart(userId, form.getGoodsId());
+		Cart targetCart = cartService.getCart(userId, form.getGoodsId());
 		
 		if (targetCart == null) {
 			String errorMessage = messageSource.getMessage("toast.cart.noGoodsId", null, locale);
