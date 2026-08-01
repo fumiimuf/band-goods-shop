@@ -24,7 +24,6 @@ public class LayoutControllerAdvice {
 		if (loginUser != null) {
 			cartCount = cartService.getTotalQuantity(loginUser.getUserId());
 			
-			model.addAttribute("loginUser", loginUser);
 		}
 		model.addAttribute("cartCount", cartCount);
 	}
