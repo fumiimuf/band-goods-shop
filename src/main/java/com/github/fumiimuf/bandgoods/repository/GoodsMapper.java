@@ -25,5 +25,5 @@ public interface GoodsMapper {
 	
 	void update(Goods goods);
 	
-	Goods findActiveGoodsById(Integer goodsId);
+	Goods selectActiveGoodsById(Integer goodsId);
 }

@@ -83,7 +83,7 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	@Override
 	public boolean isAvailableGoods(Integer goodsId) {
-		Goods goods = goodsMapper.findActiveGoodsById(goodsId);
+		Goods goods = goodsMapper.selectActiveGoodsById(goodsId);
 		
 		return goods != null;
 	}
