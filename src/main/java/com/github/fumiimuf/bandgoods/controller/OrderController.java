@@ -113,7 +113,7 @@ public class OrderController {
 			return false;
 		}
 		for (CartItem item : cartList) {
-			if (item.getGoods() != null && item.getGoods().getIsDeleted()) {
+			if (item.getGoods() == null || item.getGoods().getIsDeleted()) {
 				return false;
 			}
 		}
