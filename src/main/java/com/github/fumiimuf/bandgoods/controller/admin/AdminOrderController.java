@@ -31,7 +31,7 @@ public class AdminOrderController {
 			@RequestParam(defaultValue = "0") int page,
 			Model model) {
 		
-		long totalCount = orderService.countAllOrders(keyword);
+		long totalCount = orderService.getOrderCount(keyword);
 		
 		Pagination<OrderViewItem> pagination = new Pagination<>(page, totalCount, PAGE_SIZE);
 		

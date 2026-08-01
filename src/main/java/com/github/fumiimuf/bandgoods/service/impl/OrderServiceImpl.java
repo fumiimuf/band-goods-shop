@@ -109,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public long countAllOrders(String keyword) {
+	public long getOrderCount(String keyword) {
 		return orderMapper.selectCountAllOrders(keyword);
 	}
 }

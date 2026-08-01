@@ -16,5 +16,5 @@ public interface OrderService {
 	
 	List<OrderViewItem> getAllOrderHistoryByPage(String keyword, int page, int size);
 	
-	long countAllOrders(String keyword);
+	long getOrderCount(String keyword);
 }
