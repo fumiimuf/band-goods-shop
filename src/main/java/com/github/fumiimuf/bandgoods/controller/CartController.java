@@ -35,7 +35,6 @@ public class CartController {
 
 		int totalAmount = cartService.getTotalAmount(userId);
 
-		model.addAttribute("loginUserName", loginUser.getName());
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("totalAmount", totalAmount);
 
