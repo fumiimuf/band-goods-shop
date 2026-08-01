@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.repository.OrderMapper">
+<mapper namespace="com.github.fumiimuf.bandgoods.repository.OrderMapper">
 	
 	<resultMap id="OrderWithDetailMap" type="Order">
 		<id property="id" column="order_id" />
@@ -12,7 +12,7 @@
 	    <result property="totalPrice" column="total_price" />
 	    <result property="orderedAt" column="ordered_at" />
 	    
-	    <collection property="details" ofType="com.example.entity.OrderDetail">
+	    <collection property="details" ofType="com.github.fumiimuf.bandgoods.entity.OrderDetail">
 	        <id property="id" column="detail_id" />
 	        <result property="orderId" column="order_id" />
 	        <result property="orderedImage" column="ordered_image" />

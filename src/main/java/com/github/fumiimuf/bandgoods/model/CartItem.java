@@ -1,0 +1,30 @@
+package com.github.fumiimuf.bandgoods.model;
+
+import com.github.fumiimuf.bandgoods.entity.Goods;
+import com.github.fumiimuf.bandgoods.entity.User;
+
+import lombok.Data;
+
+@Data
+public class CartItem {
+
+	private User user;
+	
+	private Goods goods;
+	
+    private Integer quantity;
+    
+    public int getSubtotal() {
+    	if (this.goods == null || this.goods.getPrice() == null) {
+    		return 0;
+    	}
+    	return this.goods.getPrice() * this.quantity;
+    }
+    
+    public String getImageUrl() {
+		if (this.goods == null) {
+			return "/images/test/no_image.png";
+		}
+		return this.goods.getImageUrl();
+    }
+}

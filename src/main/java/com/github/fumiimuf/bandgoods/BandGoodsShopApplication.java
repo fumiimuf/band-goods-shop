@@ -1,0 +1,13 @@
+package com.github.fumiimuf.bandgoods;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BandGoodsShopApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BandGoodsShopApplication.class, args);
+	}
+
+}
