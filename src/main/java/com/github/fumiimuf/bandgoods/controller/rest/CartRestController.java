@@ -50,10 +50,10 @@ public class CartRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		if (!goodsService.isAvailableGoods(goodsId)) {
-			String message = messageSource.getMessage("msg.goods.noGoods", null, locale);
+			String errorMessage = messageSource.getMessage("toast.error.noGoods", null, locale);
 			
 			response.put("success", false);
-			response.put("message", message);
+			response.put("errorMessage", errorMessage);
 			
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -64,10 +64,10 @@ public class CartRestController {
 		Cart targetCart = cartService.getCart(userId, goodsId);
 		
 		if (targetCart != null && targetCart.getQuantity() >= 10) {
-			String errorMessage = messageSource.getMessage("toast.goods.cartLimitError", null, locale);
+			String errorMessage = messageSource.getMessage("toast.error.goodsQuantityInCart", null, locale);
 			
 			response.put("success", false);
-			response.put("message", errorMessage);
+			response.put("errorMessage", errorMessage);
 			
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -84,12 +84,12 @@ public class CartRestController {
 			cartService.updateQuantity(targetCart);
 		}
 		
-		String successMessage = messageSource.getMessage("toast.goods.addCartSuccess", null, locale);
+		String successMessage = messageSource.getMessage("toast.success.addCart", null, locale);
 		
 		int totalQuantity = cartService.getTotalQuantity(userId);
 		
 		response.put("success", true);
-		response.put("message", successMessage);
+		response.put("successMessage", successMessage);
 		response.put("newCartCount", totalQuantity);
 		
 		return ResponseEntity.ok(response);
@@ -107,13 +107,13 @@ public class CartRestController {
 		
 		if (bindingResult.hasErrors()) {
 			
-			String toastErrorMessage = messageSource.getMessage("msg.cart.toastError", null, locale);
+			String errorMessage = messageSource.getMessage("toast.error.changeGoodsQuantity", null, locale);
 			
 			FieldError fieldError = bindingResult.getFieldError();
 		    String fieldErrorMessage = messageSource.getMessage(fieldError, locale);
 			
 			response.put("success", false);
-			response.put("message", toastErrorMessage);
+			response.put("errorMessage", errorMessage);
 			response.put("fieldError", fieldErrorMessage);
 			
 			return ResponseEntity.badRequest().body(response);
@@ -124,9 +124,9 @@ public class CartRestController {
 		Cart targetCart = cartService.getCart(userId, form.getGoodsId());
 		
 		if (targetCart == null) {
-			String errorMessage = messageSource.getMessage("toast.cart.noGoodsId", null, locale);
+			String errorMessage = messageSource.getMessage("toast.error.noGoods", null, locale);
 			response.put("success", false);
-			response.put("message", errorMessage);
+			response.put("errorMessage", errorMessage);
 			
 			return ResponseEntity.badRequest().body(response);
 		}
