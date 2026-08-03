@@ -18,14 +18,13 @@
 				style="z-index: 1080;">
 				<!-- 存在しないグッズIDがあった場合のエラー時に表示するトースト -->
 				<div
-					th:if="${showErrorToast}"
-					class="toast show text-white bg-danger border-0 position-relative"
-					data-bs-autohide="false"
-					style="width: 350px; min-height: 50px;">
+					th:if="${toastError}"
+					class="toast show text-white bg-danger border-0 text-center position-relative"
+					data-bs-autohide="false">
 					<div class="d-flex align-items-center justify-content-center h-100 p-3">
 						<div
 							class="w-100 text-center toast-body p-0"
-							th:text="#{toast.cart.noGoodsId}"></div>
+							th:text="${#messages.msg(toastError)}"></div>
 						<button
 							type="button"
 							class="btn-close btn-close-white position-absolute top-50 end-0 translate-middle-y me-3"
@@ -37,15 +36,18 @@
 				<div
 					th:if="${!#lists.isEmpty(cartList) && cartList.^[goods.isDeleted] != null}"
 					class="toast show text-white bg-danger border-0 text-center position-relative"
-					data-bs-autohide="false"
-					style="width: 400px; min-height: 50px;">
+					data-bs-autohide="false">
 					<div class="d-flex align-items-center justify-content-center h-100 p-3">
 						<div
-							class="w-100 text-center toast-body text-white p-0 fw-bold"
-							th:text="#{toast.cart.hasDeletedGoods}"></div>
+							class="w-100 text-center toast-body text-white p-0">
+							
+							<div th:text="#{toast.error.hasInvalidGoods.line1}"></div>
+							<div th:text="#{toast.error.hasInvalidGoods.line2}"></div>
+							
+							</div>
 						<button
 							type="button"
-							class="btn-close position-absolute top-50 end-0 translate-middle-y me-3"
+							class="btn-close btn-close-white position-absolute top-50 end-0 translate-middle-y me-3"
 							data-bs-dismiss="toast"
 							aria-label="Close"></button>
 					</div>
@@ -97,10 +99,10 @@
 								<thead>
 									<tr>
 										<th th:text="#{label.cart.itemInfo}"></th>
-										<th th:text="#{label.cart.price}"></th>
-										<th th:text="#{label.cart.quantity}"></th>
-										<th th:text="#{label.cart.subtotal}"></th>
-										<th th:text="#{label.cart.action}"></th>
+										<th th:text="#{label.price}"></th>
+										<th th:text="#{label.quantity}"></th>
+										<th th:text="#{label.subtotal}"></th>
+										<th th:text="#{label.action}"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -196,7 +198,7 @@
 												<button
 													type="submit"
 													class="btn btn-danger btn-sm text-nowrap text-end"
-													th:text="#{btn.cart.goodsDelete}"></button>
+													th:text="#{btn.delete}"></button>
 											</form>
 										</td>
 									</tr>
@@ -212,7 +214,7 @@
 				<div class="card-body d-flex flex-column align-items-end justify-content-center">
 					<div
 						class="fw-bold small"
-						th:text="#{label.cart.totalAmount}"></div>
+						th:text="#{label.totalAmount}"></div>
 					<div class="fw-bold fs-1 lh-1 text-danger">
 						<span
 							data-total-amount
@@ -224,7 +226,7 @@
 					<a
 						th:href="@{/goods/index}"
 						class="btn btn-outline-secondary"
-						th:text="#{btn.cart.back}"></a>
+						th:text="#{btn.back}"></a>
 					<!-- 購入へ進むボタン -->
 					<a
 						th:href="@{/order/confirm}"
