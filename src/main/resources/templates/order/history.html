@@ -39,7 +39,7 @@
 						<div>
 							<div
 								class="text-muted small fw-bold"
-								th:text="#{label.order.history.orderedAt}"></div>
+								th:text="#{label.orderedAt}"></div>
 							<div
 								class="fw-bold"
 								th:text="${#temporals.format(item.order.orderedAt, 'yyyy年MM月dd日')}"></div>
@@ -48,7 +48,7 @@
 						<div>
 							<div
 								class="text-muted small fw-bold"
-								th:text="#{label.order.history.totalAmount}"></div>
+								th:text="#{label.totalAmount}"></div>
 							<div
 								class="fw-bold text-danger"
 								th:text="#{common.price.format.symbol(${item.order.totalPrice})}"></div>
@@ -89,12 +89,12 @@
 								<h6
 									class="mb-2 fw-bold text-dark"
 									th:text="${detail.orderedName}"></h6>
-								<div>
+								<div class="d-flex align-items-center gap-2">
 									<span
 										class="text-muted small"
-										th:text="#{label.order.history.price(${#numbers.formatInteger(detail.orderedPrice, 1, 'COMMA')})}"></span>
+										th:text="|#{label.price} ${#messages.msg('common.price.format.symbol', detail.orderedPrice)}|"></span>
 									<span
-										class="badge bg-secondary ms-2"
+										class="badge bg-secondary"
 										th:text="#{common.quantity.format(${detail.quantity})}"></span>
 								</div>
 							</div>
@@ -142,7 +142,7 @@
 				<a
 					th:href="@{/goods/index}"
 					class="btn btn-outline-secondary px-4 py-2 shadow-sm"
-					th:text="#{btn.order.history.back}"></a>
+					th:text="#{btn.back}"></a>
 			</div>
 		</div>
 	</main>
