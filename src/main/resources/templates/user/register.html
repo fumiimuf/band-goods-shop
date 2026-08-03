@@ -32,18 +32,18 @@
 			novalidate>
 			<!-- 氏名 -->
 			<div class="mb-3">
-				<label class="form-label">
-					<span th:text="#{label.user.register.name}"></span>
+				<label class="form-label d-flex align-items-center gap-2">
+					<span th:text="#{label.userName}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{label.user.register.required}"></span>
+						th:text="#{label.required}"></span>
 				</label>
 				<input
 					type="text"
 					class="form-control"
 					th:field="*{name}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.user.register.name}">
+					th:placeholder="#{placeholder.name}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('name')}"
@@ -51,18 +51,18 @@
 			</div>
 			<!-- メールアドレス -->
 			<div class="mb-3">
-				<label class="form-label">
-					<span th:text="#{label.user.register.email}"></span>
+				<label class="form-label d-flex align-items-center gap-2">
+					<span th:text="#{label.email}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{label.user.register.required}"></span>
+						th:text="#{label.required}"></span>
 				</label>
 				<input
 					type="email"
 					class="form-control"
 					th:field="*{email}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.user.register.email}">
+					th:placeholder="#{placeholder.email}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('email')}"
@@ -70,18 +70,18 @@
 			</div>
 			<!-- パスワード -->
 			<div class="mb-3">
-				<label class="form-label">
-					<span th:text="#{label.user.register.password}"></span>
+				<label class="form-label d-flex align-items-center gap-2">
+					<span th:text="#{label.password}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{label.user.register.required}"></span>
+						th:text="#{label.required}"></span>
 				</label>
 				<input
 					type="password"
 					class="form-control"
 					th:field="*{password}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.user.register.password}">
+					th:placeholder="#{placeholder.password}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('password')}"
@@ -89,18 +89,18 @@
 			</div>
 			<!-- 郵便番号 -->
 			<div class="mb-3">
-				<label class="form-label">
-					<span th:text="#{label.user.register.zipCode}"></span>
+				<label class="form-label d-flex align-items-center gap-2">
+					<span th:text="#{label.zipCode}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{label.user.register.required}"></span>
+						th:text="#{label.required}"></span>
 				</label>
 				<input
 					type="text"
 					class="form-control"
 					th:field="*{zipCode}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.user.register.zipCode}">
+					th:placeholder="#{placeholder.zipCode}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('zipCode')}"
@@ -108,18 +108,18 @@
 			</div>
 			<!-- 住所 -->
 			<div class="mb-3">
-				<label class="form-label">
-					<span th:text="#{label.user.register.address}"></span>
+				<label class="form-label d-flex align-items-center gap-2">
+					<span th:text="#{label.address}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{label.user.register.required}"></span>
+						th:text="#{label.required}"></span>
 				</label>
 				<textarea
 					class="form-control"
 					th:field="*{address}"
 					rows="3"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.user.register.address}"></textarea>
+					th:placeholder="#{placeholder.address}"></textarea>
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('address')}"
@@ -130,7 +130,7 @@
 				<button
 					type="submit"
 					class="btn btn-primary btn-lg"
-					th:text="#{btn.user.register.submit}"></button>
+					th:text="#{btn.submit}"></button>
 			</div>
 			<!-- リンク -->
 			<div class="mb-3 text-center">
