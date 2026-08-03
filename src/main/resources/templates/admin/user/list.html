@@ -18,9 +18,8 @@
 				<!-- エラー時に表示するトースト -->
 				<div
 					th:if="${toastError}"
-					class="toast show text-white bg-danger border-0 align-items-center p-2"
-					data-bs-autohide="false"
-					style="width: 350px;">
+					class="toast show text-white bg-danger border-0 text-center p-2"
+					data-bs-autohide="false">
 					<div class="d-flex align-items-center justify-content-between">
 						<div
 							class="toast-body text-center w-100 p-0"
@@ -51,12 +50,12 @@
 							name="keyword"
 							th:value="${keyword}"
 							class="form-control w-50"
-							th:placeholder="#{placeholder.admin.user.list.nameOrEmail}">
+							th:placeholder="#{placeholder.search.userNameOrEmail}">
 						<!-- 検索ボタン -->
 						<button
 							type="submit"
 							class="btn btn-dark text-nowrap"
-							th:text="#{btn.admin.user.list.search}"></button>
+							th:text="#{btn.search}"></button>
 					</div>
 				</form>
 			</div>
@@ -77,10 +76,10 @@
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark">
 						<tr>
-							<th th:text="#{label.admin.user.list.id}"></th>
-							<th th:text="#{label.admin.user.list.name}"></th>
-							<th th:text="#{label.admin.user.list.email}"></th>
-							<th th:text="#{label.admin.user.list.detail}"></th>
+							<th th:text="#{label.userId}"></th>
+							<th th:text="#{label.userName}"></th>
+							<th th:text="#{label.email}"></th>
+							<th th:text="#{label.detail}"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -98,7 +97,7 @@
 								<a
 									th:href="@{/admin/user/detail/{id}(id=${user.id})}"
 									class="btn btn-primary btn-sm px-3"
-									th:text="#{btn.admin.user.list.detail}"></a>
+									th:text="#{btn.detail}"></a>
 							</td>
 						</tr>
 					</tbody>
@@ -145,7 +144,7 @@
 				<a
 					th:href="@{/admin/goods/index}"
 					class="btn btn-outline-secondary px-4"
-					th:text="#{btn.admin.user.list.back}"></a>
+					th:text="#{btn.back}"></a>
 			</div>
 		</div>
 	</main>
