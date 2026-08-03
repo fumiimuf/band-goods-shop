@@ -14,14 +14,14 @@
 			<div
 				class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
 				style="z-index: 1080;">
-				<!-- 成功時のトースト -->
+				<!-- Ajax通信成功時のトースト -->
 				<div
 					data-cart-success-toast
 					class="toast text-white bg-success border-0 text-center"
 					data-bs-delay="2000">
 					<div class="toast-body"></div>
 				</div>
-				<!-- 失敗時のトースト -->
+				<!-- Ajax通信失敗時のトースト -->
 				<div
 					data-cart-error-toast
 					class="toast text-white bg-danger border-0 text-center"
@@ -33,9 +33,8 @@
 				<!-- エラー時に表示するトースト -->
 				<div
 					th:if="${toastError}"
-					class="toast show text-white bg-danger border-0 align-items-center p-2"
-					data-bs-autohide="false"
-					style="width: 350px;">
+					class="toast show text-white bg-danger border-0 text-center p-2"
+					data-bs-autohide="false">
 					<div class="d-flex align-items-center justify-content-between">
 						<div
 							class="toast-body text-center w-100 p-0"
@@ -63,12 +62,12 @@
 						name="keyword"
 						th:value="${keyword}"
 						class="form-control"
-						th:placeholder="#{placeholder.goods.goodsName}">
+						th:placeholder="#{placeholder.search.goodsName}">
 					<!-- 検索ボタン -->
 					<button
 						type="submit"
 						class="btn btn-dark btn-sm flex-shrink-0"
-						th:text="#{btn.goods.search}"></button>
+						th:text="#{btn.search}"></button>
 				</form>
 			</div>
 
