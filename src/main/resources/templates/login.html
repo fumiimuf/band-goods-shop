@@ -20,7 +20,7 @@
 
 		<!-- ユーザー登録成功時に表示するトースト -->
 		<div
-			th:if="${registerSuccess}"
+			th:if="${toastSuccess}"
 			class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
 			style="z-index: 1080;">
 			<div
@@ -29,7 +29,7 @@
 				<div class="d-flex align-items-center justify-content-center h-100 p-3">
 					<div
 						class="w-100 text-center toast-body p-0"
-						th:text="${#messages.msg(registerSuccess)}"></div>
+						th:text="${#messages.msg(toastSuccess)}"></div>
 					<button
 						type="button"
 						class="btn-close btn-close-white position-absolute top-50 end-0 translate-middle-y me-3"
@@ -63,7 +63,7 @@
 			<div class="mb-3">
 				<label
 					class="form-label"
-					th:text="#{label.login.email}"></label>
+					th:text="#{label.email}"></label>
 				<input
 					type="email"
 					name="email"
@@ -73,7 +73,7 @@
 			<div class="mb-3">
 				<label
 					class="form-label"
-					th:text="#{label.login.password}"></label>
+					th:text="#{label.password}"></label>
 				<input
 					type="password"
 					name="password"
