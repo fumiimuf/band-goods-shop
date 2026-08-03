@@ -44,7 +44,7 @@ $(function() {
 
 			    if (res) {
 			        // 【パターンA】入力エラー等の場合（両方表示）
-			        toastMsg = res.message;      // トースト用メッセージ
+			        toastMsg = res.errorMessage;      // トースト用メッセージ
 			        fieldMsg = res.fieldError;   // ドロップダウン下用メッセージ
 			    } else {
 			        // 【パターンB】通信エラーの場合（トーストのみ表示）
