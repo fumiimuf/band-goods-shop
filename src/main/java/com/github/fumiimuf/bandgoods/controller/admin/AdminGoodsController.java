@@ -120,8 +120,8 @@ public class AdminGoodsController {
 			Model model, 
 			RedirectAttributes redirectAttributes) {
 		
-		if (id == null || goodsService.getOneGoodsItemById(id) == null) {
-	        redirectAttributes.addFlashAttribute("toastError", "msg.admin.goods.edit.noGoods");
+		if (goodsService.getOneGoodsItemById(id) == null) {
+	        redirectAttributes.addFlashAttribute("toastError", "toast.error.noGoods");
 	        return "redirect:/admin/goods/index";
 	    }
 
@@ -144,8 +144,8 @@ public class AdminGoodsController {
 			Model model, 
 			RedirectAttributes redirectAttributes) {
 		
-		if (id == null || goodsService.getOneGoodsItemById(id) == null) {
-			redirectAttributes.addFlashAttribute("toastError", "msg.admin.goods.edit.noGoods");
+		if (goodsService.getOneGoodsItemById(id) == null) {
+			redirectAttributes.addFlashAttribute("toastError", "toast.error.noGoods");
 	        return "redirect:/admin/goods/index";
 		}
 
@@ -166,7 +166,7 @@ public class AdminGoodsController {
 		
 		goodsService.updateGoods(goods, imageFile);
 		
-		redirectAttributes.addFlashAttribute("toastSuccess", "msg.admin.goods.edit.success");
+		redirectAttributes.addFlashAttribute("toastSuccess", "toast.success.goodsUpdate");
 
 		return "redirect:/admin/goods/index";
 	}
