@@ -10,7 +10,7 @@
 <body>
 	<main layout:fragment="content">
 		<div
-			class="container mt-5 row mx-auto"
+			class="container mt-4 mx-auto"
 			style="max-width: 400px;">
 			<!-- 大見出し -->
 			<h2
@@ -21,6 +21,7 @@
 
 			<div class="card shadow-sm">
 				<div class="card-body">
+					<!-- 入力フォーム -->
 					<form
 						th:action="@{/user/update}"
 						th:object="${userEditForm}"
@@ -29,17 +30,17 @@
 						<div class="mb-3">
 							<label
 								for="name"
-								class="form-label fw-bold small text-secondary">
-								<span th:text="#{label.user.edit.name}"></span>
+								class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{label.userName}"></span>
 								<span
 									class="badge bg-danger ms-1"
-									th:text="#{label.user.edit.required}"></span>
+									th:text="#{label.required}"></span>
 							</label>
 							<input
 								type="text"
 								th:field="*{name}"
 								class="form-control"
-								th:placeholder="#{placeholder.user.edit.name}">
+								th:placeholder="#{placeholder.form.userName}">
 							<div
 								class="text-danger"
 								th:if="${#fields.hasErrors('name')}"
@@ -49,17 +50,17 @@
 						<div class="mb-3">
 							<label
 								for="email"
-								class="form-label fw-bold small text-secondary">
-								<span th:text="#{label.user.edit.email}"></span>
+								class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{label.email}"></span>
 								<span
 									class="badge bg-danger ms-1"
-									th:text="#{label.user.edit.required}"></span>
+									th:text="#{label.required}"></span>
 							</label>
 							<input
 								type="email"
 								th:field="*{email}"
 								class="form-control"
-								th:placeholder="#{placeholder.user.edit.email}">
+								th:placeholder="#{placeholder.form.email}">
 							<div
 								class="text-danger"
 								th:if="${#fields.hasErrors('email')}"
@@ -69,14 +70,14 @@
 						<div class="mb-3">
 							<label
 								for="password"
-								class="form-label fw-bold small text-secondary">
-								<span th:text="#{label.user.edit.newPassword}"></span>
+								class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{label.newPassword}"></span>
 							</label>
 							<input
 								type="password"
 								th:field="*{password}"
 								class="form-control"
-								th:placeholder="#{placeholder.user.edit.newPassword}">
+								th:placeholder="#{placeholder.form.password}">
 							<div
 								class="text-danger"
 								th:if="${#fields.hasErrors('password')}"
@@ -86,17 +87,17 @@
 						<div class="mb-3">
 							<label
 								for="zipCode"
-								class="form-label fw-bold small text-secondary">
-								<span th:text="#{label.user.edit.zipCode}"></span>
+								class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{label.zipCode}"></span>
 								<span
 									class="badge bg-danger ms-1"
-									th:text="#{label.user.edit.required}"></span>
+									th:text="#{label.required}"></span>
 							</label>
 							<input
 								type="text"
 								th:field="*{zipCode}"
 								class="form-control"
-								th:placeholder="#{placeholder.user.edit.zipCode}">
+								th:placeholder="#{placeholder.form.zipCode}">
 							<div
 								class="text-danger"
 								th:if="${#fields.hasErrors('zipCode')}"
@@ -106,17 +107,17 @@
 						<div class="mb-3">
 							<label
 								for="address"
-								class="form-label fw-bold small text-secondary">
-								<span th:text="#{label.user.edit.address}"></span>
+								class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{label.address}"></span>
 								<span
 									class="badge bg-danger ms-1"
-									th:text="#{label.user.edit.required}"></span>
+									th:text="#{label.required}"></span>
 							</label>
 							<textarea
 								th:field="*{address}"
 								class="form-control"
 								rows="3"
-								th:placeholder="#{placeholder.user.edit.address}"></textarea>
+								th:placeholder="#{placeholder.form.address}"></textarea>
 							<div
 								class="text-danger"
 								th:if="${#fields.hasErrors('address')}"
@@ -127,12 +128,12 @@
 							<a
 								th:href="@{/user/profile}"
 								class="btn btn-outline-secondary px-4"
-								th:text="#{btn.user.edit.back}"></a>
+								th:text="#{btn.back}"></a>
 							<!-- 更新ボタン -->
 							<button
 								type="submit"
 								class="btn btn-primary px-4"
-								th:text="#{btn.user.edit.submit}"></button>
+								th:text="#{btn.update}"></button>
 						</div>
 					</form>
 				</div>
