@@ -57,7 +57,7 @@ public class AdminUserController {
 		User user = userService.findById(id);
 		
 		if (user == null) {
-			redirectAttributes.addFlashAttribute("toastError", "msg.admin.user.list.noUser");
+			redirectAttributes.addFlashAttribute("toastError", "toast.error.noUser");
 			return "redirect:/admin/user/list";
 		}
 		
