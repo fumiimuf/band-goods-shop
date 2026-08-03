@@ -107,7 +107,7 @@ public class AdminGoodsController {
 
 		goodsService.registerGoods(goods, imageFile);
 		
-		redirectAttributes.addFlashAttribute("toastSuccess", "msg.admin.goods.register.success");
+		redirectAttributes.addFlashAttribute("toastSuccess", "toast.success.goodsRegister");
 
 		return "redirect:/admin/goods/index";
 	}
