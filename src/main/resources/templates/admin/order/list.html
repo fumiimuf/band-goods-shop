@@ -27,12 +27,12 @@
 						name="keyword"
 						th:value="${keyword}"
 						class="form-control w-50"
-						th:placeholder="#{placeholder.admin.order.list.search}">
+						th:placeholder="#{placeholder.search.buyerOrOrderDate}">
 					<!-- 検索ボタン -->
 					<button
 						type="submit"
 						class="btn btn-dark text-nowrap"
-						th:text="#{btn.admin.order.list.search}"></button>
+						th:text="#{btn.search}"></button>
 				</div>
 			</form>
 
@@ -52,13 +52,13 @@
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark">
 						<tr class="text-center">
-							<th th:text="#{label.admin.order.list.orderedAt}"></th>
+							<th th:text="#{label.orderedAt}"></th>
 							<th th:text="#{label.admin.order.list.userName}"></th>
-							<th th:text="#{label.admin.order.list.totalAmount}"></th>
-							<th th:text="#{label.admin.order.list.image}"></th>
-							<th th:text="#{label.admin.order.list.goodsName}"></th>
-							<th th:text="#{label.admin.order.list.price}"></th>
-							<th th:text="#{label.admin.order.list.quantity}"></th>
+							<th th:text="#{label.totalAmount}"></th>
+							<th th:text="#{label.goodsImage}"></th>
+							<th th:text="#{label.goodsName}"></th>
+							<th th:text="#{label.price}"></th>
+							<th th:text="#{label.quantity}"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -144,7 +144,7 @@
 				<a
 					th:href="@{/admin/goods/index}"
 					class="btn btn-outline-secondary px-4"
-					th:text="#{btn.admin.order.list.back}"></a>
+					th:text="#{btn.back}"></a>
 			</div>
 		</div>
 	</main>
