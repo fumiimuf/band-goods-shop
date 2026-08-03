@@ -14,7 +14,7 @@
 
 			<!-- ユーザー編集成功時に表示するトースト -->
 			<div
-				th:if="${editSuccess}"
+				th:if="${toastSuccess}"
 				class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
 				style="z-index: 1080;">
 				<div
@@ -23,7 +23,7 @@
 					<div class="d-flex align-items-center justify-content-center h-100 p-3">
 						<div
 							class="w-100 text-center toast-body p-0"
-							th:text="${#messages.msg(editSuccess)}"></div>
+							th:text="${#messages.msg(toastSuccess)}"></div>
 						<button
 							type="button"
 							class="btn-close btn-close-white position-absolute top-50 end-0 translate-middle-y me-3"
@@ -45,7 +45,7 @@
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{label.user.profile.name}"></div>
+						th:text="#{label.userName}"></div>
 					<div
 						class="fs-5 fw-bold text-dark"
 						th:text="${user.name}"></div>
@@ -54,7 +54,7 @@
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{label.user.profile.email}"></div>
+						th:text="#{label.email}"></div>
 					<div
 						class="fs-5 fw-bold text-dark"
 						th:text="${user.email}"></div>
@@ -63,7 +63,7 @@
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{label.user.profile.zipCode}"></div>
+						th:text="#{label.zipCode}"></div>
 					<div
 						class="fs-5 fw-bold text-dark"
 						th:text="${user.zipCode}"></div>
@@ -72,7 +72,7 @@
 				<div class="mb-0">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{label.user.profile.address}"></div>
+						th:text="#{label.address}"></div>
 					<div
 						class="fs-5 fw-bold text-dark lh-base"
 						th:text="${user.address}"></div>
@@ -85,12 +85,12 @@
 				<a
 					th:href="@{/goods/index}"
 					class="btn btn-outline-secondary px-4 py-2 rounded-1"
-					th:text="#{btn.user.profile.back}"></a>
+					th:text="#{btn.back}"></a>
 				<!-- 編集ボタン -->
 				<a
 					th:href="@{/user/edit}"
 					class="btn btn-primary px-4 py-2 rounded-1"
-					th:text="#{btn.user.profile.edit}"></a>
+					th:text="#{btn.edit}"></a>
 			</div>
 		</div>
 	</main>
