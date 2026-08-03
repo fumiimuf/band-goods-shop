@@ -32,8 +32,8 @@ $(function() {
                 $('[data-header-cart-count]').text(res.newCartCount);
 
                 // Javaから届いた成功メッセージがあればトーストの本文にセット（HTML側の要素がある場合）
-                if (res.message) {
-                    $('[data-cart-success-toast] .toast-body').text(res.message);
+                if (res.successMessage) {
+                    $('[data-cart-success-toast] .toast-body').text(res.successMessage);
                 }
 
                 new bootstrap.Toast($('[data-cart-success-toast]')[0]).show();
@@ -41,10 +41,10 @@ $(function() {
             .fail((xhr) => {
 				// サーバーからのエラーメッセージを取得。無ければネットワークエラー用のメッセージを設定
 			    const defaultMsg = "通信に失敗しました。ネットワーク接続を確認してください。";
-			    const errorMsg = xhr.responseJSON?.message || defaultMsg;
+			    const errorMessage = xhr.responseJSON?.errorMessage || defaultMsg;
 
                 // 3. エラートーストの本文にメッセージをセットして表示
-                $('[data-cart-error-message]').text(errorMsg);
+                $('[data-cart-error-message]').text(errorMessage);
                 new bootstrap.Toast($('[data-cart-error-toast]')[0]).show();
             });
     });
