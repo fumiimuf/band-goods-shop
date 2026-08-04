@@ -50,7 +50,7 @@ public class CartRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		if (!goodsService.isAvailableGoods(goodsId)) {
-			String errorMessage = messageSource.getMessage("toast.error.noGoods", null, locale);
+			String errorMessage = messageSource.getMessage("msg.error.goods.notfound", null, locale);
 			
 			response.put("success", false);
 			response.put("errorMessage", errorMessage);
@@ -64,7 +64,7 @@ public class CartRestController {
 		Cart targetCart = cartService.getCart(userId, goodsId);
 		
 		if (targetCart != null && targetCart.getQuantity() >= 10) {
-			String errorMessage = messageSource.getMessage("toast.error.goodsQuantityInCart", null, locale);
+			String errorMessage = messageSource.getMessage("msg.error.cart.max.quantity", null, locale);
 			
 			response.put("success", false);
 			response.put("errorMessage", errorMessage);
@@ -84,7 +84,7 @@ public class CartRestController {
 			cartService.updateQuantity(targetCart);
 		}
 		
-		String successMessage = messageSource.getMessage("toast.success.addCart", null, locale);
+		String successMessage = messageSource.getMessage("msg.success.cart.addt", null, locale);
 		
 		int totalQuantity = cartService.getTotalQuantity(userId);
 		
@@ -107,7 +107,7 @@ public class CartRestController {
 		
 		if (bindingResult.hasErrors()) {
 			
-			String errorMessage = messageSource.getMessage("toast.error.changeGoodsQuantity", null, locale);
+			String errorMessage = messageSource.getMessage("msg.error.cart.update.quantity", null, locale);
 			
 			FieldError fieldError = bindingResult.getFieldError();
 		    String fieldErrorMessage = messageSource.getMessage(fieldError, locale);
@@ -124,7 +124,7 @@ public class CartRestController {
 		Cart targetCart = cartService.getCart(userId, form.getGoodsId());
 		
 		if (targetCart == null) {
-			String errorMessage = messageSource.getMessage("toast.error.noGoods", null, locale);
+			String errorMessage = messageSource.getMessage("msg.error.goods.notfound", null, locale);
 			response.put("success", false);
 			response.put("errorMessage", errorMessage);
 			
