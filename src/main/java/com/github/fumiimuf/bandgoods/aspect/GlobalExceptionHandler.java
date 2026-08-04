@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 		
 		log.warn("【404エラー】存在しないページへアクセスされました", e);
 		
-		redirectAttributes.addFlashAttribute("toastError", "toast.error.notFound");
+		redirectAttributes.addFlashAttribute("toastError", "msg.error.page.notfound");
 		
 		return "redirect:" + getTopUrlByRole(authentication);
 	}
