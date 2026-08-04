@@ -55,7 +55,7 @@ public class UserController {
 		
 		userService.insertOne(user);
 		
-		redirectAttributes.addFlashAttribute("toastSuccess", "toast.success.userRegister");
+		redirectAttributes.addFlashAttribute("toastSuccess", "msg.success.user.register");
 		
 		return "redirect:/login";
 	}
@@ -116,7 +116,7 @@ public class UserController {
 			loginUser.setName(user.getName());
 		}
 		
-		redirectAttributes.addFlashAttribute("toastSuccess", "toast.success.userEdit");
+		redirectAttributes.addFlashAttribute("toastSuccess", "msg.success.user.edit");
 		
 		return "redirect:/user/profile";
 	}
