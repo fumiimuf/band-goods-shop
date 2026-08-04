@@ -12,7 +12,7 @@
 			class="container mt-4"
 			style="max-width: 800px;">
 			<!-- 大見出し -->
-			<h2 th:text="#{label.admin.user.detail.title}"></h2>
+			<h2 th:text="#{label.admin.user.detail.heading}"></h2>
 
 			<hr class="border-2 opacity-100">
 
@@ -21,35 +21,35 @@
 				<tr>
 					<th
 						class="bg-light w-25"
-						th:text="#{label.userId}"></th>
+						th:text="#{common.label.userId}"></th>
 					<td th:text="${user.id}"></td>
 				</tr>
 				<!-- 氏名 -->
 				<tr>
 					<th
 						class="bg-light"
-						th:text="#{label.userName}"></th>
+						th:text="#{common.label.userName}"></th>
 					<td th:text="${user.name}"></td>
 				</tr>
 				<!-- メールアドレス -->
 				<tr>
 					<th
 						class="bg-light"
-						th:text="#{label.email}"></th>
+						th:text="#{common.label.email}"></th>
 					<td th:text="${user.email}"></td>
 				</tr>
 				<!-- 郵便番号 -->
 				<tr>
 					<th
 						class="bg-light"
-						th:text="#{label.zipCode}"></th>
+						th:text="#{common.label.zipCode}"></th>
 					<td th:text="${user.zipCode}"></td>
 				</tr>
 				<!-- 住所 -->
 				<tr>
 					<th
 						class="bg-light"
-						th:text="#{label.address}"></th>
+						th:text="#{common.label.address}"></th>
 					<td th:text="${user.address}"></td>
 				</tr>
 			</table>
