@@ -12,7 +12,7 @@
 			class="container mt-4"
 			style="max-width: 1000px;">
 			<!-- 大見出し -->
-			<h2 th:text="#{label.admin.order.list.title}"></h2>
+			<h2 th:text="#{label.admin.order.list.heading}"></h2>
 
 			<hr class="border-2 opacity-100">
 
@@ -42,7 +42,7 @@
 				class="text-center my-5">
 				<p
 					class="text-muted"
-					th:text="#{msg.admin.order.list.noOrder}"></p>
+					th:text="#{msg.admin.order.list.empty}"></p>
 			</div>
 
 			<!-- データがある場合のみテーブルを表示 -->
@@ -52,13 +52,13 @@
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark">
 						<tr class="text-center">
-							<th th:text="#{label.orderedAt}"></th>
-							<th th:text="#{label.admin.order.list.userName}"></th>
-							<th th:text="#{label.totalAmount}"></th>
-							<th th:text="#{label.goodsImage}"></th>
-							<th th:text="#{label.goodsName}"></th>
-							<th th:text="#{label.price}"></th>
-							<th th:text="#{label.quantity}"></th>
+							<th th:text="#{common.label.orderedAt}"></th>
+							<th th:text="#{common.label.perchaser}"></th>
+							<th th:text="#{common.label.totalAmount}"></th>
+							<th th:text="#{common.label.goodsImage}"></th>
+							<th th:text="#{common.label.goodsName}"></th>
+							<th th:text="#{common.label.unitPrice}"></th>
+							<th th:text="#{common.label.quantity}"></th>
 						</tr>
 					</thead>
 					<tbody>
