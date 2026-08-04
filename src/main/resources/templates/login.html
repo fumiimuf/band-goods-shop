@@ -42,13 +42,13 @@
 		<!-- 大見出し -->
 		<h1
 			class="mb-3 text-center"
-			th:text="#{label.login.title}"></h1>
+			th:text="#{label.login.heading}"></h1>
 		<!-- エラーメッセージ -->
 		<div
 			th:if="${param.error}"
 			class="alert alert-danger border-danger text-danger alert-dismissible fade show mb-4"
 			role="alert">
-			<span th:text="#{toast.login.error}"></span>
+			<span th:text="#{msg.error.login.notcorrect}"></span>
 			<button
 				type="button"
 				class="btn-close"
@@ -63,7 +63,7 @@
 			<div class="mb-3">
 				<label
 					class="form-label"
-					th:text="#{label.email}"></label>
+					th:text="#{common.label.email}"></label>
 				<input
 					type="email"
 					name="email"
@@ -73,7 +73,7 @@
 			<div class="mb-3">
 				<label
 					class="form-label"
-					th:text="#{label.password}"></label>
+					th:text="#{common.label.password}"></label>
 				<input
 					type="password"
 					name="password"
@@ -84,7 +84,7 @@
 				<button
 					type="submit"
 					class="btn btn-primary btn-lg"
-					th:text="#{btn.login.submit}"></button>
+					th:text="#{btn.login}"></button>
 			</div>
 
 			<hr class="text-secondary my-4 opacity-25">
@@ -93,11 +93,11 @@
 			<div class="mb-3 text-center">
 				<p
 					class="mb-1"
-					th:text="#{msg.login.notYetRegisterUser}"></p>
+					th:text="#{label.login.guide.register}"></p>
 				<a
 					th:href="@{/user/register}"
 					class="text-decoration-none"
-					th:text="#{link.login.toRegister}"></a>
+					th:text="#{label.login.link.register}"></a>
 			</div>
 		</form>
 	</div>
