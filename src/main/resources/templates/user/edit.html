@@ -15,7 +15,7 @@
 			<!-- 大見出し -->
 			<h2
 				class="text-center"
-				th:text="#{label.user.edit.title}"></h2>
+				th:text="#{label.user.edit.heading}"></h2>
 
 			<hr class="border-2 opacity-100">
 
@@ -31,10 +31,10 @@
 							<label
 								for="name"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.userName}"></span>
+								<span th:text="#{common.label.userName}"></span>
 								<span
 									class="badge bg-danger ms-1"
-									th:text="#{label.required}"></span>
+									th:text="#{common.label.required}"></span>
 							</label>
 							<input
 								type="text"
@@ -51,10 +51,10 @@
 							<label
 								for="email"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.email}"></span>
+								<span th:text="#{common.label.email}"></span>
 								<span
 									class="badge bg-danger ms-1"
-									th:text="#{label.required}"></span>
+									th:text="#{common.label.required}"></span>
 							</label>
 							<input
 								type="email"
@@ -71,7 +71,7 @@
 							<label
 								for="password"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.newPassword}"></span>
+								<span th:text="#{common.label.newPassword}"></span>
 							</label>
 							<input
 								type="password"
@@ -88,10 +88,10 @@
 							<label
 								for="zipCode"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.zipCode}"></span>
+								<span th:text="#{common.label.zipCode}"></span>
 								<span
 									class="badge bg-danger ms-1"
-									th:text="#{label.required}"></span>
+									th:text="#{common.label.required}"></span>
 							</label>
 							<input
 								type="text"
@@ -108,10 +108,10 @@
 							<label
 								for="address"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.address}"></span>
+								<span th:text="#{common.label.address}"></span>
 								<span
 									class="badge bg-danger ms-1"
-									th:text="#{label.required}"></span>
+									th:text="#{common.label.required}"></span>
 							</label>
 							<textarea
 								th:field="*{address}"
