@@ -15,7 +15,7 @@
 			<!-- 大見出し -->
 			<h1
 				class="text-center mb-3"
-				th:text="#{label.order.history.title}"></h1>
+				th:text="#{label.order.history.heading}"></h1>
 
 			<hr class="border-2 opacity-100">
 
@@ -25,7 +25,7 @@
 				class="text-center my-5">
 				<p
 					class="text-muted"
-					th:text="#{msg.order.history.noOrderHistory}"></p>
+					th:text="#{msg.order.history.empty}"></p>
 			</div>
 
 			<!-- データがある場合のみ表示 -->
@@ -39,7 +39,7 @@
 						<div>
 							<div
 								class="text-muted small fw-bold"
-								th:text="#{label.orderedAt}"></div>
+								th:text="#{common.label.orderedAt}"></div>
 							<div
 								class="fw-bold"
 								th:text="${#temporals.format(item.order.orderedAt, 'yyyy年MM月dd日')}"></div>
@@ -48,7 +48,7 @@
 						<div>
 							<div
 								class="text-muted small fw-bold"
-								th:text="#{label.totalAmount}"></div>
+								th:text="#{common.label.totalAmount}"></div>
 							<div
 								class="fw-bold text-danger"
 								th:text="#{common.price.format.symbol(${item.order.totalPrice})}"></div>
@@ -92,7 +92,7 @@
 								<div class="d-flex align-items-center gap-2">
 									<span
 										class="text-muted small"
-										th:text="|#{label.price} ${#messages.msg('common.price.format.symbol', detail.orderedPrice)}|"></span>
+										th:text="|#{common.label.unitPrice} ${#messages.msg('common.price.format.symbol', detail.orderedPrice)}|"></span>
 									<span
 										class="badge bg-secondary"
 										th:text="#{common.quantity.format(${detail.quantity})}"></span>
