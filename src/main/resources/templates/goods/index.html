@@ -50,7 +50,7 @@
 
 			<div class="d-flex justify-content-between align-items-center">
 				<!-- 大見出し -->
-				<h1 th:text="#{label.goods.title}"></h1>
+				<h1 th:text="#{label.goods.heading}"></h1>
 
 				<form
 					th:action="@{/goods/index}"
@@ -128,7 +128,7 @@
 										data-bs-container="body"
 										th:data-bs-title="${item.goods.name}"
 										th:data-bs-content="${item.goods.description}"
-										th:text="#{btn.goods.goodsDescription}"></button>
+										th:text="#{btn.goods.description}"></button>
 									<form
 										th:action="@{/api/cart/add}"
 										method="post"
@@ -143,7 +143,7 @@
 											type="submit"
 											class="btn btn-primary btn-sm text-nowrap w-100 py-1 px-1"
 											style="font-size: 0.75rem;"
-											th:text="#{btn.goods.addCart}"></button>
+											th:text="#{btn.goods.add.cart}"></button>
 									</form>
 								</div>
 							</div>
