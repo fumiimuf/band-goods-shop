@@ -27,7 +27,7 @@
 					<!-- ご購入お礼メッセージ -->
 					<h1
 						class="h2 fw-bold mb-3 text-dark"
-						th:text="#{label.order.success.thanks}"></h1>
+						th:text="#{msg.order.success.thanks}"></h1>
 
 					<p class="text-secondary mb-5 lh-lg">
 						<!-- 注文完了メッセージ -->
@@ -37,7 +37,7 @@
 						<!-- 発送メッセージ -->
 						<span
 							class="d-block"
-							th:text="#{msg.order.success.shippingNotice}"></span>
+							th:text="#{msg.order.success.notice.shipping}"></span>
 					</p>
 
 					<hr class="mb-5 opacity-10">
@@ -47,7 +47,7 @@
 						<a
 							th:href="@{/goods/index}"
 							class="btn btn-dark btn-lg py-3 fw-bold rounded-3"
-							th:text="#{btn.order.success.backToGoodsIndex}"></a>
+							th:text="#{btn.order.success.back.goods}"></a>
 					</div>
 				</div>
 			</div>
