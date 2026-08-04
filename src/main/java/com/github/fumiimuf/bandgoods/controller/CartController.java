@@ -54,7 +54,7 @@ public class CartController {
 		Cart targetCart = cartService.getCart(userId, goodsId);
 		
 		if (targetCart == null) {
-			redirectAttributes.addFlashAttribute("toastError", "toast.error.noGoods");
+			redirectAttributes.addFlashAttribute("toastError", "msg.error.goods.notfound");
 			
 			return "redirect:/cart/index";
 		}
