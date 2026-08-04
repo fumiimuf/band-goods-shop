@@ -32,7 +32,7 @@
 			novalidate>
 			<!-- 氏名 -->
 			<div class="mb-3">
-				<label class="form-label d-flex align-items-center gap-2">
+				<label for="name" class="form-label d-flex align-items-center gap-2">
 					<span th:text="#{common.label.userName}"></span>
 					<span
 						class="badge bg-danger"
@@ -43,7 +43,7 @@
 					class="form-control"
 					th:field="*{name}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.name}">
+					th:placeholder="#{placeholder.form.userName}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('name')}"
@@ -51,7 +51,7 @@
 			</div>
 			<!-- メールアドレス -->
 			<div class="mb-3">
-				<label class="form-label d-flex align-items-center gap-2">
+				<label for="email" class="form-label d-flex align-items-center gap-2">
 					<span th:text="#{common.label.email}"></span>
 					<span
 						class="badge bg-danger"
@@ -62,7 +62,7 @@
 					class="form-control"
 					th:field="*{email}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.email}">
+					th:placeholder="#{placeholder.form.email}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('email')}"
@@ -70,7 +70,7 @@
 			</div>
 			<!-- パスワード -->
 			<div class="mb-3">
-				<label class="form-label d-flex align-items-center gap-2">
+				<label for="password" class="form-label d-flex align-items-center gap-2">
 					<span th:text="#{common.label.password}"></span>
 					<span
 						class="badge bg-danger"
@@ -81,7 +81,7 @@
 					class="form-control"
 					th:field="*{password}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.password}">
+					th:placeholder="#{placeholder.form.password}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('password')}"
@@ -89,7 +89,7 @@
 			</div>
 			<!-- 郵便番号 -->
 			<div class="mb-3">
-				<label class="form-label d-flex align-items-center gap-2">
+				<label for="zipCode" class="form-label d-flex align-items-center gap-2">
 					<span th:text="#{common.label.zipCode}"></span>
 					<span
 						class="badge bg-danger"
@@ -100,7 +100,7 @@
 					class="form-control"
 					th:field="*{zipCode}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.zipCode}">
+					th:placeholder="#{placeholder.form.zipCode}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('zipCode')}"
@@ -108,7 +108,7 @@
 			</div>
 			<!-- 住所 -->
 			<div class="mb-3">
-				<label class="form-label d-flex align-items-center gap-2">
+				<label for="address" class="form-label d-flex align-items-center gap-2">
 					<span th:text="#{common.label.address}"></span>
 					<span
 						class="badge bg-danger"
@@ -119,7 +119,7 @@
 					th:field="*{address}"
 					rows="3"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.address}"></textarea>
+					th:placeholder="#{placeholder.form.address}"></textarea>
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('address')}"
