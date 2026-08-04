@@ -16,7 +16,7 @@
 			<!-- 大見出し -->
 			<h2
 				class="text-center mb-4"
-				th:text="#{label.admin.goods.register.title}"></h2>
+				th:text="#{label.admin.goods.register.heading}"></h2>
 
 			<hr class="border-2 opacity-100">
 
@@ -30,10 +30,10 @@
 						<!-- 商品名 -->
 						<div class="mb-3">
 							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.goodsName}"></span>
+								<span th:text="#{common.label.goodsName}"></span>
 								<span
 									class="badge bg-danger"
-									th:text="#{label.required}"></span>
+									th:text="#{common.label.required}"></span>
 							</label>
 							<input
 								type="text"
@@ -49,10 +49,10 @@
 						<!-- 価格 -->
 						<div class="mb-3">
 							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.price}"></span>
+								<span th:text="#{common.label.unitPrice}"></span>
 								<span
 									class="badge bg-danger"
-									th:text="#{label.required}"></span>
+									th:text="#{common.label.required}"></span>
 							</label>
 
 							<div class="d-flex align-items-center gap-2">
@@ -77,10 +77,10 @@
 							<label
 								for="imageFile"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.goodsImage}"></span>
+								<span th:text="#{common.label.goodsImage}"></span>
 								<span
 									class="badge bg-danger"
-									th:text="#{label.required}"></span>
+									th:text="#{common.label.required}"></span>
 							</label>
 							<input
 								type="file"
@@ -96,10 +96,10 @@
 						<!-- 商品説明 -->
 						<div class="mb-3">
 							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.goodsDescription}"></span>
+								<span th:text="#{common.label.goodsDescription}"></span>
 								<span
 									class="badge bg-danger"
-									th:text="#{label.required}"></span>
+									th:text="#{common.label.required}"></span>
 							</label>
 							<textarea
 								th:field="*{description}"
@@ -115,10 +115,10 @@
 						<!-- カテゴリ -->
 						<div class="mb-4">
 							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{label.category}"></span>
+								<span th:text="#{common.label.category}"></span>
 								<span
 									class="badge bg-danger"
-									th:text="#{label.required}"></span>
+									th:text="#{common.label.required}"></span>
 							</label>
 							<select
 								th:field="*{categoryId}"
