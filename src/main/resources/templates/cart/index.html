@@ -41,8 +41,8 @@
 						<div
 							class="w-100 text-center toast-body text-white p-0">
 							
-							<div th:text="#{toast.error.hasInvalidGoods.line1}"></div>
-							<div th:text="#{toast.error.hasInvalidGoods.line2}"></div>
+							<div th:text="#{msg.error.cart.invalid.line1}"></div>
+							<div th:text="#{msg.error.cart.invalid.line2}"></div>
 							
 							</div>
 						<button
@@ -58,14 +58,13 @@
 					class="toast align-items-center text-white bg-danger border-0 text-center"
 					data-bs-delay="2000">
 					<div
-						class="toast-body"
-						th:text="#{toast.cart.quantityError}"></div>
+						class="toast-body"></div>
 				</div>
 			</div>
 
 			<div class="d-flex justify-content-between align-items-center mb-4">
 				<!-- 大見出し -->
-				<h1 th:text="#{label.cart.title(${#authentication.principal.name})}"></h1>
+				<h1 th:text="#{label.cart.heading(${#authentication.principal.name})}"></h1>
 				<form
 					th:action="@{/cart/clear}"
 					method="post">
@@ -73,9 +72,9 @@
 					<button
 						type="submit"
 						class="btn btn-danger btn-sm"
-						th:text="#{btn.cart.cartEmpty}"
+						th:text="#{btn.cart.clear}"
 						th:disabled="${#lists.isEmpty(cartList)}"
-						th:onclick="return confirm([[#{msg.cart.clearConfirm}]])"></button>
+						th:onclick="return confirm([[#{msg.cart.confirm.clear}]])"></button>
 				</form>
 			</div>
 
@@ -98,11 +97,11 @@
 							<table class="table table-hover align-middle mb-4">
 								<thead>
 									<tr>
-										<th th:text="#{label.cart.itemInfo}"></th>
-										<th th:text="#{label.price}"></th>
-										<th th:text="#{label.quantity}"></th>
-										<th th:text="#{label.subtotal}"></th>
-										<th th:text="#{label.action}"></th>
+										<th th:text="#{label.cart.item.info}"></th>
+										<th th:text="#{common.label.unitPrice}"></th>
+										<th th:text="#{common.label.quantity}"></th>
+										<th th:text="#{common.label.subtotal}"></th>
+										<th th:text="#{common.label.action}"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -131,10 +130,10 @@
 														class="mt-1">
 														<div
 															class="badge bg-danger"
-															th:text="#{msg.cart.endOfSale}"></div>
+															th:text="#{label.cart.status.ended}"></div>
 														<div
 															class="text-danger small fw-bold"
-															th:text="#{msg.cart.endOfSaleNotice}"></div>
+															th:text="#{msg.cart.notice.ended}"></div>
 													</div>
 												</div>
 											</div>
@@ -214,7 +213,7 @@
 				<div class="card-body d-flex flex-column align-items-end justify-content-center">
 					<div
 						class="fw-bold small"
-						th:text="#{label.totalAmount}"></div>
+						th:text="#{common.label.totalAmount}"></div>
 					<div class="fw-bold fs-1 lh-1 text-danger">
 						<span
 							data-total-amount
@@ -232,7 +231,7 @@
 						th:href="@{/order/confirm}"
 						class="btn"
 						th:classappend="${#lists.isEmpty(cartList) || cartList.^[goods.isDeleted] != null} ? 'btn-secondary disabled' : 'btn-success'"
-						th:text="#{btn.cart.toPurchase}"></a>
+						th:text="#{btn.cart.purchase}"></a>
 				</div>
 			</div>
 		</div>
