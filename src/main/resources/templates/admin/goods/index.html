@@ -54,7 +54,7 @@
 				<!-- 大見出し -->
 				<h2
 					class="fw-bold text-dark mb-0"
-					th:text="#{label.admin.goods.title}"></h2>
+					th:text="#{label.admin.goods.heading}"></h2>
 				<!-- 新規グッズ登録ボタン -->
 				<a
 					th:href="@{/admin/goods/register}"
@@ -115,7 +115,7 @@
 				class="text-center my-5">
 				<p
 					class="text-muted"
-					th:text="#{msg.admin.goods.noGoods}"></p>
+					th:text="#{msg.admin.goods.empty}"></p>
 			</div>
 
 			<!-- データがある場合のみテーブルを表示 -->
@@ -125,18 +125,18 @@
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark text-center">
 						<tr>
-							<th th:text="#{label.goodsImage}"></th>
-							<th th:text="#{label.category}"></th>
-							<th th:text="#{label.goodsName}"></th>
-							<th th:text="#{label.price}"></th>
+							<th th:text="#{common.label.goodsImage}"></th>
+							<th th:text="#{common.label.category}"></th>
+							<th th:text="#{common.label.goodsName}"></th>
+							<th th:text="#{common.label.unitPrice}"></th>
 							<th
 								th:if="${currentStatus == 'active'}"
-								th:text="#{label.registeredAt}"></th>
+								th:text="#{common.label.registeredAt}"></th>
 							<th
 								th:if="${currentStatus == 'suspended'}"
-								th:text="#{label.deletedAt}"></th>
+								th:text="#{common.label.deletedAt}"></th>
 
-							<th th:text="#{label.action}"></th>
+							<th th:text="#{common.label.action}"></th>
 						</tr>
 					</thead>
 					<tbody>
