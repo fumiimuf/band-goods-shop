@@ -36,7 +36,7 @@
 			<!-- 大見出し -->
 			<h1
 				class="text-center"
-				th:text="#{label.user.profile.title}"></h1>
+				th:text="#{label.user.profile.heading}"></h1>
 
 			<hr class="border-2 opacity-100">
 
@@ -45,7 +45,7 @@
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{label.userName}"></div>
+						th:text="#{common.label.userName}"></div>
 					<div
 						class="fs-5 fw-bold text-dark"
 						th:text="${user.name}"></div>
@@ -54,7 +54,7 @@
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{label.email}"></div>
+						th:text="#{common.label.email}"></div>
 					<div
 						class="fs-5 fw-bold text-dark"
 						th:text="${user.email}"></div>
@@ -63,7 +63,7 @@
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{label.zipCode}"></div>
+						th:text="#{common.label.zipCode}"></div>
 					<div
 						class="fs-5 fw-bold text-dark"
 						th:text="${user.zipCode}"></div>
@@ -72,7 +72,7 @@
 				<div class="mb-0">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{label.address}"></div>
+						th:text="#{common.label.address}"></div>
 					<div
 						class="fs-5 fw-bold text-dark lh-base"
 						th:text="${user.address}"></div>
