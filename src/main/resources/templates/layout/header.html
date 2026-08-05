@@ -16,7 +16,7 @@
 					class="navbar-brand fw-bold"
 					th:href="@{/goods/index}">
 					<i class="fa-solid fa-house me-1"></i>
-					[[#{label.header.siteName}]]
+					[[#{label.header.site.name}]]
 				</a>
 			</div>
 
@@ -27,11 +27,11 @@
 					class="navbar-brand fw-bold"
 					th:href="@{/admin/goods/index}">
 					<i class="fa-solid fa-house me-1"></i>
-					[[#{label.header.admin.siteName}]]
+					[[#{label.header.admin.site.name}]]
 				</a>
 				<span
 					class="badge bg-primary small"
-					th:text="#{label.header.adminBadge}"></span>
+					th:text="#{label.header.admin.badge}"></span>
 			</div>
 
 			<button
@@ -59,7 +59,7 @@
 								class="nav-link text-white"
 								th:href="@{/goods/index}">
 								<i class="fa-solid fa-box me-1"></i>
-								[[#{btn.header.goodsIndex}]]
+								[[#{btn.header.goods.index}]]
 							</a>
 						</li>
 						<li class="nav-item px-2">
@@ -80,7 +80,7 @@
 								class="nav-link text-white"
 								th:href="@{/user/profile}">
 								<i class="fa-solid fa-address-card me-1"></i>
-								[[#{btn.header.userProfile}]]
+								[[#{btn.header.user.profile}]]
 							</a>
 						</li>
 						<li class="nav-item px-2">
@@ -88,7 +88,7 @@
 								class="nav-link text-white"
 								th:href="@{/order/history}">
 								<i class="fa-solid fa-clock-rotate-left me-1"></i>
-								[[#{btn.header.orderHistory}]]
+								[[#{btn.header.order.history}]]
 							</a>
 						</li>
 					</th:block>
@@ -100,7 +100,7 @@
 								class="nav-link text-white"
 								th:href="@{/admin/goods/index}">
 								<i class="fa-solid fa-box me-1"></i>
-								[[#{btn.header.admin.goodsIndex}]]
+								[[#{btn.header.admin.goods.index}]]
 							</a>
 						</li>
 
@@ -109,7 +109,7 @@
 								class="nav-link text-white"
 								th:href="@{/admin/user/list}">
 								<i class="fa-solid fa-users me-1"></i>
-								[[#{btn.header.admin.userList}]]
+								[[#{btn.header.admin.user.list}]]
 							</a>
 						</li>
 
@@ -118,7 +118,7 @@
 								class="nav-link text-white"
 								th:href="@{/admin/order/list}">
 								<i class="fa-solid fa-list-check me-1"></i>
-								[[#{btn.header.admin.orderList}]]
+								[[#{btn.header.admin.order.list}]]
 							</a>
 						</li>
 					</th:block>
