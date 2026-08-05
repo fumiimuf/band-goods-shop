@@ -9,7 +9,7 @@
 <body class="bg-light">
 	<main layout:fragment="content">
 		<div
-			class="container mt-4"
+			class="container my-4"
 			style="max-width: 600px;">
 
 			<!-- ユーザー編集成功時に表示するトースト -->
@@ -45,7 +45,7 @@
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{common.label.userName}"></div>
+						th:text="#{common.label.user.name}"></div>
 					<div
 						class="fs-5 fw-bold text-dark"
 						th:text="${user.name}"></div>
@@ -63,7 +63,7 @@
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{common.label.zipCode}"></div>
+						th:text="#{common.label.zip.code}"></div>
 					<div
 						class="fs-5 fw-bold text-dark"
 						th:text="${user.zipCode}"></div>
