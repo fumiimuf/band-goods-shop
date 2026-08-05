@@ -10,7 +10,7 @@
 <body>
 	<main layout:fragment="content">
 		<div
-			class="container mt-4"
+			class="container my-4"
 			style="max-width: 600px;">
 			<!-- 大見出し -->
 			<h2
@@ -28,8 +28,8 @@
 						enctype="multipart/form-data">
 						<!-- 商品名 -->
 						<div class="mb-3">
-							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.goodsName}"></span>
+							<label for="name" class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{common.label.goods.name}"></span>
 								<span
 									class="badge bg-danger"
 									th:text="#{common.label.required}"></span>
@@ -39,15 +39,15 @@
 								th:field="*{name}"
 								class="form-control"
 								th:errorclass="is-invalid"
-								th:placeholder="#{placeholder.form.goodsName}">
+								th:placeholder="#{placeholder.form.goods.name}">
 							<div
 								class="invalid-feedback"
 								th:errors="*{name}"></div>
 						</div>
 						<!-- 価格 -->
 						<div class="mb-3">
-							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.unitPrice}"></span>
+							<label for="price" class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{common.label.unit.price}"></span>
 								<span
 									class="badge bg-danger"
 									th:text="#{common.label.required}"></span>
@@ -69,8 +69,8 @@
 						</div>
 						<!-- 商品画像 -->
 						<div class="mb-3">
-							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.goodsImage}"></span>
+							<label for="imageFile" class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{common.label.goods.image}"></span>
 								<span
 									class="badge bg-secondary"
 									th:text="#{common.label.optional}"></span>
@@ -90,8 +90,8 @@
 						</div>
 						<!-- 商品説明 -->
 						<div class="mb-3">
-							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.goodsDescription}"></span>
+							<label for="description" class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{common.label.goods.description}"></span>
 								<span
 									class="badge bg-danger"
 									th:text="#{common.label.required}"></span>
@@ -100,7 +100,7 @@
 								th:field="*{description}"
 								class="form-control"
 								th:errorclass="is-invalid"
-								th:placeholder="#{placeholder.form.goodsDescription}"
+								th:placeholder="#{placeholder.form.goods.description}"
 								rows="4"></textarea>
 							<div
 								class="invalid-feedback"
@@ -108,7 +108,7 @@
 						</div>
 						<!-- カテゴリ -->
 						<div class="mb-3">
-							<label class="form-label d-flex align-items-center gap-2">
+							<label for="categoryId" class="form-label d-flex align-items-center gap-2">
 								<span th:text="#{common.label.category}"></span>
 								<span
 									class="badge bg-danger"
@@ -129,8 +129,8 @@
 						</div>
 						<!-- 販売状態 -->
 						<div class="mb-4">
-							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.salesStatus}"></span>
+							<label for="isDeleted" class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{common.label.sales.status}"></span>
 								<span
 									class="badge bg-danger"
 									th:text="#{common.label.required}"></span>
