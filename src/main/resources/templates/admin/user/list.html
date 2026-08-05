@@ -9,7 +9,7 @@
 <body>
 	<main layout:fragment="content">
 		<div
-			class="container mt-4"
+			class="container my-4"
 			style="max-width: 800px;">
 			<!-- トーストコンテナ -->
 			<div
@@ -50,7 +50,7 @@
 							name="keyword"
 							th:value="${keyword}"
 							class="form-control w-50"
-							th:placeholder="#{placeholder.search.userNameOrEmail}">
+							th:placeholder="#{placeholder.search.user.name.or.email}">
 						<!-- 検索ボタン -->
 						<button
 							type="submit"
@@ -66,7 +66,7 @@
 				class="text-center my-5">
 				<p
 					class="text-muted"
-					th:text="#{msg.admin.user.list.noUser}"></p>
+					th:text="#{msg.admin.user.empty}"></p>
 			</div>
 
 			<!-- データがある場合のみテーブルを表示 -->
@@ -76,8 +76,8 @@
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark">
 						<tr>
-							<th th:text="#{common.label.userId}"></th>
-							<th th:text="#{common.label.userName}"></th>
+							<th th:text="#{common.label.user.id}"></th>
+							<th th:text="#{common.label.user.name}"></th>
 							<th th:text="#{common.label.email}"></th>
 							<th th:text="#{common.label.detail}"></th>
 						</tr>
