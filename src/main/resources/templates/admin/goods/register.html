@@ -11,7 +11,7 @@
 
 	<main layout:fragment="content">
 		<div
-			class="container mt-4"
+			class="container my-4"
 			style="max-width: 600px;">
 			<!-- 大見出し -->
 			<h2
@@ -29,8 +29,8 @@
 						enctype="multipart/form-data">
 						<!-- 商品名 -->
 						<div class="mb-3">
-							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.goodsName}"></span>
+							<label for="name" class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{common.label.goods.name}"></span>
 								<span
 									class="badge bg-danger"
 									th:text="#{common.label.required}"></span>
@@ -40,7 +40,7 @@
 								th:field="*{name}"
 								th:errorclass="is-invalid"
 								class="form-control"
-								th:placeholder="#{placeholder.form.goodsName}">
+								th:placeholder="#{placeholder.form.goods.name}">
 							<div
 								class="text-danger small"
 								th:if="${#fields.hasErrors('name')}"
@@ -48,8 +48,8 @@
 						</div>
 						<!-- 価格 -->
 						<div class="mb-3">
-							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.unitPrice}"></span>
+							<label for="price" class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{common.label.unit.price}"></span>
 								<span
 									class="badge bg-danger"
 									th:text="#{common.label.required}"></span>
@@ -77,7 +77,7 @@
 							<label
 								for="imageFile"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.goodsImage}"></span>
+								<span th:text="#{common.label.goods.image}"></span>
 								<span
 									class="badge bg-danger"
 									th:text="#{common.label.required}"></span>
@@ -95,8 +95,8 @@
 						</div>
 						<!-- 商品説明 -->
 						<div class="mb-3">
-							<label class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.goodsDescription}"></span>
+							<label for="description" class="form-label d-flex align-items-center gap-2">
+								<span th:text="#{common.label.goods.description}"></span>
 								<span
 									class="badge bg-danger"
 									th:text="#{common.label.required}"></span>
@@ -106,7 +106,7 @@
 								th:errorclass="is-invalid"
 								class="form-control"
 								rows="4"
-								th:placeholder="#{placeholder.form.goodsDescription}"></textarea>
+								th:placeholder="#{placeholder.form.goods.description}"></textarea>
 							<div
 								class="text-danger small"
 								th:if="${#fields.hasErrors('description')}"
@@ -114,7 +114,7 @@
 						</div>
 						<!-- カテゴリ -->
 						<div class="mb-4">
-							<label class="form-label d-flex align-items-center gap-2">
+							<label for="categoryId" class="form-label d-flex align-items-center gap-2">
 								<span th:text="#{common.label.category}"></span>
 								<span
 									class="badge bg-danger"
@@ -126,7 +126,7 @@
 								class="form-select">
 								<option
 									value=""
-									th:text="#{option.admin.goods.register.categoryDefault}"></option>
+									th:text="#{option.admin.goods.register.category.default}"></option>
 								<option
 									th:each="category : ${categories}"
 									th:value="${category.id}"
