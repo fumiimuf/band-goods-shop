@@ -10,7 +10,7 @@
 <body>
 	<main layout:fragment="content">
 		<div
-			class="container mt-4"
+			class="container my-4"
 			style="max-width: 800px;">
 			<!-- トーストコンテナ -->
 			<div
@@ -97,7 +97,7 @@
 							name="keyword"
 							th:value="${keyword}"
 							class="form-control"
-							th:placeholder="#{placeholder.search.goodsName}">
+							th:placeholder="#{placeholder.search.goods.name}">
 					</div>
 					<div>
 						<!-- 検索ボタン -->
@@ -125,16 +125,16 @@
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark text-center">
 						<tr>
-							<th th:text="#{common.label.goodsImage}"></th>
+							<th th:text="#{common.label.goods.image}"></th>
 							<th th:text="#{common.label.category}"></th>
-							<th th:text="#{common.label.goodsName}"></th>
-							<th th:text="#{common.label.unitPrice}"></th>
+							<th th:text="#{common.label.goods.name}"></th>
+							<th th:text="#{common.label.unit.price}"></th>
 							<th
 								th:if="${currentStatus == 'active'}"
-								th:text="#{common.label.registeredAt}"></th>
+								th:text="#{common.label.registered.at}"></th>
 							<th
 								th:if="${currentStatus == 'suspended'}"
-								th:text="#{common.label.deletedAt}"></th>
+								th:text="#{common.label.deleted.at}"></th>
 
 							<th th:text="#{common.label.action}"></th>
 						</tr>
