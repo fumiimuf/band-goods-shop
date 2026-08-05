@@ -10,7 +10,7 @@
 <body>
 	<main layout:fragment="content">
 		<div
-			class="container mt-4 mx-auto"
+			class="container my-4"
 			style="max-width: 400px;">
 			<!-- 大見出し -->
 			<h2
@@ -31,7 +31,7 @@
 							<label
 								for="name"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.userName}"></span>
+								<span th:text="#{common.label.user.name}"></span>
 								<span
 									class="badge bg-danger ms-1"
 									th:text="#{common.label.required}"></span>
@@ -40,7 +40,7 @@
 								type="text"
 								th:field="*{name}"
 								class="form-control"
-								th:placeholder="#{placeholder.form.userName}">
+								th:placeholder="#{placeholder.form.user.name}">
 							<div
 								class="text-danger"
 								th:if="${#fields.hasErrors('name')}"
@@ -71,7 +71,7 @@
 							<label
 								for="password"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.newPassword}"></span>
+								<span th:text="#{common.label.new.password}"></span>
 							</label>
 							<input
 								type="password"
@@ -88,7 +88,7 @@
 							<label
 								for="zipCode"
 								class="form-label d-flex align-items-center gap-2">
-								<span th:text="#{common.label.zipCode}"></span>
+								<span th:text="#{common.label.zip.code}"></span>
 								<span
 									class="badge bg-danger ms-1"
 									th:text="#{common.label.required}"></span>
@@ -97,7 +97,7 @@
 								type="text"
 								th:field="*{zipCode}"
 								class="form-control"
-								th:placeholder="#{placeholder.form.zipCode}">
+								th:placeholder="#{placeholder.form.zip.code}">
 							<div
 								class="text-danger"
 								th:if="${#fields.hasErrors('zipCode')}"
