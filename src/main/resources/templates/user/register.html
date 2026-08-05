@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div
-		class="container mt-4 mx-auto"
+		class="container my-4"
 		style="max-width: 400px;">
 		<!-- 大見出し -->
 		<h1
@@ -33,7 +33,7 @@
 			<!-- 氏名 -->
 			<div class="mb-3">
 				<label for="name" class="form-label d-flex align-items-center gap-2">
-					<span th:text="#{common.label.userName}"></span>
+					<span th:text="#{common.label.user.name}"></span>
 					<span
 						class="badge bg-danger"
 						th:text="#{common.label.required}"></span>
@@ -43,7 +43,7 @@
 					class="form-control"
 					th:field="*{name}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.form.userName}">
+					th:placeholder="#{placeholder.form.user.name}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('name')}"
@@ -90,7 +90,7 @@
 			<!-- 郵便番号 -->
 			<div class="mb-3">
 				<label for="zipCode" class="form-label d-flex align-items-center gap-2">
-					<span th:text="#{common.label.zipCode}"></span>
+					<span th:text="#{common.label.zip.code}"></span>
 					<span
 						class="badge bg-danger"
 						th:text="#{common.label.required}"></span>
@@ -100,7 +100,7 @@
 					class="form-control"
 					th:field="*{zipCode}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.form.zipCode}">
+					th:placeholder="#{placeholder.form.zip.code}">
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('zipCode')}"
