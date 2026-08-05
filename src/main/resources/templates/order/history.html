@@ -10,7 +10,7 @@
 	<main layout:fragment="content">
 
 		<div
-			class="container mt-4"
+			class="container my-4"
 			style="max-width: 800px;">
 			<!-- 大見出し -->
 			<h1
@@ -39,7 +39,7 @@
 						<div>
 							<div
 								class="text-muted small fw-bold"
-								th:text="#{common.label.orderedAt}"></div>
+								th:text="#{common.label.ordered.at}"></div>
 							<div
 								class="fw-bold"
 								th:text="${#temporals.format(item.order.orderedAt, 'yyyy年MM月dd日')}"></div>
@@ -48,7 +48,7 @@
 						<div>
 							<div
 								class="text-muted small fw-bold"
-								th:text="#{common.label.totalAmount}"></div>
+								th:text="#{common.label.total.amount}"></div>
 							<div
 								class="fw-bold text-danger"
 								th:text="#{common.price.format.symbol(${item.order.totalPrice})}"></div>
@@ -61,7 +61,7 @@
 							th:text="#{label.order.history.address}"></div>
 						<div
 							class="fw-bold"
-							th:text="#{common.zipCode.format(${item.order.orderedZipCode})} + ' ' + ${item.order.orderedAddress}"></div>
+							th:text="#{common.zip.code.format(${item.order.orderedZipCode})} + ' ' + ${item.order.orderedAddress}"></div>
 						<div
 							class="fw-bold"
 							th:text="#{common.user.honorific(${item.order.orderedName})}"></div>
@@ -92,7 +92,7 @@
 								<div class="d-flex align-items-center gap-2">
 									<span
 										class="text-muted small"
-										th:text="|#{common.label.unitPrice} ${#messages.msg('common.price.format.symbol', detail.orderedPrice)}|"></span>
+										th:text="|#{common.label.unit.price} ${#messages.msg('common.price.format.symbol', detail.orderedPrice)}|"></span>
 									<span
 										class="badge bg-secondary"
 										th:text="#{common.quantity.format(${detail.quantity})}"></span>
