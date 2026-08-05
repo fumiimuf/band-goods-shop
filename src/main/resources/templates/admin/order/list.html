@@ -9,7 +9,7 @@
 <body>
 	<main layout:fragment="content">
 		<div
-			class="container mt-4"
+			class="container my-4"
 			style="max-width: 1000px;">
 			<!-- 大見出し -->
 			<h2 th:text="#{label.admin.order.list.heading}"></h2>
@@ -27,7 +27,7 @@
 						name="keyword"
 						th:value="${keyword}"
 						class="form-control w-50"
-						th:placeholder="#{placeholder.search.perchaserOrOrderDate}">
+						th:placeholder="#{placeholder.search.purchaser.or.order.date}">
 					<!-- 検索ボタン -->
 					<button
 						type="submit"
@@ -52,12 +52,12 @@
 				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
 					<thead class="table-dark">
 						<tr class="text-center">
-							<th th:text="#{common.label.orderedAt}"></th>
-							<th th:text="#{common.label.perchaser}"></th>
-							<th th:text="#{common.label.totalAmount}"></th>
-							<th th:text="#{common.label.goodsImage}"></th>
-							<th th:text="#{common.label.goodsName}"></th>
-							<th th:text="#{common.label.unitPrice}"></th>
+							<th th:text="#{common.label.ordered.at}"></th>
+							<th th:text="#{common.label.purchaser}"></th>
+							<th th:text="#{common.label.total.amount}"></th>
+							<th th:text="#{common.label.goods.image}"></th>
+							<th th:text="#{common.label.goods.name}"></th>
+							<th th:text="#{common.label.unit.price}"></th>
 							<th th:text="#{common.label.quantity}"></th>
 						</tr>
 					</thead>
