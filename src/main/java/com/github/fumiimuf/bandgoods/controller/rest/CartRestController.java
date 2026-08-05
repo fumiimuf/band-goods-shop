@@ -84,7 +84,7 @@ public class CartRestController {
 			cartService.updateQuantity(targetCart);
 		}
 		
-		String successMessage = messageSource.getMessage("msg.success.cart.addt", null, locale);
+		String successMessage = messageSource.getMessage("msg.success.cart.add", null, locale);
 		
 		int totalQuantity = cartService.getTotalQuantity(userId);
 		
