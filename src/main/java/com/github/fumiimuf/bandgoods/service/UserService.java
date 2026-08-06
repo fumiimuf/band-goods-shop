@@ -8,11 +8,11 @@ public interface UserService {
 	
 	boolean existEmail(String email);
 
-	void insertOne(User user);
+	void insert(User user);
 	
 	User findById(Integer userId);
 	
-	void updateUser(User user);
+	void update(User user);
 	
 	List<User> getAllUsers(String keyword, int page, int size);
 	
