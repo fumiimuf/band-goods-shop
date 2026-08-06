@@ -23,5 +23,4 @@ public interface CartService {
 	
 	Cart getCart(Integer userId, Integer goodsId);
 	
-	List<CartItem> getActiveItemsInCart(Integer userId);
 }
