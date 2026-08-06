@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void insertOne(User user) {
+	public void insert(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userMapper.insertOne(user);
+		userMapper.insert(user);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void update(User user) {
 		
 		if (user.getPassword() != null && !user.getPassword().isEmpty()) {
 			
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 			user.setPassword(currentUser.getPassword());
 		}
 		
-		userMapper.updateUser(user);
+		userMapper.update(user);
 	}
 
 	@Override
@@ -55,11 +55,11 @@ public class UserServiceImpl implements UserService {
 		
 		int offset = page * size;
 		
-		return userMapper.selectAllUsers(keyword, size, offset);
+		return userMapper.selectUsers(keyword, size, offset);
 	}
 
 	@Override
 	public int getCountUsers(String keyword) {
-		return userMapper.selectCountAllUsers(keyword);
+		return userMapper.selectCountUsers(keyword);
 	}
 }
