@@ -174,6 +174,7 @@ public class AdminGoodsController {
 	// 画像サイズチェック用の共通プライベートメソッド
 	private void validateImageSize(MultipartFile imageFile, BindingResult bindingResult) {
 		try {
+			
 			BufferedImage bufferedImage = ImageIO.read(imageFile.getInputStream());
 			
 			if (bufferedImage != null) {
@@ -185,7 +186,7 @@ public class AdminGoodsController {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException();
 		}
 	}
 }
