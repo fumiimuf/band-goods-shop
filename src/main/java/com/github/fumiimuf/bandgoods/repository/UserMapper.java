@@ -14,14 +14,14 @@ public interface UserMapper {
 	
 	User selectByEmail(String email);
 	
-	public void insertOne(User user);
+	public void insert(User user);
 	
 	User selectById(Integer userId);
 	
-	void updateUser(User user);
+	void update(User user);
 	
-	List<User> selectAllUsers(
+	List<User> selectUsers(
 			@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
 	
-	int selectCountAllUsers(String keyword);
+	int selectCountUsers(String keyword);
 }
