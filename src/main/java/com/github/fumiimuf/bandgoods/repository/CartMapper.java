@@ -13,7 +13,7 @@ public interface CartMapper {
 
 	Cart selectByUserIdAndGoodsId(@Param("userId") Integer userId, @Param("goodsId") Integer goodsId);
 	
-	void insertOne(Cart cart);
+	void insert(Cart cart);
 	
 	void updateQuantity(Cart cart);
 	
@@ -25,5 +25,4 @@ public interface CartMapper {
 	
 	int selectTotalAmountByUserId(Integer userId);
 	
-	List<CartItem> selectActiveItemsInCart(Integer userId);
 }
