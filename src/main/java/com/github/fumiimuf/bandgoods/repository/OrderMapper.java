@@ -16,7 +16,7 @@ public interface OrderMapper {
 	
 	long selectCountByUserId(Integer userId);
 	
-	List<Order> selectAllOrdersWithDetailsByPage(@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
+	List<Order> selectOrdersWithDetailsByPage(@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
 	
-	long selectCountAllOrders(String keyword);
+	long selectCountOrders(String keyword);
 }
