@@ -61,12 +61,14 @@
 
 					<!-- 1. 一般ユーザー用メニュー -->
 					<th:block sec:authorize="hasRole('USER')">
+						<!-- 〇〇様 -->
 						<li class="nav-item me-2 pe-3 text-white border-end">
 							<i class="fa-solid fa-user me-1"></i>
 							<span
 								th:text="#{common.user.honorific(${#authentication.principal.name})}"
 							></span>
 						</li>
+						<!-- グッズ一覧 -->
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
@@ -76,6 +78,7 @@
 								[[#{btn.header.goods.index}]]
 							</a>
 						</li>
+						<!-- カート画面 -->
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white font-weight-bold"
@@ -91,6 +94,7 @@
 								)
 							</a>
 						</li>
+						<!-- マイページ -->
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
@@ -100,6 +104,7 @@
 								[[#{btn.header.user.profile}]]
 							</a>
 						</li>
+						<!-- 購入履歴一覧 -->
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
@@ -113,6 +118,7 @@
 
 					<!-- 2. 管理者用メニュー -->
 					<th:block sec:authorize="hasRole('ADMIN')">
+						<!-- グッズ一覧 -->
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
@@ -122,7 +128,7 @@
 								[[#{btn.header.admin.goods.index}]]
 							</a>
 						</li>
-
+						<!-- 一般ユーザー一覧 -->
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
@@ -132,7 +138,7 @@
 								[[#{btn.header.admin.user.list}]]
 							</a>
 						</li>
-
+						<!-- 販売履歴一覧 -->
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
