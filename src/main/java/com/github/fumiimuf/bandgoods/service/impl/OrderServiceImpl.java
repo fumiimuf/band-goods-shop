@@ -94,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		int offset = page * size;
 		
-		List<Order> orders = orderMapper.selectAllOrdersWithDetailsByPage(keyword, size, offset);
+		List<Order> orders = orderMapper.selectOrdersWithDetailsByPage(keyword, size, offset);
 		
 		for (Order order : orders) {
 			OrderViewItem viewItem = new OrderViewItem();
@@ -110,6 +110,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public long getOrderCount(String keyword) {
-		return orderMapper.selectCountAllOrders(keyword);
+		return orderMapper.selectCountOrders(keyword);
 	}
 }
