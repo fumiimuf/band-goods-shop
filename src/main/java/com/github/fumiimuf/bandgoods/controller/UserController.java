@@ -53,7 +53,7 @@ public class UserController {
 		
 		User user = modelMapper.map(userRegisterForm, User.class);
 		
-		userService.insertOne(user);
+		userService.insert(user);
 		
 		redirectAttributes.addFlashAttribute("toastSuccess", "msg.success.user.register");
 		
@@ -91,7 +91,7 @@ public class UserController {
 	
 	// ユーザー更新処理
 	@PostMapping("/update")
-	public String updateUser(@ModelAttribute @Validated UserEditForm userEditForm, 
+	public String update(@ModelAttribute @Validated UserEditForm userEditForm, 
 					BindingResult bindingResult,
 					@AuthenticationPrincipal LoginUser loginUser, 
 					RedirectAttributes redirectAttributes) {
@@ -110,7 +110,7 @@ public class UserController {
 		
 		user.setId(loginUser.getUserId());
 		
-		userService.updateUser(user);
+		userService.update(user);
 		
 		if (loginUser != null) {
 			loginUser.setName(user.getName());
