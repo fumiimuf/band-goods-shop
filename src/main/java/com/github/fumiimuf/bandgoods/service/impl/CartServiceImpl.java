@@ -66,11 +66,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public void registerCart(Cart cart) {
-		cartMapper.insertOne(cart);
+		cartMapper.insert(cart);
 	}
 
-	@Override
-	public List<CartItem> getActiveItemsInCart(Integer userId) {
-		return cartMapper.selectActiveItemsInCart(userId);
-	}
 }
