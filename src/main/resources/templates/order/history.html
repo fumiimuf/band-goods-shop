@@ -2,7 +2,8 @@
 <html
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layout}"
+>
 <head>
 <title th:text="#{title.order.history}"></title>
 </head>
@@ -11,60 +12,72 @@
 
 		<div
 			class="container my-4"
-			style="max-width: 800px;">
+			style="max-width: 800px;"
+		>
 			<!-- 大見出し -->
 			<h1
 				class="text-center mb-3"
-				th:text="#{label.order.history.heading}"></h1>
+				th:text="#{label.order.history.heading}"
+			></h1>
 
 			<hr class="border-2 opacity-100">
 
 			<!-- 0件の場合のメッセージ -->
 			<div
 				th:if="${#lists.isEmpty(pagination.content)}"
-				class="text-center my-5">
+				class="text-center my-5"
+			>
 				<p
 					class="text-muted"
-					th:text="#{msg.order.history.empty}"></p>
+					th:text="#{msg.order.history.empty}"
+				></p>
 			</div>
 
 			<!-- データがある場合のみ表示 -->
 			<div
 				th:unless="${#lists.isEmpty(pagination.content)}"
 				th:each="item : ${pagination.content}"
-				class="card mb-4 shadow-sm border">
+				class="card mb-4 shadow-sm border"
+			>
 				<div class="card-header bg-light py-3 border-bottom">
 					<div class="d-flex gap-5 mb-3">
 						<!-- 注文日 -->
 						<div>
 							<div
 								class="text-muted small fw-bold"
-								th:text="#{common.label.ordered.at}"></div>
+								th:text="#{common.label.ordered.at}"
+							></div>
 							<div
 								class="fw-bold"
-								th:text="${#temporals.format(item.order.orderedAt, 'yyyy年MM月dd日')}"></div>
+								th:text="${#temporals.format(item.order.orderedAt, 'yyyy年MM月dd日')}"
+							></div>
 						</div>
 						<!-- 合計金額 -->
 						<div>
 							<div
 								class="text-muted small fw-bold"
-								th:text="#{common.label.total.amount}"></div>
+								th:text="#{common.label.total.amount}"
+							></div>
 							<div
 								class="fw-bold text-danger"
-								th:text="#{common.price.format.symbol(${item.order.totalPrice})}"></div>
+								th:text="#{common.price.format.symbol(${item.order.totalPrice})}"
+							></div>
 						</div>
 					</div>
 					<!-- お届け先 -->
 					<div>
 						<div
 							class="text-muted small fw-bold"
-							th:text="#{label.order.history.address}"></div>
+							th:text="#{label.order.history.address}"
+						></div>
 						<div
 							class="fw-bold"
-							th:text="#{common.zip.code.format(${item.order.orderedZipCode})} + ' ' + ${item.order.orderedAddress}"></div>
+							th:text="#{common.zip.code.format(${item.order.orderedZipCode})} + ' ' + ${item.order.orderedAddress}"
+						></div>
 						<div
 							class="fw-bold"
-							th:text="#{common.user.honorific(${item.order.orderedName})}"></div>
+							th:text="#{common.user.honorific(${item.order.orderedName})}"
+						></div>
 					</div>
 				</div>
 
@@ -72,30 +85,36 @@
 					<div
 						th:each="detail, stat : ${item.details}"
 						class="row align-items-center"
-						th:classappend="${!stat.last} ? 'mb-4 border-bottom pb-3' : ''">
+						th:classappend="${!stat.last} ? 'mb-4 border-bottom pb-3' : ''"
+					>
 
 						<div class="d-flex gap-3 align-items-start">
 							<!-- 商品画像 -->
 							<div
 								class="d-flex align-items-center justify-content-center flex-shrink-0"
-								style="width: 80px; height: 80px;">
+								style="width: 80px; height: 80px;"
+							>
 								<img
 									th:src="${detail.getOrderedImageUrl()}"
 									class="w-100 h-100 object-fit-contain"
-									th:alt="${detail.orderedName}">
+									th:alt="${detail.orderedName}"
+								>
 							</div>
 							<!-- 購入商品名 -->
 							<div class="my-auto">
 								<h6
 									class="mb-2 fw-bold text-dark"
-									th:text="${detail.orderedName}"></h6>
+									th:text="${detail.orderedName}"
+								></h6>
 								<div class="d-flex align-items-center gap-2">
 									<span
 										class="text-muted small"
-										th:text="|#{common.label.unit.price} ${#messages.msg('common.price.format.symbol', detail.orderedPrice)}|"></span>
+										th:text="|#{common.label.unit.price} ${#messages.msg('common.price.format.symbol', detail.orderedPrice)}|"
+									></span>
 									<span
 										class="badge bg-secondary"
-										th:text="#{common.quantity.format(${detail.quantity})}"></span>
+										th:text="#{common.quantity.format(${detail.quantity})}"
+									></span>
 								</div>
 							</div>
 						</div>
@@ -106,35 +125,42 @@
 			<nav
 				th:if="${pagination.totalPages > 1}"
 				aria-label="注文履歴ページナビゲーション"
-				class="mt-5">
+				class="mt-5"
+			>
 				<ul class="pagination justify-content-center d-flex gap-1">
 
 					<li
 						class="page-item"
-						th:classappend="${pagination.currentPage == 0} ? 'disabled'">
+						th:classappend="${pagination.currentPage == 0} ? 'disabled'"
+					>
 						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/order/history(page=${pagination.currentPage - 1})}"
-							th:text="#{common.pagination.prev}"></a>
+							th:text="#{common.pagination.prev}"
+						></a>
 					</li>
 
 					<li
 						class="page-item"
 						th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
-						th:classappend="${i == pagination.currentPage} ? 'active'">
+						th:classappend="${i == pagination.currentPage} ? 'active'"
+					>
 						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/order/history(page=${i})}"
-							th:text="${i + 1}"></a>
+							th:text="${i + 1}"
+						></a>
 					</li>
 
 					<li
 						class="page-item"
-						th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'">
+						th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'"
+					>
 						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/order/history(page=${pagination.currentPage + 1})}"
-							th:text="#{common.pagination.next}"></a>
+							th:text="#{common.pagination.next}"
+						></a>
 					</li>
 				</ul>
 			</nav>
@@ -142,7 +168,8 @@
 				<a
 					th:href="@{/goods/index}"
 					class="btn btn-outline-secondary px-4 py-2 shadow-sm"
-					th:text="#{btn.back}"></a>
+					th:text="#{btn.back}"
+				></a>
 			</div>
 		</div>
 	</main>

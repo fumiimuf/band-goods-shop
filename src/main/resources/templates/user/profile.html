@@ -2,7 +2,8 @@
 <html
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layout}"
+>
 <head>
 <title th:text="#{title.user.profile}"></title>
 </head>
@@ -10,25 +11,32 @@
 	<main layout:fragment="content">
 		<div
 			class="container my-4"
-			style="max-width: 600px;">
+			style="max-width: 600px;"
+		>
 
 			<!-- ユーザー編集成功時に表示するトースト -->
 			<div
 				th:if="${toastSuccess}"
 				class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
-				style="z-index: 1080;">
+				style="z-index: 1080;"
+			>
 				<div
 					class="toast show text-white bg-success border-0 position-relative"
-					style="width: 350px; min-height: 50px;">
-					<div class="d-flex align-items-center justify-content-center h-100 p-3">
+					style="width: 350px; min-height: 50px;"
+				>
+					<div
+						class="d-flex align-items-center justify-content-center h-100 p-3"
+					>
 						<div
 							class="w-100 text-center toast-body p-0"
-							th:text="${#messages.msg(toastSuccess)}"></div>
+							th:text="${#messages.msg(toastSuccess)}"
+						></div>
 						<button
 							type="button"
 							class="btn-close btn-close-white position-absolute top-50 end-0 translate-middle-y me-3"
 							data-bs-dismiss="toast"
-							aria-label="Close"></button>
+							aria-label="Close"
+						></button>
 					</div>
 				</div>
 			</div>
@@ -36,46 +44,57 @@
 			<!-- 大見出し -->
 			<h1
 				class="text-center"
-				th:text="#{label.user.profile.heading}"></h1>
+				th:text="#{label.user.profile.heading}"
+			></h1>
 
 			<hr class="border-2 opacity-100">
 
-			<div class="card border-secondary-subtle rounded-4 shadow-sm p-4 mb-4 bg-white">
+			<div
+				class="card border-secondary-subtle rounded-4 shadow-sm p-4 mb-4 bg-white"
+			>
 				<!-- 氏名 -->
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{common.label.user.name}"></div>
+						th:text="#{common.label.user.name}"
+					></div>
 					<div
 						class="fs-5 fw-bold text-dark"
-						th:text="${user.name}"></div>
+						th:text="${user.name}"
+					></div>
 				</div>
 				<!-- メールアドレス -->
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{common.label.email}"></div>
+						th:text="#{common.label.email}"
+					></div>
 					<div
 						class="fs-5 fw-bold text-dark"
-						th:text="${user.email}"></div>
+						th:text="${user.email}"
+					></div>
 				</div>
 				<!-- 郵便番号 -->
 				<div class="mb-4">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{common.label.zip.code}"></div>
+						th:text="#{common.label.zip.code}"
+					></div>
 					<div
 						class="fs-5 fw-bold text-dark"
-						th:text="${user.zipCode}"></div>
+						th:text="${user.zipCode}"
+					></div>
 				</div>
 				<!-- 住所 -->
 				<div class="mb-0">
 					<div
 						class="small text-muted fw-bold mb-1"
-						th:text="#{common.label.address}"></div>
+						th:text="#{common.label.address}"
+					></div>
 					<div
 						class="fs-5 fw-bold text-dark lh-base"
-						th:text="${user.address}"></div>
+						th:text="${user.address}"
+					></div>
 				</div>
 
 			</div>
@@ -85,12 +104,14 @@
 				<a
 					th:href="@{/goods/index}"
 					class="btn btn-outline-secondary px-4 py-2 rounded-1"
-					th:text="#{btn.back}"></a>
+					th:text="#{btn.back}"
+				></a>
 				<!-- 編集ボタン -->
 				<a
 					th:href="@{/user/edit}"
 					class="btn btn-primary px-4 py-2 rounded-1"
-					th:text="#{btn.edit}"></a>
+					th:text="#{btn.edit}"
+				></a>
 			</div>
 		</div>
 	</main>

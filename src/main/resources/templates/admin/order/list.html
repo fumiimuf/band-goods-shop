@@ -2,7 +2,8 @@
 <html
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layout}"
+>
 <head>
 <title th:text="#{title.admin.order.list}"></title>
 </head>
@@ -10,7 +11,8 @@
 	<main layout:fragment="content">
 		<div
 			class="container my-4"
-			style="max-width: 1000px;">
+			style="max-width: 1000px;"
+		>
 			<!-- 大見出し -->
 			<h2 th:text="#{label.admin.order.list.heading}"></h2>
 
@@ -19,7 +21,8 @@
 			<form
 				th:action="@{/admin/order/list}"
 				method="get"
-				class="mb-4">
+				class="mb-4"
+			>
 				<div class="d-flex justify-content-end align-items-center gap-2">
 					<!-- 入力フォーム -->
 					<input
@@ -27,29 +30,36 @@
 						name="keyword"
 						th:value="${keyword}"
 						class="form-control w-50"
-						th:placeholder="#{placeholder.search.purchaser.or.order.date}">
+						th:placeholder="#{placeholder.search.purchaser.or.order.date}"
+					>
 					<!-- 検索ボタン -->
 					<button
 						type="submit"
 						class="btn btn-dark text-nowrap"
-						th:text="#{btn.search}"></button>
+						th:text="#{btn.search}"
+					></button>
 				</div>
 			</form>
 
 			<!-- 0件の場合のメッセージ -->
 			<div
 				th:if="${#lists.isEmpty(pagination.content)}"
-				class="text-center my-5">
+				class="text-center my-5"
+			>
 				<p
 					class="text-muted"
-					th:text="#{msg.admin.order.list.empty}"></p>
+					th:text="#{msg.admin.order.list.empty}"
+				></p>
 			</div>
 
 			<!-- データがある場合のみテーブルを表示 -->
 			<div
 				th:unless="${#lists.isEmpty(pagination.content)}"
-				class="table-responsive">
-				<table class="table table-bordered table-hover align-middle bg-white shadow-sm">
+				class="table-responsive"
+			>
+				<table
+					class="table table-bordered table-hover align-middle bg-white shadow-sm"
+				>
 					<thead class="table-dark">
 						<tr class="text-center">
 							<th th:text="#{common.label.ordered.at}"></th>
@@ -69,35 +79,41 @@
 									th:if="${itemStat.first}"
 									th:rowspan="${#lists.size(viewItem.details)}"
 									class="text-center"
-									th:text="${#temporals.format(viewItem.order.orderedAt, 'yyyy/MM/dd')}"></td>
+									th:text="${#temporals.format(viewItem.order.orderedAt, 'yyyy/MM/dd')}"
+								></td>
 								<!-- 購入者 -->
 								<td
 									th:if="${itemStat.first}"
 									th:rowspan="${#lists.size(viewItem.details)}"
-									th:text="${viewItem.order.orderedName}"></td>
+									th:text="${viewItem.order.orderedName}"
+								></td>
 								<!-- 合計金額 -->
 								<td
 									th:if="${itemStat.first}"
 									th:rowspan="${#lists.size(viewItem.details)}"
 									class="text-end"
-									th:text="#{common.price.format.yen(${viewItem.order.totalPrice})}"></td>
+									th:text="#{common.price.format.yen(${viewItem.order.totalPrice})}"
+								></td>
 								<!-- 画像 -->
 								<td class="text-center">
 									<img
 										th:src="${item.getOrderedImageUrl()}"
 										style="width: 50px; height: auto;"
-										alt="商品画像">
+										alt="商品画像"
+									>
 								</td>
 								<!-- 購入商品名 -->
 								<td th:text="${item.orderedName}"></td>
 								<!-- 単価 -->
 								<td
 									class="text-end"
-									th:text="#{common.price.format.yen(${item.orderedPrice})}"></td>
+									th:text="#{common.price.format.yen(${item.orderedPrice})}"
+								></td>
 								<!-- 個数 -->
 								<td
 									class="text-center"
-									th:text="${item.quantity}"></td>
+									th:text="${item.quantity}"
+								></td>
 							</tr>
 						</th:block>
 					</tbody>
@@ -107,35 +123,42 @@
 			<nav
 				th:if="${pagination.totalPages > 1}"
 				aria-label="販売履歴一覧ページナビゲーション"
-				class="mt-5">
+				class="mt-5"
+			>
 				<ul class="pagination justify-content-center d-flex gap-1">
 
 					<li
 						class="page-item"
-						th:classappend="${pagination.currentPage == 0} ? 'disabled'">
+						th:classappend="${pagination.currentPage == 0} ? 'disabled'"
+					>
 						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/admin/order/list(keyword=${keyword}, page=${pagination.currentPage - 1})}"
-							th:text="#{common.pagination.prev}"></a>
+							th:text="#{common.pagination.prev}"
+						></a>
 					</li>
 
 					<li
 						class="page-item"
 						th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
-						th:classappend="${i == pagination.currentPage} ? 'active'">
+						th:classappend="${i == pagination.currentPage} ? 'active'"
+					>
 						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/admin/order/list(keyword=${keyword}, page=${i})}"
-							th:text="${i + 1}"></a>
+							th:text="${i + 1}"
+						></a>
 					</li>
 
 					<li
 						class="page-item"
-						th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'">
+						th:classappend="${pagination.currentPage == pagination.totalPages - 1} ? 'disabled'"
+					>
 						<a
 							class="page-link text-dark border-dark rounded-1"
 							th:href="@{/admin/order/list(keyword=${keyword}, page=${pagination.currentPage + 1})}"
-							th:text="#{common.pagination.next}"></a>
+							th:text="#{common.pagination.next}"
+						></a>
 					</li>
 				</ul>
 			</nav>
@@ -144,7 +167,8 @@
 				<a
 					th:href="@{/admin/goods/index}"
 					class="btn btn-outline-secondary px-4"
-					th:text="#{btn.back}"></a>
+					th:text="#{btn.back}"
+				></a>
 			</div>
 		</div>
 	</main>

@@ -4,23 +4,27 @@
 <meta charset="UTF-8">
 <meta
 	name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	content="width=device-width, initial-scale=1, shrink-to-fit=no"
+>
 
 <!-- CSS読込 -->
 <link
 	rel="stylesheet"
-	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+>
 
 <title th:text="#{title.user.register}"></title>
 </head>
 <body>
 	<div
 		class="container my-4"
-		style="max-width: 400px;">
+		style="max-width: 400px;"
+	>
 		<!-- 大見出し -->
 		<h1
 			class="mb-3 text-center"
-			th:text="#{label.user.register.heading}"></h1>
+			th:text="#{label.user.register.heading}"
+		></h1>
 
 		<hr class="border-2 opacity-100">
 
@@ -29,121 +33,155 @@
 			th:action="@{/user/register}"
 			th:object="${userRegisterForm}"
 			method="post"
-			novalidate>
+			novalidate
+		>
 			<!-- 氏名 -->
 			<div class="mb-3">
-				<label for="name" class="form-label d-flex align-items-center gap-2">
+				<label
+					for="name"
+					class="form-label d-flex align-items-center gap-2"
+				>
 					<span th:text="#{common.label.user.name}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{common.label.required}"></span>
+						th:text="#{common.label.required}"
+					></span>
 				</label>
 				<input
 					type="text"
 					class="form-control"
 					th:field="*{name}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.form.user.name}">
+					th:placeholder="#{placeholder.form.user.name}"
+				>
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('name')}"
-					th:errors="*{name}"></div>
+					th:errors="*{name}"
+				></div>
 			</div>
 			<!-- メールアドレス -->
 			<div class="mb-3">
-				<label for="email" class="form-label d-flex align-items-center gap-2">
+				<label
+					for="email"
+					class="form-label d-flex align-items-center gap-2"
+				>
 					<span th:text="#{common.label.email}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{common.label.required}"></span>
+						th:text="#{common.label.required}"
+					></span>
 				</label>
 				<input
 					type="email"
 					class="form-control"
 					th:field="*{email}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.form.email}">
+					th:placeholder="#{placeholder.form.email}"
+				>
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('email')}"
-					th:errors="*{email}"></div>
+					th:errors="*{email}"
+				></div>
 			</div>
 			<!-- パスワード -->
 			<div class="mb-3">
-				<label for="password" class="form-label d-flex align-items-center gap-2">
+				<label
+					for="password"
+					class="form-label d-flex align-items-center gap-2"
+				>
 					<span th:text="#{common.label.password}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{common.label.required}"></span>
+						th:text="#{common.label.required}"
+					></span>
 				</label>
 				<input
 					type="password"
 					class="form-control"
 					th:field="*{password}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.form.password}">
+					th:placeholder="#{placeholder.form.password}"
+				>
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('password')}"
-					th:errors="*{password}"></div>
+					th:errors="*{password}"
+				></div>
 			</div>
 			<!-- 郵便番号 -->
 			<div class="mb-3">
-				<label for="zipCode" class="form-label d-flex align-items-center gap-2">
+				<label
+					for="zipCode"
+					class="form-label d-flex align-items-center gap-2"
+				>
 					<span th:text="#{common.label.zip.code}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{common.label.required}"></span>
+						th:text="#{common.label.required}"
+					></span>
 				</label>
 				<input
 					type="text"
 					class="form-control"
 					th:field="*{zipCode}"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.form.zip.code}">
+					th:placeholder="#{placeholder.form.zip.code}"
+				>
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('zipCode')}"
-					th:errors="*{zipCode}"></div>
+					th:errors="*{zipCode}"
+				></div>
 			</div>
 			<!-- 住所 -->
 			<div class="mb-3">
-				<label for="address" class="form-label d-flex align-items-center gap-2">
+				<label
+					for="address"
+					class="form-label d-flex align-items-center gap-2"
+				>
 					<span th:text="#{common.label.address}"></span>
 					<span
 						class="badge bg-danger"
-						th:text="#{common.label.required}"></span>
+						th:text="#{common.label.required}"
+					></span>
 				</label>
 				<textarea
 					class="form-control"
 					th:field="*{address}"
 					rows="3"
 					th:errorclass="is-invalid"
-					th:placeholder="#{placeholder.form.address}"></textarea>
+					th:placeholder="#{placeholder.form.address}"
+				></textarea>
 				<div
 					class="invalid-feedback"
 					th:if="${#fields.hasErrors('address')}"
-					th:errors="*{address}"></div>
+					th:errors="*{address}"
+				></div>
 			</div>
 			<!-- 登録ボタン -->
 			<div class="d-grid mb-3">
 				<button
 					type="submit"
 					class="btn btn-primary btn-lg"
-					th:text="#{btn.submit}"></button>
+					th:text="#{btn.submit}"
+				></button>
 			</div>
 			<!-- リンク -->
 			<div class="mb-3 text-center">
 				<a
 					th:href="@{/login}"
 					class="text-decoration-none"
-					th:text="#{label.user.register.link.login}"></a>
+					th:text="#{label.user.register.link.login}"
+				></a>
 			</div>
 		</form>
 	</div>
 	<!-- JS読込 -->
 	<script
 		th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"
-		defer></script>
+		defer
+	></script>
 </body>
 </html>

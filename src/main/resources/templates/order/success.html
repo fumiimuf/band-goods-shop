@@ -4,22 +4,27 @@
 <meta charset="UTF-8">
 <meta
 	name="viewport"
-	content="width=device-width, initial-scale=1.0">
+	content="width=device-width, initial-scale=1.0"
+>
 <title th:text="#{title.order.success}"></title>
 
 <link
 	rel="stylesheet"
-	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+>
 <link
 	rel="stylesheet"
-	th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}">
+	th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}"
+>
 
 </head>
 <body class="bg-light d-flex align-items-center min-vh-100">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 col-sm-10 col-md-8 col-lg-6">
-				<div class="card border-0 shadow-sm rounded-4 p-4 p-sm-5 text-center">
+				<div
+					class="card border-0 shadow-sm rounded-4 p-4 p-sm-5 text-center"
+				>
 					<!-- アイコン -->
 					<div class="mb-4">
 						<i class="bi bi-check-circle-fill text-success display-1"></i>
@@ -27,17 +32,20 @@
 					<!-- ご購入お礼メッセージ -->
 					<h1
 						class="h2 fw-bold mb-3 text-dark"
-						th:text="#{msg.order.success.thanks}"></h1>
+						th:text="#{msg.order.success.thanks}"
+					></h1>
 
 					<p class="text-secondary mb-5 lh-lg">
 						<!-- 注文完了メッセージ -->
 						<span
 							class="d-block"
-							th:text="#{msg.order.success.complete}"></span>
+							th:text="#{msg.order.success.complete}"
+						></span>
 						<!-- 発送メッセージ -->
 						<span
 							class="d-block"
-							th:text="#{msg.order.success.notice.shipping}"></span>
+							th:text="#{msg.order.success.notice.shipping}"
+						></span>
 					</p>
 
 					<hr class="mb-5 opacity-10">
@@ -47,7 +55,8 @@
 						<a
 							th:href="@{/goods/index}"
 							class="btn btn-dark btn-lg py-3 fw-bold rounded-3"
-							th:text="#{btn.order.success.back.goods}"></a>
+							th:text="#{btn.order.success.back.goods}"
+						></a>
 					</div>
 				</div>
 			</div>
@@ -55,6 +64,7 @@
 	</div>
 	<script
 		th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"
-		defer></script>
+		defer
+	></script>
 </body>
 </html>

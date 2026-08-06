@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head></head>
 <body>
 	<header
 		th:fragment="header"
-		class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+		class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm"
+	>
 		<div class="container-fluid">
 			<!-- サイト名 -->
 			<div
 				sec:authorize="hasRole('USER')"
-				class="d-flex align-items-center">
+				class="d-flex align-items-center"
+			>
 				<a
 					class="navbar-brand fw-bold"
-					th:href="@{/goods/index}">
+					th:href="@{/goods/index}"
+				>
 					<i class="fa-solid fa-house me-1"></i>
 					[[#{label.header.site.name}]]
 				</a>
@@ -22,16 +26,19 @@
 
 			<div
 				sec:authorize="hasRole('ADMIN')"
-				class="d-flex align-items-center">
+				class="d-flex align-items-center"
+			>
 				<a
 					class="navbar-brand fw-bold"
-					th:href="@{/admin/goods/index}">
+					th:href="@{/admin/goods/index}"
+				>
 					<i class="fa-solid fa-house me-1"></i>
 					[[#{label.header.admin.site.name}]]
 				</a>
 				<span
 					class="badge bg-primary small"
-					th:text="#{label.header.admin.badge}"></span>
+					th:text="#{label.header.admin.badge}"
+				></span>
 			</div>
 
 			<button
@@ -39,25 +46,32 @@
 				type="button"
 				data-bs-toggle="collapse"
 				data-bs-target="#navbarNavDropdown"
-				aria-expanded="false">
+				aria-expanded="false"
+			>
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
 			<div
 				class="collapse navbar-collapse justify-content-end"
-				id="navbarNavDropdown">
-				<ul class="navbar-nav flex-row align-items-center w-100 justify-content-end py-2 py-lg-0">
+				id="navbarNavDropdown"
+			>
+				<ul
+					class="navbar-nav flex-row align-items-center w-100 justify-content-end py-2 py-lg-0"
+				>
 
 					<!-- 1. 一般ユーザー用メニュー -->
 					<th:block sec:authorize="hasRole('USER')">
 						<li class="nav-item me-2 pe-3 text-white border-end">
 							<i class="fa-solid fa-user me-1"></i>
-							<span th:text="#{common.user.honorific(${#authentication.principal.name})}"></span>
+							<span
+								th:text="#{common.user.honorific(${#authentication.principal.name})}"
+							></span>
 						</li>
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
-								th:href="@{/goods/index}">
+								th:href="@{/goods/index}"
+							>
 								<i class="fa-solid fa-box me-1"></i>
 								[[#{btn.header.goods.index}]]
 							</a>
@@ -65,20 +79,23 @@
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white font-weight-bold"
-								th:href="@{/cart/index}">
+								th:href="@{/cart/index}"
+							>
 								<i class="fa-solid fa-cart-shopping me-1"></i>
 								[[#{btn.header.cart}]](
 								<span
 									data-header-cart-count
 									class="text-danger"
-									th:text="${cartCount != null ? cartCount : 0}"></span>
+									th:text="${cartCount != null ? cartCount : 0}"
+								></span>
 								)
 							</a>
 						</li>
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
-								th:href="@{/user/profile}">
+								th:href="@{/user/profile}"
+							>
 								<i class="fa-solid fa-address-card me-1"></i>
 								[[#{btn.header.user.profile}]]
 							</a>
@@ -86,7 +103,8 @@
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
-								th:href="@{/order/history}">
+								th:href="@{/order/history}"
+							>
 								<i class="fa-solid fa-clock-rotate-left me-1"></i>
 								[[#{btn.header.order.history}]]
 							</a>
@@ -98,7 +116,8 @@
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
-								th:href="@{/admin/goods/index}">
+								th:href="@{/admin/goods/index}"
+							>
 								<i class="fa-solid fa-box me-1"></i>
 								[[#{btn.header.admin.goods.index}]]
 							</a>
@@ -107,7 +126,8 @@
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
-								th:href="@{/admin/user/list}">
+								th:href="@{/admin/user/list}"
+							>
 								<i class="fa-solid fa-users me-1"></i>
 								[[#{btn.header.admin.user.list}]]
 							</a>
@@ -116,7 +136,8 @@
 						<li class="nav-item px-2">
 							<a
 								class="nav-link text-white"
-								th:href="@{/admin/order/list}">
+								th:href="@{/admin/order/list}"
+							>
 								<i class="fa-solid fa-list-check me-1"></i>
 								[[#{btn.header.admin.order.list}]]
 							</a>
@@ -127,10 +148,12 @@
 					<li class="nav-item ms-2 ms-sm-3">
 						<form
 							th:action="@{/logout}"
-							method="post">
+							method="post"
+						>
 							<button
 								type="submit"
-								class="btn btn-outline-light btn-sm">
+								class="btn btn-outline-light btn-sm"
+							>
 								<i class="fa-solid fa-right-from-bracket me-1"></i>
 								[[#{btn.logout}]]
 							</button>

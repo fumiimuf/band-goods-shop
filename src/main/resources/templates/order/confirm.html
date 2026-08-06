@@ -2,7 +2,8 @@
 <html
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layout}"
+>
 <head>
 <title th:text="#{title.order.confirm}"></title>
 </head>
@@ -11,7 +12,8 @@
 	<main layout:fragment="content">
 		<div
 			class="container my-4"
-			style="max-width: 800px;">
+			style="max-width: 800px;"
+		>
 			<!-- 大見出し -->
 			<h1 th:text="#{label.order.confirm.heading}"></h1>
 
@@ -21,7 +23,8 @@
 				<div class="card-header bg-dark text-white fw-bold py-3">
 					<span
 						class="bi bi-truck me-2"
-						th:text="#{label.order.confirm.delivery}"></span>
+						th:text="#{label.order.confirm.delivery}"
+					></span>
 				</div>
 
 				<div class="card-body">
@@ -29,28 +32,34 @@
 					<div class="mb-3">
 						<div
 							class="text-muted small fw-bold mb-1"
-							th:text="#{common.label.zip.code}"></div>
+							th:text="#{common.label.zip.code}"
+						></div>
 						<p
 							class="h5 mb-0 fw-bold"
-							th:text="#{common.zip.code.format(${user.zipCode})}"></p>
+							th:text="#{common.zip.code.format(${user.zipCode})}"
+						></p>
 					</div>
 					<!-- 住所 -->
 					<div class="mb-3">
 						<div
 							class="text-muted small fw-bold mb-1"
-							th:text="#{common.label.address}"></div>
+							th:text="#{common.label.address}"
+						></div>
 						<p
 							class="h5 mb-0 fw-bold"
-							th:text="${user.address}"></p>
+							th:text="${user.address}"
+						></p>
 					</div>
 					<!-- お名前 -->
 					<div class="mb-0">
 						<div
 							class="text-muted small fw-bold mb-1"
-							th:text="#{label.order.confirm.delivery.name}"></div>
+							th:text="#{label.order.confirm.delivery.name}"
+						></div>
 						<p
 							class="h5 mb-0 fw-bold"
-							th:text="#{common.user.honorific(${user.name})}"></p>
+							th:text="#{common.user.honorific(${user.name})}"
+						></p>
 					</div>
 				</div>
 			</div>
@@ -59,7 +68,8 @@
 				<div class="card-header bg-dark text-white fw-bold py-3">
 					<span
 						class="bi bi-bag-check me-2"
-						th:text="#{label.order.confirm.item}"></span>
+						th:text="#{label.order.confirm.item}"
+					></span>
 				</div>
 
 				<div class="card-body">
@@ -79,42 +89,51 @@
 								<td>
 									<div
 										class="d-flex align-items-center justify-content-center"
-										style="height: 100px; width: 100px;">
+										style="height: 100px; width: 100px;"
+									>
 										<img
 											th:src="${item.getImageUrl()}"
 											class="w-100 h-100 object-fit-contain"
-											th:alt="${item.goods.name}">
+											th:alt="${item.goods.name}"
+										>
 									</div>
 								</td>
 								<!-- 商品名 -->
 								<td
 									class="fw-bold"
-									th:text="${item.goods.name}"></td>
+									th:text="${item.goods.name}"
+								></td>
 								<!-- 価格 -->
 								<td
 									class="fw-bold"
-									th:text="#{common.price.format.symbol(${item.goods.price})}"></td>
+									th:text="#{common.price.format.symbol(${item.goods.price})}"
+								></td>
 								<!-- 数量 -->
 								<td
 									class="fw-bold"
-									th:text="#{common.quantity.format(${item.quantity})}"></td>
+									th:text="#{common.quantity.format(${item.quantity})}"
+								></td>
 								<!-- 小計 -->
 								<td
 									class="fw-bold text-primary"
-									th:text="#{common.price.format.symbol(${item.subtotal})}"></td>
+									th:text="#{common.price.format.symbol(${item.subtotal})}"
+								></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
 				<div class="card-footer bg-white border-top-0 pt-0 pb-3">
-					<div class="d-flex flex-column align-items-end justify-content-center mb-3">
+					<div
+						class="d-flex flex-column align-items-end justify-content-center mb-3"
+					>
 						<!-- お支払い合計 -->
 						<div class="text-danger fw-bold fs-2">
 							<span th:text="#{label.order.confirm.total.amount}"></span>
 							<span
 								th:text="#{common.price.format.symbol(${totalAmount})}"
-								class="fs-1"></span>
+								class="fs-1"
+							></span>
 						</div>
 					</div>
 
@@ -123,15 +142,18 @@
 						<a
 							th:href="@{/cart/index}"
 							class="btn btn-outline-secondary"
-							th:text="#{btn.order.confirm.back}"></a>
+							th:text="#{btn.order.confirm.back}"
+						></a>
 						<!-- 注文を確定するボタン -->
 						<form
 							th:action="@{/order/complete}"
-							method="post">
+							method="post"
+						>
 							<button
 								type="submit"
 								class="btn btn-success"
-								th:text="#{btn.order.confirm.submit}"></button>
+								th:text="#{btn.order.confirm.submit}"
+							></button>
 						</form>
 					</div>
 				</div>
