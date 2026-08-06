@@ -85,7 +85,7 @@
 	    ORDER BY o.ordered_at DESC
 	</select>
 	
-	<select id="selectAllOrdersWithDetailsByPage" resultMap="OrderWithDetailMap">
+	<select id="selectOrdersWithDetailsByPage" resultMap="OrderWithDetailMap">
 		SELECT 
 			o.id AS order_id, 
 	        o.user_id, 
@@ -115,7 +115,7 @@
    		ORDER BY o.ordered_at DESC
 	</select>
 	
-	<select id="selectCountAllOrders" resultType="long">
+	<select id="selectCountOrders" resultType="long">
 	    SELECT COUNT(*) FROM `order` 
 	    <where>
 			<if test="keyword != null and keyword != ''">
