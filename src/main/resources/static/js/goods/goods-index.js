@@ -1,51 +1,51 @@
 $(function() {
 
-    // 1. ポップオーバーの初期化（標準のclickトリガーを使用）
-    const $popovers = $('[data-bs-toggle="popover"]').popover();
-	
+	// 1. ポップオーバーの初期化（標準のclickトリガーを使用）
+	const $popovers = $('[data-bs-toggle="popover"]').popover();
+
 	// いずれかのポップオーバーが開く「直前」に、他のポップオーバーをすべて閉じる
-	    $('[data-bs-toggle="popover"]').on('show.bs.popover', function () {
-	        $popovers.not(this).popover('hide');
-	    });
+	$('[data-bs-toggle="popover"]').on('show.bs.popover', function() {
+		$popovers.not(this).popover('hide');
+	});
 
-    // ボタン以外をクリックしたときに閉じるための補正コード
-    $(document).on('click', function(e) {
-        // クリックされた要素が「商品説明ボタン」でもなく、「ポップオーバーの吹き出し内」でもない場合
-        if (!$(e.target).closest('[data-bs-toggle="popover"]').length && !$(e.target).closest('.popover').length) {
-            $popovers.popover('hide'); // すべてのポップオーバーを閉じる
-        }
-    });
+	// ボタン以外をクリックしたときに閉じるための補正コード
+	$(document).on('click', function(e) {
+		// クリックされた要素が「商品説明ボタン」でもなく、「ポップオーバーの吹き出し内」でもない場合
+		if (!$(e.target).closest('[data-bs-toggle="popover"]').length && !$(e.target).closest('.popover').length) {
+			$popovers.popover('hide'); // すべてのポップオーバーを閉じる
+		}
+	});
 
-    // 2. カート追加（Ajax送信）
-    $('[data-cart-add-form]').on('submit', function(e) {
-        // ブラウザ本来のページ遷移をキャンセル
-        e.preventDefault();
+	// 2. カート追加（Ajax送信）
+	$('[data-cart-add-form]').on('submit', function(e) {
+		// ブラウザ本来のページ遷移をキャンセル
+		e.preventDefault();
 
-        const $form = $(this);
+		const $form = $(this);
 
-        const url = $form.attr('action');
+		const url = $form.attr('action');
 
-        // $.post(宛先, 送信データ) でシンプルに記述
-        $.post(url, $form.serialize(), null, 'json')
-            .done((res) => {
-                // ① 成功（true）：ヘッダーの個数を更新し、成功トーストを表示
-                $('[data-header-cart-count]').text(res.newCartCount);
+		// $.post(宛先, 送信データ) でシンプルに記述
+		$.post(url, $form.serialize(), null, 'json')
+			.done((res) => {
+				// ① 成功（true）：ヘッダーの個数を更新し、成功トーストを表示
+				$('[data-header-cart-count]').text(res.newCartCount);
 
-                // Javaから届いた成功メッセージがあればトーストの本文にセット（HTML側の要素がある場合）
-                if (res.successMessage) {
-                    $('[data-cart-success-toast] .toast-body').text(res.successMessage);
-                }
+				// Javaから届いた成功メッセージがあればトーストの本文にセット（HTML側の要素がある場合）
+				if (res.successMessage) {
+					$('[data-cart-success-toast] .toast-body').text(res.successMessage);
+				}
 
-                new bootstrap.Toast($('[data-cart-success-toast]')[0]).show();
-            })
-            .fail((xhr) => {
+				new bootstrap.Toast($('[data-cart-success-toast]')[0]).show();
+			})
+			.fail((xhr) => {
 				// サーバーからのエラーメッセージを取得。無ければネットワークエラー用のメッセージを設定
-			    const defaultMsg = "通信に失敗しました。ネットワーク接続を確認してください。";
-			    const errorMessage = xhr.responseJSON?.errorMessage || defaultMsg;
+				const defaultMsg = "通信に失敗しました。ネットワーク接続を確認してください。";
+				const errorMessage = xhr.responseJSON?.errorMessage || defaultMsg;
 
-                // 3. エラートーストの本文にメッセージをセットして表示
-                $('[data-cart-error-message]').text(errorMessage);
-                new bootstrap.Toast($('[data-cart-error-toast]')[0]).show();
-            });
-    });
+				// 3. エラートーストの本文にメッセージをセットして表示
+				$('[data-cart-error-message]').text(errorMessage);
+				new bootstrap.Toast($('[data-cart-error-toast]')[0]).show();
+			});
+	});
 });
