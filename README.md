@@ -124,9 +124,9 @@
 ## 動作確認手順
 
 **1. 動作環境・事前準備**  
-- IDE（開発環境）: Pleiades Eclipse（Java フルセット版）などの Spring Tools (STS) プラグインが組み込まれた Eclipse 環境を推奨します。
+- IDE（開発環境）：Pleiades Eclipse（Java フルセット版）などの Spring Tools (STS) プラグインが組み込まれた Eclipse 環境を推奨します。
 
-- データベース: MySQLが動作している必要があります。
+- データベース：MySQLが動作している必要があります。
 
 **2. プロジェクトの取得・インポート**  
 
@@ -141,20 +141,20 @@
 
 2. SQLの実行（初期構築）  
 `src/main/resources/` 直下の SQL ファイルを以下の順で実行し、データベースを構築してください。
-    - `schema.sql`: スキーマおよび各種テーブルの作成
-    - `data.sql`: 動作確認に必要な初期データの投入
+    - `schema.sql`：スキーマおよび各種テーブルの作成
+    - `data.sql`：動作確認に必要な初期データの投入
 
 **4. テスト用ログインアカウント**  
 アプリケーション起動後、URL（`http://localhost:8080/login`）を入力してログイン画面へ。
 以下のアカウントでログイン可能です。
 
 **【一般ユーザー】**  
-- **メールアドレス:** `yamada@example.com` / `saito@example.com` / `kimura@example.com`
-- **パスワード: ** `password`（共通）  
+- **メールアドレス：** `yamada@example.com` / `saito@example.com` / `kimura@example.com`
+- **パスワード：** `password`（共通）  
 
 **【管理者】**  
-- **メールアドレス:** `admin@example.com`
-- **パスワード:** `password`
+- **メールアドレス：** `admin@example.com`
+- **パスワード：** `password`
 
 ### 画像ファイル・動作に関する補足仕様
 
