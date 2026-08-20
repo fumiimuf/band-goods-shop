@@ -159,11 +159,11 @@
 ### 画像ファイル・動作に関する補足仕様
 
 **【商品画像フォルダの用途】**  
-- **商品画像保存場所: ** `src/main/resources/static/images/product`  
+- **商品画像保存場所：** `src/main/resources/static/images/product`  
   ※本アプリで表示・保存されるすべての商品画像が配置されるフォルダです。  
   　このフォルダ内に初期データとして既に画像が保存されています。  
 
-- **テスト用アップロード画像: ** `src/main/resources/static/images/test`  
+- **テスト用アップロード画像：** `src/main/resources/static/images/test`  
   ※管理画面から新規商品登録・画像更新を行う際の検証用画像としてご自由にお使いください。
 
 **【画像登録・更新時の注意点】**  
